@@ -17,7 +17,7 @@
 \newcommand{\alabel}[1]{\label{a:#1}}
 
 \title{\MakeUppercase{Optimal Adjacency-Labelling Schemes for Planar Graphs}}
-\author{Vida Dujmović, Gwenäel Joret, Piotr Micek, Cyril Gavoille, etc.}
+\author{Barbados Folks}
 
 \begin{document}
 \maketitle
@@ -28,10 +28,44 @@
 
 \section{Introduction}
 
+
+Let $T$ be a rooted ordered binary tree and let $v_0,\ldots,v_{r}$ be a path from the root of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
+
+The following is an old result of Elias:
+
 \begin{lem}
-  The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h,n\in\N$, any $w:\{1,\ldots,h\}\to\{1,\ldots,n\}$ there is a one-to-one function $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
+    There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le \log(i+1)+O(\log\log i)$.
+\end{lem}
+
+A \emph{binary search tree} $T$ is a rooted ordered binary tree whose node set $V(T)\subset\R$ consists of numbers and that has the BST property:  For any node $x$ that is a left-child of its parent $p$, $x<p$ and for any node $y$ that is a right-child of its parent $p$, $p<y$.  
+
+\begin{obs}\obslabel{lexicographic}
+  If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
+\end{obs}
+
+
+The following is an easily and often-used result obtainable by a greedy strategy:
+
+\begin{lem}\lemlabel{biased-bst}
+  For any $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,n\}$ such that, for each $i\in\{1,\ldots,n\}$, $d_T(i)\le\log(W/w(i))$, where $W=\sum_{i=1}^n w(i)$.
+\end{lem}
+
+We make use of this fact about binary search trees that is useful, for example, in the deletion algorithms for binary search trees:
+
+\begin{lem}\lemlabel{predecessor-encoding}
+  Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that there is no node $z\in V(T)$ such that $x<y<z$.  Then
+  \begin{enumerate}
+    \item (if $x$ has no left child) $\sigma_T(y)$ is obtained from $\sigma_T(x)$ by removing all trailing 0's and the last 1; or
+    \item (if $x$ has a left child) $\sigma_T(y)$ is obtained from $\sigma_T(x)$ by appending a 0 followed by $s:=d_T(y)-d_T(x)-1$ 1's.
+  \end{enumerate}
+\end{lem}
+
+Putting the previous two lemmata together we obtain the following useful result:
+
+\begin{lem}\lemlabel{row-code}
+  The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
   \begin{compactenum}
-    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log(W/w(i)) + O(\log\log n)$; and
+    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + O(\log\log h)$; and
     \item for each distinct $i,j\in\{1,\ldots,h\}$, 
     \[   A(\alpha(i),\alpha(j)) 
     = \begin{cases}
@@ -43,9 +77,109 @@
     \end{compactenum}
 \end{lem}
 
+
 \begin{proof}
-  Construct a biased binary search tree $T$ on $\{1,\ldots,h\}$ so that $d_T(i)\le\log (W/w(i))$ for each $i\in\{1,\ldots,h\}$.  Make the code for $\alpha(i)$ for $i$ be an Elias code for the length of the path from the root to $i$ in $T$ followed by a binary encoding of the left/right turns along the path.  The first part of the encoding has length at most $\log\log n$ and the second part has length at most $d_T(i)\le\log(W/w(i))$. 
+  Define $w':\{1,\ldots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
+  Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\ldots,h\}$ using $w'$ so that 
+  \[   
+    d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1 \enspace .
+  \]
+  Also
+  \[
+  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace .
+  \]
+  for each $i\in\{1,\ldots,h\}$.  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
+  
+  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \lemref{predecessor-encoding}.  That is $\delta(i)$ consists of
+  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding of the value $s=d_T(i-i)-d_T(i)-1$.  More precisely $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\log(s+1))=O(\log\log h)$.
+
+  The function $A$ is now given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  Assume, for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
+  In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
+
+\section{Subgraphs of Grid Products}
+
+We being with the special case where $G\subseteq H\boxtimes P$ is an $n$-vertex graph where $H$ is a path.  The best way to think of this is to let $P=1,\ldots,h$, $H=1,\ldots,m$ so that each vertex of $G$ is a pair $(x,y)\in[m]\times [h]$.  
+
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_h$ of balanced binary search trees where, for each $y\in\{1,\ldots,h\}$,
+\begin{compactenum}[(PR1)]
+  \item $T_y$ contains (a superset of) $L_y\cup \{x-1:x\in L_y\}$;
+  \item The height of $T_y$ is $\log |V(T_y)| + o(\log n)$;
+  \item $W:=\sum_{y=1}^h |V(T_y)| = O(n)$;
+  \item If $x\in V(T_y)\cap V(T_{y+1})$, then $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_y(x)$. 
+\end{compactenum}
+If we can find such a sequence of binary search trees, then things become easy.  Given $G$ and $T_{1},\ldots,T_h$ we use \lemref{row-code} with the weight function $w(y):=|V(T_y)|$ to construct a code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ where
+\[  
+  |\alpha(y)| = \log W-\log|V(T_y)| + O(\log\log h) = \log n - \log|V(T_y)| + o(\log n)
+\]
+for each $y\in\{1,\ldots,h\}$.  Every vertex $(x,y)\in V(G)$ receives a label consisting of the following:
+\begin{compactenum}
+  \item $\alpha(y)$;
+  \item $\sigma_{T_y}(x)$;    
+  \item $\delta_{T_y}(x)$;
+  \item $\nu_y(x)$; and
+  \item an array of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
+\end{compactenum}
+The two major components of this label are $\alpha(y)$ and $\sigma_{T_y}(x)$ which, together have length $\log n + o(\log n)$.  The three remaining components each have size $o(\log n)$.
+
+Given the labels of $w_1=(x_1,y_1)$ and $w_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$, determine which of the following applies:
+\begin{enumerate}
+  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $w_1$ and $w_2$ are not adjacent.  
+  
+  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$ and $T:=T_y$ and lexicographically compare $x_1$ and $x_2$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\delta_{T}(x_2-1)$.  If $\delta_{T}(x_2-1)\neq \delta_T(x_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit stored at $w_1$ (or $w_2$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
+  
+  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit in the last step.)
+  
+  \item $y_1=y_2+1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit in the last step.)
+\end{enumerate}
+
+Thus, all that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ with properties (PR1)--(PR4). This is a data structuring problem and we can use techniques from data structures to solve it.
+
+\section{Fractional Cascading}
+
+For each $y\in\{1,\ldots,h\}$ and each $k\in\N$, let $L_{y,k}$ denote the subset of $L_{y}$ of size $\lfloor|L_{y}|/2^k\rfloor$ obtained by taking a regular sample from $L_y$.  In particular, if $L_y=\{x_1,\ldots,x_r\}$ where $x_1<x_2<\cdots<x_r$, then $L_{y,k}=\{x_{2^k}:x\in\{1,\ldots,\lfloor\log_2 r\rfloor\}$.  Observe that there is a containment relation $L_y=L_{y,0}\subset L_{y,1}\subset L_{y,2} \cdots$ and that $L_{y,k}=\emptyset$ for $k>\log_2|L_y|$.
+
+(TODO: It might be easier if these sets were chosent slightly more carefully, see below.)
+Now, for each $y\in\{1,\ldots,h\}$, define the set 
+\[    L'_y = \bigcup_{i=1}^h L_{y,|y-i|} \]
+and observe that
+\[
+   \sum_{y=1}^h |L'_y| \le \sum_{y=1}^h \sum_{k=0}^{\infty}|L_y|/2^k = 2n \enspace .
+\]
+Finally, let $V(T_y):= L'_y\cup \{x-1: x\in L_y\}$ and observe that $W:=\sum_{y=1}^h |V(T_y)| \le 3n$.  Thus far, we have defined the node sets of $V(T_1),\ldots,V(T_h)$ so that they satisfy (PR1) and (PR3).  It remains to describe the structure of the tree $T_1$ and the bulk update operations that perform the deletions and insertions required to transform $T_y$ into $T_{y+1}$ for each $y\in\{1,\ldots,h-1\}$.
+
+\section{The Right Data Structure}
+
+At this point I'm running out of steam and time, but there seems to be many ways to make this work.  The point is that the transition from $T_y$ into $T_{y+1}$ involves two steps:
+\begin{enumerate}
+  \item deletion of at most half the values in $T_y$, no two of which are adjacent.
+  \item insertion of at most $|V(T_y)|$ elements, each pair of which is already separated by some element already in $T_y$.
+\end{enumerate}
+Before I chug through this, I need to look up some of the literature (or consult a specialist) about the simplest way to do this.
+
+\section{So What?}
+
+The obvious question is: Why do we care about labelling schemes for $n$-vertex subgraphs of $P\boxtimes P$? The answer is that we probably don't.  However, this idea could potentially extend to $n$-vertex subgraphs of $H\boxtimes P$ where $H$ has constant treewidth.  Indeed, it's not hard to imagine a data structure for a fixed $H$, that maintains a vertex-induced subgraph of $H$ and supports bulk insertions and deletions (subject to restrictions like those above) and has properties analagous to (PR1)--(PR4).
+
+
+
+
+
+
+
+
+
+% The decomposition of $G$ into vertical paths corresponds to the property that, for any $i\in\{1,\ldots,h\}$,
+% $X_i:=\{j: (i,j)\in V(G)\}$ is a contiguous set of intervals.
+% 
+% 
+% 
+%  and imagine that $V(G)$ has a layering $L_1,\ldots,L_h$.
+% 
+% 
+% In particular 
+
+
 
 
 \end{document}
