@@ -1,0 +1,78 @@
+\documentclass[kpfonts]{patmorin}
+\usepackage{pat}
+\usepackage{paralist}
+
+\usepackage[utf8]{inputenc}
+
+\setlength{\parskip}{1ex}
+
+
+\DeclareMathOperator{\sn}{sn}
+\DeclareMathOperator{\qn}{qn}
+
+\renewcommand{\SS}{\mathcal{S}}
+
+
+\newcommand{\aref}[1]{(X\ref{a:#1})}
+\newcommand{\alabel}[1]{\label{a:#1}}
+
+\title{\MakeUppercase{Optimal Adjacency-Labelling Schemes for Planar Graphs}}
+\author{Vida Dujmović, Gwenäel Joret, Piotr Micek, Cyril Gavoille, etc.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log n+o(\log n)$.
+\end{abstract}
+
+\section{Introduction}
+
+We think of $k$-trees being constructed by the process of repeatedly attaching a vertex $v$ to a $k$-clique $a_1,\ldots,a_k$.  We call $a_1,\ldots,a_k$ the parents of $v$ and we order them in the order in which they appeared in the construction.  We call $a_i$ the $i$th parent of $v$.
+
+\begin{lem}\lemlabel{k-tree-weighted}
+  Let $H$ be a $k$-tree, let $w:V(H)\to\R^+$ be an assignment of non-negative weights to the vertices of $H$ and let $W=\sum_{v\in V(H)}w(v)$.  Then $H$ has an adjacency-labelling scheme $\varphi:V(H)\to \{0,1\}^*$ in which the label $\varphi(v)$ of $v$ has length $\log(W/w(v)) + O(k+k\log\log(W/w(v)))$ for every $v\in V(H)$.
+  
+  Furthermore for any vertex $v$ with parents $a_1,\ldots,a_k$ the labels $\varphi(v)$ and $\varphi(a_i)$ are sufficient to determine that $\varphi(a_i)$ is the $i$th parent of the node whose label is $v$.
+\end{lem}
+
+\begin{proof}
+  This is just a version of the labelling scheme for $k$-trees that uses weighted separating sets. TODO: Check if this can be simplified using tools from coding-theory so that we don't need to group nodes into separator sets of size $\log n$.  In particular, I think $(2/3)$-separators are good enough if combined with the right codes.
+\end{proof}
+
+\begin{lem}\lemlabel{partial-ktree-weighted}
+  Let $H$ be a partial $k$-tree, let $w:V(H)\to\R^+$ be an assignment of non-negative weights to the vertices of $H$ and let $W=\sum_{v\in V(H)}w(v)$.  Then there exists an adjacency labelling scheme for $H$ in which the label of $v$ has length $\log(W/w(v)) + k\cdot(1+ o(\log(W/w(v))))$ for every $v\in V(H)$.
+\end{lem}
+
+\begin{proof}
+  Apply \lemref{k-tree-weighted} to an encompassing $k$-tree of $H$ and give each vertex $v$ an additional $k$ bit array $b_1,\ldots,b_k$ where $b_i$ indicates if the edge between $v$ and its $i$th parent is actually in $H$ or not.
+\end{proof}
+
+\begin{lem}
+  Let $G$ be an $n$-vertex planar triangulation.  Then $G$ has an adjacency-labelling scheme $\varphi(V)\to\{0,1\}^{\log n + o(\log n)}$.
+\end{lem}
+
+\begin{proof}
+  Let $T$ be a BFS tree of $G$, let $\mathcal{P}=\{P_1,\ldots,P_r\}$ be a partition of $V(G)$ into vertical paths in $T$ such that $H:=G/\mathcal{P}$ is a partial 8-tree.  Let $H^+$ be some encompassing 8-tree of $H$ and let $x_1,\ldots,x_r$ be the vertices of $H^+$ ordered by the order in which they appear when constructing $H^+$.
+  
+  For each $i\in\{1,\ldots,r\}$ set $r(x_i)=\max\{2,\lceil\log_2 |P_i|\rceil\}$, and $w(x_i):=2^{r(x_i)}$.  Note that $w(x_i)\le 4|P_i|$ for each $i\in\{1,\ldots,r\}$, so $W:=\sum_{v\in V(H)} w(v)\le 4n$.
+  
+  The label of each node $u\in V(G)$ will have several parts.  For each $i\in\{1,\ldots,r\}$ and each $u\in P_i$, we store $r(u)$, which consists of $O(\log\log n)$ bits since $r(u)\in\{2,\ldots,\log n+1\}$.  Next, we store $\alpha(u)$, the label of the node $x_i$ in the adjacency-labelling of $H$ given by \lemref{partial-k-tree-weighted} using the weighting scheme $w:V(H)\to\R^+$ defined above.  The length of $\alpha(u)$ is at most
+  \[  \log (W/w(x_i)) \le \log n - r(x_i) + crap \enspace . \]
+  The second part of the label of $u$ is (the binary encoding of) $\delta(u):=d_T(u)\bmod 4w(x_i)$. This part consists of exactly $r(x_i)$ bits.
+  
+  Finally, the label of $u$ has $8$ more parts $\nu_1(u),\ldots,\nu_8(u)$ each consisting of 3 bits.  In the $k$-tree $H^+$, $x_i$ is adjacent to $8$ nodes\footnote{Skipping another detail here that this isn't true for $x_1,\ldots,x_8$} $x_{i_1},\ldots,x_{i_8}$ where $i_1<\cdots<i_8$.  For each $\ell\in\{1,\ldots,8\}$, there are three potential edges between $u$ and the vertices of $P_{i_\ell}$ at depths $d_T(u)-1$, $d_T(u)$ and $d_T(u)+1$.  The three bits in $\nu_{\ell}(u)$ indicate which of these three edges are actually present in $G$.
+  
+  Now, given the labels of two nodes $v$ and $w$, we check if $vw\in E(G)$ as follows.
+  \begin{enumerate}
+    \item Use $\alpha(v)$ and $\alpha(w)$ to check if the edge $x_ix_j\in E(H)$ where $v\in P_i$ and $w\in P_j$.  If not, then $G$ contains no edge between $P_i$ and $P_j$ and therefore $vw\not\in E(G)$ and we stop.  Otherwise we continue.
+    \item Assume without loss of generality that $i < j$, so that $x_i$ is a parent of $x_j$ in the $k$-tree $H^+$.  From $\alpha(u)$ and $\alpha(v)$ we can detemine that $i<j$ and that $x_i$ is the $\ell$th parent of $x_j$ for some $j\in\{1,\ldots,8\}$.  Now, since $x_ix_j\in T$, we know that $|d_T(v)-d_T(w)|\le |P_i|+|P_j|-1$.  There are three cases to consider:
+    \begin{enumerate}
+      \item $r(x_i)=r(x_j)$.  In this case $|d_T(v)-d_T(w)|\le w(x_i)+w(x_j)-1 \le 2w(x_i)$.  In this case $d_T(v)-d_T(w)=a$ iff and only if $\delta(v)-\delta(v)\equiv a \pmod 4w(x_i)$.  In particular, this is true for $a\in\{-1,0,1\}$.  Therefore we can distinguish using $\delta(v)$ and $\delta(w)$, the four cases $d_T(v)-d_T(w)=-1$, $d_T(v)-d_T(w)=0$, $d_T(v)-d_T(w)=1$, or $|d_T(v)-d_T(w)|\ge 2$.  In the latter case, we know that the edge $vw\not\in E(G)$.  In each of the first three cases we can determine if $vw\in E(G)$ using the three bits in $\nu_\ell(v)$. 
+  \end{enumerate}
+  
+  in a labelling scheme for the partial $k$-tree $H$.
+\end{proof}
+
+
+\end{document}
