@@ -29,38 +29,45 @@
 \section{Introduction}
 
 
-Let $T$ be a rooted ordered binary tree and let $v_0,\ldots,v_{r}$ be a path from the root of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
+For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of $G$.  We use $|G|$ as a shorthand for $|V(G)|$.
 
+A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.
 The following is an old result of Elias:
 
 \begin{lem}
     There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le \log(i+1)+O(\log\log i)$.
 \end{lem}
 
-A \emph{binary search tree} $T$ is a rooted ordered binary tree whose node set $V(T)\subset\R$ consists of numbers and that has the BST property:  For any node $x$ that is a left-child of its parent $p$, $x<p$ and for any node $y$ that is a right-child of its parent $p$, $p<y$.  
+A \emph{binary tree} $T$ is a rooted binary tree in which each node is either the left or right child of its parent and any node has at most one left and at most one right child.  
+
+Let $T$ be a binary tree and let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
+
+A \emph{binary search tree} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of numbers and that has the BST property:  For any node $x$ that is a left-child of its parent $p$, $x<p$ and for any node $y$ that is a right-child of its parent $p$, $p<y$.  
 
 \begin{obs}\obslabel{lexicographic}
   If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
 
-The following is an easily and often-used result obtainable by a greedy strategy:
+The following is an easily and often-used result obtainable by a greedy strategy: 
 
 \begin{lem}\lemlabel{biased-bst}
   For any $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,n\}$ such that, for each $i\in\{1,\ldots,n\}$, $d_T(i)\le\log(W/w(i))$, where $W=\sum_{i=1}^n w(i)$.
 \end{lem}
 
-We make use of this fact about binary search trees that is useful, for example, in the deletion algorithms for binary search trees:
+To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(i)\le W/2$ and $\sum_{z=x+1}^{n} w(i)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees respectively.
+
+The following fact about binary search trees is useful, for example, in the deletion algorithms for binary search trees:
 
 \begin{lem}\lemlabel{predecessor-encoding}
-  Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that there is no node $z\in V(T)$ such that $x<y<z$.  Then
+  Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that $x<y$ and there is no node $z\in V(T)$ such that $x<z<y$ (i.e., $x$ and $y$ are consecutive in the sorted order of $V(T)$).  Then
   \begin{enumerate}
     \item (if $x$ has no left child) $\sigma_T(y)$ is obtained from $\sigma_T(x)$ by removing all trailing 0's and the last 1; or
     \item (if $x$ has a left child) $\sigma_T(y)$ is obtained from $\sigma_T(x)$ by appending a 0 followed by $s:=d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
 \end{lem}
 
-Putting the previous two lemmata together we obtain the following useful result:
+Putting the a few of the preceding results together we obtain the following use coding result:
 
 \begin{lem}\lemlabel{row-code}
   The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
@@ -102,35 +109,35 @@ Putting the previous two lemmata together we obtain the following useful result:
 We being with the special case where $G\subseteq H\boxtimes P$ is an $n$-vertex graph where $H$ is a path.  The best way to think of this is to let $P=1,\ldots,h$, $H=1,\ldots,m$ so that each vertex of $G$ is a pair $(x,y)\in[m]\times [h]$.  
 
 For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_h$ of balanced binary search trees where, for each $y\in\{1,\ldots,h\}$,
-\begin{compactenum}[(PR1)]
+\begin{enumerate}[(PR1)]
   \item $T_y$ contains (a superset of) $L_y\cup \{x-1:x\in L_y\}$;
-  \item The height of $T_y$ is $\log |V(T_y)| + o(\log n)$;
-  \item $W:=\sum_{y=1}^h |V(T_y)| = O(n)$;
-  \item If $x\in V(T_y)\cap V(T_{y+1})$, then $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_y(x)$. 
-\end{compactenum}
-If we can find such a sequence of binary search trees, then things become easy.  Given $G$ and $T_{1},\ldots,T_h$ we use \lemref{row-code} with the weight function $w(y):=|V(T_y)|$ to construct a code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ where
+  \item The height $h(T_y)$ of $T_y$ is $\log |T_y| + o(\log n)$;
+  \item $W:=\sum_{y=1}^h |T_y| = O(n)$;
+  \item If $x\in V(T_y)\cap V(T_{y+1})$, then $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_y(x)$.  More precisely, there is a (universal) function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $B(\sigma_{T_{y}}(x), \nu_y(x))=\sigma_{T_{y+1}}(x)$
+\end{enumerate}
+If we can find such a sequence of binary search trees, then things become easy.  Given $G$ and $T_{1},\ldots,T_h$ we use \lemref{row-code} with the weight function $w(y):=|T_y|$ to construct a code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ where
 \[  
-  |\alpha(y)| = \log W-\log|V(T_y)| + O(\log\log h) = \log n - \log|V(T_y)| + o(\log n)
+  |\alpha(y)| = \log W-\log|T_y| + O(\log\log h) = \log n - \log|T_y| + o(\log n)
 \]
-for each $y\in\{1,\ldots,h\}$.  Every vertex $(x,y)\in V(G)$ receives a label consisting of the following:
-\begin{compactenum}
+for each $y\in\{1,\ldots,h\}$.  Every vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:
+\begin{enumerate}
   \item $\alpha(y)$;
-  \item $\sigma_{T_y}(x)$;    
+  \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;    
   \item $\delta_{T_y}(x)$;
   \item $\nu_y(x)$; and
-  \item an array of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
-\end{compactenum}
+  \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
+\end{enumerate}
 The two major components of this label are $\alpha(y)$ and $\sigma_{T_y}(x)$ which, together have length $\log n + o(\log n)$.  The three remaining components each have size $o(\log n)$.
 
 Given the labels of $w_1=(x_1,y_1)$ and $w_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$, determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $w_1$ and $w_2$ are not adjacent.  
   
-  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$ and $T:=T_y$ and lexicographically compare $x_1$ and $x_2$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\delta_{T}(x_2-1)$.  If $\delta_{T}(x_2-1)\neq \delta_T(x_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit stored at $w_1$ (or $w_2$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
+  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$ and $T:=T_y$ and lexicographically compare $x_1$ and $x_2$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\delta_{T}(x_2-1)$.  If $\delta_{T}(x_2-1)\neq \delta_T(x_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit of $a(w_1)$ (or $a(w_2)$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
   
-  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit in the last step.)
+  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(w_1)$ in the last step.)
   
-  \item $y_1=y_2+1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit in the last step.)
+  \item $y_1=y_2+1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(w_1)$ in the last step.)
 \end{enumerate}
 
 Thus, all that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ with properties (PR1)--(PR4). This is a data structuring problem and we can use techniques from data structures to solve it.
@@ -149,6 +156,61 @@ and observe that
 Finally, let $V(T_y):= L'_y\cup \{x-1: x\in L_y\}$ and observe that $W:=\sum_{y=1}^h |V(T_y)| \le 3n$.  Thus far, we have defined the node sets of $V(T_1),\ldots,V(T_h)$ so that they satisfy (PR1) and (PR3).  It remains to describe the structure of the tree $T_1$ and the bulk update operations that perform the deletions and insertions required to transform $T_y$ into $T_{y+1}$ for each $y\in\{1,\ldots,h-1\}$.
 
 \section{The Right Data Structure}
+
+
+\subsection{Bulk Deletions}
+
+This seems useful:
+
+\begin{lem}\lemlabel{deletion-prefix}
+  For any binary search tree $T$ and any $X\subseteq V(T)$, there exists a binary search tree $T'$ with $V(T')=V(T)\setminus X$ such that, for every $x\in V(T')$, $\sigma_{T'}(x)$ is a prefix of $\sigma_{T}(x)$.
+\end{lem}
+
+\begin{proof}
+  It suffices to prove this for a singleton set $X$ containing one element $z$ since, for larger $X$ we can remove the values from $T$ one at a time.  
+  
+  The proof is by induction on $|T|$. If $|T|=1$, then the claim is vacuous since $V(T')=\emptyset$.  Therefore assume $|T|\ge 2$.  If $z$ is leaf in $T$, then use $T'=T-\{z\}$ and the result is trivial: $\sigma_{T'}(x)=\sigma_T(x)$ for every $x\in V(T')$.  
+  
+  Otherwise, $z$ has at least one child.  Without loss of generality, assume $z$ has a non-empty left subtree $T_l$.  Then the largest node $y$ in $V(T_l)$ is the largest value in $V(T)$ that is less than $z$. Inductively remove $y$ from $T_l$ to obtain $T_l'$ and make this the left child of $z$.  Now replace $z$ with $y$ to obtain $T'$.  
+  
+  That $T'$ is indeed a binary search tree is straightforward to verify.  All that remains is to prove that $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$ for every $x\in V(T')$. There are three cases:
+  \begin{enumerate}
+    \item $x=y$: Since $z$ is an ancestor of $y$ in $T$, $\sigma_{T'}(y)=\sigma_T(z)$ is a prefix of $\sigma_T(y)$.  
+    
+    \item $x\in V(T)\setminus\{z\}\setminus V(T_l)$: In this case $\sigma_T(x)=\sigma_{T'}(x)$.  
+    
+    \item $x\in V(T_l')$: In this case, $\sigma_{T'}(x)=\sigma_{T}(z),0,\sigma_{T_l'}(x)$ and $\sigma_T(x)=\sigma_{T}(z),0,\sigma_{T_l}(x)$.  By induction, $\sigma_{T_l'}(x)$ is a prefix of $\sigma_{T_l}(x)$, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\lemref{deletion-prefix} is useful because it means that, for any particular node of $x$ of $T_y$, the net effect of all the deletions performed when moving from $T_y$ to $T_{y+1}$ on $\sigma(x)$ can be encoded by a single integer in the range $\{0,\ldots,|\sigma_T(x)|\}$.  Using the $\gamma$-code, this requires only $O(\log |\sigma_T(x)|)$.  If $T$ is at-all balanced, this is only $O(\log\log n)$ bits.
+
+
+
+\subsection{Bulk Additions}
+
+For disjoint $X,Y\subset \R$ we say that $X$ \emph{$k$-chunks} $Y$ if, for any $k$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min(S)< x<\max(S)$. 
+
+\begin{lem}\lemlabel{chunked-addition}
+  For any binary search tree $T$ and any set $Y\subset\R $ such that $V(T)$ $k$-chunks $Y$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup Y$ that is a supergraph of $T$ and such that $h(T')=h(T)+O(\log k)$.
+\end{lem}
+
+\begin{proof}
+  Search for each element $y\in Y$ in $T$ until the search path falls out of $T$.  This would be the natural place to add $y$ as a leaf to $T$.  This partitions $Y$ into $r:=|T|+1$ sets $Y_1,\ldots,Y_r$ and, since $V(T)$ $k$-chunks $Y$, each $Y_i$ has size at most $k$.  For each $Y_i$ building a binary search tree of height $T_i$ at most $\log_2 k$ and attach this to the appropriate location in $T$ to obtain $T'$.
+\end{proof}
+
+\lemref{chunked-addition} is useful because the set of values $Y$ that are present in $T_{y+1}$ but not in $T_y$ are $(2\log n)$-chunked by $V(T_y)$. Indeed, we can easily check that each chunk contains at most one value $L_{y\pm j}$ for each $j\in\{1-y,\ldots,h-y\}$.  Furthermore, the number of values that $L_{y+j+1}$ contributes to $T_{y+1}$ is at most $|L_{y+j}|/2^{j}<1$ for $j>\log_2 n$.  Therefore, we can perform all the additions required to move from $T_y$ to $T_{y+1}$ in such a way that $\sigma_{T_y}(x)=\sigma_{T_{y+1}}(x)$ for every $x\in L(y)\cap L(y+1)$.  
+
+\subsection{Rebalancing}
+
+
+Unfortunately, the previous two results are not quite enough.  We must also ensure that height, $h(T_{y+})$, of $T_{y+1}$ is $\log |T_{y+1}| + \tau$ where $\tau\in o(\log n)$.  Working in our favour is that the set $X$ of nodes that we delete when moving from $T_y$ to $T_{y+1}$ has size at most $|T_y|/2$, so $|T_{y+1}|\ge |T_y|/2$. Thus, without doing anything, we are already guaranteed that 
+\[  
+  h(T_{y+1})\le h(T_y)\le \log|T_y|+k \le \log|T_{y+1}| + 1 + k \enspace .
+\]  
+Similarly, the set of nodes we add when moving from $T_y$ to $T_{y+1}$ is also bounded by the size of $T_y$.  So
+\[ |T_y|/2\le T_{y+1} \le 2|T_y| \]
+and there's more, but I'm out of time.
 
 At this point I'm running out of steam and time, but there seems to be many ways to make this work.  The point is that the transition from $T_y$ into $T_{y+1}$ involves two steps:
 \begin{enumerate}
