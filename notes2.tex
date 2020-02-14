@@ -217,49 +217,78 @@ Proof by (crappy) illustration:
 \lemref{split} allows us to perform a perfect split at the root of $T$ and still maintain an $O(\log h(T))$-length description of the changes required to obtain $\sigma_{T'}(x)$ from $\sigma_T(x)$.  \lemref{split} can be applied recursively to obtain the following result:
 
 \begin{lem}\lemlabel{multi-split}
-  Let $T$ be a binary search tree of size at least $2^k$.  Then there is a binary search tree $T'$ with $V(T')=V(T)$ in which the first $k$-levels of $T'$ are a perfect binary binary tree on $2^k-1$ nodes and each of the subtrees remaining after the removal of these nodes has size at most $|T|/2^k$.  Furthermore, $h(T')\le h(T)+k$ and, for each $x\in V(T)$, there exists an $O(k\log h(T))$-bit description of the changes required to create $\sigma_{T'}(x)$ from $\sigma_T(x)$.
+  Let $c>1$ and let $T$ be a binary search tree of size at least $c2^k$ whose first $k$ levels form a complete binary tree on $2^{k-1}$ nodes and such that, for each subtree $T_i$, $i\in\{1,\ldots,2^k\}$ of $T$ rooted at a depth-$k$ node, $h(T')\le h$ and $|T'|\le |T|/(c2^k)$.  
+
+  Then there is a binary search tree $T'$ with $V(T')=V(T)$ in which
+  \begin{compactenum}
+    \item the first $k$-levels of $T'$ are a perfect binary binary tree on $2^k-1$ nodes;
+    
+    \item  each of the subtrees $T_i'$, $i\in\{1,\ldots,2^k\}$ rooted at a depth-$k$ node has size at most $|T|/2^k$;
+    
+    \item $h(T')\le h(T)+\log a+1$; and
+    
+    \item for each $x\in V(T)$, there exists an $O(k+\log a\log h(T))$-bit description of the changes required to create $\sigma_{T'}(x)$ from $\sigma_T(x)$.
+  \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  Apply \lemref{split} with the median value and then recurse on each of the two subtrees up to a depth of $k$.  Any node of $T'$ is either in the first $k$-levels in which case $\sigma_{T'}(x)$ can be specified by $k+O(\log k)$ bits or it is in one of the subtrees, in which case $\sigma_{T'}(x)$ can be obtained from $\sigma_T(x)$ by specifying the sequence of $k$ updates corresponding to the $k$ applications of \lemref{split} on the subtree containing $x$.
+  Select the nodes $X:=\{x_1,\ldots,x_{2^k}-1\}$ of $T$ where each $x_i$ has rank $\lfloor i|T|/2^k\rfloor$.  Note that, for each $i\in\{1,\ldots,2^k-1\}$, the subtree $T_i$ contains at most $a$ elements of $X$.  For each $i\in\{1,\ldots,2^k-1\}$ and each $x\in X\cap V(T_i)$, apply \lemref{split} to the subtree $T_i$ with the value $x$. Call the resulting subtree $T_i^*$.  If we apply \lemref{split} first with the median value of $X\cap V(T_i)$ and the recurse on the resulting two subtrees, then the height of $T_i^*$ will be at most $h(T_i)+\log c$.  
+  
+  The elements of $X\cap V(T_i)$ induce a connected subtree of $T_i^*$ that contains the root of $T_i^*$.  Let $T_{i,1}^*,\ldots,T_{i,d_i}^*$ denote the trees in the forest $T_i^*-(X\cap V(T^*_i))$.  (Observe that $d_i\le |X\cap V(T_i)|+1\le a+1$.)  Each subtree $T_{i,d_i}^*$ has height at most $h(T_i)+1$.
+  
+  Doing this for each $T_i^*$ creates a forest of trees $T^@_1,\ldots,T^@_k$ where each $T_i^@$ has height at most $h(T_i)+\log c +1$.  Let $Y$ be the set of of $2^k-1$ nodes in the first $k$ levels of $T$.  Then the subtrees $T^@_1,\ldots,T^@_k$ can be ordered so that every element in $T^@_i$ is less than some value $x\in X\cup Y$ which is less than every element in $T^@_{i+1}$.  Now, make a complete binary tree out of the $2^k-1$ elements in $X$.  This will be the top of $T'$.  For each of the $2^{k}$ open intervals $I$ defined by $X$, make a complete binary tree out of $(Y\setminus X)\cap I$ and attach this to at the appropriate location in $T'$ (this may be empty).  At this point, the top of $T'$ has height at most $k+\log c+1$ and, for each tree $T_i^@$ there is exactly one place to attach $T^@_i$ to $T'$.  Do that.
+  
+  
+  Now check that $h(T')\le k+\log c + 1+ h(T_i) +1 = h(T)+\log c+2$, as required.  For the final condition, observe that, for each each node $x\in X\cup Y$ we can explicitly write $\sigma_{T'}(x)$ using $\log k+\log c+2$ bits.  For each $x\in V(T)\setminus(X\cup Y)$, $x$ is included in at most $\log c$ subtrees on which \lemref{split} is applied so this can be recorded using $O(\log c\log h(T))$ bits and the path from the root of $T'$ to the root of the subtree $T^@_i$ containing $x$ can be encoding using $k+\log c$ bits.
 \end{proof}
 
 \subsection{Rebalancing}
 
-We can now describe the sequence of binary search trees $T_1,\ldots,T_h$. The tree $T_1$ is a perfectly balanced binary search tree on node set $V_1$.  To obtain $T_2$, we first use \lemref{chunked-addition} to insert the elements of $V_2\setminus V_1$ into $T_1$ to obtain a binary search tree tree $T_1'$ with node set $V_1\cup V_2$.   Note that, since $V_1\cap V_2$ $a$-chunks $V_2$, these insertions do not add more than $(a-1)\cdot(|T_1|+1)\le 2(a-1)|T_1|$ nodes and $h(T_1')\le h(T_1)+\log a$.  Therefore $|T_1'|\le 2a|T_1|$.
+We can now describe the sequence of binary search trees $T_1,\ldots,T_h$. The tree $T_1$ is a perfectly balanced binary search tree on node set $V_1$.  To obtain $T_2$, we first use \lemref{chunked-addition} to insert the elements of $V_2\setminus V_1$ into $T_1$ to obtain a binary search tree tree $T_1'$ with node set $V_1\cup V_2$.   Note that, since $V_1\cap V_2$ $a$-chunks $V_2$, these insertions do not add more than $(a-1)\cdot(|T_1|+1)\le 2(a-1)|T_1|$ nodes and that $h(T_1')\le h(T_1)+\log a$.  Therefore $|T_1'|\le 2a|T_1|$.
 
 If $|T_1'|<2^k$ (for some $k\in o(\log n)$ to be specified later), then life is easy.  We make $T_2$ a perfectly balanced binary search tree and, for each node $x$ we store $\sigma_{T_1}(x)$ and $\sigma_{T_2}(x)$ explicitly.  In this case $\nu_1(x)$ consists of a few code bits, $\gamma(|\sigma_{T_1}(x)|)$, $\sigma_{T_1}(x)$, $\gamma(|\sigma_{T_2}(x)|)$, and $\sigma_{T_2}(x)$.  In this case we then proceed the same way beginning from $T_2$.
 
-On the other hand, if $|T_1'|\ge 2^k$ , then we apply \lemref{multi-split} to $T_1'$ to obtain a new tree $T_1''$ of height at most $h(T_1')+k$.  Consider the $2^k$ subtrees of $T_1''$ rooted at the depth-$k$ nodes of $T_1''$.  Each of these subtrees has size at most $2a(|V_1|+1)/2^k$.  Next we apply use \lemref{deletion-prefix} to delete elements of $V_1\setminus V_2$ and we define $T_2$ to be the resulting tree.  Deletions do not increase the depth of any node, so $h(T_2)\le h(T_1')+k$.  For each node $x\in T$, we make $\nu_1(x)$ by using the code described in \lemref{multi-split} followed by the code described in \lemref{deletion-prefix}.
+On the other hand, if $|T_1'|\ge 2^k$ , then we apply \lemref{multi-split} to $T_1'$ to obtain a new tree $T_1''$ of height at most $h(T_1')+O(\log a)$.  Consider the $2^k$ subtrees of $T_1''$ rooted at the depth-$k$ nodes of $T_1''$.  Each of these subtrees has size at most $2a(|V_1|+1)/2^k$.  Next we apply use \lemref{deletion-prefix} to delete elements of $V_1\setminus V_2$ and we define $T_2$ to be the resulting tree.  Deletions do not increase the depth of any node, so $h(T_2)\le h(T_1'')\le h(T_1')+O(\log a)$.  For each node $x\in T$, we make $\nu_1(x)$ by using the code described in \lemref{multi-split} followed by the code described in \lemref{deletion-prefix}.
 
 Next, to obtain $T_3$ from $T_2$ we first use \lemref{chunked-addition} to insert the elements of $V_3\setminus V_2$ into $T_2$ to obtain a binary search tree tree $T_2'$ with node set $V_2\cup V_3$.   Again, these insertions do not add more than $a\cdot(|T_2|+1)$ nodes.  Now, $T_2'$ has at most $2^k$ subtrees whose roots have depth $k$ and each of size at most $(2a)^2(|V_1|+1)/2^k$.  If $(2a)^2(|V_1|+1)/2^k < 2^k$ then we rebuild each of these subtrees into a perfectly balanced binary search tree.  Everything is easy and we can get away with $\nu_2(x)$ of size $O(k)$ and codes of length $O(k)\in o(\log n)$.  At this point we proceed from the beginning again, as if $T_3$ were $T_1$.
 
-If $(2a)^2|V_1|/2^k > 2^k$, then we apply \lemref{multi-split} to each of the $2^k$ depth-$k$ subtrees of $T_2'$ to obtain a new tree $T_2''$.  (Note that some of these subtrees may be missing or have size less than $2^k$ in which case we ignore them or rebuild them into perfectly balanced subtrees.)  The tree $T_2''$ has at most $2^{2k}$ subtrees rooted at depth-$2k$ nodes that each have size at most $a^2(|V_1|+1)/2^{2k}$. Now, $h(T_2'')\le h(T_2)+\log a+k\le h(T_1)+2(\log a + k)$. Again, we apply \lemref{deletion-prefix} to delete elements of $V_2\setminus V_3$ and we define $T_3$ to be the resulting tree.  The signatures of nodes in $T_3$ have length $h(T_1)+O(k+\log a)$.  Furthermore, for each node $x\in V(T_2'')$ there are is only one application of \lemref{multisplit} on a subtree of $T_2'$ that contains $x$, so $\nu_2(x)$ has length $O(k\log h(T_2'))$.
+If $(2a)^2|V_1|/2^k > 2^k$, then we apply \lemref{multi-split} to each of the $2^k$ depth-$k$ subtrees of $T_2'$ to obtain a new tree $T_2''$.  (Note that some of these subtrees may be missing or have size less than $2^k$ in which case we ignore them or rebuild them into perfectly balanced subtrees.)  The tree $T_2''$ has at most $2^{2k}$ subtrees rooted at depth-$2k$ nodes that each have size at most $a^2(|V_1|+1)/2^{2k}$. Now, $h(T_2'')\le h(T_2)+O(\log a)$. Again, we apply \lemref{deletion-prefix} to delete elements of $V_2\setminus V_3$ and we define $T_3$ to be the resulting tree.  The signatures of nodes in $T_3$ have length $h(T_1)+O(k+\log a)$.  Furthermore, for each node $x\in V(T_2'')$ there is only one application of \lemref{multi-split} on a subtree of $T_2'$ that contains $x$, so $\nu_2(x)$ has length $O(k+\log a\log h(T_2'))$.
 
 After $r$ iterations of this kind, the subtrees rooted at nodes of depth $kr$ have size at most
 \[
      f(r) := 2a\left(\frac{2a}{2^k}\right)^r|V_1|
 \]
-and we quit if $f(r)<2^k$, which occurs when
+and have height at most $h(T_1)-kr+O(r\log a\log h(T_1))$.  We quit if $f(r)<2^k$, which occurs when
 \[
-   r > \frac{k + \log |V_1| + \log(2a)}{(k-\log 2a)}
+   r > \frac{k + \log |V_1| + \log(2a)}{(k-\log 2a)} \enspace .
 \]
-
-
-
-
-Unfortunately, the previous two results are not quite enough.  We must also ensure that height, $h(T_{y+1})$, of $T_{y+1}$ is $\log |T_{y+1}| + \tau$ where $\tau\in o(\log n)$.  Working in our favour is that the set $X$ of nodes that we delete when moving from $T_y$ to $T_{y+1}$ has size at most $|T_y|/2$, so $|T_{y+1}|\ge |T_y|/2$. Thus, without doing anything, we are already guaranteed that 
-\[  
-  h(T_{y+1})\le h(T_y)\le \log|T_y|+\tau \le \log|T_{y+1}| + 1 + \tau \enspace ,
+At the time we quit, 
+\[
+   h(T_r) \le h(T_1)+r\log a\log h(T_1) \le h(T_1) + O(h(T_1)/k)
 \]
-after deletion of the nodes in $V(T_y)\setminus V(T_{y+1})$. As discussed above, the addition of nodes $V(T_{y+1})\setminus V(T_y)$ increases the height of $T_y$ by at most $O(\log\log n)$, so after the deletions and additions, 
-\[  
-  h(T_{y+1})\le \log|T_{y+1}| + 1 + O(\log\log n) + \tau \enspace ,
-\]
+and the size of $\nu_r(x)$ is $O(k+\log h(T_r))=O(k+\log\log |T_r|)$.  
+If we take $k=\sqrt{\log n}$, for example, then $h(T_r)=\log |T_r|+O(\sqrt{\log n})$ and $|\nu_r(x)|=O(\sqrt{\log n})$.
 
-Similarly, the set of nodes we add when moving from $T_y$ to $T_{y+1}$ is also bounded by the size of $T_y$.  So
-\[ |T_y|/2\le |T_{y+1}| \le 2|T_y| \]
-and there's more, but I'm out of time.
+This does it, I think!
+
+
+
+
+
+% 
+% 
+% Unfortunately, the previous two results are not quite enough.  We must also ensure that height, $h(T_{y+1})$, of $T_{y+1}$ is $\log |T_{y+1}| + \tau$ where $\tau\in o(\log n)$.  Working in our favour is that the set $X$ of nodes that we delete when moving from $T_y$ to $T_{y+1}$ has size at most $|T_y|/2$, so $|T_{y+1}|\ge |T_y|/2$. Thus, without doing anything, we are already guaranteed that 
+% \[  
+%   h(T_{y+1})\le h(T_y)\le \log|T_y|+\tau \le \log|T_{y+1}| + 1 + \tau \enspace ,
+% \]
+% after deletion of the nodes in $V(T_y)\setminus V(T_{y+1})$. As discussed above, the addition of nodes $V(T_{y+1})\setminus V(T_y)$ increases the height of $T_y$ by at most $O(\log\log n)$, so after the deletions and additions, 
+% \[  
+%   h(T_{y+1})\le \log|T_{y+1}| + 1 + O(\log\log n) + \tau \enspace ,
+% \]
+% 
+% Similarly, the set of nodes we add when moving from $T_y$ to $T_{y+1}$ is also bounded by the size of $T_y$.  So
+% \[ |T_y|/2\le |T_{y+1}| \le 2|T_y| \]
+% and there's more, but I'm out of time.
 
 % At this point I'm running out of steam and time, but there seems to be many ways to make this work.  The point is that the transition from $T_y$ into $T_{y+1}$ involves two steps:
 % \begin{enumerate}
