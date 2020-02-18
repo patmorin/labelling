@@ -22,14 +22,26 @@
 \author{Barbados Folks}
 
 \begin{document}
+\begin{titlepage}
 \maketitle
 
 \begin{abstract}
   We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log n+o(\log n)$.
 \end{abstract}
+\end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
 
+\newpage
+
+\setcounter{page}{0}
+\pagenumbering{arabic}
 \section{Introduction}
 
+
+We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph is assigned a $(\log n+o(\log n))-bit$ label.  This is optimal up to the lower-order term.
+
+\section{Preliminaries}
 
 For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of $G$.  We use $|G|$ as a shorthand for $|V(G)|$.
 
@@ -50,7 +62,6 @@ A \emph{binary search tree} $T$ is a binary tree  whose node set $V(T)\subset\R$
   If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
-
 The following is an easily and often-used result obtainable by a greedy strategy: 
 
 \begin{lem}\lemlabel{biased-bst}
@@ -69,7 +80,7 @@ The following fact about binary search trees is useful, for example, in the dele
   \end{enumerate}
 \end{lem}
 
-Putting the a few of the preceding results together we obtain the following use coding result:
+Putting the a few of the preceding results together we obtain the following useful coding result:
 
 \begin{lem}\lemlabel{row-code}
   The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
@@ -106,7 +117,7 @@ Putting the a few of the preceding results together we obtain the following use 
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
-\section{Subgraphs of Grid Products}
+\section{Subgraphs of $P\boxtimes P$}
 
 We being with the special case where $G\subseteq H\boxtimes P$ is an $n$-vertex graph where $H$ is a path.  The best way to think of this is to let $P=1,\ldots,h$, $H=1,\ldots,m$ so that each vertex of $G$ is a pair $(x,y)\in[m]\times [h]$.  
 
@@ -275,32 +286,6 @@ Putting these things together, we see that
 Therefore, for all $r$, $|\sigma_{T_r}(x)|\le (1+O(1/k))\log|T_r|$.  The size of $\nu_r(x)$ is $O(k+\log(h(T_r))$.  If we take $k=\sqrt{\log n}$, for example, then $h(T_r)=\log |T_r|+O(\sqrt{\log n})$ and $|\nu_r(x)|=O(\sqrt{\log n})$.  Thus we get a sequence of trees $T_1,\ldots,T_h$ that satisfy (PR2) with $h(T_y)=\log_|T_y| + O(\sqrt{\log n})$ and (PR4) with $|\nu_y(x)|=O(\sqrt{\log n})$.
 
 In this way, we obtain an adjacency labelling scheme for any $n$-vertex graph $G\subseteq P\times P$.
-
-
-
-
-
-% 
-% 
-% Unfortunately, the previous two results are not quite enough.  We must also ensure that height, $h(T_{y+1})$, of $T_{y+1}$ is $\log |T_{y+1}| + \tau$ where $\tau\in o(\log n)$.  Working in our favour is that the set $X$ of nodes that we delete when moving from $T_y$ to $T_{y+1}$ has size at most $|T_y|/2$, so $|T_{y+1}|\ge |T_y|/2$. Thus, without doing anything, we are already guaranteed that 
-% \[  
-%   h(T_{y+1})\le h(T_y)\le \log|T_y|+\tau \le \log|T_{y+1}| + 1 + \tau \enspace ,
-% \]
-% after deletion of the nodes in $V(T_y)\setminus V(T_{y+1})$. As discussed above, the addition of nodes $V(T_{y+1})\setminus V(T_y)$ increases the height of $T_y$ by at most $O(\log\log n)$, so after the deletions and additions, 
-% \[  
-%   h(T_{y+1})\le \log|T_{y+1}| + 1 + O(\log\log n) + \tau \enspace ,
-% \]
-% 
-% Similarly, the set of nodes we add when moving from $T_y$ to $T_{y+1}$ is also bounded by the size of $T_y$.  So
-% \[ |T_y|/2\le |T_{y+1}| \le 2|T_y| \]
-% and there's more, but I'm out of time.
-
-% At this point I'm running out of steam and time, but there seems to be many ways to make this work.  The point is that the transition from $T_y$ into $T_{y+1}$ involves two steps:
-% \begin{enumerate}
-%   \item deletion of at most half the values in $T_y$, no two of which are adjacent.
-%   \item insertion of at most $|V(T_y)|$ elements, each pair of which is already separated by some element already in $T_y$.
-% \end{enumerate}
-% Before I chug through this, I need to look up some of the literature (or consult a specialist) about the simplest way to do this.
 
 \section{So What?}
 
