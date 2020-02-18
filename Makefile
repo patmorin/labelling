@@ -9,6 +9,8 @@ $(name).pdf : figs $(name).tex $(name).bib $(ipefigs)
 figs: $(ipefigs)
 	make -C figs
 
+install: $(name).pdf
+	scp $(name).pdf cglab.ca:public_html/publications/drafts/$(name)/
 
 clean :
 	rm -f $(name).pdf figs/*.pdf
