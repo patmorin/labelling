@@ -388,7 +388,7 @@ To do this, we consider the three steps (S1)--(S3) that convert $T_i$ into $T_{i
   \item applies \lemref{deletion-prefix} to $T_{i}''$ to obtain $T_{i+1}$. \lemref{deletion-prefix} shows that, for each $y\in V_{i+1}$, $\sigma_{T_{i+1}}(y)$ can be obtained by removing a suffix from $\sigma_{T_i''}(y)$.  For each $y\in V_{i+1}$, the length of this suffix, encoded using $O(\log\log n)$ bits is included in $\nu_{i}(y)$.
 \end{enumerate}
 
-This establishes, Property~(PR4) of $T_1,\ldots,T_m$ where each code $\nu_i(y)$ has length $O(k\log\log n)$. The optimal choice of $k=\lceil\sqrt{\log n/\log\log n}\rceil$, which results each vertex of the $n$-vertex subgraph $G$ of $P\boxtimes P$ being assigned a label of length $\log n + O(\sqrt{\log n\log\log n})$.
+This establishes, Property~(PR4) of $T_1,\ldots,T_m$ where each code $\nu_i(y)$ has length $O(k\log\log n)$. The optimal choice of $k=\left\lceil\sqrt{\log n/\log\log n}\right\rceil$, which results each vertex of the $n$-vertex subgraph $G$ of $P\boxtimes P$ being assigned a label of length $\log n + O(\sqrt{\log n\log\log n})$.
 
 \begin{thm}
   There exists an adjacency-labelling scheme for subgraphs of $P\boxtimes P$ in which the vertices of any $n$-vertex subgraph $G$ of $P\boxtimes P$ are assigned labels of length at most $\log n + O(\sqrt{\log n\log\log n})$.
@@ -398,7 +398,101 @@ Phew!
   
 \section{Subgraphs of $H\boxtimes P$}
 
+\begin{verbatim}
+Hi All,
 
+Today's progress report:
+
+1. I spent time carefully writing the P*P solution---in particular
+finishing up the bulk-insertions/deletions and rebalancing parts.  We
+get label length log n + O(sqrt(log n loglog n).
+http://cglab.ca/~morin/publications/drafts/labelling/
+
+2. Vida and I spent some time thinking about the generalization to H*P
+where H is a k-tree, and think that most of the work is done already
+by the P*P solution.  Here's the idea:
+
+H is a subgraph of an interval graph of thickness k*log n, so let's
+assume the nodes of H are actually real intervals that are properly
+coloured with klog n colours.
+
+For any subset S of V(H) there is a set X of at most |S| real numbers
+(I'll call these points) so that every v in S contains at least one
+point in X.  We say that X stabs S.
+
+Our subgraph of H*P actually contains a sequence S_1,..,S_m of subsets
+of V(H) of total size n.  We can greedily compute a sequence of point
+sets  X_1,...,X_m where X_i stabs S_i and these point sets are
+constructed lazily so that if some point X_i stabs some intervals in
+S_{i+1} then we keep it in X_{i+1}.  The only points in X_i that are
+not in X_{i+1} are those that intersect no points in S_{i+1}.
+
+Now we're going to use all the machinery we developed in Section 3 of
+the write-up to make a sequence of binary search trees T_1,..,T_m
+where each T_i contains a superset of X_i, the T_i's have linear total
+size, the height of T_i is log|T_i| + o(log n) and, for any point x
+that appears in T_i and T_{i+1}, there is a o(log n)-bit description
+of how to rewrite the root to x path in T_i (a sequence of 0's and
+1's) so that it becomes the root to x path in T_{i+1}.
+
+We can also assign a label to each vertex v in S_i of length log n -
+log|T_i| so that for v in S_i and w in S_j, label(v) and label(w) tell
+us if j-i is {-1, 0, 1, >=2}. So now each vertex in S_i has log|T_i|
+free bits it can still use for its label.
+
+For each interval v in S_i, we assign v to the highest point x_i(v) in
+T_i that stabs v.  Now for some any v in S_i, there is one root to
+leaf path in T_i that contains x(v),x(p_1(v)),..,x(p_k'(v)) where
+p_1(v),..,p_k'(v) are the k-tree parents of v that happen to be in
+S_i.  So log|T_i| + o(log n) bits plus an additional kloglog n bits is
+enough then to recover all the root to x(v) and x(p_i) paths. This
+plus a bit more bookkeeping that Cyril described in his email is
+enough to test if an edge vw is in E(G) using label(v) and label(w)
+provided that v and w are both in S_i.  The only issue that remains is
+what to do if v is in S_i and w is in S_{i+1}, since label(v) contains
+a path to x_i(v) in T_i and label(w) contains a path to x_{i+1}(v) in
+T_{i+1}.  If x_i(v)=x_{i+1}(v) then we're happy: Our solution for P*P
+already includes enough information to convert the path to x(v) in T_i
+into the path to x(v) in T_{i+1}.
+
+What to do when x_i(v)!= x_{i+1}(v)?  For this, we have to look at why
+x_i(v) would change.  This happens because in T_i, x_i(v) was closer
+to the root than x_{i+1}(v) but in T_{i+1}, x_{i+1}(v) is closer to
+the root than x_i.   How did x_{i+1}(v) get closer to the root in
+T_{i+1}?  For that, we have to look at the solution for P*P and how
+the binary search trees T_i and T_{i+1} are related.
+
+1. It wasn't because x_{i+1}(v) was inserted in T_{i+1}: Newly
+inserted nodes are added as tiny subtrees at the leaves. They're
+further from the root than any preexisting node.
+
+2. Maybe it was because some ancestor x of x_{i+1}(v) was deleted so
+x_{i+1}(v) took its place, closer to the root.  If so, then the path
+to x_{i+1}(v) in T_{i+1}(v) is still a prefix of path to x_i(v) in
+T_i, and all we need is to store the length of this prefix so we can
+derive the path the root to x_{i+1}(v) path from x_i(v).
+
+3. Maybe it was because we did a rebalancing operation that brought
+x_{i+1}(v) closer to the root, overtaking x_i(v).  These rebalancing
+operations all use the same basic operation, and this operation is
+depicted in the only figure in the paper, which I will now refer to.
+In this case, the only nodes on a root-to-leaf path that change
+relative order are on the path to the node x that is being moved
+closer to the root.  Even then, the relative distance to the root of
+these nodes does not change except for nodes a and b where a is on the
+"left wall" of the figure and b is on the "right wall".  But if a
+stabs v and b stabs v, then the root also stabs v.  So the node
+x_{i+1}(v) is the root x in T_{i+1} of subtree being restructured. In
+particular, the root to x path in T_{i+1} is a prefix of the root to
+x_i(v) path in T_i.  This can also be recorded using O(\log\log n)
+bits.
+
+That's it(?!)
+
+Pat
+\end{verbatim}
+  
+  
 \bibliographystyle{plain}
 \bibliography{labelling}
 
