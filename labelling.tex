@@ -93,7 +93,7 @@ Let $\R^+$ denote the set of positive real numbers. The following is an easy and
 
 To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(i)\le W/2$ and $\sum_{z=x+1}^{n} w(i)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees respectively.
 
-The following fact about binary search trees is useful, for example, in the deletion algorithms for binary search trees:
+The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees for binary search trees \cite[Section~6.2.3]{morin:open}:
 
 \begin{lem}\lemlabel{predecessor-encoding}
   Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that $x<y$ and there is no node $z\in V(T)$ such that $x<z<y$ (i.e., $x$ and $y$ are consecutive in the sorted order of $V(T)$).  Then
@@ -141,10 +141,11 @@ Putting the a few of the preceding results together we obtain the following usef
 \end{proof}
 
 \section{Subgraphs of $P\boxtimes P$}
+\seclabel{pxp}
 
 We begin with the special case where $G\subseteq P_1\boxtimes P_2$ is an $n$-vertex graph where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. 
 
-\pnote{TODO: Annoyingly, it makes sense to (again) reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
+\pnote{TODO: Annoyingly, I will eventually have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
 
 For each $x\in\{1,\ldots,m\}$, we let $L_x=\{y:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_m$ of balanced binary search trees where, for each $x\in\{1,\ldots,h\}$,
 \begin{enumerate}[(PR1)]
@@ -230,7 +231,6 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
 \lemref{deletion-prefix} is useful because it means that, for any particular node of $y$ of $T_x$, the net effect of all the deletions performed when moving from $T_x$ to $T_{x+1}$ on $\sigma(y)$ can be encoded by a single integer in the range $\{0,\ldots,h(T(x))\}$.  Using the $\gamma$-code, this requires only $O(\log h(T_x))$ bits.  If $T$ is at-all balanced, this is only $O(\log\log n)$ bits.
 
 \subsection{Bulk Insertions}
-
 
 \begin{lem}\lemlabel{chunked-addition}
   For any binary search tree $T$ and any set $Y\subset\R\setminus V(T)$ such that $V(T)$ $a$-chunks $Y$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup Y$ that is a supergraph of $T$ and such that $h(T')\le h(T)+1+\log a$.
@@ -395,9 +395,20 @@ This establishes, Property~(PR4) of $T_1,\ldots,T_m$ where each code $\nu_i(y)$ 
   There exists an adjacency-labelling scheme for subgraphs of $P_1\boxtimes P_2$ in which the vertices of any $n$-vertex subgraph $G$ of $P\boxtimes P$ are assigned labels of length at most $\log n + O(\sqrt{\log n\log\log n})$.
 \end{thm}
 
-Phew!
-  
 \section{Subgraphs of $H\boxtimes P$}
+
+A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  \snote{Use $k$-tree instead?}
+
+In this section we build on the result of \secref{pxp} to find labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,2,\ldots,h$ is a path.  Our strategy is similar the approach taken in the previous section.  \snote{Reversing the roles of $x$ and $y$ here.}
+For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will build a labelling scheme for the induced graph $H[V_y]$ where $V_y\supseteq L_y$ that is based on a binary tree $T_y$ and such that the labels in this scheme have length $\log|T_y|+o(\log n)$. 
+
+
+
+
+
+
+
+
 
 \begin{verbatim}
 Hi All,
