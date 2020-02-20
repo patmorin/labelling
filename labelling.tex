@@ -6,6 +6,8 @@
 
 \usepackage{graphicx}
 
+\newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
+\newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
 \setlength{\parskip}{1ex}
 
 \DeclareMathOperator{\A}{\mathds{A}}
@@ -38,14 +40,10 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph is assigned a $(\log n+o(\log n))-bit$ label.  This is optimal up to the lower-order term.
+We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph is assigned a $(\log n+o(\log n))$-bit label.  This is optimal up to the lower-order term.
 
 
 \subsection{Proof Overview}
-
-
-
-
 
 Like Bonamy \etal\ \cite{bonamy.gavoille.ea:shorter}.  Our starting point is a recent result that characterizes planar graphs in terms of the strong product of two simpler graphs.  The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two vertices $v_1:=(x_1,y_1)$ and $v_2:=(x_2,y_2)$ are adjacent if and only if:
 \begin{enumerate}
@@ -69,7 +67,7 @@ For graph products like $G^+$, there is a natural labelling scheme: Computer a l
 
 \section{Preliminaries}
 
-For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of $G$.  We use $|G|$ as a shorthand for $|V(G)|$.  
+For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of $G$.  We use $|G|$ as a shorthand for $|V(G)|$.
 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A string $s_1,\ldots,s_k$ is \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
 
@@ -144,9 +142,11 @@ Putting the a few of the preceding results together we obtain the following usef
 
 \section{Subgraphs of $P\boxtimes P$}
 
-We begin with the special case where $G\subseteq H\boxtimes P$ is an $n$-vertex graph where $H$ is a path.  For concreteness, we let $H=1,\ldots,m$ and $P=1,\ldots,h$, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$.  
+We begin with the special case where $G\subseteq P_1\boxtimes P_2$ is an $n$-vertex graph where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. 
 
-For each $x\in\{1,\ldots,m\}$, we let $L_x=\{y:(x,y)\in V(H)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_m$ of balanced binary search trees where, for each $x\in\{1,\ldots,h\}$,
+\pnote{TODO: Annoyingly, it makes sense to (again) reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
+
+For each $x\in\{1,\ldots,m\}$, we let $L_x=\{y:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_m$ of balanced binary search trees where, for each $x\in\{1,\ldots,h\}$,
 \begin{enumerate}[(PR1)]
   \item $T_x$ contains (a superset of) $\bigcup_{b\in\{-1,0,1\}} (L_{x+b}\cup \{y-1:y\in L_{x+b}\})$;
   \item The height $h(T_x)$ of $T_x$ is $\log |T_x| + o(\log n)$;
@@ -299,13 +299,14 @@ The following lemma uses \lemref{split} recursively:
 
 We can now describe the sequence of binary search trees $T_1,\ldots,T_m$ satisfying (PR1)--(PR4) required by the labelling scheme.  Recall that $V(T_i)=V_{i}$ where $V_1,\ldots,V_m$ are the sets described by \lemref{fractional}.  The easiest way to describe these trees is in terms of a binary search tree $T$ that supports two operations:
 \begin{enumerate}
-  \item \emph{bulk-deletion}: in which a set $D:=V_{i}\setminus V_{i+1}$ of at most $|T|(1-2/a)$ values are removed from $T$. The set $V_{i+1}=V(T)\setminus D$ of remaining values $a$-chunks $D$.  (NOTE: We don't use $a$-chunking property, except for the lower-bound it gives on $|V_{i+1}|$.)
+  \item \emph{bulk-deletion}: in which a set $D:=V_{i}\setminus V_{i+1}$ of at most $|T|(1-2/a)$ values are removed from $T$. The set $V_{i+1}=V(T)\setminus D$ of remaining values $a$-chunks $D$.  
+  \pnote{NOTE: We don't use the $a$-chunking property, except for the lower-bound it gives on $|V_{i+1}|$.}
   \item \emph{bulk-insertion}: in which a set $I:=V_{i+1}\setminus V_i$ of at most $2a|T|$ new values are added into $T$.  The set $I$ of newly added values are $a$-chunked by $V(T)$.
 \end{enumerate}
 First we consider the effect of a pair of bulk-deletion/bulk-insertion operations on the height of $T$.
 
-By \lemref{deletion-prefix}, each bulk-deletion does not increase $h(T)$.  Thus, if we start with a tree $T_1^\times$ with $V(T_1^\times)=V_1$
-By \lemref{chunked-addition}, if $T_2$ denotes the tree $T$ after a bulk-insertion into $T_1'$, then
+By \lemref{deletion-prefix}, each bulk-deletion does not increase $h(T)$.  Thus, if we start with a tree $T_1^\times$ and peform one bulk-deletion and one bulk-insertion then, 
+by \lemref{chunked-addition}, the resulting tree $T_2$ has height
 \[
    h(T_2) \le h(T_1^\times)+\log a \enspace .
 \]
@@ -330,8 +331,8 @@ So, by (B2) every subtree of $T_{i^*}$ of depth $(i^*-1)(k+1)$ has size at most 
   h(T_{i^*}) & \le (i^*-1)(k+1) \\
   & = \frac{(k+1)\log|T_1|}{k-\log(2a)} + k+1 \\
   & \le \frac{(k+1)(\log |T_{i^*}| + (i^*-1)\log(2a))}{k-\log(2a)} + k+1 \\
-  & = \log|T_{i^*}| + O(k + k^{-1}\log |T_i|) \\
-  & = \log |T_{i^*}| + O(k + k^{-1}\log n)
+  & \le \log|T_{i^*}| + O(k + k^{-1}\log |T_i|) \\
+  & \le \log |T_{i^*}| + O(k + k^{-1}\log n)
 \end{align*}
 
 Let $r_1=h(T_1)-\log |T_1|$ and note that $|T_i|\ge |T_1|/(2a)^{i-1}$ so, for $i\in\{1,\ldots,i^*\}$, (B1) gives the upper bound
@@ -350,7 +351,7 @@ for all $i\in\{1,\ldots,i^*\}$.  At the end of this process, the tree $T_{i^*}$ 
 \[
     h(T_{i^*})= \log |T_{i^*}| + O(k + (\log n)/k) := \log |T_{i^*}| + r_{i^*}
 \]
-where $r_{i^*}:=h(T_{i^*})-\log|T_{i^*}|\in O(k + k^{-1}\log n)$.  At this point we continue as $T_{i^*}$ were the first tree in the sequence and this is valid since $r_{i^*}\in o(\log n)$.  This establishes Property~(PR2) for the sequence of trees $T_1,\ldots,T_m$.  
+where $r_{i^*}:=h(T_{i^*})-\log|T_{i^*}|\in O(k + k^{-1}\log n)$.  At this point we continue as if $T_{i^*}$ were the first tree in the sequence and this is valid since $r_{i^*}\in o(\log n)$.  This establishes Property~(PR2) for the sequence of trees $T_1,\ldots,T_m$.  
 
 It remains is to describe the rebalancing scheme that guarantees (B1) and (B2).  The scheme is simple: For each $i\in\{1,\ldots,i^*-1\}$,
 \begin{enumerate}[(S1)]
@@ -377,21 +378,21 @@ Finally, the bulk-deletion in (S3) does not increase the size of any subtree, so
 
 \subsection{The $\nu$ Code}
 
-In the previous section we established that the sequence $T_1,\ldots,T_m$ of trees satisfies Property~(PR2) by showing that $|\sigma_{T_i}(y)|\le \log |T_i|+O(k+k^{-1}\log n)$.  These trees also satisfy Properties~(PR1) and (PR3) since, for each $i\in\{1,\ldots,m\}$, $V(T_i)=V_i$ is the set described in \lemref{fractional}.  Thus, all that remains is to describe the codes $\nu_x(y)$ for each $x\in\{1,\ldots,m-1\}$ and $y\in V_x\cap V_{x+1}$ that satisfy Property~(PR4).
+In the previous section we established that the sequence $T_1,\ldots,T_m$ of trees satisfies Property~(PR2) since $|\sigma_{T_i}(y)|\le h(T_i)\le \log |T_i|+O(k+k^{-1}\log n)$.  These trees also satisfy Properties~(PR1) and (PR3) since, for each $i\in\{1,\ldots,m\}$, $V(T_i)=V_i$ is the set described in \lemref{fractional}.  Thus, all that remains is to describe the codes $\nu_x(y)$ for each $x\in\{1,\ldots,m-1\}$ and $y\in V_x\cap V_{x+1}$ that satisfy Property~(PR4).
 
-To do this, we consider the three steps (S1)--(S3) that convert $T_i$ into $T_{i+1}$.  
+The purpose of $\nu_x(y)$ is to provide instructions on how to modify $\sigma_{T_i}(y)$ to obtain $\sigma_{T_{i+1}}(y)$.  Therefore we consider the three steps (S1)--(S3) that convert $T_i$ into $T_{i+1}$.  
 \begin{enumerate}[(S1)]
-  \item applies \lemref{multi-split} to each subtree of $T_i$ at depth $(i-1)(k+1)$ to obtain a new $T_i'$.  Every node $y\in V(T_y)$ is contained in at most one such subtree $T_y$ that becomes a subtree $T_y'$ of $T_i'$.  For each such node, we include the integer $(i-1)(k+1)$ in $\nu_i(y)$. \lemref{multi-split} describes $O(k\log h(T))=O(k\log\log n)$ bits that make it possible to recover $\sigma_{T_y'}(y)$ from $\sigma_{T_y}(y)$.  To get $\sigma_{T_i'}(y)$ we keep the first $(i-1)(k+1)$ bits of $\sigma_{T_i}(y)$ and append $\sigma_{T_y'}(y)$.
+  \item applies \lemref{multi-split} to each subtree of $T_i$ at depth $(i-1)(k+1)$ to obtain a new $T_i'$.  Every node $y\in V(T_y)$ is contained in at most one such subtree $T_y$ that becomes a subtree $T_y'$ of $T_i'$.  For each such node $y$, we include the integer $(i-1)(k+1)$ in $\nu_i(y)$. \lemref{multi-split} describes $O(k\log h(T))=O(k\log\log n)$ bits that make it possible to recover $\sigma_{T_y'}(y)$ from $\sigma_{T_y}(y)$.  To get $\sigma_{T_i'}(y)$ we keep the first $(i-1)(k+1)$ bits of $\sigma_{T_i}(y)$ and append $\sigma_{T_y'}(y)$.
   
-  \item applies \lemref{chunked-addition} to $T_{i}'$ to obtain $T_{i}''$.  This has no effect on any existing signature.  That is, $\sigma_{T_i'}(y)=\sigma_{T_{i}''}(y)$ for every $y\in V(T_i)$.
+  \item applies \lemref{chunked-addition} (bulk-insertion) to $T_{i}'$ to obtain $T_{i}''$.  This has no effect on any existing signature.  That is, $\sigma_{T_i'}(y)=\sigma_{T_{i}''}(y)$ for every $y\in V(T_i)$.
   
-  \item applies \lemref{deletion-prefix} to $T_{i}''$ to obtain $T_{i+1}$. \lemref{deletion-prefix} shows that, for each $y\in V_{i+1}$, $\sigma_{T_{i+1}}(y)$ can be obtained by removing a suffix from $\sigma_{T_i''}(y)$.  For each $y\in V_{i+1}$, the length of this suffix, encoded using $O(\log\log n)$ bits is included in $\nu_{i}(y)$.
+  \item applies \lemref{deletion-prefix} (bulk-deletion) to $T_{i}''$ to obtain $T_{i+1}$. \lemref{deletion-prefix} shows that, for each $y\in V_{i+1}$, $\sigma_{T_{i+1}}(y)$ can be obtained by removing a suffix from $\sigma_{T_i''}(y)$.  For each $y\in V_{i+1}$, the length of this suffix, encoded using $O(\log\log n)$ bits is included in $\nu_{i}(y)$.
 \end{enumerate}
 
-This establishes, Property~(PR4) of $T_1,\ldots,T_m$ where each code $\nu_i(y)$ has length $O(k\log\log n)$. The optimal choice of $k=\left\lceil\sqrt{\log n/\log\log n}\right\rceil$, which results each vertex of the $n$-vertex subgraph $G$ of $P\boxtimes P$ being assigned a label of length $\log n + O(\sqrt{\log n\log\log n})$.
+This establishes, Property~(PR4) of $T_1,\ldots,T_m$ where each code $\nu_i(y)$ has length $O(k\log\log n)$. The optimal choice of $k=\left\lceil\sqrt{\log n/\log\log n}\right\rceil$, which results each vertex of the $n$-vertex subgraph $G$ of $P_1\boxtimes P_2$ being assigned a label of length $\log n + O(\sqrt{\log n\log\log n})$.
 
 \begin{thm}
-  There exists an adjacency-labelling scheme for subgraphs of $P\boxtimes P$ in which the vertices of any $n$-vertex subgraph $G$ of $P\boxtimes P$ are assigned labels of length at most $\log n + O(\sqrt{\log n\log\log n})$.
+  There exists an adjacency-labelling scheme for subgraphs of $P_1\boxtimes P_2$ in which the vertices of any $n$-vertex subgraph $G$ of $P\boxtimes P$ are assigned labels of length at most $\log n + O(\sqrt{\log n\log\log n})$.
 \end{thm}
 
 Phew!
@@ -422,10 +423,12 @@ point in X.  We say that X stabs S.
 
 Our subgraph of H*P actually contains a sequence S_1,..,S_m of subsets
 of V(H) of total size n.  We can greedily compute a sequence of point
-sets  X_1,...,X_m where X_i stabs S_i and these point sets are
-constructed lazily so that if some point X_i stabs some intervals in
-S_{i+1} then we keep it in X_{i+1}.  The only points in X_i that are
-not in X_{i+1} are those that intersect no points in S_{i+1}.
+sets  X_1,...,X_m where X_i stabs S_i and there is a function f_i:S_i->x_i
+such that f_i(v) is a point that stabs v.  These point sets are
+constructed lazily so that, if v is in S_i\cap S_{i+1}, then f_i(v)=f_{i+1}(v). 
+The only points in X_i that are not in X_{i+1} are those that are unnecessary: those x in X_i such that there is no v in S_i with f(v)=x.
+
+This guarantees that |X_i|<=|S_i|.
 
 Now we're going to use all the machinery we developed in Section 3 of
 the write-up to make a sequence of binary search trees T_1,..,T_m
@@ -437,12 +440,12 @@ of how to rewrite the root to x path in T_i (a sequence of 0's and
 
 We can also assign a label to each vertex v in S_i of length log n -
 log|T_i| so that for v in S_i and w in S_j, label(v) and label(w) tell
-us if j-i is {-1, 0, 1, >=2}. So now each vertex in S_i has log|T_i|
+us if j-i is {-1, 0, 1, >=2}. So now each vertex v in S_i has log|T_i|
 free bits it can still use for its label.
 
-For each interval v in S_i, we assign v to the highest point x_i(v) in
-T_i that stabs v.  Now for some any v in S_i, there is one root to
-leaf path in T_i that contains x(v),x(p_1(v)),..,x(p_k'(v)) where
+For each interval/vertex v in S_i, we assign v to the highest point 
+x_i(v) in T_i that stabs v.  Now for any v in S_i, there is one 
+root to leaf path in T_i that contains x(v),x(p_1(v)),..,x(p_k'(v)) where
 p_1(v),..,p_k'(v) are the k-tree parents of v that happen to be in
 S_i.  So log|T_i| + o(log n) bits plus an additional kloglog n bits is
 enough then to recover all the root to x(v) and x(p_i) paths. This
