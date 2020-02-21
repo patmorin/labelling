@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-  We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log n+o(\log n)$.
+  We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log_2 n+o(\log n)$.
 \end{abstract}
 \end{titlepage}
 \pagenumbering{roman}
@@ -40,7 +40,7 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph is assigned a $(\log n+o(\log n))$-bit label.  This is optimal up to the lower-order term.
+In this paper, which is about binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$.  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph is assigned a $(\log n+o(\log n))$-bit label.  This is optimal up to the lower-order term.
 
 
 \subsection{Proof Overview}
@@ -71,15 +71,17 @@ For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of 
 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A string $s_1,\ldots,s_k$ is \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
 
-\begin{lem}[Elias \cite{elias:universal}]
+\begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
     There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le \log(i+1)+O(\log\log i)$.
 \end{lem}
 
-A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  The \emph{depth} $d_T(v)$ of a node $v$ in a binary tree is the length of the unique path from the root of $T$ to $v$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.
+A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  The \emph{depth} $d_T(v)$ of a node $v$ in a binary tree is the length of the unique path from the root of $T$ to $v$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ whose height is $\lfloor\log |T|\rfloor$.
 
-Let $T$ be a binary tree and let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
+A node $a\in V(T)$ is an \emph{ancestor} of $v\in V(T)$ if the path in $T$ from the root of $T$ to $v$ includes $a$.  (Note that $v$ is an ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is an ancestor of $v$ for each $v\in X$.
 
-A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of numbers and that has the \emph{BST property}:  For each node $x$ that is a left-child of its parent $p$, $x<p$ and for each node $y$ that is a right-child of its parent $p$, $p<y$.  The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
+Let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
+
+A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$ that is a left-child of its parent $p$, $x<p$ and for each node $y$ that is a right-child of its parent $p$, $p<y$.  The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
 
 \begin{obs}\obslabel{lexicographic}
   If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
@@ -405,7 +407,7 @@ For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will b
 
 A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  \snote{Use $k$-tree instead?}  
 
-We begin by considering a labelling schemes for $t$-trees. The ideas behind this scheme are not new. They mostly appear already in \cite{X}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
+We begin by describing a labelling schemes for $t$-trees. The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
 Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_t$ form a clique and, for each $i\in\{t+1,\ldots,t_m\}$, $C_H(v_i):=B_H(v_i)\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$.\snote{TODO: check if we ever use these terms.}  The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
 
@@ -447,43 +449,43 @@ We can use \lemref{common-ancestor} to create a labelling scheme for $t$-trees b
 
 Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T)=X$, and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
 
-For each vertex $v:=[a_v,b_v]\in V(H)$, let $x(v)$ denote the lowest-common-ancestor of $X\cap [a_v,b_v]$ in $T$.  
+For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest-common-ancestor of $X\cap [a_v,b_v]$ in $T$.  For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(x):x\in C\}$.  
 
 \begin{lem}\lemlabel{one-path}
-  For any $v\in V(H)$ with family clique $C_H(v)$, the set of nodes $x(C_H(v)):=\{x(p):p\in C_H(v)\}$ are all contained a single root-to-leaf path in $T$.
+  For any $v\in V(H)$ with family clique $C_H(v)$, the set of nodes $x_T(C_H(v))$ are all contained a single root-to-leaf path in $T$.
 \end{lem}
 
 \begin{proof}
-  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $v_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the edge $v_1v_2\in E(H)$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
+  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $v_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the edge $v_1v_2\in E(H)$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
 \end{proof}
 
-The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x(v)$ and $\varphi(v)$.
+The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
 
 \begin{obs}\obslabel{unique-id}
-    For any two distinct vertices $v,w\in V(H)$, $x(v)\neq x(w)$ or $\varphi'(v)\neq\varphi'(w)$.
+    For any two distinct vertices $v,w\in V(H)$, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
 \end{obs}
 
 \begin{proof}
-  If $x(v)=x(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.
+  If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that the $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-For each node $v\in V(H)$, let $\sigma_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x(C_H(v))$ of maximum depth.  By \lemref{one-path}, $\sigma_T(v)$ contains every node in $x(C_H(v))$.
+For each node $v\in V(H)$, let $\sigma_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $\sigma_T(v)$ contains every node in $x_T(C_H(v))$.
 The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \lemref{elias}):
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
-  \item $d_T(x(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; 
+  \item $d_T(x_T(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; 
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; and
   \item $\varphi'(v)$.
 \end{enumerate}
 
 Given the labels of two vertices $v,w\in V(H)$, we test if $v$ and $w$ are adjacent as follows:
 \begin{enumerate}[({A}1)]
-  \item If the labels of $v$ and $w$ are identical, then return false.
+  \item If the labels of $v$ and $w$ are identical then $v=w$, so return false.
   
-  \item Compute $j:=\varphi(v)$ (which is contained in $\varphi'(v)$), compute $d:=d_T(x(p_j))$ and take the length-$d$ prefix of $\sigma_T(v)$ to get $\sigma_T(x(v))$.
+  \item Compute $j:=\varphi(v)$ (which is contained in $\varphi'(v)$), compute $d:=d_T(x_T(p_j(v)))$ and take the length-$d$ prefix of $\sigma_T(v)$ to get $\sigma_T(x_T(v))$.
 
-  \item For each $j\in\{1,\ldots,t+1\}$, compute $d:=d_T(x(p_j))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x(p_j(w)))$.  If $\sigma_T(x(v))=\sigma_T(x(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ so $vw\in E(H)$, so return true.
+  \item For each $j\in\{1,\ldots,t+1\}$, compute $d:=d_T(x_T(p_j))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x_T(p_j(w)))$.  If $\sigma_T(x_T(v))=\sigma_T(x_T(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ so $vw\in E(H)$, so return true.
   
   \item[(A4,A5)] Repeat (A2) and (A3) with the roles of $v$ and $w$ reversed.
   
@@ -493,7 +495,7 @@ Given the labels of two vertices $v,w\in V(H)$, we test if $v$ and $w$ are adjac
 The correctness of this procedure follows from \obsref{unique-id} (so positive results in (A3) and (A5) are never incorrect) and the fact that, for every $vw\in E(H)$, there exists a $j\in\{1,\ldots,t+1\}$ such that $v$ is the $j$-parent of $w$ or $w$ is the $j$-parent of $v$ (so the negative result in (A6) is never incorrect).  In fact, this labelling scheme proves the slightly stronger result:
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\gamma:V(H)\to\{0,1\}^*$ where $|\gamma(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
+  Let $H$, $S$, $X$, and $T$ be defined as above.  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that there is a prefix-free code $\gamma:V(H)\to\{0,1\}^*$ where $|\gamma(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
   \[
       \mathds{T}(\gamma(v),\gamma(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
@@ -505,24 +507,31 @@ The correctness of this procedure follows from \obsref{unique-id} (so positive r
 \end{lem}
 
 \begin{proof}
-  Most of the details of this labelling are described above, though we have ignored the length of the code.
+  Most of the details of this labelling are described above, though we have thus far ignored the length of the labels, which we analyze now.
   
-  Part (TC1) of the code has length $|\sigma_T(v)|\le h(T)$.  For any set $S\subset\mathbb{I}$ of $m$ intervals, a set $X\subseteq\R$ of size at most $m$ is sufficient to stab $S$.  If we make $T$ be a perfectly balanced binary search tree, then $h(T)\le\log|X|\le\log m$ so $|\sigma_T(v)|\le\log m$ for every $v\in V(H)$.
-  
-  If $h(T)\le\log m$, then $d_T(x)=O(\log m)$ for each $x\in V(T)$, so
-  Part~(TC2) of the code requires $O(t\log\log m)$ bits.
-  
-  Part~(TC3) of the code requires $O(t\log t + t\log\log m)$ bits.
-  
-  Part~(TC4) of the code requires $O(\log t + \log m)$ bits.
+  Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so Part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
 \end{proof}
+
+Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following result,
+
+\begin{cor}\corlabel{t-tree-labelling}
+  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\gamma:V(H)\to\{0,1\}^*$ where $|\gamma(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
+  \[
+      \mathds{T}(\gamma(v),\gamma(w)) = \begin{cases}
+      0 & \text{if $v=w$} \\
+      -j & \text{if $v$ is the $j$-parent of $w$} \\
+      j & \text{if $w$ is the $j$-parent of $v$} \\
+      \perp & \text{otherwise.}
+    \end{cases}
+  \]
+\end{cor}
 
 
 \subsection{Data Structuring}
 
-We point out again that the result in \lemref{t-tree-labelling} is not new and even the techniques used to prove it are just restatements of the existing solutions that happen to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
+We point out again that the result in \lemref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
 
-What we will do next is to show that the solution presented in \secref{pxp} generalizes to the current setting.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a collection $B_x:=\{v\in V(H):x(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
+What we will do next is to show that the solution presented in \secref{pxp} generalizes to the current setting.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a collection $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ \snote{Consistency: $S_y$ was $L_y$ in \secref{pxp}} and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le t|S_y|$. For each $y\in\{1,\ldots,t+1\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y$.  Note that $|X_y|$ stabs $S^-_y$.
 
@@ -540,13 +549,22 @@ Now, for each $y\in\{1,\ldots,h\}$, $V(T_y)$ stabs $S^-_y$, so we can use $T_y$ 
 
 For each $v\in S^-_y$, the label $\gamma_y(v)$ has four parts (TC1)--(TC4).  Parts~(TC3) and (TC4) are completely determined by $H$ and $v$ and are independent of $T_y$.  In particular parts (TC3) and (TC4) of $\gamma_{y_1}(v)$ and $\gamma_{y_2}(v)$ are the same for any $y_1$ and $y_2$ such that $(v,y_1),(v,y_2)\in V(G)$.  
 
-Part~(TC2) of $\gamma_y(v)$, however depends very much on the tree $T_y$.  Luckily, Part~(TC2) is small: It has size $o(\log n)$, so the label of $(v,y)$ can include Part~(TC2) for $\gamma_{y-1}(v)$ and $\gamma_{y}(v)$ and $\gamma_{y+1}(v)$.
+Part~(TC2) of $\gamma_y(v)$, however depends very much on the tree $T_y$.  Luckily, Part~(TC2) is small: It has size $o(\log n)$, so the label of $(v,y)$ can include Part~(TC2) for $\gamma_{y}(v)$ and $\gamma_{y+1}(v)$.\snote{Do we need $\gamma_{y-1}(v)$ also?}
 
-The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part $\sigma_{T_y}(v)$ is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v)):=\{x_{T_y}(w): w\in C_H(v)\}$.  In \secref{pxp} one part of this problem is already solved: If $z$ is also the deepest node in $x_{T_{y+1}}(C_H(v)):=\{x_{T_{y+1}}(w): w\in C_H(v)\}$, then $\nu_y(z)$, which has size $o(\log n)$ is enough to recover $\sigma_{T_{y+1}}(z)$.
-
-The final problem, which requires that we reexamine the operations on the evolving tree $T_1,\ldots,T_h$ comes from the definition $x_T(v)$: $x_T(v)$ is the lowest common ancestor of all points in $T$ that are contained in the interval $v=[a_v,b_v]$.   The node $x_{T_y}(v)$ may be different from $x_{T_{y+1}}(v)$.  We now examine the various ways in which $x_{T_y}(v)$ can change during the three phases of converting $T_{y}$ into $T_{y+1}$.
+The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part, $\sigma_{T_y}(v)$, is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v))$.  When $T_y$ is restructured to become $T_{y+1}$, the path defining $\sigma_{T_y}(v)$ changes, the relative depths of nodes in $x_{T_y}(C_H(v))$ may change and even the value $x_{T_y}(w)$ may change for any $w\in V(H)$.  We now examine the three operations that define how $T_y$ is transfomed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.
+% 
+% In \secref{pxp} one part of this problem is already solved: If $z$ is also the deepest node in $x_{T_{y+1}}(C_H(v)):=\{x_{T_{y+1}}(w): w\in C_H(v)\}$, then $\nu_y(z)$, which has size $o(\log n)$ is enough to recover $\sigma_{T_{y+1}}(z)$.
+% 
+% The final problem, which requires that we reexamine the operations on the evolving tree $T_1,\ldots,T_h$ comes from the definition $x_T(v)$: $x_T(v)$ is the lowest common ancestor of all points in $T$ that are contained in the interval $v=[a_v,b_v]$.   The node $x_{T_y}(v)$ may be different from $x_{T_{y+1}}(v)$.  We now examine the various ways in which $x_{T_y}(v)$ can change during the three phases of converting $T_{y}$ into $T_{y+1}$.
 
 \paragraph{(S1): Rebalancing}
+
+The rebalancing operation involves applying \lemref{multi-split} to all the nodes at level $(i-1)(k+1)$.
+
+
+
+For each node 
+
 
 The rebalancing operation involves several applications of \lemref{split}, whose operation is depicted in the (crappy) figure. How does this affect $\sigma_{T_y}(v)$?  $\sigma_{T_y}(v)$ is just a path to the deepest node representing one of the $t+1$ vertices in $C_H(v)$.  We have to delete a prefix, replace it with $01^r$ or $10^r$ and, in the case where the node you lift is the deepest, also cut off a suffix.
 
@@ -589,7 +607,7 @@ At this point, if we are given the labels of two vertices $v_1=(x_1,y_1)$ and $v
   
   \item $y_1=y_2$.  In this case we can use $\gamma(v_1)$ and $\gamma(v_2)$ to check if $x_1x_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $vw\not\in E(G)$.  If $x_1x_2\in E(H)$ then we know that $vw\in E(H\boxtimes P)$.  In this case $\gamma(v_1)$ and $\gamma(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$.  We can now consult the relevant bit of $a(x_2)$ to determine if $x_1x_2\in E(G)$.
   
-  \item $y_1-y_2=1$: Let $y=y_1$ (so that $y_2=y-1$).  In this case $\nu_{y-1}(x_{T_{y-1}}(x_2))$ and $\sigma_{T_{y-1}}(x_2)$ are sufficient to determine $\sigma_{T_{y}}(x_2)$.     \snote{Ack: annoying name conflict $x(v)$ and $x\in V(H)$.}
+  \item $y_1-y_2=1$: Let $y=y_1$ (so that $y_2=y-1$).  In this case $\nu_{y-1}(x_{T_{y-1}}(x_2))$ and $\sigma_{T_{y-1}}(x_2)$ are sufficient to determine $\sigma_{T_{y}}(x_2)$.     \snote{Ack: annoying name conflict $x_T(v)$ and $x\in V(H)$.}
 \end{enumerate}
 
 
@@ -718,7 +736,7 @@ Pat
 \end{verbatim}
   
   
-\bibliographystyle{plain}
+\bibliographystyle{plainurl}
 \bibliography{labelling}
 
 \end{document}
