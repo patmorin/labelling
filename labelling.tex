@@ -177,7 +177,7 @@ Given the labels of $w_1=(x_1,y_1)$ and $w_2=(x_2,y_2)$ we can test if they are 
 \begin{enumerate}
   \item $|x_1-x_2|\ge 2$: In this case we immediately conclude that $w_1$ and $w_2$ are not adjacent since $x_1x_2\not\in E(H)$.  
   
-  \item $x_1=x_2$: In this case, let $x:=x_1=x_2$, let $T:=T_x$ and lexicographically compare $\sigma_T(y_1)$ and $\sigma_T(y_2)$ to determine (without loss of generality) that $y_1<y_2$.  Using $\sigma_{T}(y_2)$ and $\delta_{T}(y_2)$, compute $\delta_{T}(y_2-1)$.  If $\delta_{T}(y_2-1)\neq \delta_T(y_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent, since $y_1y_2\not\in E(P)$.  Otherwise, we know that $y_1=y_2-1$ and $x_1=x_2$ so use the relevant bit of $a(w_1)$ (or $a(w_2)$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
+  \item $x_1=x_2$: In this case, let $x:=x_1=x_2$, let $T:=T_x$ and lexicographically compare $\sigma_T(y_1)$ and $\sigma_T(y_2)$ to determine (without loss of generality) that $y_1<y_2$.  Using $\sigma_{T}(y_2)$ and $\delta_{T}(y_2)$, compute $\sigma{T}(y_2-1)$.  If $\sigma_T(y_2-1)\neq \sigma_T(y_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent, since $y_1y_2\not\in E(P)$.  Otherwise, we know that $y_1=y_2-1$ and $x_1=x_2$ so use the relevant bit of $a(w_1)$ (or $a(w_2)$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
   
   \item $x_1=x_2-1$: In this case, use $\sigma_{T_{x_1}}(y_1)$ and $\nu_{x_1}(y_1)$ to compute $\sigma_{T_{x_2}}(y_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(w_1)$ in the last step.)
   
@@ -553,66 +553,49 @@ Part~(TC2) of $\gamma_y(v)$, however depends very much on the tree $T_y$.  Lucki
 
 The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part, $\sigma_{T_y}(v)$, is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v))$.  When $T_y$ is restructured to become $T_{y+1}$, the path defining $\sigma_{T_y}(v)$ changes, the relative depths of nodes in $x_{T_y}(C_H(v))$ may change and even the value $x_{T_y}(w)$ may change for any $w\in V(H)$.  
 
-We now examine the three operations that define how $T_y$ is transfomed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.  Recall that these three operations are (S1)~rebalancing, (S2)~bulk insertion and (S3)~bulk deletion.
-% 
-% In \secref{pxp} one part of this problem is already solved: If $z$ is also the deepest node in $x_{T_{y+1}}(C_H(v)):=\{x_{T_{y+1}}(w): w\in C_H(v)\}$, then $\nu_y(z)$, which has size $o(\log n)$ is enough to recover $\sigma_{T_{y+1}}(z)$.
-% 
-% The final problem, which requires that we reexamine the operations on the evolving tree $T_1,\ldots,T_h$ comes from the definition $x_T(v)$: $x_T(v)$ is the lowest common ancestor of all points in $T$ that are contained in the interval $v=[a_v,b_v]$.   The node $x_{T_y}(v)$ may be different from $x_{T_{y+1}}(v)$.  We now examine the various ways in which $x_{T_y}(v)$ can change during the three phases of converting $T_{y}$ into $T_{y+1}$.
+We now examine the three operations that define how $T_y$ is transformed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.  Recall that these three operations are (S1)~rebalancing, (S2)~bulk insertion and (S3)~bulk deletion.  
+Rebalancing takes $T_y$ onto a tree $T_y'$. Bulk insertion takes $T_y'$ onto a tree $T_y''$.  Bulk deletion takes $T_y''$ onto $T_{y+1}$.
+
 
 \paragraph{(S1): Rebalancing}
 
 The rebalancing operation involves applying \lemref{multi-split} to all the subtrees of $T$ rooted at nodes of depth $(i-1)(k+1)$.  This, in turn, involves applying \lemref{split} to $2^k-1$ nodes so that they become roots of specific subtrees.
 
-It will be helpful to have a notation for the path to the deepest node in $x_T(C_H(v))$, so let's call this $P_T(v)$.
+For a binary tree $T$ and a node $z\in V(T)$, let $P_T(z)$ denote the path from the root of $T$ to $z$.  We begin with a simple observation about the restructing operation in \lemref{split}.
 
-Consider some $v\in S^-_{y}\cap S^-_{y+1}$ and let $P_T(v)=x_0,\ldots,x_r$.  We examine what happens when we apply \lemref{multi-split} to some subtree $T_*$ of $T$ to obtain a new subtree $T_y^1$ and a new tree $T_y'$ obtained by replacing $T_*$ with $T_y^1$ in $T_y$.
+\begin{obs}\obslabel{x-switch}
+  Let $T$ be a binary search tree and $S$ be a set of intervals and let $T'$ be the result of applying \lemref{split} to $T$ to make node $x'$ become the root.  Then, for each $v=[a,b]\in S$, if $x_{T'}(v)\in\{x_T(v), x\}$.
+\end{obs}
 
-A rebalancing operation applies \lemref{multi-split} to all the subtrees rooted at nodes of depth $(i-1)(k+1)$.  At most one of these subtrees contains nodes from $P_{T_y}(v)$.  We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.
+\begin{proof}
+  Consider any node $z\in V(T)$ and without loss of generality, assume $z>x'$. 
+  If $x'$ is not in the subtree of $T$ rooted at $z$, then $P_T(z)=P_{T'}(z)$.  If $x'$ is in the subtree of $T$ rooted at $z$, then $P_T(z)$ is obtained by deleting all values less than $x'$ from $P_T(z)$ and (possibly) inserting $x'$.
+  
+  Now, consider any $v=[a,b]\in S$ and let $x:=x_T(v)$. By definition, $x$ is is the only node in $P_T(x)$ contained in $[a,b]$. Therefore, the only nodes of $P_{T'}(x)$ contained in $[a,b]$ are $x$ and (possibly) $x'$.  Therefore $x_{T'}(v)\in \{x,x'\}$.
+\end{proof}
 
-For each of these other applications, $T_*$ does not contain any of $x_0,\ldots,x_r$.  So, for each $w=[a_w,b_w]\in C_H(v)$, no node in $T_*$ is an ancestor of $x_{T_y}(w)$ in $T_y$ or in $T_y'$. Therefore, $x_{T_y}(w)$ is the least common ancestor, in $T_y$ and in $T_y'$ of all nodes in $\{x\in V(T_y): x\in[a_w,b_w]\}$.  Therefore $x_{T_y}(w)=x_{T_{y+1}}(w)$ and the path $x_0,\ldots,x_r$ is the path from the root of $T_{y+1}$ to the deepest node in $x_{T_{y+1}}(C_H(v))$.  Therefore, $\sigma_{T_y}(v)=\sigma_{T_{y+1}(v)}$ and the application of \lemref{split} to $T_*$ introduces no change to $\sigma_{T_y}(v)$.  
+For any $v\in S^-_{y}\cap S^-_{y+1}$, and any $y\in\{1,\ldots,h\}$, let $P_{T_y}(v)=x_0,\ldots,x_r$ be the path from the root of $T_y$ to the deepest node in $x_{T_y}(C_H(v))$.  In other words, $\sigma_{T_y}(v)=\sigma_{T_y}(x_r)$ and $x_r=x_{T_y}(w)$ for some $w\in C_H(v)$.
 
-For the at most one tree $T_*$ that does contain some nodes in $x_0,\ldots,x_r$, $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  None of $x_1,\ldots,x_{i-1}$ is in $[a_w,b_w]$ since this would contradict the fact that $x_r=x_{T_y}(w)$.  Therefore $x_{T_y'}(w)\in V(T_*)$.  Therefore, the path from the root of $T_{y+1}$ to the deepest node in $x_{T_{y+1}}(C_H(v))$ contains the root of $T_y^1$ and therefore begins with $x_0,\ldots,x_{i-1}$.  As part of the label for $(v,y)$ we can encode the value of $i$ using $O(\log\log n)$ bits.  Thus, we only need to encode difference between $\sigma_{T_*}(v)$ and $\sigma_{T_y^1}(v)$.  
+A rebalancing operation applies \lemref{multi-split} to each subtree of $T_y$ rooted at a node of depth $(i-1)(k+1)$.  At most one of these subtrees contains nodes from $P_{T_y}(v)$. We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.  Let $T_y^0$ be the result of applying \lemref{multi-split} to every subtree rooted at a depth $(i-1)(k+1)$ node that does not contain any nodes of $P_{T_y}(v)$.
+By \obsref{x-switch}, $x_{T_y}(u)=x_{T_y^0}(u)$ for all $u\in C_H(v)$.  The path $P_{T_y}(v)=x_0,\ldots,x_r$ is also a path in $T_y^0$ and this is the path in $T_y^0$ from the root to the deepest node in $x_{T_y^0}(C_H(v))$. So, by definition, $P_{T_y}(v)=P_{T_y^0}(v)$.
+
+Let $T_y'$ be the result of applying \lemref{multi-split} to the subtree $T_*$ of $T_y^0$ that contains some nodes of $P_{T_y}(v)=P_{T_y^0}(v)=x_0,\ldots,x_r$ and let $T_*'$ denote the result of applying \lemref{multi-split} to $T_*$.
+The subtree $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  Since the only restructuring done by \lemref{multi-split} is done by applications of \lemref{split} to subtrees contained in $T_*$,  \obsref{x-switch} implies that $x_{T_y'}(w)\in V(T_*)$.  Therefore $P_{T_y'}=x_0,\ldots,x_{i-1},x'_0,\ldots,x'_{s}$ where $x_0',\ldots,x'_s$ is a path in $T_*'$. By including the integer $(i-1)(k+1)$ in the label for $(v,y)$, we can therefore focus on encoding the differences between $\sigma_{T_*}(x_r)$ and $\sigma_{T_*'}(x'_s)$.
 
 To simplify notation, we now assume that $T^*=T_y$, so that the one application of \lemref{multi-split} that affects $P_{T_y}(v)$ is at the root of $T_y$.
-\lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.  There are two cases to consider:
+This application of \lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.
 
-\begin{enumerate}
-  \item $x'$ is not the subtree of $T_y$ rooted at $x_r$.  In this case we claim that $x_r$ is the deepest node in $x_{T_{y+1}}(C_H(v))$.  Therefore, the differences between $\sigma_{T_y}(v)$ and $\sigma_{T_{y+1}}(v)$ are exactly the differences between $\sigma_{T_y}(x_r)$ and $\sigma_{T_{y+1}}(x_r)$.  \lemref{split} shows that these differences can be encoded using $O(\log\log n)$ bits.
-  
-  To see why $x_r$ is the deepest node in $x_{T_{y+1}}(C_H(v))$, first observe that $x'\not\in[a_w,b_w]$ since, otherwise the lowest common ancestor of $x_r$ and $x'$ in $T_y$ would be in $[a_w,b_w]$ contradicting the fact that $x_r=x_{T_y}(w)$.  In $T_y^1$, the only node on the path from the root $x'$ of $T_y^1$ to $x_r$ that may not be present in $x_i,\ldots,x_r$ is $x'$ itself.  Therefore $x_{T_y^1}(w)=x_r$.  This establishes that $x_r\in x_{T_{_*^1}}(v)$. All that remains is to show that $x_r$ is the deepest node in $x_{T_y^1}(v)$.
-  
-  If $x_r$ is not the deepest node in $x_{T_y^1}(v)$, it is because there exists some node $w'=[a_{w'},b_{w'}]\in C_H(v)$ such that $x_{T_y}(w')\in V(P_{T_y}(v))$ but $x_{T_y^1}(w')\not\in V(P_{T_y^1}(v))$.  By \lemref{one-path}, this implies that $x_{T_y^1}(w')$ is in the subtree of $T_y^1$ rooted at $x_r$.  Assume, without loss of generality that $x'<x_r$, which implies that all nodes in the subtree rooted at $x_r$ are greater than $x'$.  However, the only nodes of $P_{T_y}(v)$ not in $P_{T_y^1}(v)$ are all less than $x'$.  Therefore $[a_{w'},b_{w'}]$ contains values less than $x'$ and values greater than $x'$, so $x'\in [a_{w'},b_{w'}]$.  But in this case $x_{T_y^1}(w')=x'$, which is an ancestor of $x_r$.  Therefore $x_r$ is indeed the deepest node in $x_{T_y^1}(v)$.
-  
-  \item $x'$ is in the subtree of $T_y$ rooted at $x_r$. If $x_r=x_{T_{_*^1}}(w)$ then we can argue exactly as in the previous paragraph to show that $x_r$ is the deepest node in $x_{T_y^1}(C_H(v))$ so, as discussed above, the differences between $\sigma_{T_y}(v)$ and $\sigma_{T_{y+1}}(v)$ can be encoded using $O(\log\log n)$ bits.
-  
-  On the other hand, if $x_{T_{_*^1}}(w)\neq x_r$ then, by \lemref{one-path} $x_{T_{_*^1}}(w)$ is some ancestor of $x_r$ in $T_y^1$.  But this means that $x_{T_{_*^1}}(w)=x'$ since $x'$ is the only ancestor of $x_r$ in $T_y^1$ that is not also an ancestor of $x_r$ in $T_y$.  If $x'$ is the deepest node in $x_{T_y^1}(v)$ then $P_{T_y^1}(v)$ is the empty string $\sigma$ and this can be encoded using $O(1)$ bits.
-  
-   is a prefix of $P_{T_y}(v)$ followed by $x'$ and, in fact $\sigma_{T_y^1}(v)$ is a prefix of $\sigma_{T_y}(v)$.  The length of this prefix can be encoded using $O(\log\log n)$ bits.
-  
-  If $x'$ is not the deepest node in $x_{T_y^1}(v)$
-  
-  
-\end{enumerate}
-  
-  
+By \obsref{x-switch} $x_{T_y^1}(w)\in\{x',x_{T_y^1}(w)$ for every $w\in C_H(v)$.  If $x_{T_y^1}(w)=x'$ for every $w\in C_H(v)$, then $P_{T_y^1}(v)=x'$ is a path of length 0.  This can be recorded by adding $O(1)$ bits to the label of $(v,y)$. Otherwise, there is a non-empty subset $W\subset C_H(v)$ such that $x_{T_y^1}(w)=x_{T_y}(w)$ for each $w\in W$.  Let $w^*\in W$ be an element that maximizes $d_{T_y}(w^*)$.  We claim that $w^*$ also maximizes $d_{T_y^1}(w^*)$.  Indeed, as noted already in the proof of \obsref{x-switch} $P_{T_y^1}(w^*)$ consists of $x'$ followed by a subsequence of $P_{T_y}(w^*)$ that includes every node in $W$.
 
+Therefore $P_{T_y^1}(v)=P_{T_y^1}(w^*)$.  Now $w^*$ appear in $P_{T_y}(v)$, so $\sigma_{T_y}(w^*)$ can be recovered from $\sigma_{T_y}(v)$ and $d_{T_y}(w^*)$, so the $O(\log\log n)$ bits required to encode $d_{T_y}(w^*)$ are included in the label of $(v,y)$.  Furthermore, as shown in \lemref{split}, $\sigma_{T_y^1}(w^*)=\sigma_{T_y^1}(v)$ can be recovered from $\sigma_{T_y}(w^*)$ and an additional $O(\log\log n)$ bits that are included in the label of $(v,y)$.  In this way, we can recover $\sigma_{T_y^1}(v)$ with the addition of only $O(\log\log n)$ bits to the label of $(v,y)$.
 
+Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulting in intermediate trees $T_y^1,\ldots,T_y^{2^k-1}=T_y'$.  However, these applications are partitioned into $k$ sets $S_0,\ldots,S_{k-1}$, where the applications of \lemref{multi-split} in $S_i$ operate on $2^i$ disjoint subtrees rooted at nodes of depth $i$.  In particular, only one subtree in each set contains any nodes from $P_{T}(v)$.  Each of these applications adds $O(\log\log n)$ bits to the label of $(v,y)$ for a total of $O(k\log\log n)$ bits.
 
-
-
-
-For each node 
-
-
-The rebalancing operation involves several applications of \lemref{split}, whose operation is depicted in the (crappy) figure. How does this affect $\sigma_{T_y}(v)$?  $\sigma_{T_y}(v)$ is just a path to the deepest node representing one of the $t+1$ vertices in $C_H(v)$.  We have to delete a prefix, replace it with $01^r$ or $10^r$ and, in the case where the node you lift is the deepest, also cut off a suffix.
-
-
-
-
+With these additional bits, we can recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S^-_y\cap S^-_{y+1}$.
 
 \paragraph{(S2): Bulk-Insertions}
 
-During the bulk-insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{i}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{i}'$.  This ensures that, $T_y''$, no vertex in $S_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.
+During the bulk-insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{y}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{y}'$.  This ensures that, in $T_y''$, no vertex of $T_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.  This ensures that $P_{T''}(v)=P_{T'}(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for every $v\in S_y$.
 
 \paragraph{(S3): Bulk-Deletions}
 
@@ -622,156 +605,203 @@ Let $v=[a_v,b_v]$ be any vertex such that $(v,y)$ and $(v,y+1)$ are both present
 
 The only other possible change of this type occurs when this replacement operation causes $x'$ to become an ancestor of some node $x''$ that it wasn't before.  In this case, some $v\in S_y$ with $x_{T_y''}(v)=x''$ before the replacement will have $x_{T_y''}(v)=x'$ after the replacement.
 
-In either of the preceding cases replacing $x$ with $x'$ can only make $\sigma_T(x_{T_y}(v))$ shorter for each $v\in S_y$.  Therefore, any number of these operations can only make $\sigma_{T_y}(w)$ shorter.  Therefore, the effect of all these operations on $\sigma_T(w)$ can be represented by one integer $d\in \{0,\ldots,h(T_y'')\}$ that can be represented using $O(\log\log n)$ bits.   We can therefore recover $\sigma_{T_{y+1}}(v)$ by deleting a suffix of length $d$ from $\sigma_{T_y''}(v)$.
+In either of the preceding cases replacing $x$ with $x'$ has the effect of removing a (possibly empty) suffix from $\sigma_T(x_{T_y}(v))$ for each $v\in S_y$.  Therefore, any number of these operations can only make $\sigma_{T_y}(v)$ shorter.  Therefore, the effect of all these operations on $\sigma_T(v)$ can be represented by one integer $d\in \{0,\ldots,h(T_y'')\}$ that can be represented using $O(\log\log n)$ bits.   We can therefore recover $\sigma_{T_{y+1}}(v)$ by deleting a suffix of length $d$ from $\sigma_{T_y''}(v)$.
+
+In summary, for each $v\in S_y$, there is a bitstring $\mu_y(v)$ of length $O(k\log\log n)$ that allows us to compute $\sigma_{T_{y+1}}(v)$ from $\sigma_{T_y}(v)$.
 
 
+\subsection{Adjacency Testing}
 
-the value $x'$ must be 
+Summarizing, we have a labelling scheme for any $n$-vertex subgraph $G$ of $H\boxtimes P$ that contains the following information for each vertex $z=(v,y)\in V(G)$:
 
+\begin{enumerate}[(PC1)]
+  \item $\alpha(y)$; % of length $\log n-\log|T_y| + O(\log\log n)$;
+  \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
+  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
+  \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
+  \item $\varphi'(v)$;
+  \item $\mu_y(v)$;
+  \item $a(z)$.
+\end{enumerate}
+The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3t$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
 
-
-Furthermore, the labels defined by $\gamma$
-
-The label of each vertex $v=(x,y)\in V(H)$ also includes an array $a$ of $3(t+1)$ bits that indicate whether $G$ contains the edges from $v$ to $w$ for each $w\in\{(p_j(x),y+b):j\in\{1,\ldots,t+1\},\, b=\{-1,0,1\}\}$. 
-
-The label of each vertex $v=(x,y)\in V(H)$
-
-
-
-We have not yet completed the description of our labelling scheme. Nevertheless, this is a good time to see what information we are still missing.
-At this point, if we are given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $V(G)$. We can use $\alpha(v_1)$ and $\alpha(v_2)$ to determine which of the following applies:
+Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in E(G)$ by first using $\alpha(y_1)$ and $\alpha(y_2)$ to determine which of the following applies:
 \begin{enumerate}
-  \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $v_1v_2\not\in E(H\boxtimes P)$, so $vw\not\in E(G)$.
+  \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
+
+  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC4) contains $\gamma_{H_y}(v_1)$ and $\gamma_{H_y}(v_2)$ and we use this to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
   
-  \item $y_1=y_2$.  In this case we can use $\gamma(v_1)$ and $\gamma(v_2)$ to check if $x_1x_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $vw\not\in E(G)$.  If $x_1x_2\in E(H)$ then we know that $vw\in E(H\boxtimes P)$.  In this case $\gamma(v_1)$ and $\gamma(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$.  We can now consult the relevant bit of $a(x_2)$ to determine if $x_1x_2\in E(G)$.
+  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\gamma_{H_y}(v_1)$ and $\gamma_{H_y}(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+
+  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\gamma_{H_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\gamma_{H_{y+1}}(v_2)$.  We use these to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
   
-  \item $y_1-y_2=1$: Let $y=y_1$ (so that $y_2=y-1$).  In this case $\nu_{y-1}(x_{T_{y-1}}(x_2))$ and $\sigma_{T_{y-1}}(x_2)$ are sufficient to determine $\sigma_{T_{y}}(x_2)$.     \snote{Ack: annoying name conflict $x_T(v)$ and $x\in V(H)$.}
+  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\gamma_{H_{y+1}}(v_1)$ and $\gamma_{H_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+
+  \item $y_2-y_1=-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
 
+This completes the proof of our main result.
+
+\begin{thm}
+  There exists a function $\mathds{A}:(\{0,1\}^*)^2\to\{0,1\}$ such that for every $t$-tree $H$, every path $P$, and every $n$-vertex subgraph $G$ of $H\boxtimes P$, there is a prefix-free code $\eta:V(G)\to\{0,1\}^*$ such that
+  $|\eta(v)|=\log n + O(\sqrt{\log n\log\log n}+t(\log t + \log\log n))$ for every $v\in V(G)$ and, for every $v,w\in V(G)$, 
+  \[  \mathds{A}(\eta(v),\eta(w)) = \begin{cases}
+        1 & \text{if $vw\in E(G)$} \\
+        0 & \text{if $vw\not\in E(G)$}
+      \end{cases}
+      \]
+\end{thm}
 
 
 
 
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-
-
-\begin{verbatim}
-Hi All,
-
-Today's progress report:
-
-1. I spent time carefully writing the P*P solution---in particular
-finishing up the bulk-insertions/deletions and rebalancing parts.  We
-get label length log n + O(sqrt(log n loglog n).
-http://cglab.ca/~morin/publications/drafts/labelling/
-
-2. Vida and I spent some time thinking about the generalization to H*P
-where H is a k-tree, and think that most of the work is done already
-by the P*P solution.  Here's the idea:
-
-H is a subgraph of an interval graph of thickness k*log n, so let's
-assume the nodes of H are actually real intervals that are properly
-coloured with klog n colours.
-
-For any subset S of V(H) there is a set X of at most |S| real numbers
-(I'll call these points) so that every v in S contains at least one
-point in X.  We say that X stabs S.
-
-Our subgraph of H*P actually contains a sequence S_1,..,S_m of subsets
-of V(H) of total size n.  We can greedily compute a sequence of point
-sets  X_1,...,X_m where X_i stabs S_i and there is a function f_i:S_i->x_i
-such that f_i(v) is a point that stabs v.  These point sets are
-constructed lazily so that, if v is in S_i\cap S_{i+1}, then f_i(v)=f_{i+1}(v). 
-The only points in X_i that are not in X_{i+1} are those that are unnecessary: those x in X_i such that there is no v in S_i with f(v)=x.
-
-This guarantees that |X_i|<=|S_i|.
-
-Now we're going to use all the machinery we developed in Section 3 of
-the write-up to make a sequence of binary search trees T_1,..,T_m
-where each T_i contains a superset of X_i, the T_i's have linear total
-size, the height of T_i is log|T_i| + o(log n) and, for any point x
-that appears in T_i and T_{i+1}, there is a o(log n)-bit description
-of how to rewrite the root to x path in T_i (a sequence of 0's and
-1's) so that it becomes the root to x path in T_{i+1}.
-
-We can also assign a label to each vertex v in S_i of length log n -
-log|T_i| so that for v in S_i and w in S_j, label(v) and label(w) tell
-us if j-i is {-1, 0, 1, >=2}. So now each vertex v in S_i has log|T_i|
-free bits it can still use for its label.
-
-For each interval/vertex v in S_i, we assign v to the highest point 
-x_i(v) in T_i that stabs v.  Now for any v in S_i, there is one 
-root to leaf path in T_i that contains x(v),x(p_1(v)),..,x(p_k'(v)) where
-p_1(v),..,p_k'(v) are the k-tree parents of v that happen to be in
-S_i.  So log|T_i| + o(log n) bits plus an additional kloglog n bits is
-enough then to recover all the root to x(v) and x(p_i) paths. This
-plus a bit more bookkeeping that Cyril described in his email is
-enough to test if an edge vw is in E(G) using label(v) and label(w)
-provided that v and w are both in S_i.  The only issue that remains is
-what to do if v is in S_i and w is in S_{i+1}, since label(v) contains
-a path to x_i(v) in T_i and label(w) contains a path to x_{i+1}(v) in
-T_{i+1}.  If x_i(v)=x_{i+1}(v) then we're happy: Our solution for P*P
-already includes enough information to convert the path to x(v) in T_i
-into the path to x(v) in T_{i+1}.
-
-What to do when x_i(v)!= x_{i+1}(v)?  For this, we have to look at why
-x_i(v) would change.  This happens because in T_i, x_i(v) was closer
-to the root than x_{i+1}(v) but in T_{i+1}, x_{i+1}(v) is closer to
-the root than x_i.   How did x_{i+1}(v) get closer to the root in
-T_{i+1}?  For that, we have to look at the solution for P*P and how
-the binary search trees T_i and T_{i+1} are related.
-
-1. It wasn't because x_{i+1}(v) was inserted in T_{i+1}: Newly
-inserted nodes are added as tiny subtrees at the leaves. They're
-further from the root than any preexisting node.
-
-2. Maybe it was because some ancestor x of x_{i+1}(v) was deleted so
-x_{i+1}(v) took its place, closer to the root.  If so, then the path
-to x_{i+1}(v) in T_{i+1}(v) is still a prefix of path to x_i(v) in
-T_i, and all we need is to store the length of this prefix so we can
-derive the path the root to x_{i+1}(v) path from x_i(v).
-
-3. Maybe it was because we did a rebalancing operation that brought
-x_{i+1}(v) closer to the root, overtaking x_i(v).  These rebalancing
-operations all use the same basic operation, and this operation is
-depicted in the only figure in the paper, which I will now refer to.
-In this case, the only nodes on a root-to-leaf path that change
-relative order are on the path to the node x that is being moved
-closer to the root.  Even then, the relative distance to the root of
-these nodes does not change except for nodes a and b where a is on the
-"left wall" of the figure and b is on the "right wall".  But if a
-stabs v and b stabs v, then the root also stabs v.  So the node
-x_{i+1}(v) is the root x in T_{i+1} of subtree being restructured. In
-particular, the root to x path in T_{i+1} is a prefix of the root to
-x_i(v) path in T_i.  This can also be recorded using O(\log\log n)
-bits.
-
-That's it(?!)
-
-Pat
-\end{verbatim}
+% 
+% the value $x'$ must be 
+% 
+% 
+% 
+% Furthermore, the labels defined by $\gamma$
+% 
+% The label of each vertex $v=(x,y)\in V(H)$ also includes an array $a$ of $3(t+1)$ bits that indicate whether $G$ contains the edges from $v$ to $w$ for each $w\in\{(p_j(x),y+b):j\in\{1,\ldots,t+1\},\, b=\{-1,0,1\}\}$. 
+% 
+% The label of each vertex $v=(x,y)\in V(H)$
+% 
+% 
+% 
+% We have not yet completed the description of our labelling scheme. Nevertheless, this is a good time to see what information we are still missing.
+% At this point, if we are given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $V(G)$. We can use $\alpha(v_1)$ and $\alpha(v_2)$ to determine which of the following applies:
+% \begin{enumerate}
+%   \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $v_1v_2\not\in E(H\boxtimes P)$, so $vw\not\in E(G)$.
+% 
+%   \item $y_1=y_2$.  In this case we can use $\gamma(v_1)$ and $\gamma(v_2)$ to check if $x_1x_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $vw\not\in E(G)$.  If $x_1x_2\in E(H)$ then we know that $vw\in E(H\boxtimes P)$.  In this case $\gamma(v_1)$ and $\gamma(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$.  We can now consult the relevant bit of $a(x_2)$ to determine if $x_1x_2\in E(G)$.
+% 
+%   \item $y_1-y_2=1$: Let $y=y_1$ (so that $y_2=y-1$).  In this case $\nu_{y-1}(x_{T_{y-1}}(x_2))$ and $\sigma_{T_{y-1}}(x_2)$ are sufficient to determine $\sigma_{T_{y}}(x_2)$.     \snote{Ack: annoying name conflict $x_T(v)$ and $x\in V(H)$.}
+% \end{enumerate}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% \newpage
+% 
+% 
+% \begin{verbatim}
+% Hi All,
+% 
+% Today's progress report:
+% 
+% 1. I spent time carefully writing the P*P solution---in particular
+% finishing up the bulk-insertions/deletions and rebalancing parts.  We
+% get label length log n + O(sqrt(log n loglog n).
+% http://cglab.ca/~morin/publications/drafts/labelling/
+% 
+% 2. Vida and I spent some time thinking about the generalization to H*P
+% where H is a k-tree, and think that most of the work is done already
+% by the P*P solution.  Here's the idea:
+% 
+% H is a subgraph of an interval graph of thickness k*log n, so let's
+% assume the nodes of H are actually real intervals that are properly
+% coloured with klog n colours.
+% 
+% For any subset S of V(H) there is a set X of at most |S| real numbers
+% (I'll call these points) so that every v in S contains at least one
+% point in X.  We say that X stabs S.
+% 
+% Our subgraph of H*P actually contains a sequence S_1,..,S_m of subsets
+% of V(H) of total size n.  We can greedily compute a sequence of point
+% sets  X_1,...,X_m where X_i stabs S_i and there is a function f_i:S_i->x_i
+% such that f_i(v) is a point that stabs v.  These point sets are
+% constructed lazily so that, if v is in S_i\cap S_{i+1}, then f_i(v)=f_{i+1}(v). 
+% The only points in X_i that are not in X_{i+1} are those that are unnecessary: those x in X_i such that there is no v in S_i with f(v)=x.
+% 
+% This guarantees that |X_i|<=|S_i|.
+% 
+% Now we're going to use all the machinery we developed in Section 3 of
+% the write-up to make a sequence of binary search trees T_1,..,T_m
+% where each T_i contains a superset of X_i, the T_i's have linear total
+% size, the height of T_i is log|T_i| + o(log n) and, for any point x
+% that appears in T_i and T_{i+1}, there is a o(log n)-bit description
+% of how to rewrite the root to x path in T_i (a sequence of 0's and
+% 1's) so that it becomes the root to x path in T_{i+1}.
+% 
+% We can also assign a label to each vertex v in S_i of length log n -
+% log|T_i| so that for v in S_i and w in S_j, label(v) and label(w) tell
+% us if j-i is {-1, 0, 1, >=2}. So now each vertex v in S_i has log|T_i|
+% free bits it can still use for its label.
+% 
+% For each interval/vertex v in S_i, we assign v to the highest point 
+% x_i(v) in T_i that stabs v.  Now for any v in S_i, there is one 
+% root to leaf path in T_i that contains x(v),x(p_1(v)),..,x(p_k'(v)) where
+% p_1(v),..,p_k'(v) are the k-tree parents of v that happen to be in
+% S_i.  So log|T_i| + o(log n) bits plus an additional kloglog n bits is
+% enough then to recover all the root to x(v) and x(p_i) paths. This
+% plus a bit more bookkeeping that Cyril described in his email is
+% enough to test if an edge vw is in E(G) using label(v) and label(w)
+% provided that v and w are both in S_i.  The only issue that remains is
+% what to do if v is in S_i and w is in S_{i+1}, since label(v) contains
+% a path to x_i(v) in T_i and label(w) contains a path to x_{i+1}(v) in
+% T_{i+1}.  If x_i(v)=x_{i+1}(v) then we're happy: Our solution for P*P
+% already includes enough information to convert the path to x(v) in T_i
+% into the path to x(v) in T_{i+1}.
+% 
+% What to do when x_i(v)!= x_{i+1}(v)?  For this, we have to look at why
+% x_i(v) would change.  This happens because in T_i, x_i(v) was closer
+% to the root than x_{i+1}(v) but in T_{i+1}, x_{i+1}(v) is closer to
+% the root than x_i.   How did x_{i+1}(v) get closer to the root in
+% T_{i+1}?  For that, we have to look at the solution for P*P and how
+% the binary search trees T_i and T_{i+1} are related.
+% 
+% 1. It wasn't because x_{i+1}(v) was inserted in T_{i+1}: Newly
+% inserted nodes are added as tiny subtrees at the leaves. They're
+% further from the root than any preexisting node.
+% 
+% 2. Maybe it was because some ancestor x of x_{i+1}(v) was deleted so
+% x_{i+1}(v) took its place, closer to the root.  If so, then the path
+% to x_{i+1}(v) in T_{i+1}(v) is still a prefix of path to x_i(v) in
+% T_i, and all we need is to store the length of this prefix so we can
+% derive the path the root to x_{i+1}(v) path from x_i(v).
+% 
+% 3. Maybe it was because we did a rebalancing operation that brought
+% x_{i+1}(v) closer to the root, overtaking x_i(v).  These rebalancing
+% operations all use the same basic operation, and this operation is
+% depicted in the only figure in the paper, which I will now refer to.
+% In this case, the only nodes on a root-to-leaf path that change
+% relative order are on the path to the node x that is being moved
+% closer to the root.  Even then, the relative distance to the root of
+% these nodes does not change except for nodes a and b where a is on the
+% "left wall" of the figure and b is on the "right wall".  But if a
+% stabs v and b stabs v, then the root also stabs v.  So the node
+% x_{i+1}(v) is the root x in T_{i+1} of subtree being restructured. In
+% particular, the root to x path in T_{i+1} is a prefix of the root to
+% x_i(v) path in T_i.  This can also be recorded using O(\log\log n)
+% bits.
+% 
+% That's it(?!)
+% 
+% Pat
+% \end{verbatim}
   
   
 \bibliographystyle{plainurl}
