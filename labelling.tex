@@ -512,7 +512,7 @@ The correctness of this procedure follows from \obsref{unique-id} (so positive r
   Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so Part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
 \end{proof}
 
-Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following result,
+Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following corollary.
 
 \begin{cor}\corlabel{t-tree-labelling}
   There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\gamma:V(H)\to\{0,1\}^*$ where $|\gamma(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
@@ -529,7 +529,7 @@ Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$
 
 \subsection{Data Structuring}
 
-We point out again that the result in \lemref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
+We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
 
 What we will do next is to show that the solution presented in \secref{pxp} generalizes to the current setting.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a collection $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
@@ -551,7 +551,9 @@ For each $v\in S^-_y$, the label $\gamma_y(v)$ has four parts (TC1)--(TC4).  Par
 
 Part~(TC2) of $\gamma_y(v)$, however depends very much on the tree $T_y$.  Luckily, Part~(TC2) is small: It has size $o(\log n)$, so the label of $(v,y)$ can include Part~(TC2) for $\gamma_{y}(v)$ and $\gamma_{y+1}(v)$.\snote{Do we need $\gamma_{y-1}(v)$ also?}
 
-The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part, $\sigma_{T_y}(v)$, is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v))$.  When $T_y$ is restructured to become $T_{y+1}$, the path defining $\sigma_{T_y}(v)$ changes, the relative depths of nodes in $x_{T_y}(C_H(v))$ may change and even the value $x_{T_y}(w)$ may change for any $w\in V(H)$.  We now examine the three operations that define how $T_y$ is transfomed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.
+The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part, $\sigma_{T_y}(v)$, is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v))$.  When $T_y$ is restructured to become $T_{y+1}$, the path defining $\sigma_{T_y}(v)$ changes, the relative depths of nodes in $x_{T_y}(C_H(v))$ may change and even the value $x_{T_y}(w)$ may change for any $w\in V(H)$.  
+
+We now examine the three operations that define how $T_y$ is transfomed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.  Recall that these three operations are (S1)~rebalancing, (S2)~bulk insertion and (S3)~bulk deletion.
 % 
 % In \secref{pxp} one part of this problem is already solved: If $z$ is also the deepest node in $x_{T_{y+1}}(C_H(v)):=\{x_{T_{y+1}}(w): w\in C_H(v)\}$, then $\nu_y(z)$, which has size $o(\log n)$ is enough to recover $\sigma_{T_{y+1}}(z)$.
 % 
@@ -560,6 +562,42 @@ The difficulty comes from Part~(TC1) of $\gamma_y(v)$.  This part, $\sigma_{T_y}
 \paragraph{(S1): Rebalancing}
 
 The rebalancing operation involves applying \lemref{multi-split} to all the subtrees of $T$ rooted at nodes of depth $(i-1)(k+1)$.  This, in turn, involves applying \lemref{split} to $2^k-1$ nodes so that they become roots of specific subtrees.
+
+It will be helpful to have a notation for the path to the deepest node in $x_T(C_H(v))$, so let's call this $P_T(v)$.
+
+Consider some $v\in S^-_{y}\cap S^-_{y+1}$ and let $P_T(v)=x_0,\ldots,x_r$.  We examine what happens when we apply \lemref{multi-split} to some subtree $T_*$ of $T$ to obtain a new subtree $T_y^1$ and a new tree $T_y'$ obtained by replacing $T_*$ with $T_y^1$ in $T_y$.
+
+A rebalancing operation applies \lemref{multi-split} to all the subtrees rooted at nodes of depth $(i-1)(k+1)$.  At most one of these subtrees contains nodes from $P_{T_y}(v)$.  We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.
+
+For each of these other applications, $T_*$ does not contain any of $x_0,\ldots,x_r$.  So, for each $w=[a_w,b_w]\in C_H(v)$, no node in $T_*$ is an ancestor of $x_{T_y}(w)$ in $T_y$ or in $T_y'$. Therefore, $x_{T_y}(w)$ is the least common ancestor, in $T_y$ and in $T_y'$ of all nodes in $\{x\in V(T_y): x\in[a_w,b_w]\}$.  Therefore $x_{T_y}(w)=x_{T_{y+1}}(w)$ and the path $x_0,\ldots,x_r$ is the path from the root of $T_{y+1}$ to the deepest node in $x_{T_{y+1}}(C_H(v))$.  Therefore, $\sigma_{T_y}(v)=\sigma_{T_{y+1}(v)}$ and the application of \lemref{split} to $T_*$ introduces no change to $\sigma_{T_y}(v)$.  
+
+For the at most one tree $T_*$ that does contain some nodes in $x_0,\ldots,x_r$, $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  None of $x_1,\ldots,x_{i-1}$ is in $[a_w,b_w]$ since this would contradict the fact that $x_r=x_{T_y}(w)$.  Therefore $x_{T_y'}(w)\in V(T_*)$.  Therefore, the path from the root of $T_{y+1}$ to the deepest node in $x_{T_{y+1}}(C_H(v))$ contains the root of $T_y^1$ and therefore begins with $x_0,\ldots,x_{i-1}$.  As part of the label for $(v,y)$ we can encode the value of $i$ using $O(\log\log n)$ bits.  Thus, we only need to encode difference between $\sigma_{T_*}(v)$ and $\sigma_{T_y^1}(v)$.  
+
+To simplify notation, we now assume that $T^*=T_y$, so that the one application of \lemref{multi-split} that affects $P_{T_y}(v)$ is at the root of $T_y$.
+\lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.  There are two cases to consider:
+
+\begin{enumerate}
+  \item $x'$ is not the subtree of $T_y$ rooted at $x_r$.  In this case we claim that $x_r$ is the deepest node in $x_{T_{y+1}}(C_H(v))$.  Therefore, the differences between $\sigma_{T_y}(v)$ and $\sigma_{T_{y+1}}(v)$ are exactly the differences between $\sigma_{T_y}(x_r)$ and $\sigma_{T_{y+1}}(x_r)$.  \lemref{split} shows that these differences can be encoded using $O(\log\log n)$ bits.
+  
+  To see why $x_r$ is the deepest node in $x_{T_{y+1}}(C_H(v))$, first observe that $x'\not\in[a_w,b_w]$ since, otherwise the lowest common ancestor of $x_r$ and $x'$ in $T_y$ would be in $[a_w,b_w]$ contradicting the fact that $x_r=x_{T_y}(w)$.  In $T_y^1$, the only node on the path from the root $x'$ of $T_y^1$ to $x_r$ that may not be present in $x_i,\ldots,x_r$ is $x'$ itself.  Therefore $x_{T_y^1}(w)=x_r$.  This establishes that $x_r\in x_{T_{_*^1}}(v)$. All that remains is to show that $x_r$ is the deepest node in $x_{T_y^1}(v)$.
+  
+  If $x_r$ is not the deepest node in $x_{T_y^1}(v)$, it is because there exists some node $w'=[a_{w'},b_{w'}]\in C_H(v)$ such that $x_{T_y}(w')\in V(P_{T_y}(v))$ but $x_{T_y^1}(w')\not\in V(P_{T_y^1}(v))$.  By \lemref{one-path}, this implies that $x_{T_y^1}(w')$ is in the subtree of $T_y^1$ rooted at $x_r$.  Assume, without loss of generality that $x'<x_r$, which implies that all nodes in the subtree rooted at $x_r$ are greater than $x'$.  However, the only nodes of $P_{T_y}(v)$ not in $P_{T_y^1}(v)$ are all less than $x'$.  Therefore $[a_{w'},b_{w'}]$ contains values less than $x'$ and values greater than $x'$, so $x'\in [a_{w'},b_{w'}]$.  But in this case $x_{T_y^1}(w')=x'$, which is an ancestor of $x_r$.  Therefore $x_r$ is indeed the deepest node in $x_{T_y^1}(v)$.
+  
+  \item $x'$ is in the subtree of $T_y$ rooted at $x_r$. If $x_r=x_{T_{_*^1}}(w)$ then we can argue exactly as in the previous paragraph to show that $x_r$ is the deepest node in $x_{T_y^1}(C_H(v))$ so, as discussed above, the differences between $\sigma_{T_y}(v)$ and $\sigma_{T_{y+1}}(v)$ can be encoded using $O(\log\log n)$ bits.
+  
+  On the other hand, if $x_{T_{_*^1}}(w)\neq x_r$ then, by \lemref{one-path} $x_{T_{_*^1}}(w)$ is some ancestor of $x_r$ in $T_y^1$.  But this means that $x_{T_{_*^1}}(w)=x'$ since $x'$ is the only ancestor of $x_r$ in $T_y^1$ that is not also an ancestor of $x_r$ in $T_y$.  If $x'$ is the deepest node in $x_{T_y^1}(v)$ then $P_{T_y^1}(v)$ is the empty string $\sigma$ and this can be encoded using $O(1)$ bits.
+  
+   is a prefix of $P_{T_y}(v)$ followed by $x'$ and, in fact $\sigma_{T_y^1}(v)$ is a prefix of $\sigma_{T_y}(v)$.  The length of this prefix can be encoded using $O(\log\log n)$ bits.
+  
+  If $x'$ is not the deepest node in $x_{T_y^1}(v)$
+  
+  
+\end{enumerate}
+  
+  
+
+
+
 
 
 
