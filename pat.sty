@@ -6,7 +6,8 @@
 
 \newcommand{\centerpsfig}[1]{\centerline{\psfig{#1}}}
 
-\newcommand{\showlabel}[1]{\fcolorbox{red}{yellow}{{\color{red}#1}}\label{#1}}
+% \newcommand{\showlabel}[1]{\fcolorbox{red}{yellow}{{\color{red}#1}}\label{#1}}
+\newcommand{\showlabel}[1]{\label{#1}}
 
 \newcommand{\seclabel}[1]{\showlabel{sec:#1}}
 \newcommand{\Secref}[1]{Section~\ref{sec:#1}}
@@ -74,7 +75,6 @@
 \newtheorem{defn}{Definition}
 \newcommand{\deflabel}[1]{\showlabel{rem:#1}}
 \newcommand{\defref}[1]{Definition~\ref{rem:#1}}
-
 
 \newtheorem{rem}{Remark}
 \newcommand{\remlabel}[1]{\showlabel{rem:#1}}

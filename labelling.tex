@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-  We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log_2 n+o(\log n)$.
+  We describe an adjacency labelling-scheme for $n$-vertex planar graphs that assings each vertex a label of length $\log_2 n+o(\log n)$.  
 \end{abstract}
 \end{titlepage}
 \pagenumbering{roman}
@@ -72,16 +72,16 @@ For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A string $s_1,\ldots,s_k$ is \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-    There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le \log(i+1)+O(\log\log i)$.
+    There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\log(i+1))$.
 \end{lem}
 
-A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  The \emph{depth} $d_T(v)$ of a node $v$ in a binary tree is the length of the unique path from the root of $T$ to $v$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ whose height is $\lfloor\log |T|\rfloor$.
+A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $v$ in $T$, $P_T(v)$ denotes the path from the root of $T$ to $v$.  The \emph{length} of a path $P$ is the number of edges in $P$.  The \emph{depth}, $d_T(v)$ of $v$ is the length of $P_T(v)$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ with $h(T)=\lfloor\log|T|\rfloor$.
 
 A node $a\in V(T)$ is an \emph{ancestor} of $v\in V(T)$ if the path in $T$ from the root of $T$ to $v$ includes $a$.  (Note that $v$ is an ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is an ancestor of $v$ for each $v\in X$.
 
 Let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$ that is a left-child of its parent $p$, $x<p$ and for each node $y$ that is a right-child of its parent $p$, $p<y$.  The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
+A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtrees and $z>x$ for each node $z$ in $x$'s right subtree. The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
 
 \begin{obs}\obslabel{lexicographic}
   If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
@@ -93,9 +93,9 @@ Let $\R^+$ denote the set of positive real numbers. The following is an easy and
   For any function $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,n\}$ such that, for each $i\in\{1,\ldots,n\}$, $d_T(i)\le\log(W/w(i))$, where $W:=\sum_{i=1}^n w(i)$.
 \end{lem}
 
-To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(i)\le W/2$ and $\sum_{z=x+1}^{n} w(i)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees respectively.
+To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(i)\le W/2$ and $\sum_{z=x+1}^{n} w(i)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees, respectively.
 
-The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees for binary search trees \cite[Section~6.2.3]{morin:open}:
+The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}:
 
 \begin{lem}\lemlabel{predecessor-encoding}
   Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that $x<y$ and there is no node $z\in V(T)$ such that $x<z<y$ (i.e., $x$ and $y$ are consecutive in the sorted order of $V(T)$).  Then
@@ -105,7 +105,7 @@ The following fact about binary search trees is useful, for example, in the dele
   \end{enumerate}
 \end{lem}
 
-Putting the a few of the preceding results together we obtain the following useful coding result:
+Putting some of the preceding results together we obtain the following useful coding result:
 
 \begin{lem}\lemlabel{row-code}
   The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
@@ -145,9 +145,9 @@ Putting the a few of the preceding results together we obtain the following usef
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-We begin with the special case where $G\subseteq P_1\boxtimes P_2$ is an $n$-vertex graph where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. 
+We begin with the special case where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. The graph $P_1\boxtimes P_2$ is an $m\times h$ grid-with diagonals.  
 
-\pnote{TODO: Annoyingly, I will eventually have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
+\pnote{TODO: Annoyingly, I now have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
 
 For each $x\in\{1,\ldots,m\}$, we let $L_x=\{y:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_m$ of balanced binary search trees where, for each $x\in\{1,\ldots,h\}$,
 \begin{enumerate}[(PR1)]
@@ -527,7 +527,7 @@ Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$
 \end{cor}
 
 
-\subsection{Data Structuring}
+\subsection{Data Structuring and the $\mu$ Code}
 
 We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
 
