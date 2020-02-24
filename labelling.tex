@@ -147,65 +147,71 @@ Putting some of the preceding results together we obtain the following useful co
 
 We begin with the special case where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. The graph $P_1\boxtimes P_2$ is an $m\times h$ grid-with diagonals.  
 
-\pnote{TODO: Annoyingly, I now have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
+% \pnote{TODO: Annoyingly, I now have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
 
-For each $x\in\{1,\ldots,m\}$, we let $L_x=\{y:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_m$ of balanced binary search trees where, for each $x\in\{1,\ldots,h\}$,
+\subsection{The Labels}
+
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_h$ of balanced binary search trees where, for each $y\in\{1,\ldots,h\}$,
 \begin{enumerate}[(PR1)]
-  \item $T_x$ contains (a superset of) $\bigcup_{b\in\{-1,0,1\}} (L_{x+b}\cup \{y-1:y\in L_{x+b}\})$;
-  \item The height $h(T_x)$ of $T_x$ is $\log |T_x| + o(\log n)$;
-  \item $W:=\sum_{x=1}^h |T_x| = O(n)$;
-  \item If $y\in V(T_x)\cap V(T_{x+1})$, then $\sigma_{T_{x+1}}(y)$ can be obtained from $\sigma_{T_{x}}(y)$ with an additional $o(\log n)$ bits that we denote by $\nu_x(y)$.  More precisely, there is a (universal) function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $B(\sigma_{T_{x}}(y), \nu_x(y))=\sigma_{T_{x+1}}(y)$
+  \item $T_y$ contains (a superset of) $\bigcup_{b\in\{0,1\}} (L_{y+b}\cup \{x-1:x\in L_{y+b}\})$;
+  \item The height $h(T_y)$ of $T_y$ is $\log |T_y| + o(\log n)$;
+  \item $W:=\sum_{y=1}^h |T_y| = O(n)$;
+  \item If $x\in V(T_y)\cap V(T_{y+1})$, then $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_x(y)$.  More precisely, there is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $B(\sigma_{T_{y}}(x), \nu_y(x))=\sigma_{T_{y+1}}(x)$
 \end{enumerate}
 
 Before describing the sequence of trees satisfying (PR1--4), we show how these can be used in a labelling scheme for $G$. 
 
-Given $G$ and $T_{1},\ldots,T_m$ we use \lemref{row-code} with the weight function $w(x):=|T_x|$ to construct a code $\alpha:\{1,\ldots,m\}\to\{0,1\}^*$ where
+Given $G$ and $T_{1},\ldots,T_h$ we use a \lemref{row-code} with the weight function $w(y):=|T_y|$ to construct a code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ where
 \[  
-  |\alpha(x)| = \log W-\log|T_x| + O(\log\log m) = \log n - \log|T_x| + o(\log n)
+  |\alpha(y)| = \log W-\log|T_y| + O(\log\log h) = \log n - \log|T_y| + O(\log\log n)
 \]
-for each $y\in\{1,\ldots,h\}$.  Every vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:  
-\begin{enumerate}
-  \item $\alpha(x)$;
-  \item $\gamma(|\sigma_{T_x}(y)|)$ and $\sigma_{T_x}(y)$;    
-  \item $\delta_{T_x}(y)$;
-  \item $\nu_x(y)$; and
+for each $y\in\{1,\ldots,h\}$.  Every vertex $z=(x,y)\in V(G)$ receives a label consisting of the following:  
+\begin{enumerate}[(GC1)]
+  \item $\alpha(y)$;
+  \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;    
+  \item $\delta_{T_y}(x)$;
+  \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
-The two major components of this label are $\alpha(x)$ and $\sigma_{T_x}(y)$ which, together have length $\log n + o(\log n)$.  The three remaining components each have size $o(\log n)$.
+The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + O(\log\log n)$.  The remaining components have size $O(|\nu_y(x)|+\log\log n)$.  
 
-Given the labels of $w_1=(x_1,y_1)$ and $w_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(x_1)$ and $\alpha(x_2)$, determine which of the following applies:
+A large part of the remaining work involves describing $\nu_y(x)$ and, ultimately, showing that $|\nu_y(x)|\in O(\sqrt{\log n\log\log n})$. First, though, we show how (GC1)--(GC5) can be used for adjacency testing.
+
+\subsection{Adjacency Testing}
+
+Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$, determine which of the following applies:
 \begin{enumerate}
-  \item $|x_1-x_2|\ge 2$: In this case we immediately conclude that $w_1$ and $w_2$ are not adjacent since $x_1x_2\not\in E(H)$.  
+  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $z_1$ and $z_2$ are not adjacent since $y_1y_2\not\in E(P_1)$.  
   
-  \item $x_1=x_2$: In this case, let $x:=x_1=x_2$, let $T:=T_x$ and lexicographically compare $\sigma_T(y_1)$ and $\sigma_T(y_2)$ to determine (without loss of generality) that $y_1<y_2$.  Using $\sigma_{T}(y_2)$ and $\delta_{T}(y_2)$, compute $\sigma{T}(y_2-1)$.  If $\sigma_T(y_2-1)\neq \sigma_T(y_1)$ then immediately conclude that $w_1$ and $w_2$ are not adjacent, since $y_1y_2\not\in E(P)$.  Otherwise, we know that $y_1=y_2-1$ and $x_1=x_2$ so use the relevant bit of $a(w_1)$ (or $a(w_2)$) to determine if $w_1$ and $w_2$ are adjacent in $G$.
+  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$, let $T:=T_y$ and lexicographically compare $\sigma_T(x_1)$ and $\sigma_T(x_2)$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\sigma{T}(x_2-1)$.  If $\sigma_T(x_2-1)\neq \sigma_T(x_1)$ then immediately conclude that $z_1$ and $z_2$ are not adjacent, since $x_1x_2\not\in E(P_2)$.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit of $a(z_1)$ (or $a(z_2)$) to determine if $z_1$ and $z_2$ are adjacent in $G$.
   
-  \item $x_1=x_2-1$: In this case, use $\sigma_{T_{x_1}}(y_1)$ and $\nu_{x_1}(y_1)$ to compute $\sigma_{T_{x_2}}(y_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(w_1)$ in the last step.)
+  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
   
-  \item $x_2=x_1-1$: In this case, use $\sigma_{T_{x_2}}(y_2)$ and $\nu_{x_2}(y_2)$ to compute $\sigma_{T_{x_1}}(y_2)$.  Now let $x:=x_1$, $T:=T_{x}$, and proceed as in the previous case (but consulting a different bit of $a(w_1)$ in the last step.)
+  \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
 \end{enumerate}
 
-Thus, all that remains is to find a sequence of binary search trees $T_1,\ldots,T_m$ with properties (PR1)--(PR4). This is a data structuring problem and we use a combination of existing and new techniques from data structures to solve it.
+Thus, all that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ with properties (PR1)--(PR4). This is a data structuring problem and we use a combination of existing and new techniques from data structures to solve it.
 
 \subsection{Fractional Cascading}
 
-Ultimately, we want to reach a point where, for each $x\in\{1,\ldots,m-1\}$ and each $y\in V(T_x)\cap V(T_{x+1})$, the difference between $\sigma_{T_x}(y)$ and $\sigma_{T_{x+1}}(y)$ has a description $\nu_x(y)$ of length $o(\log n)$.  In order for this to be possible, we require that $V(T_x):= L_x$ not be wildly different from $V(T_{x+1}):= L_{x+1}$.  In the world of data structures, this is achieved by the technique of \emph{fractional cascading} \cite{chazelle.guibas:fractional1, chazelle.guibas:fractional2}.
+Ultimately, we want to reach a point where, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, the difference between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ has a description $\nu_x(y)$ of length $o(\log n)$.  In order for this to be possible, we require that $V(T_y)$ not be wildly different from $V(T_{y+1})$.  In the world of data structures, this is achieved by the technique of \emph{fractional cascading} \cite{vwX,chazelle.guibas:fractional1, chazelle.guibas:fractional2}.
 
 For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min(S)\le x\le \max(S)$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
 
-For each $x\in\{1,\ldots,m\}$, let $L^-_x:=L_x\cup \{y-1:y\in L_x\}$ and observe that $|L^-_x|\le 2|L_y|$, so $\sum_{x=1}^m|L^-_x| \le 2n$.  The following lemma is a form of fractional cascading:
+For each $y\in\{1,\ldots,h\}$, let $L^-_y:=L_y\cup \{x-1:x\in L_y\}$ and observe that $|L^-_y|\le 2|L_y|$, so $\sum_{x=1}^h|L^-_y| \le 2n$.  The following lemma is a form of fractional cascading.  A proof of (a much more general version of) this lemma is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   \snote{Put a self-contained proof in the appendix?}
 
 \begin{lem}\lemlabel{fractional}
   There exists universal constants $a,b\ge 1$ and sets $V_1,\ldots,V_m$ such that
   \begin{compactenum}
-    \item for each $x\in\{1,\ldots,m\}$, $V_m\supseteq L^-_m$;
-    \item for each $x\in\{1,\ldots,m-1\}$, $V_x\cap V_{x+1}$ $a$-chunks $V_{x+1}\setminus V_x$ and $V_x\setminus V_{x+1}$; and
-    \item $\sum_{x=1}^m |V_x|\le bn$.
+    \item for each $y\in\{1,\ldots,m\}$, $V_y\supseteq L^-_y$;
+    \item for each $y\in\{1,\ldots,m-1\}$, $V_y$ $a$-chunks $V_{y+1}$ and $V_{y+1}$ $a$-chunks $V_y$; and
+    \item $\sum_{y=1}^m |V_y|\le bn$.
   \end{compactenum}
 \end{lem}
 
-Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_x\cup V_{x+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_x$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{x+1}$.
+Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_y\cup V_{y+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_y$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{y+1}$.
 
-We will use \lemref{fractional} to creating the sequence of binary search trees $T_1,\ldots,T_m$ where $V(T_x)=V_x$ for each $x\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_x$ and $T_{x+1}$ sufficiently similar so that, for any $y\in V_x\cap V_{x+1}$, there will be an $o(\log n)$-bit description $\nu_x(y)$ of how to modify $\sigma_{T_x}(y)$ in order to obtain $\sigma_{T_{x+1}}(y)$.
+We will use \lemref{fractional} to creating the sequence of binary search trees $T_1,\ldots,T_h$ where $V(T_y):=V_y$ for each $y\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_y$ and $T_{y+1}$ sufficiently similar so that, for any $x\in V_y\cap V_{y+1}$, there will be an $o(\log n)$-bit description $\nu_y(x)$ of how to modify $\sigma_{T_y}(x)$ in order to obtain $\sigma_{T_{y+1}}(x)$.  To begin with, we describe the three operations bulk deletions, bulk insertions, and rebalancing that transform $T_y$ into $T_{y+1}$.
 
 \subsection{Bulk Deletions}
 
@@ -246,7 +252,7 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
 
 \subsection{Tree Splitting}
 
-\lemref{deletion-prefix} and \lemref{chunked-addition} help control the structure of the trees $T_1,\ldots,T_m$.  However, by themselves, they are not enough to ensure that $h(T_x)=\log|T_x|+o(\log n)$, even if $T_1$ is perfectly balanced.  Indeed, \lemref{deletion-prefix} does not ensure that the height of $T$ decreases even after many deletions.  Similarly, \lemref{chunked-addition} allows the height of $T$ to increase by $1+\log a$ even in the case where only $a$ additional elements are inserted.  
+\lemref{deletion-prefix} and \lemref{chunked-addition} help control the structure of the trees $T_1,\ldots,T_h$.  However, by themselves, they are not enough to ensure that $h(T_x)=\log|T_x|+o(\log n)$, even if $T_1$ is perfectly balanced.  Indeed, \lemref{deletion-prefix} does not ensure that the height of $T$ decreases even after many deletions.  Similarly, \lemref{chunked-addition} allows the height of $T$ to increase by $1+\log a$ even in the case where only $a$ additional elements are inserted.  
 
 In this section, we introduce what (to our knowledge) is a novel form of rebalancing that ensures that $h(T_x)=\log|T_x|+o(\log n)$.  Standard forms of rebalancing, including height-balancing, weight-balancing, and partial rebuilding seem not to be applicable in our setting because we have unusual requirements.  In particular, the requirement $h(T_x)=\log|T_x|+o(\log n)$ is quite stringent most standard binary search trees guarantee only $h(T)\le c\log |T|$ for some some constant $c>1$.  Even more exotic is that the updates come in linear-sized batches, where batch $x$ consists of the deletions $V_x\setminus V_{x+1}$ and the insertions $V_{x+1}\setminus V_x$, and we require that there exists a simple relationship between $\sigma_{T_x}(y)$ and $\sigma_{T_{x+1}}(y)$ for each $y\in V_x\cap V_{x+1}$.     
 
@@ -288,9 +294,9 @@ The following lemma uses \lemref{split} recursively:
 \end{lem}
 
 \begin{proof}
-  Let $Z\subset V(T)$ be the set of at most $2^k-1$ nodes of $T$ of depth less than $k$.  Then $T-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_m$.  Each such tree $T_i$ has height at most $h(T)-k$.
+  Let $Z\subset V(T)$ be the set of at most $2^k-1$ nodes of $T$ of depth less than $k$.  Then $T-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_h$.  Each such tree $T_i$ has height at most $h(T)-k$.
   
-  Select the nodes $Y:=\{y_1,\ldots,y_{2^k}-1\}$ of $T$ where each $y_j$ has rank $\lfloor j|T|/2^k\rfloor$ in the set $V(T)$.\footnote{For a finite $X\subset\R$, the \emph{rank} of $x\in S$ is $|\{x'\in S: x'<x\}$.}  For each $j\in\{1,\ldots,m\}$, apply \lemref{mini-split} to the subtree $T_j$ with the at most $2^k$ values $Y\cap V(T_j)$ to obtain a new subtree $T_{j}'$.  Let $T^@$ be the tree obtained by replacing each of $T_1,\ldots,T_m$ with $T_1',\ldots,T_m'$, respectively.
+  Select the nodes $Y:=\{y_1,\ldots,y_{2^k}-1\}$ of $T$ where each $y_j$ has rank $\lfloor j|T|/2^k\rfloor$ in the set $V(T)$.\footnote{For a finite $X\subset\R$, the \emph{rank} of $x\in S$ is $|\{x'\in S: x'<x\}$.}  For each $j\in\{1,\ldots,m\}$, apply \lemref{mini-split} to the subtree $T_j$ with the at most $2^k$ values $Y\cap V(T_j)$ to obtain a new subtree $T_{j}'$.  Let $T^@$ be the tree obtained by replacing each of $T_1,\ldots,T_h$ with $T_1',\ldots,T_h'$, respectively.
   
   Now, $Z\cup Y$ has size at most $2(2^{k}-1)< 2^k-1$ and $T^@[Z\cup Y]$ is a connected subtree that contains the root of $T^@$.  Construct the tree $T'$ by building a complete binary search tree $T'_0$ of height at most $k$ with $V(T_0')=Z\cup Y$ and then attaching each tree in the forest $T^@-(Z\cup Y)$ to the appropriate location in $T'_0$.  Since $T'_0$ has height at most $k$ and each tree in this forest has height at most $h(T)-k$, $h(T')\le h(T)+1$.
   
