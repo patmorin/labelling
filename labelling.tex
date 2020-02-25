@@ -171,7 +171,9 @@ Given $G$ and $T_{1},\ldots,T_h$ we use a \lemref{row-code} with the weight func
 \[  
   |\alpha(y)| = \log W-\log|T_y| + O(\log\log h) = \log n - \log|T_y| + O(\log\log n)
 \]
-for each $y\in\{1,\ldots,h\}$.  Every vertex $z=(x,y)\in V(G)$ receives a label consisting of the following:  
+for each $y\in\{1,\ldots,h\}$.  
+
+Each vertex $z=(x,y)\in V(G)$ receives a label consisting of the following:  
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;    
@@ -189,7 +191,7 @@ Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are 
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $z_1$ and $z_2$ are not adjacent since $y_1y_2\not\in E(P_1)$.  
   
-  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$, let $T:=T_y$ and lexicographically compare $\sigma_T(x_1)$ and $\sigma_T(x_2)$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\sigma{T}(x_2-1)$.  If $\sigma_T(x_2-1)\neq \sigma_T(x_1)$ then immediately conclude that $z_1$ and $z_2$ are not adjacent, since $x_1x_2\not\in E(P_2)$.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit of $a(z_1)$ (or $a(z_2)$) to determine if $z_1$ and $z_2$ are adjacent in $G$.
+  \item $y_1=y_2$: In this case, let $y:=y_1=y_2$, let $T:=T_y$ and lexicographically compare $\sigma_T(x_1)$ and $\sigma_T(x_2)$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\sigma_T(x_2-1)$.  If $\sigma_T(x_2-1)\neq \sigma_T(x_1)$ then immediately conclude that $z_1$ and $z_2$ are not adjacent, since $x_1x_2\not\in E(P_2)$.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit of $a(z_1)$ (or $a(z_2)$) to determine if $z_1$ and $z_2$ are adjacent in $G$.
   
   \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
   
@@ -203,7 +205,7 @@ All that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ w
 
 \subsubsection{Fractional Cascading}
 
-Ultimately, we want to reach a point where, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, the difference between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ has a description $\nu_x(y)$ of length $o(\log n)$.  In order for this to be possible, we require that $V(T_y)$ not be wildly different from $V(T_{y+1})$.  In the world of data structures, this is achieved by the technique of \emph{fractional cascading} \cite{chazelle.guibas:fractional1, chazelle.guibas:fractional2, vaishnavi.wood:rectilinear}.
+Ultimately, we want to reach a point where, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, the difference between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ has a description $\nu_y(x)$ of length $o(\log n)$.  In order for this to be possible, we require that $V(T_{y+1})$ not be wildly different from $V(T_{y})$.  In the world of data structures, this is achieved by the technique of \emph{fractional cascading} \cite{chazelle.guibas:fractional1, chazelle.guibas:fractional2, vaishnavi.wood:rectilinear}.
 
 For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min(S)\le x\le \max(S)$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
 
@@ -218,9 +220,21 @@ For each $y\in\{1,\ldots,h\}$, let $L^-_y:=L_y\cup \{x-1:x\in L_y\}$ and observe
   \end{compactenum}
 \end{lem}
 
-Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_y\cup V_{y+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_y$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{y+1}$.
+Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_y\cup V_{y+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_y$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{y+1}$.  Note that, if $x\in L_y\subseteq V_y$, then $x\in L^-_{y+1}\subseteq V_{y+1}$ so any $x\in L_y$ will appear as a node in both $T_y$ and $T_{y+1}$.
 
-We will use \lemref{fractional} to creating the sequence of binary search trees $T_1,\ldots,T_h$ where $V(T_y):=V_y$ for each $y\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_y$ and $T_{y+1}$ sufficiently similar so that, for any $x\in V_y\cap V_{y+1}$, there will be an $o(\log n)$-bit description $\nu_y(x)$ of how to modify $\sigma_{T_y}(x)$ in order to obtain $\sigma_{T_{y+1}}(x)$.  To begin with, we describe the three operations bulk deletions, bulk insertions, and rebalancing that transform $T_y$ into $T_{y+1}$.
+We will use \lemref{fractional} to create the sequence of binary search trees $T_1,\ldots,T_h$ where $V(T_y):=V_y$ for each $y\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_y$ and $T_{y+1}$ sufficiently similar so that, for any $x\in L_y$, there will be an $o(\log n)$-bit description $\nu_y(x)$ of how to modify $\sigma_{T_y}(x)$ in order to obtain $\sigma_{T_{y+1}}(x)$.  To begin with, we describe the three operations, bulk insertions, bulk deletions, and rebalancing that transform $T_y$ into $T_{y+1}$.  
+
+\subsubsection{Bulk Insertions}
+
+\begin{lem}\lemlabel{chunked-addition}
+  For any binary search tree $T$ and any set $I\subset\R\setminus V(T)$ such that $V(T)$ $a$-chunks $I$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup I$ that is a supergraph of $T$ and such that $h(T')\le h(T)+1+\log a$.
+\end{lem}
+
+\begin{proof}
+  Search for each element $x\in I$ in $T$ until the search path falls out of $T$.  This would be the natural place to add $x$ as a leaf to $T$.  This process partitions $I$ into $r:=|T|+1$ sets $I_1,\ldots,I_r$. Since $V(T)$ $a$-chunks $I$, $|I_i|\le a$ for each $i\in\{1,\ldots,r\}$. For each $i\in\{1,\ldots,r\}$, construct a perfectly balanced binary search tree $T_i$ with $V(T_i):=I_i$ (so $h(T_i)\le\log|I_i|\le\log a)$). For each $i\in\{1,\ldots,r\}$, attach $T_i$ at the appropriate location in $T$ to obtain $T'$.
+\end{proof}
+
+\lemref{chunked-addition} is useful because the set of values $I_y:=V_{y+1}\setminus V_y$ that are present in $T_{y+1}$ but not in $T_y$ are $a$-chunked by $V_y$. Therefore, we can perform all the insertions required to move from $T_y$ to $T_{y+1}$ in such a way that $\sigma_{T_y}(x)=\sigma_{T_{y+1}}(x)$ for every $x\in V_y\cap V_{y+1}$ and so that $h(T_{y+1})\le h(T_y)+1+\log a$.  In short, this operation preserves existing labels without increasing the height by more than a constant.
 
 \subsubsection{Bulk Deletions}
 
@@ -231,7 +245,7 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
 \begin{proof}
   It suffices to prove this for a singleton set $D$ containing one element $z$ since, for larger $D$ we can remove the values from $T$ one at a time.  The correctness of this follows from the transitivity of the ``is a prefix of'' relation on strings.
   
-  The proof is by induction on $|T|$. If $|T|=1$, then the claim is vacuous since $V(T')=\emptyset$.  Therefore assume $|T|\ge 2$.  If $z$ is leaf in $T$, then use $T'=T-\{z\}$ and the result is trivial: $\sigma_{T'}(y)=\sigma_T(y)$ for every $y\in V(T')$.  
+  The proof is by induction on $|T|$. If $|T|=1$, then the claim is vacuous since $V(T')=\emptyset$.  Therefore assume $|T|\ge 2$.  If $z$ is leaf in $T$, then use $T'=T-\{z\}$ and the result is trivial: $\sigma_{T'}(x)=\sigma_T(x)$ for every $x\in V(T')$.  
   
   Otherwise, $z$ has at least one child.  Without loss of generality, assume $z$ has a non-empty left subtree $T_l$.  Then the largest node $z'$ in $V(T_l)$ is the largest value in $V(T)$ that is less than $z$. Inductively remove $z'$ from $T_l$ to obtain $T_l'$ and make this the left child of $z$.  Now replace $z$ with $z'$ to obtain $T'$.  
   
@@ -245,37 +259,38 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
   \end{enumerate}
 \end{proof}
 
-\lemref{deletion-prefix} is useful because it means that, for any particular node of $x$ of $T_y$, the net effect of all the deletions performed when moving from $T_y$ to $T_{y+1}$ on $\sigma_{T_y}(x)$ can be encoded by a single integer in the range $\{0,\ldots,h(T_y\}$.  Using \lemref{elias}, this requires only $O(\log h(T_y))$ bits.  If $T$ is at-all balanced, this is only $O(\log\log n)$ bits.
-
-\subsubsection{Bulk Insertions}
-
-\begin{lem}\lemlabel{chunked-addition}
-  For any binary search tree $T$ and any set $I\subset\R\setminus V(T)$ such that $V(T)$ $a$-chunks $I$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup I$ that is a supergraph of $T$ and such that $h(T')\le h(T)+1+\log a$.
-\end{lem}
-
-\begin{proof}
-  Search for each element $x\in I$ in $T$ until the search path falls out of $T$.  This would be the natural place to add $x$ as a leaf to $T$.  This partitions $I$ into $r:=|T|+1$ sets $I_1,\ldots,I_r$ and, since $V(T)$ $a$-chunks $I$, each $I_i$ has size at most $a$.  For each $I_i$ construct a binary search tree $T_i$ of height at most $\log a$ and attach this to the appropriate location in $T$ to obtain $T'$.
-\end{proof}
-
-\lemref{chunked-addition} is useful because the set of values $I:=V_{y+1}\setminus V_y$ that are present in $T_{y+1}$ but not in $T_y$ are $a$-chunked by $V_y$. Therefore, we can perform all the insertions required to move from $T_y$ to $T_{y+1}$ in such a way that $\sigma_{T_y}(x)=\sigma_{T_{y+1}}(x)$ for every $x\in V_y\cap V_{y+1}$ and $h(T_{y+1})\le h(T_y)+1+\log a$.  
+\lemref{deletion-prefix} is useful because it means that, for any particular node of $x$ of $T_y$, the net effect of deleting all the elements of $D_y:=V_{y}\setminus V_{y+1}$ on $\sigma_{T_y}(x)$ can be encoded by a single integer $h_{T_y}(x)-h_{T_{y+1}}(x)\in\{0,\ldots,h(T_y)\}$.  Using \lemref{elias}, this requires only $O(\log h(T_y))$ bits.  If $T$ is at-all balanced, this is only $O(\log\log n)$ bits.
 
 \subsubsection{Rebalancing}
 
-\lemref{deletion-prefix} and \lemref{chunked-addition} help control the structure of the trees $T_1,\ldots,T_h$.  However, by themselves, they are not enough to ensure that $h(T_y)=\log|T_y|+o(\log n)$, even if $T_1$ is perfectly balanced.  Indeed, \lemref{deletion-prefix} does not ensure that the height of $T$ decreases even after many deletions.  Similarly, \lemref{chunked-addition} allows the height of $T$ to increase by $1+\log a$ even in the case where only $a$ additional elements are inserted.  
+\lemref{deletion-prefix} and \lemref{chunked-addition} help control the structure and height of the trees $T_1,\ldots,T_h$.  However, by themselves, they are not enough to ensure that $h(T_y)=\log|T_y|+o(\log n)$, even if $T_1$ is perfectly balanced.  Indeed, \lemref{deletion-prefix} does not ensure that the height of $T$ decreases even after many deletions.  Similarly, \lemref{chunked-addition} allows the height of $T$ to increase by $1+\log a$ even in the case where only $a$ additional elements are inserted.  
 
-In this section, we introduce what (to our knowledge) is a novel form of rebalancing that ensures that $h(T_y)=\log|T_y|+o(\log n)$.  Standard forms of rebalancing, including height-balancing, weight-balancing, and partial rebuilding seem not to be applicable in our setting because we have unusual requirements.  In particular, the requirement $h(T_y)=\log|T_y|+o(\log n)$ is quite stringent. Most standard binary search trees guarantee only $h(T)\le c\log |T|$ for some some constant $c>1$.  Even more exotic is that the updates come in linear-sized batches, where batch $y$ consists of the deletions $D_y:=V_y\setminus V_{y+1}$ and the insertions $I_y:=V_{y+1}\setminus V_y$, and we require that there exists a simple relationship between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ for each $x\in V_y\cap V_{y+1}$.     
+In this section, we introduce what (to our knowledge) is a novel form of rebalancing that ensures that $h(T_y)=\log|T_y|+o(\log n)$.  Standard forms of rebalancing, including height-balancing, weight-balancing, and partial rebuilding seem not to be applicable in our setting because we have unusual requirements.  In particular, the requirement $h(T_y)=\log|T_y|+o(\log n)$ is quite stringent. Most standard binary search trees guarantee only $h(T)\le c\log |T|$ for some some constant $c>1$.  Even more exotic is that the updates come in linear-sized batches, where batch $y$ consists of the insertions $I_y:=V_{y+1}\setminus V_y$, and the deletions $D_y:=V_y\setminus V_{y+1}$ and we require that there exists a simple relationship between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ for each $x\in V_y\cap V_{y+1}$.     
 
 We begin with the following simple lemma:
 
 \begin{lem}\lemlabel{split}
-  Let $T$ be a binary search tree and let $x$ be any node of $T$.  Then there exists a binary search tree $T'$ with $h(T')\le h(T)+1$, $V(T')=V(T)$ whose root is $x$ and such that, for each node $z\in V(T')$, $\sigma_{T'}(z)$ is obtained by replacing a prefix of $\sigma_{T}(z)$ with a binary string from the set $\{\varepsilon\}\cup \{01^r:r\in\{0,\ldots,h(T)\}\cup \{10^r:r\in\{0,\ldots,h(T)\}$.  
+  Let $T$ be a binary search tree and let $x$ be any node of $T$.  Then there exists a binary search tree $T'$ with $V(T'):=V(T)$,  $h(T')\le h(T)+1$,  whose root is $x$ and such that, for each node $z\in V(T')$, $\sigma_{T'}(z)$ is obtained by replacing a prefix of $\sigma_{T}(z)$ with a binary string from the set $\Pi:=\{\varepsilon\}\cup \bigcup_{i=0}^{h(T)}\{01^i, 10^i, 01^i0, 10^i1\}$.  
 \end{lem}
 
 \begin{proof}
-Proof by (crappy) illustration:
+Let $P_T(x)=x_0,\ldots,x_r$ be the root-to-$x$ path in $T$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequence $a_0,\ldots,a_t$ and $b_0,\ldots,b_s$ consisting the values less than $x=x_r$ and greater than $x$, respectively.  
+
+Refer to \figref{split}. Make a binary search tree $T'_0$ that has $x$ as root, the path $a_0,\ldots,a_t$ as the left subtree of $x$ and the path $b_0,\ldots,b_s$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{0,\ldots,t-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{0,\ldots,s-1\}$. To obtain $T'$, take each of the trees in the forest $F:=T-\{x_0,\ldots,x_r\}$ and attach to the appropriate location in $T_0'$.
+
+\begin{figure}
   \begin{center}
-    \includegraphics[width=.6\textwidth]{images/split}
+    \includegraphics[width=.8\textwidth]{images/split}
   \end{center}
+  \caption{Moving the value $x$ to the root of a binary search tree $T$.}
+  \figlabel{split}
+\end{figure}
+
+To see that $h(T')\le h(T)+1$ observe that this operation increases the depth of any node by at most one.  For any node $z\in V(T')$, $V(P_{T'}(z))\subseteq V(P_T(z))\cup\{x\}$, so $|P_{T'}(z)|\le |P_T(z)|+1$ and therefore $d_{T'}(z) = |P_{T'}(z)|-1 \le |P_{T}(z)| = d_T(z)+1$. 
+
+Now observe that $\sigma_{T'}(x)=\varepsilon$, that $\sigma_{T'}(a_i)=01^i$, and that $\sigma_{T'}(b_i)=10^i$.  Therefore, for each $z\in\{x_0,\ldots,x_r\}$, $\sigma_{T'}(z)$ is obtained by replacing all of $\sigma_T(z)$ with a string in $\Pi$.
+
+Any node $z\not\in\{x_0,\ldots,x_r\}$, belongs to $V(T_z)$ for some tree $T_z$ in the forest $F$.  Let $r_z$ denote the root of $T_z$.  The root-to-$z$ path in $T$ has the form $P_{T}(z)=x_0,\ldots,x_j,P_{T_z}(z)$ for some $j\in\{0,\ldots,r\}$.  The root-to-$z$ path in $T'$ has the form $P_{T'}(x_j),P_{T_z}(z)$.  Therefore $\sigma_{T'}(z)$ is obtained by removing the first $j+1$ bits of $\sigma_T(z)$ and replacing them with $\sigma_{T'}(x_j)$ followed by a 0 or a 1.  Since $x_j\in\{a_0,\ldots,a_t\}\cup\{b_0,\ldots,b_s\}$, $\sigma_{T'}(x_j)$ has the form $01^i$ or $10^i$ for some $i\in\{0,\ldots,h\}$.  Therefore, $\sigma_{T'}(z)$ is obtained by replacing a prefix of $\sigma_T(z)$ with an element of $\Pi$.
 \end{proof}
 
 \lemref{split} allows us to perform a perfect split at the root of $T$ and still maintain an $O(\log h(T))$-length description of the changes required to obtain $\sigma_{T'}(z)$ from $\sigma_T(z)$.  A useful fact about \lemref{split} is that the left and right subtree of $T'$ each have height at most $h(T)$.
