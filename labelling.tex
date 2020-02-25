@@ -145,21 +145,27 @@ Putting some of the preceding results together we obtain the following useful co
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-We begin with the special case where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths, so that each vertex of $G$ is a pair $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$. The graph $P_1\boxtimes P_2$ is an $m\times h$ grid-with diagonals.  
+We begin with the special case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals.  
 
 % \pnote{TODO: Annoyingly, I now have to reverse the roles of $x$ and $y$ so that, in $H\boxtimes P$, $x\in V(H)$ and $y\in V(P)$. }
 
-\subsection{The Labels}
+\subsection{The Labelling Scheme}
 
 For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$.  The idea behind our approach is to have a sequence $T_1,\ldots,T_h$ of balanced binary search trees where, for each $y\in\{1,\ldots,h\}$,
 \begin{enumerate}[(PR1)]
   \item $T_y$ contains (a superset of) $\bigcup_{b\in\{0,1\}} (L_{y+b}\cup \{x-1:x\in L_{y+b}\})$;
-  \item The height $h(T_y)$ of $T_y$ is $\log |T_y| + o(\log n)$;
+  
+  \item $h(T_y)\le\log |T_y| + o(\log n)$;
+  
   \item $W:=\sum_{y=1}^h |T_y| = O(n)$;
-  \item If $x\in V(T_y)\cap V(T_{y+1})$, then $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_x(y)$.  More precisely, there is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that $B(\sigma_{T_{y}}(x), \nu_y(x))=\sigma_{T_{y+1}}(x)$
+  
+  \item there is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{x\in L_y\cap L_{y+1}$ there exists a binary string $\nu_y(x)$ of length $o(\log n)$ such that $B(\sigma_{T_{y}}(x), \nu_y(x))=\sigma_{T_{y+1}}(x)$.
 \end{enumerate}
 
-Before describing the sequence of trees satisfying (PR1--4), we show how these can be used in a labelling scheme for $G$. 
+Property~(PR4) says that, for $x\in L_y\cap L_{y+1}$, $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_x(y)$.  Before describing the sequence of trees satisfying (PR1)--(PR4), we show how these can be used in a labelling scheme for $G$. 
+
+
+\subsubsection{The Labels}
 
 Given $G$ and $T_{1},\ldots,T_h$ we use a \lemref{row-code} with the weight function $w(y):=|T_y|$ to construct a code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ where
 \[  
@@ -177,7 +183,7 @@ The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x
 
 A large part of the remaining work involves describing $\nu_y(x)$ and, ultimately, showing that $|\nu_y(x)|\in O(\sqrt{\log n\log\log n})$. First, though, we show how (GC1)--(GC5) can be used for adjacency testing.
 
-\subsection{Adjacency Testing}
+\subsubsection{Adjacency Testing}
 
 Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$, determine which of the following applies:
 \begin{enumerate}
@@ -190,9 +196,12 @@ Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are 
   \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
 \end{enumerate}
 
-Thus, all that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ with properties (PR1)--(PR4). This is a data structuring problem and we use a combination of existing and new techniques from data structures to solve it.
 
-\subsection{Fractional Cascading}
+\subsection{The Tree Sequence $T_1,\ldots,T_h$}
+
+All that remains is to find a sequence of binary search trees $T_1,\ldots,T_h$ with properties (PR1)--(PR4). This is a data structuring problem and we use a combination of existing and new techniques from data structures to solve it.
+
+\subsubsection{Fractional Cascading}
 
 Ultimately, we want to reach a point where, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, the difference between $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ has a description $\nu_x(y)$ of length $o(\log n)$.  In order for this to be possible, we require that $V(T_y)$ not be wildly different from $V(T_{y+1})$.  In the world of data structures, this is achieved by the technique of \emph{fractional cascading} \cite{chazelle.guibas:fractional1, chazelle.guibas:fractional2, vaishnavi.wood:rectilinear}.
 
@@ -213,7 +222,7 @@ Condition~2 in \lemref{fractional} has the following interpretation:  If we sort
 
 We will use \lemref{fractional} to creating the sequence of binary search trees $T_1,\ldots,T_h$ where $V(T_y):=V_y$ for each $y\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_y$ and $T_{y+1}$ sufficiently similar so that, for any $x\in V_y\cap V_{y+1}$, there will be an $o(\log n)$-bit description $\nu_y(x)$ of how to modify $\sigma_{T_y}(x)$ in order to obtain $\sigma_{T_{y+1}}(x)$.  To begin with, we describe the three operations bulk deletions, bulk insertions, and rebalancing that transform $T_y$ into $T_{y+1}$.
 
-\subsection{Bulk Deletions}
+\subsubsection{Bulk Deletions}
 
 \begin{lem}\lemlabel{deletion-prefix}
   For any binary search tree $T$ and any $D\subseteq V(T)$, there exists a binary search tree $T'$ with $V(T')=V(T)\setminus D$ such that, for every $x\in V(T')$, $\sigma_{T'}(x)$ is a prefix of $\sigma_{T}(x)$.
@@ -238,7 +247,7 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
 
 \lemref{deletion-prefix} is useful because it means that, for any particular node of $x$ of $T_y$, the net effect of all the deletions performed when moving from $T_y$ to $T_{y+1}$ on $\sigma_{T_y}(x)$ can be encoded by a single integer in the range $\{0,\ldots,h(T_y\}$.  Using \lemref{elias}, this requires only $O(\log h(T_y))$ bits.  If $T$ is at-all balanced, this is only $O(\log\log n)$ bits.
 
-\subsection{Bulk Insertions}
+\subsubsection{Bulk Insertions}
 
 \begin{lem}\lemlabel{chunked-addition}
   For any binary search tree $T$ and any set $I\subset\R\setminus V(T)$ such that $V(T)$ $a$-chunks $I$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup I$ that is a supergraph of $T$ and such that $h(T')\le h(T)+1+\log a$.
@@ -250,7 +259,7 @@ We will use \lemref{fractional} to creating the sequence of binary search trees 
 
 \lemref{chunked-addition} is useful because the set of values $I:=V_{y+1}\setminus V_y$ that are present in $T_{y+1}$ but not in $T_y$ are $a$-chunked by $V_y$. Therefore, we can perform all the insertions required to move from $T_y$ to $T_{y+1}$ in such a way that $\sigma_{T_y}(x)=\sigma_{T_{y+1}}(x)$ for every $x\in V_y\cap V_{y+1}$ and $h(T_{y+1})\le h(T_y)+1+\log a$.  
 
-\subsection{Tree Splitting}
+\subsubsection{Rebalancing}
 
 \lemref{deletion-prefix} and \lemref{chunked-addition} help control the structure of the trees $T_1,\ldots,T_h$.  However, by themselves, they are not enough to ensure that $h(T_y)=\log|T_y|+o(\log n)$, even if $T_1$ is perfectly balanced.  Indeed, \lemref{deletion-prefix} does not ensure that the height of $T$ decreases even after many deletions.  Similarly, \lemref{chunked-addition} allows the height of $T$ to increase by $1+\log a$ even in the case where only $a$ additional elements are inserted.  
 
@@ -303,7 +312,7 @@ The following lemma uses \lemref{split} recursively:
   For the final condition, observe that, for each each node $x\in (Z\cup X)\cap V(T_i)$ we can obtain $\sigma_{T^@}(x)$ from an additional $O(k\log h(T))$ bits as described in \lemref{mini-split}. From $\sigma_{T^@}(x)$ we can obtain $\sigma_{T'}(x)$ by deleting a prefix whose length can be specified using $O(\log h(T))$ bits and replace this with a sequence of at most $k+1$ bits describing a path from the root of $T'_0$ to an external node.\snote{define external node}
 \end{proof}
 
-\subsection{Rebalancing}
+\subsubsection{The Dynamic Data Structure}
 
 We can now describe the sequence of binary search trees $T_1,\ldots,T_h$ satisfying (PR1)--(PR4).  Recall that $V(T_i)=V_{i}$ where $V_1,\ldots,V_m$ are the sets described by \lemref{fractional}.  The easiest way to describe these trees is in terms of a binary search tree $T$ that supports two operations:
 \begin{enumerate}
@@ -385,7 +394,7 @@ Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}
 Finally, the bulk-deletion in (S3) does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$, as required.
 
 
-\subsection{The $\nu$ Code}
+\subsubsection{The Transition Labels}
 
 In the previous section we established that the sequence $T_1,\ldots,T_m$ of trees satisfies Property~(PR2) since $|\sigma_{T_y}(x)|\le h(T_y)\le \log |T_y|+O(k+k^{-1}\log n)$.  These trees also satisfy Properties~(PR1) and (PR3) since, for each $y\in\{1,\ldots,h\}$, $V(T_y)=V_y$ is the set described in \lemref{fractional}.  Thus, all that remains is to describe the codes $\nu_y(x)$ for each $y\in\{1,\ldots,h-1\}$ and $x\in V_y\cap V_{y+1}$ that satisfy Property~(PR4).
 
@@ -407,10 +416,13 @@ This establishes, Property~(PR4) of $T_1,\ldots,T_h$ where each code $\nu_y(x)$ 
 \section{Subgraphs of $H\boxtimes P$}
 
 In this section we build on the result of \secref{pxp} to find labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,2,\ldots,h$ is a path.  Our strategy is similar the approach taken in the previous section.
-For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will build a labelling scheme for the induced graph $H[V_y]$ where $V_y\supseteq L_y$ that is based on a binary tree $T_y$ and such that the labels in this scheme have length $\log|T_y|+o(\log n)$.  In addition to this, we will use \lemref{row-code} so to give each vertex $(x,y)\in V(G)$ a \emph{row label} of length $\log n - \log|T_y|+o(\log n)$.
+For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will build a labelling scheme for the induced graph $H[V_y]$ where $V_y\supseteq L_y$ that is based on a binary tree $T_y$ and such that the labels in this scheme have length $\log|T_y|+o(\log n)$.  In addition to this, we will use \lemref{row-code} to give each vertex $(x,y)\in V(G)$ a \emph{row label} of length $\log n - \log|T_y|+o(\log n)$.
 
+\subsection{A Labelling Scheme for $t$-Trees}
 
-\subsection{$t$-Trees}
+We begin by describing a labelling scheme for $t$-Trees that, like the labelling scheme for paths, is based on a binary search tree.
+
+\subsubsection{$t$-Trees}
 
 A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  \snote{Use $k$-tree instead?}  
 
@@ -420,7 +432,7 @@ Note that the recursive definition of $t$-trees implies that there is a vertex o
 
 The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most $t$ neighbours among $v_1,\ldots,v_{i-1}$) implies that $V(H)$ has a proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$.  For each $i\in\{t+1,\ldots,m\}$ and each $j\in\{1,\ldots,t+1\}$ the \emph{$j$-parent} $p_j(v_i)$ of $v_i$ is the unique element $p\in C_H(v_i)$ with $\varphi(p)=j$.  Note that $v_i$ is the $j$-parent of itself for exactly one $j\in\{1,\ldots,t+1\}$.
 
-\subsection{Interval Graphs}
+\subsubsection{Interval Graphs}
 
 For real numbers $a\le b$, let $[a,b]:=\{ x\in\R: a\le x\le b\}$, and let
 $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which the edge $vw\in E(I)$ if and only if $v\cap w\neq \emptyset$.  
@@ -449,7 +461,7 @@ A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A 
   Since $x$ is the least common ancestor of $X\cap[a,b]$, either $x\in X\cap[a,b]$, in which case there is nothing prove, or there is some pair $x_1,x_2\in X\cap[a,b]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a,b]$, so $a\le x_1<x<x_2\le b$, so $x\in [a,b]$.  
 \end{proof}
 
-\subsection{A Labelling Scheme for $t$-Trees}
+\subsubsection{The Labelling Scheme}
 \seclabel{t-tree-labelling}
 
 We can use \lemref{common-ancestor} to create a labelling scheme for $t$-trees based on any binary search tree containing stabbing set.  Let $H$ be a $t$-tree whose vertex set $V(H):=S$ consists of the intervals described by \lemref{interval-representation}, let $v_1,\ldots,v_m$ be a construction order for $H$, let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lceil\log_{3/2} n\rceil\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ to a proper colouring of $G_S$ described in \lemref{interval-representation}.
@@ -534,7 +546,7 @@ Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$
 \end{cor}
 
 
-\subsection{Data Structuring and the $\mu$ Code}
+\subsection{A Dynamic Data Structure and Transition Labels}
 
 We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
 
@@ -564,7 +576,7 @@ We now examine the three operations that define how $T_y$ is transformed into $T
 Rebalancing takes $T_y$ onto a tree $T_y'$. Bulk insertion takes $T_y'$ onto a tree $T_y''$.  Bulk deletion takes $T_y''$ onto $T_{y+1}$.
 
 
-\paragraph{(S1): Rebalancing}
+\subsubsection{(S1): Rebalancing}
 
 The rebalancing operation involves applying \lemref{multi-split} to all the subtrees of $T$ rooted at nodes of depth $(i-1)(k+1)$.  This, in turn, involves applying \lemref{split} to $2^k-1$ nodes so that they become roots of specific subtrees.
 
@@ -600,11 +612,11 @@ Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulti
 
 With these additional bits, we can recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S^-_y\cap S^-_{y+1}$.
 
-\paragraph{(S2): Bulk-Insertions}
+\subsubsection{(S2): Bulk-Insertions}
 
 During the bulk-insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{y}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{y}'$.  This ensures that, in $T_y''$, no vertex of $T_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.  This ensures that $P_{T''}(v)=P_{T'}(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for every $v\in S_y$.
 
-\paragraph{(S3): Bulk-Deletions}
+\subsubsection{(S3): Bulk-Deletions}
 
 Each individual deletion either involves removing a leaf from $T_y''$ or it involves (possibly repeatedly) replacing some value $x$ with some value $x'$ that either the smallest value in $x$'s right subtree or the largest value in $x$'s left subtree.
 
