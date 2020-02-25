@@ -404,7 +404,7 @@ It remains is to describe the rebalancing scheme that guarantees (B1) and (B2). 
 
 The proof that these operations preserve invariants (B1) and (B2) is by induction on $y$.  For the base case $y=1$, both properties are trivial: (B1) asserts that $h(T_1)\le h(T_1)$ and (B2) asserts that the subtree of $T_1$ rooted at the root of $T_1$ has size at most $|T_1|$.
 
-For the inductive step, we assume invariants (B1) and (B2) hold for $T_{y-1}$ and prove that they hold for $T_{y}$, $y\ge 2$.  First we establish (B1) as follows:
+For the inductive step, we assume invariants (B1) and (B2) hold for $T_{y-1}$ and prove that they hold for $T_{y}$, $y\ge 2$.  First we establish invariant (B1) as follows:
 \begin{align*}  
   h(T_y) & \le h(T_{y-1}'') & \text{(by \lemref{deletion-prefix})} \\
           & \le h(T_{y-1}') + 1 + \log a & \text{(by \lemref{chunked-addition})} \\
