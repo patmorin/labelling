@@ -1,13 +1,10 @@
 name=labelling
-ipefigs=$(wildcard figs/*.ipe)
 
 all: $(name).pdf
 
 $(name).pdf : figs $(name).tex $(name).bib $(ipefigs)
-	latexmk -pdf $(name).tex
-
-figs: $(ipefigs)
 	make -C figs
+	latexmk -pdf $(name).tex
 
 install: $(name).pdf
 	scp $(name).pdf cglab.ca:public_html/publications/drafts/$(name)/

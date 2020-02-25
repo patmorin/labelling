@@ -77,11 +77,15 @@ For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A 
 
 A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $v$ in $T$, $P_T(v)$ denotes the path from the root of $T$ to $v$.  The \emph{length} of a path $P$ is the number of edges in $P$.  The \emph{depth}, $d_T(v)$ of $v$ is the length of $P_T(v)$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ with $h(T)=\lfloor\log|T|\rfloor$.
 
+A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.
+
 A node $a\in V(T)$ is an \emph{ancestor} of $v\in V(T)$ if the path in $T$ from the root of $T$ to $v$ includes $a$.  (Note that $v$ is an ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is an ancestor of $v$ for each $v\in X$.
 
 Let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtrees and $z>x$ for each node $z$ in $x$'s right subtree. The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
+A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtrees and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) leaf child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
+
+The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
 
 \begin{obs}\obslabel{lexicographic}
   If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
@@ -231,7 +235,8 @@ We will use \lemref{fractional} to create the sequence of binary search trees $T
 \end{lem}
 
 \begin{proof}
-  Search for each element $x\in I$ in $T$ until the search path falls out of $T$.  This would be the natural place to add $x$ as a leaf to $T$.  This process partitions $I$ into $r:=|T|+1$ sets $I_1,\ldots,I_r$. Since $V(T)$ $a$-chunks $I$, $|I_i|\le a$ for each $i\in\{1,\ldots,r\}$. For each $i\in\{1,\ldots,r\}$, construct a perfectly balanced binary search tree $T_i$ with $V(T_i):=I_i$ (so $h(T_i)\le\log|I_i|\le\log a)$). For each $i\in\{1,\ldots,r\}$, attach $T_i$ at the appropriate location in $T$ to obtain $T'$.
+  Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i:=\{x\in I: P_T(x)=z_i\}$.
+  Since $V(T)$ $a$-chunks $I$, $|I_i|\le a$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with $V(T_i):=I_i$ (so $h(T_i)\le\log|I_i|\le\log a)$). For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$ and call the resulting binary search tree $T'$.  Clearly $T'$ is a supergraph of $T$ and $h(T')\le h(T^+)+\log a\le h(T)+1+\log a$.
 \end{proof}
 
 \lemref{chunked-addition} is useful because the set of values $I_y:=V_{y+1}\setminus V_y$ that are present in $T_{y+1}$ but not in $T_y$ are $a$-chunked by $V_y$. Therefore, we can perform all the insertions required to move from $T_y$ to $T_{y+1}$ in such a way that $\sigma_{T_y}(x)=\sigma_{T_{y+1}}(x)$ for every $x\in V_y\cap V_{y+1}$ and so that $h(T_{y+1})\le h(T_y)+1+\log a$.  In short, this operation preserves existing labels without increasing the height by more than a constant.
@@ -274,36 +279,40 @@ We begin with the following simple lemma:
 \end{lem}
 
 \begin{proof}
-Let $P_T(x)=x_0,\ldots,x_r$ be the root-to-$x$ path in $T$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequence $a_0,\ldots,a_t$ and $b_0,\ldots,b_s$ consisting the values less than $x=x_r$ and greater than $x$, respectively.  
+Let $P_T(x)=x_0,\ldots,x_r$ be the root-to-$x$ path in $T$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequence $a_1,\ldots,a_t$ and $b_1,\ldots,b_s$ consisting the values less than $x=x_r$ and greater than $x$, respectively.  
 
-Refer to \figref{split}. Make a binary search tree $T'_0$ that has $x$ as root, the path $a_0,\ldots,a_t$ as the left subtree of $x$ and the path $b_0,\ldots,b_s$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{0,\ldots,t-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{0,\ldots,s-1\}$. To obtain $T'$, take each of the trees in the forest $F:=T-\{x_0,\ldots,x_r\}$ and attach to the appropriate location in $T_0'$.
+Refer to \figref{split}. Make a binary search tree $T_0$ that has $x$ as root, the path $a_0,\ldots,a_t$ as the left subtree of $x$ and the path $b_0,\ldots,b_s$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,t-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,s-1\}$. 
+
+Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  To obtain $T'$, replace each of the $r+2$ external nodes of $T_0^+$ with the appropriate tree in $F$.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=.8\textwidth]{images/split}
+    \includegraphics{figs/split-1} \\[1ex]
+    $\Downarrow$ \\[1ex]
+    \includegraphics{figs/split-2}
   \end{center}
   \caption{Moving the value $x$ to the root of a binary search tree $T$.}
   \figlabel{split}
 \end{figure}
 
-To see that $h(T')\le h(T)+1$ observe that this operation increases the depth of any node by at most one.  For any node $z\in V(T')$, $V(P_{T'}(z))\subseteq V(P_T(z))\cup\{x\}$, so $|P_{T'}(z)|\le |P_T(z)|+1$ and therefore $d_{T'}(z) = |P_{T'}(z)|-1 \le |P_{T}(z)| = d_T(z)+1$. 
+To see that $h(T')\le h(T)+1$ observe that this operation increases the depth of any node by at most one.  Indeed, for any node $z\in V(T')$, $V(P_{T'}(z))\subseteq V(P_T(z))\cup\{x\}$, so $|P_{T'}(z)|\le |P_T(z)|+1$ and therefore $d_{T'}(z) = |P_{T'}(z)|-1 \le |P_{T}(z)| = d_T(z)+1$. 
 
-Now observe that $\sigma_{T'}(x)=\varepsilon$, that $\sigma_{T'}(a_i)=01^i$, and that $\sigma_{T'}(b_i)=10^i$.  Therefore, for each $z\in\{x_0,\ldots,x_r\}$, $\sigma_{T'}(z)$ is obtained by replacing all of $\sigma_T(z)$ with a string in $\Pi$.
+Next we argue that the stated relationship holds between $\sigma_T(x)$ and $\sigma_{T'}(x)$ for each $x\in V(T)$.  First observe that $\sigma_{T'}(x)=\varepsilon$, that $\sigma_{T'}(a_i)=01^i$, and that $\sigma_{T'}(b_i)=10^i$.  Therefore, for each $z\in\{x_0,\ldots,x_r\}$, $\sigma_{T'}(z)$ is obtained by replacing all of $\sigma_T(z)$ with a string in $\Pi$.
 
-Any node $z\not\in\{x_0,\ldots,x_r\}$, belongs to $V(T_z)$ for some tree $T_z$ in the forest $F$.  Let $r_z$ denote the root of $T_z$.  The root-to-$z$ path in $T$ has the form $P_{T}(z)=x_0,\ldots,x_j,P_{T_z}(z)$ for some $j\in\{0,\ldots,r\}$.  The root-to-$z$ path in $T'$ has the form $P_{T'}(x_j),P_{T_z}(z)$.  Therefore $\sigma_{T'}(z)$ is obtained by removing the first $j+1$ bits of $\sigma_T(z)$ and replacing them with $\sigma_{T'}(x_j)$ followed by a 0 or a 1.  Since $x_j\in\{a_0,\ldots,a_t\}\cup\{b_0,\ldots,b_s\}$, $\sigma_{T'}(x_j)$ has the form $01^i$ or $10^i$ for some $i\in\{0,\ldots,h\}$.  Therefore, $\sigma_{T'}(z)$ is obtained by replacing a prefix of $\sigma_T(z)$ with an element of $\Pi$.
+Any node $z\not\in\{x_0,\ldots,x_r\}$, belongs to $V(A)$ for some tree $A$ in the forest $F$.  Let $r_z$ denote the root of $A$.  The root-to-$z$ path in $T$ has the form $P_{T}(z)=x_0,\ldots,x_j,P_{A}(z)$ for some $j\in\{0,\ldots,r\}$.  The root-to-$z$ path in $T'$ has the form $P_{T'}(x_j),P_{A}(z)$.  Therefore $\sigma_{T'}(z)$ is obtained by removing the first $j+1$ bits of $\sigma_T(z)$ and replacing them with $\sigma_{T'}(x_j)$ followed by a 0 or a 1.  Since $x_j\in\{a_1,\ldots,a_t\}\cup\{b_1,\ldots,b_s\}$, $\sigma_{T'}(x_j)$ has the form $01^i$ or $10^i$ for some $i\in\{0,\ldots,h\}$.  Therefore, $\sigma_{T'}(z)$ is obtained by replacing a prefix of $\sigma_T(z)$ with an element of $\Pi$.
 \end{proof}
 
 \lemref{split} allows us to perform a perfect split at the root of $T$ and still maintain an $O(\log h(T))$-length description of the changes required to obtain $\sigma_{T'}(z)$ from $\sigma_T(z)$.  A useful fact about \lemref{split} is that the left and right subtree of $T'$ each have height at most $h(T)$.
 The following lemma uses \lemref{split} recursively:
 
 \begin{lem}\lemlabel{mini-split}
-  Let $T$ be a binary search tree and let $x_1<\cdots<x_c$ be a set of nodes in $T$. Then there exists a binary search tree $T'$ with $V(T')=V(T)$, $h(T')\le h(T)+\log c$, and in which $T'[\{x_1,\ldots,x_c\}]$ is a tree of height at most $\log c$ that contains the root of $T'$ and such that, for each node $z\in V(T')$, there is a binary string of length $O((1+\log c)\log h(T))$ that describes how to convert $\sigma_T(z)$ into $\sigma_{T'}(z)$.  Furthermore, each tree in the forest $T'-\{x_1,\ldots,x_c\}$ is a tree of height at most $h(T)$.
+  Let $T$ be a binary search tree and let $x_1<\cdots<x_c$ be a set of nodes in $T$. Then there exists a binary search tree $T'$ with $V(T')=V(T)$, $h(T')\le h(T)+1+\log c$, and in which $T'[\{x_1,\ldots,x_c\}]$ is a tree of height at most $\log c$ that contains the root of $T'$ and such that, for each node $z\in V(T')$, there is a binary string of length $O((1+\log c)\log h(T))$ that describes how to convert $\sigma_T(z)$ into $\sigma_{T'}(z)$.  Furthermore, each tree in the forest $T'-\{x_1,\ldots,x_c\}$ is a tree of height at most $h(T)$.
 \end{lem}
 
 \begin{proof}
   The proof is by induction on $c$.  If $c=0$, the statement is trivially true with $T':=T$.  If $c\ge 1$,  apply \lemref{split} to $x_{\lceil c/2\rceil}$ to obtain a tree $T_\times$ rooted at at $x_{\lceil c/2\rceil}$.  Next apply induction on the left subtree of $T_\times$ with the set $x_1,\ldots,x_{\lceil c/2\rceil -1}$ and apply induction on the right subtree of $T_\times$ with the set $x_{\lceil c/2\rceil +1},\ldots,x_c$.  Let $T'$ be the tree whose root is $x_{\lceil c/2\rceil}$ and whose left and right subtrees are the result of these two applications of induction.
   
-  It is straitforward to check that $h(T')\le h(T)+\log c)$ and that $T[\{x_1,\ldots,x_c\}]$ is a tree of height at most $\log c$ that contains the root of $T'$.  The condition involving $\sigma_T(z)$ and $\sigma_{T'}(z)$ follows from the fact that any node $z\in V(T)$ is included in a subtree that is involved in at most $\log c$ inductive calls and each such call involves one application of \lemref{split}.  The effect of each application of \lemref{split} on $\sigma_T(z)$ can be recorded by $O(\log h(T))$ bits for a total of $O((1+\log c)\log h(T))$ bits.  Finally, the condition involving the heights of trees in $T'-\{x_1,\ldots,x_c\}$ follows from the fact that the depth of any node $z$ only increases (by 1) for each element of $x_1,\ldots,x_c$ on the path from the root of $T'$ to $y$.
+  It is straitforward to check that $h(T')\le h(T)+1+\log c$ and that $T[\{x_1,\ldots,x_c\}]$ is a tree of height at most $\log c$ that contains the root of $T'$.  The condition involving $\sigma_T(z)$ and $\sigma_{T'}(z)$ follows from the fact that any node $z\in V(T)$ is included in a subtree that is involved in at most $\log c$ inductive calls and each such call involves one application of \lemref{split}.  The effect of each application of \lemref{split} on $\sigma_T(z)$ can be recorded by $O(\log h(T))$ bits for a total of $O((1+\log c)\log h(T))$ bits.  Finally, the condition involving the heights of trees in $T'-\{x_1,\ldots,x_c\}$ follows from the fact that the depth of any node $z$ only increases (by 1) for each element of $x_1,\ldots,x_c$ on the path from the root of $T'$ to $y$.
 \end{proof}
 
 \begin{lem}\lemlabel{multi-split}
@@ -313,37 +322,37 @@ The following lemma uses \lemref{split} recursively:
 
     \item  each of the subtrees $T_i'$, $i\in\{1,\ldots,m'\}$ rooted at a depth-$(k+1)$ node of $T'$ has size at most $|T|/2^k$; and
     
-    \item for each $x\in V(T)$, there exists an $O(k\log h(T))$-bit description of the changes required to create $\sigma_{T'}(x)$ from $\sigma_T(x)$.
+    \item for each $x\in V(T)$, there exists an $O(k\log h(T))$-bit description of the changes required to create $\sigma_{T'}(x)$ from $\sigma_T(x)$.\snote{Use $B:(\{0,1\}^*)^2\to\{0,1\}^*$ terminology?}
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
   Let $Z\subset V(T)$ be the set of at most $2^k-1$ nodes of $T$ of depth less than $k$.  Then $T-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_h$.  Each such tree $T_i$ has height at most $h(T)-k$.
   
-  Select the nodes $X:=\{x_1,\ldots,x_{2^k}-1\}$ of $T$ where each $x_j$ has rank $\lfloor j|T|/2^k\rfloor$ in the set $V(T)$.\footnote{For a finite $X\subset\R$, the \emph{rank} of $x\in S$ is $|\{x'\in S: x'<x\}$.}  For each $j\in\{1,\ldots,m\}$, apply \lemref{mini-split} to the subtree $T_j$ with the at most $2^k$ values $Y\cap V(T_j)$ to obtain a new subtree $T_{j}'$.  Let $T^@$ be the tree obtained by replacing each of $T_1,\ldots,T_m$ with $T_1',\ldots,T_m'$, respectively.
+  Select the nodes $X:=\{x_1,\ldots,x_{2^k}-1\}$ of $T$ where each $x_j$ has rank $\lfloor j|T|/2^k\rfloor$ in the set $V(T)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply \lemref{mini-split} to the subtree $T_j$ with the at most $2^k$ values $Y\cap V(T_j)$ to obtain a new subtree $T_{j}'$.  Let $T^@$ be the tree obtained by replacing each of $T_1,\ldots,T_m$ with $T_1',\ldots,T_m'$, respectively.
   
-  Now, $Z\cup X$ has size at most $2(2^{k}-1)< 2^k-1$ and $T^@[Z\cup X]$ is a connected subtree that contains the root of $T^@$.  Construct the tree $T'$ by building a complete binary search tree $T'_0$ of height at most $k$ with $V(T_0')=Z\cup X$ and then attaching each tree in the forest $T^@-(Z\cup X)$ to the appropriate location in $T'_0$.  Since $T'_0$ has height at most $k$ and each tree in this forest has height at most $h(T)-k$, $h(T')\le h(T)+1$.
+  Now, $Z\cup X$ has size at most $2(2^{k}-1)< 2^k-1$ and $T^@[Z\cup X]$ is a connected subtree that contains the root of $T^@$.  Construct the tree $T'$ by building a complete binary search tree $T_0$ of height at most $k$ with $V(T_0)=Z\cup X$ and then replacing each external node $z$ of $T_0^+$ with the appropriate tree $A$ from the forest $T^@-(Z\cup X)$.  Since $h(T_0)\le k$, $h(A)\le h(T)-k$, we have $h(T') \le h(T_0^+) + h(A) \le h(T_0)+1+ h(A) \le h(T)+1$.
   
-  For the final condition, observe that, for each each node $x\in (Z\cup X)\cap V(T_i)$ we can obtain $\sigma_{T^@}(x)$ from an additional $O(k\log h(T))$ bits as described in \lemref{mini-split}. From $\sigma_{T^@}(x)$ we can obtain $\sigma_{T'}(x)$ by deleting a prefix whose length can be specified using $O(\log h(T))$ bits and replace this with a sequence of at most $k+1$ bits describing a path from the root of $T'_0$ to an external node.\snote{define external node}
+  For the final condition, observe that, for each each node $x\in (Z\cup X)\cap V(T_i)$ we can obtain $\sigma_{T^@}(x)$ from an additional $O(k\log h(T))$ bits as described in \lemref{mini-split}. From $\sigma_{T^@}(x)$ we can obtain $\sigma_{T'}(x)$ by deleting a prefix whose length can be specified using $O(\log h(T))$ bits and replacing this with a sequence of at most $k+1$ bits describing a path from the root of $T^+_0$ to an external node.
 \end{proof}
 
 \subsubsection{The Dynamic Data Structure}
 
 We can now describe the sequence of binary search trees $T_1,\ldots,T_h$ satisfying (PR1)--(PR4).  Recall that $V(T_i)=V_{i}$ where $V_1,\ldots,V_m$ are the sets described by \lemref{fractional}.  The easiest way to describe these trees is in terms of a binary search tree $T$ that supports two operations:
 \begin{enumerate}
-  \item \emph{bulk-deletion}: in which a set $D:=V_{i}\setminus V_{i+1}$ of at most $|T|(1-2/a)$ values are removed from $T$. 
+  \item \emph{bulk deletion}: in which a set $D:=V_{i}\setminus V_{i+1}$ of at most $|T|(1-2/a)$ values are removed from $T$. 
   % The set $V_{i+1}=V(T)\setminus D$ of remaining values $a$-chunks $D$.  
   % \pnote{NOTE: We don't use the $a$-chunking property, except for the lower-bound it gives on $|V_{i+1}|$.}
-  \item \emph{bulk-insertion}: in which a set $I:=V_{i+1}\setminus V_i$ of at most $2a|T|$ new values are added into $T$.  The set $I$ of newly added values are $a$-chunked by $V(T)$.
+  \item \emph{bulk insertion}: in which a set $I:=V_{i+1}\setminus V_i$ of at most $2a|T|$ new values are added into $T$.  The set $I$ of newly added values are $a$-chunked by $V(T)$.
 \end{enumerate}
-First we consider the effect of a pair of bulk-deletion/bulk-insertion operations on the height of $T$.
+First we consider the effect of a pair of bulk deletion/bulk insertion operations on the height of $T$.
 
-By \lemref{deletion-prefix}, each bulk-deletion does not increase $h(T)$.  Thus, if we start with a tree $T_1^\times$ and peform one bulk-deletion and one bulk-insertion then, 
+By \lemref{deletion-prefix}, each bulk deletion does not increase $h(T)$.  Thus, if we start with a tree $T_1^\times$ and peform one bulk deletion and one bulk insertion then, 
 by \lemref{chunked-addition}, the resulting tree $T_2$ has height
 \[
    h(T_2) \le h(T_1^\times)+1+\log a \enspace .
 \]
-Thus, a single round of bulk-insertion/bulk-deletion does not increase the height of $T$ by more than $1+\log a$.  The trick is to devise a rebalancing scheme that only allows this to continue for $o(\log n)$ rounds before guaranteeing that the tree returns to a more balanced state.
+Thus, a single round of bulk insertion/bulk deletion does not increase the height of $T$ by more than $1+\log a$.  The trick is to devise a rebalancing scheme that only allows this to continue for $o(\log n)$ rounds before guaranteeing that the tree returns to a more balanced state.
 
 We will use a rebalancing scheme that is parameterized by an integer parameter $k\in o(\log n)$ to be discussed shortly.  This scheme guarantees that, for each $y\in\{1,\ldots,\lceil\log|T_i|/(k-\log(2a))\rceil+1\}$, 
 \begin{enumerate}[(B1)]
@@ -370,10 +379,10 @@ So, by (B2) every subtree of $T_{y^*}$ of depth $(y^*-1)(k+1)$ has size at most 
 
 Let $r_1=h(T_1)-\log |T_1|$ and note that $|T_y|\ge |T_1|/(2a)^{i-1}$ so, for $i\in\{1,\ldots,i^*\}$, (B1) gives the upper bound
 \begin{align}
-     h(T_i) & \le h(T_1) + (y-1)(1+\log a) \nonumber \\
-            &= \log|T_1| + (y-1)(1+\log a) + r_1 \nonumber \\
-            &\le \log |T_y| + (y-1)(1+2\log a) + r_1 \nonumber \\
-            &\le \log |T_y| + (y^*-1)(1+2\log a) + r_1 \nonumber \\
+     h(T_i) & \le h(T_1) + (y-1)(2+\log a) \nonumber \\
+            &= \log|T_1| + (y-1)(2+\log a) + r_1 \nonumber \\
+            &\le \log |T_y| + (y-1)(2+2\log a) + r_1 \nonumber \\
+            &\le \log |T_y| + (y^*-1)(2+2\log a) + r_1 \nonumber \\
             &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_1 \nonumber \\
             &\le \log |T_y| + O(k^{-1}\log n) + r_1 \enspace .
 \end{align}
@@ -389,8 +398,8 @@ where $r_{y^*}:=h(T_{y^*})-\log|T_{y^*}|\in O(k + k^{-1}\log n)$.  At this point
 It remains is to describe the rebalancing scheme that guarantees (B1) and (B2).  The scheme is simple: For each $y\in\{1,\ldots,y^*-1\}$,
 \begin{enumerate}[(S1)]
   \item Apply \lemref{multi-split} to each of the at most $2^{(y-2)(k+1)}$ subtrees of $T_y$ rooted at nodes of depth $(y-2)(k+1)$ to obtain a new tree $T_y'$.
-  \item Perform the bulk-insert operations in $I_y:=V_{y+1}\setminus V_y$ on $T_y'$ to obtain the new tree $T_y''$.
-  \item Perform the bulk-delete operations in $D_y:=V_{y}\setminus V_{y+1}$ on $T_y''$ to obtain the new tree $T_{y+1}$.
+  \item Perform the bulk insert operations in $I_y:=V_{y+1}\setminus V_y$ on $T_y'$ to obtain the new tree $T_y''$.
+  \item Perform the bulk delete operations in $D_y:=V_{y}\setminus V_{y+1}$ on $T_y''$ to obtain the new tree $T_{y+1}$.
 \end{enumerate}
 
 The proof that these operations preserve invariants (B1) and (B2) is by induction on $y$.  For the base case $y=1$, both properties are trivial: (B1) asserts that $h(T_1)\le h(T_1)$ and (B2) asserts that the subtree of $T_1$ rooted at the root of $T_1$ has size at most $|T_1|$.
@@ -398,15 +407,14 @@ The proof that these operations preserve invariants (B1) and (B2) is by inductio
 For the inductive step, we assume invariants (B1) and (B2) hold for $T_{y-1}$ and prove that they hold for $T_{y}$, $y\ge 2$.  First we establish (B1) as follows:
 \begin{align*}  
   h(T_y) & \le h(T_{y-1}'') & \text{(by \lemref{deletion-prefix})} \\
-          & \le h(T_{y-1}') + \log a & \text{(by \lemref{chunked-addition})} \\
-          & \le h(T_{y-1}) + 1 + \log a & \text{(by \lemref{multi-split})} \\
-          & \le h(T_1) + (y-2)(1+\log a) + 1 + \log a & \text{(by (B1) for $T_{y-1}$)}\\
-          & = h(T_1) + (y-1)(1+\log a) \enspace ,
+          & \le h(T_{y-1}') + 1 + \log a & \text{(by \lemref{chunked-addition})} \\
+          & \le h(T_{y-1}) + 2 + \log a & \text{(by \lemref{multi-split})} \\
+          & \le h(T_1) + (y-2)(2+\log a) + 2 + \log a & \text{(by (B1) for $T_{y-1}$)}\\
+          & = h(T_1) + (y-1)(2+\log a) \enspace ,
 \end{align*}
 as required.
 
-Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-2)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-2}$.  Step (S1) then ensures that every subtree of $T_{y-1}'$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-2}/2^k$.  The bulk addition in (S2) increases the size of each subtree by a factor of at most $2a$, so every subtree of $T_{y-1}''$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1} $.
-Finally, the bulk-deletion in (S3) does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$, as required.
+Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-2)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-2}$.  Step (S1) then ensures that every subtree of $T_{y-1}'$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-2}/2^k$.  The bulk addition in (S2) increases the size of each subtree by a factor of at most $2a$, so every subtree of $T_{y-1}''$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1} $.  Finally, the bulk deletion in (S3) does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$, as required.
 
 
 \subsubsection{The Transition Labels}
@@ -417,9 +425,9 @@ The purpose of $\nu_y(x)$ is to provide instructions on how to modify $\sigma_{T
 \begin{enumerate}[(S1)]
   \item applies \lemref{multi-split} to each subtree of $T_y$ at depth $(y-1)(k+1)$ to obtain a new $T_y'$.  Every node $x\in V(T_y)$ is contained in at most one such subtree $T_{y,x}$ that becomes a subtree $T_{y,x}'$ of $T_y'$.  For each such node $x$, we include the integer $(y-1)(k+1)$ in $\nu_y(x)$. \lemref{multi-split} describes $O(k\log h(T))=O(k\log\log n)$ bits that make it possible to recover $\sigma_{T_{y,x}'}(x)$ from $\sigma_{T_{y,x}}(x)$.  To get $\sigma_{T_y'}(x)$ we keep the first $(y-1)(k+1)$ bits of $\sigma_{T_y}(x)$ and append $\sigma_{T_{y,x}'}(x)$.
   
-  \item applies \lemref{chunked-addition} (bulk-insertion) to $T_{y}'$ to obtain $T_{y}''$.  This has no effect on any existing signature.  That is, $\sigma_{T_y'}(x)=\sigma_{T_{y}''}(x)$ for every $x\in V(T_i)$.
+  \item applies \lemref{chunked-addition} (bulk insertion) to $T_{y}'$ to obtain $T_{y}''$.  This has no effect on any existing signature.  That is, $\sigma_{T_y'}(x)=\sigma_{T_{y}''}(x)$ for every $x\in V(T_i)$.
   
-  \item applies \lemref{deletion-prefix} (bulk-deletion) to $T_{y}''$ to obtain $T_{y+1}$. \lemref{deletion-prefix} shows that, for each $x\in V_{y+1}$, $\sigma_{T_{y+1}}(x)$ can be obtained by removing a suffix from $\sigma_{T_y''}(x)$.  For each $x\in V_{y+1}$, the length of this suffix, encoded using $O(\log\log n)$ bits is included in $\nu_{y}(x)$.
+  \item applies \lemref{deletion-prefix} (bulk deletion) to $T_{y}''$ to obtain $T_{y+1}$. \lemref{deletion-prefix} shows that, for each $x\in V_{y+1}$, $\sigma_{T_{y+1}}(x)$ can be obtained by removing a suffix from $\sigma_{T_y''}(x)$.  For each $x\in V_{y+1}$, the length of this suffix, encoded using $O(\log\log n)$ bits is included in $\nu_{y}(x)$.
 \end{enumerate}
 
 This establishes, Property~(PR4) of $T_1,\ldots,T_h$ where each code $\nu_y(x)$ has length at most $O(k\log\log n)$. The optimal choice of $k=\left\lceil\sqrt{\log n/\log\log n}\right\rceil$, which results each vertex of the $n$-vertex subgraph $G$ of $P_1\boxtimes P_2$ being assigned a label of length $\log n + O(\sqrt{\log n\log\log n})$.
@@ -627,11 +635,11 @@ Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulti
 
 With these additional bits, we can recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S^-_y\cap S^-_{y+1}$.
 
-\subsubsection{(S2): Bulk-Insertions}
+\subsubsection{(S2): bulk Insertions}
 
-During the bulk-insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{y}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{y}'$.  This ensures that, in $T_y''$, no vertex of $T_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.  This ensures that $P_{T''}(v)=P_{T'}(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for every $v\in S_y$.
+During the bulk insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{y}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{y}'$.  This ensures that, in $T_y''$, no vertex of $T_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.  This ensures that $P_{T''}(v)=P_{T'}(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for every $v\in S_y$.
 
-\subsubsection{(S3): Bulk-Deletions}
+\subsubsection{(S3): bulk Deletions}
 
 Each individual deletion either involves removing a leaf from $T_y''$ or it involves (possibly repeatedly) replacing some value $x$ with some value $x'$ that either the smallest value in $x$'s right subtree or the largest value in $x$'s left subtree.
 
@@ -752,7 +760,7 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 % Today's progress report:
 % 
 % 1. I spent time carefully writing the P*P solution---in particular
-% finishing up the bulk-insertions/deletions and rebalancing parts.  We
+% finishing up the bulk insertions/deletions and rebalancing parts.  We
 % get label length log n + O(sqrt(log n loglog n).
 % http://cglab.ca/~morin/publications/drafts/labelling/
 % 
