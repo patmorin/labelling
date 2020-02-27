@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225230024" modified="D:20200225231502"/>
+<info created="D:20200225230024" modified="D:20200227170645"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
-<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
-<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -308,13 +308,6 @@ h
 184 608 l
 h
 </path>
-<use matrix="1 0 0 1 32 -48" name="mark/disk(sx)" pos="176 640" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 32 -48" stroke="black">
-176 640 m
-168 608 l
-184 608 l
-h
-</path>
 <use matrix="1 0 0 1 160 -64" name="mark/disk(sx)" pos="176 640" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 160 -64" stroke="black">
 176 640 m
@@ -344,10 +337,6 @@ h
 <path matrix="1 0 0 1 0 16" stroke="black">
 288 560 m
 304 544 l
-</path>
-<path matrix="1 0 0 1 0 16" stroke="black">
-224 592 m
-208 576 l
 </path>
 <path matrix="1 0 0 1 0 16" stroke="black">
 256 544 m
@@ -391,13 +380,6 @@ h
 184 608 l
 h
 </path>
-<use matrix="1 0 0 1 32 -48" name="mark/disk(sx)" pos="176 640" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 32 -48" stroke="black">
-176 640 m
-168 608 l
-184 608 l
-h
-</path>
 <use matrix="1 0 0 1 160 -64" name="mark/disk(sx)" pos="176 640" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 160 -64" stroke="black">
 176 640 m
@@ -427,10 +409,6 @@ h
 <path matrix="1 0 0 1 0 16" stroke="black">
 288 560 m
 304 544 l
-</path>
-<path matrix="1 0 0 1 0 176" stroke="black">
-256 432 m
-208 416 l
 </path>
 <use layer="alpha" name="mark/disk(sx)" pos="192 656" size="large" stroke="purple"/>
 <use matrix="1 0 0 1 0 16" name="mark/disk(sx)" pos="224 592" size="large" stroke="red"/>

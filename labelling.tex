@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{graphicx}
+\usepackage[noend]{algorithmic}
 
 \newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
 \newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
@@ -216,6 +217,22 @@ Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous pro
 Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.\snote{Todo: Write a monstrous corollary}
 
 
+\section{Bulk Tree Operations}
+
+\subsection{Fractional Cascading}
+
+\subsection{Bulk Insertion}
+
+\subsection{Bulk Deletion}
+
+\subsection{Rebalancing}
+
+\subsection{Height Analysis}
+
+
+\section{Transition Codes for Trees Nodes}
+
+
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
@@ -237,7 +254,6 @@ For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$
 \end{enumerate}
 
 Property~(PR4) says that, for $x\in L_y\cap L_{y+1}$, $\sigma_{T_{y+1}}(x)$ can be obtained from $\sigma_{T_{y}}(x)$ with an additional $o(\log n)$ bits that we denote by $\nu_x(y)$.  Before describing the sequence of trees satisfying (PR1)--(PR4), we show how these can be used in a labelling scheme for $G$. 
-
 
 \subsubsection{The Labels}
 
@@ -283,22 +299,81 @@ Ultimately, we want to reach a point where, for each $y\in\{1,\ldots,h-1\}$ and 
 
 For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min(S)\le x\le \max(S)$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
 
-For each $y\in\{1,\ldots,h\}$, let $L^-_y:=L_y\cup \{x-1:x\in L_y\}$ and observe that $|L^-_y|\le 2|L_y|$, so $\sum_{x=1}^h|L^-_y| \le 2n$.  The following lemma is a form of fractional cascading.  A proof of (a much more general version of) this lemma is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   \snote{Put a self-contained proof in the appendix?}
+For each $y\in\{1,\ldots,h\}$, let $L^-_y:=L_y\cup \{x-1:x\in L_y\}$ and observe that $|L^-_y|\le 2|L_y|$, so $\sum_{x=1}^h|L^-_y| \le 2n$.  The following lemma is a form of fractional cascading.  
 
 \begin{lem}\lemlabel{fractional}
-  There exists universal constants $a,b\ge 1$ and sets $V_1,\ldots,V_m$ such that
+  Let $L^-_1,\ldots,L^-_h$ be the subsets of $\{1,\ldots,m\}$ defined above.  There exists sets $V_0,\ldots,V_{h+1}$ such that
   \begin{compactenum}
-    \item for each $y\in\{1,\ldots,m\}$, $V_y\supseteq L^-_y$;
-    \item for each $y\in\{1,\ldots,m-1\}$, $V_y$ $a$-chunks $V_{y+1}$ and $V_{y+1}$ $a$-chunks $V_y$; and
-    \item $\sum_{y=1}^m |V_y|\le bn$.
+    \item for each $y\in\{1,\ldots,h\}$, $V_y\supseteq L^-_y$;
+    \item for each $y\in\{1,\ldots,h\}$, $V_{y-1}$ 3-chunks $V_y$ and $V_{y+1}$ 3-chunks $V_y$;
+    \item $\sum_{y=1}^m |V_y|\le 4n$.
   \end{compactenum}
 \end{lem}
 
-Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_y\cup V_{y+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_y$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{y+1}$.  Note that, if $x\in L_y\subseteq V_y$, then $x\in L^-_{y+1}\subseteq V_{y+1}$ so any $x\in L_y$ will appear as a node in both $T_y$ and $T_{y+1}$.
+A proof of a much more general version of this lemma is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   We offer a proof here that borrows heavily from the analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
+
+\begin{proof}
+  We construct $V_1,\ldots,V_{h}$ incrementally using a recursive subroutine called $\textsc{Add}(x, y)$ using the following procedure:
+  
+  \noindent$\textsc{BuildV}(L^-_1,\ldots,L^-_h)$:
+  \begin{algorithmic}[1]
+    \STATE{$V_0\gets V_{h+1}\gets\Z$}
+    \STATE{$V_y\gets\{0\}$ for each $y\in\{1,\ldots,h\}$}
+    \FOR{$x= 1,\ldots,m$}
+      \FOR{$y = 1,\ldots,h$}
+        \IF{$x\in L^-_y\setminus V_y$}
+          \STATE{$\mathrm{add}(x, y)$}
+        \ENDIF
+      \ENDFOR
+    \ENDFOR
+    \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\ldots,h\}$}
+  \end{algorithmic}
+  
+  \noindent$\textsc{Add}(x, y)$:
+  \begin{algorithmic}[1]
+    \IF{$y\in\{1,\ldots,h\}$}
+      \STATE{$V_y\gets V_y\cup\{x\}$}
+      \IF{$|V_y|\ge 5$}      
+        \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-5}$ be the 5 largest elements in $V_y$ (so $x_{-1}=x$)}
+        \IF{$\{x_{-1},\ldots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
+            $\{x_{-1},\ldots,x_{-4}\}\cap V_{y+1}=\emptyset$}
+            \STATE{$\textsc{Add}(x,y-1)$}
+            \STATE{$\textsc{Add}(x,y+1)$}
+        \ENDIF
+      \ENDIF
+    \ENDIF
+  \end{algorithmic}
+  
+  It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
+  
+  That the procedure produces sets $V_1,\ldots,V_h$ such that $V_y\supseteq L^-_y$ for each $y\in\{1,\ldots,h\}$ is obvious.  So the resulting sets $V_1,\ldots,V_h$ satisfy the first condition of the lemma.
+  
+  The prove that $V_1,\ldots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\ldots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
+  
+  Finally, we need to argue that $V_1,\ldots,V_h$ satisfy the third condition.  In particular, we must show that $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |L^-_y|\le 4n$.
+
+  We do this with a credit scheme that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\ldots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
+  
+  To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the original $2n$ values in $L^-_1,\ldots,L^-_h$.  Therefore Line~6 executes at most $2n$ times and at most $4n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\ldots,V_h$ is at most $4n$.
+  Therefore, $\sum_{y=1}^h |V_y|\le 4n$.
+   
+  To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
+  
+  When $\textsc{Add}(x,y)$ executes, one of the two credits passed to itis used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.  
+  
+  If no further recursive invocation of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$. 
+\end{proof}
+ 
+% 
+% 
+% 
+% Condition~2 in \lemref{fractional} has the following interpretation:  If we sort $V_y\cup V_{y+1}$, then we never see more than $a$ consecutive elements that only belong only to $V_y$ nor do we ever see more than $a$ consecutive elements that belong only to $V_{y+1}$.  Note that, if $x\in L_y\subseteq V_y$, then $x\in L^-_{y+1}\subseteq V_{y+1}$ so any $x\in L_y$ will appear as a node in both $T_y$ and $T_{y+1}$.
 
 We will use \lemref{fractional} to create the sequence of binary search trees $T_1,\ldots,T_h$ where $V(T_y):=V_y$ for each $y\in\{1,\ldots,m\}$.  Condition~2 in \lemref{fractional} is what will ultimately make it possible to have $T_y$ and $T_{y+1}$ sufficiently similar so that, for any $x\in L_y$, there will be an $o(\log n)$-bit description $\nu_y(x)$ of how to modify $\sigma_{T_y}(x)$ in order to obtain $\sigma_{T_{y+1}}(x)$.  To begin with, we describe the three operations, bulk insertions, bulk deletions, and rebalancing that transform $T_y$ into $T_{y+1}$.  
 
 \subsubsection{Bulk Insertions}
+
+\snote{TODO: Replace $a$ with $3$ and $\log a$ with $1$.}
 
 \begin{lem}\lemlabel{chunked-addition}
   For any binary search tree $T$ and any set $I\subset\R\setminus V(T)$ such that $V(T)$ $a$-chunks $I$, there exists a binary search tree $T'$ with $V(T')=V(T)\cup I$ that is a supergraph of $T$ and such that $h(T')\le h(T)+1+\log a$.
@@ -652,6 +727,8 @@ Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$
     \end{cases}
   \]
 \end{cor}
+
+\subsection{Transition Codes for Family Cliques}
 
 
 \subsection{A Dynamic Data Structure and Transition Labels}
