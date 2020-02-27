@@ -40,30 +40,45 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-In this paper, which is about binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x = \log\max\{1,x\}$.  We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(\log n+O(\sqrt{\lg n\lg\lg n}))$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term.  An alternative, but equivalent, interpretation of this result is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n2^{O(\sqrt{\lg n\lg\lg n})}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  (The connection between labelling schemes and universal graphs is discussed, for example, in Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.) 
+In this paper, which is about binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x = \log\max\{1,x\}$.  We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term.  An alternative, but equivalent, interpretation of this result is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is a vertex-induced subgraph of $U_n$.  (The connection between labelling schemes and universal graphs is discussed, for example, in Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.) 
 
-This is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who describe adjacency labelling schemes for planar using labels of length $O(\log n)$.  Muller's scheme, based on the fact that planar graphs are 5-degenerate uses labels of length $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:xx}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
+\subsection{Previous Work}
 
-A number of adjacency-labelling schemes for $n$-vertex forests that use labels of length $(1+o(1))\log n$ have been devised \cite{chu, ar02, adbk17}.  Combined with the fact that planar graphs have arboricity 3, these schemes imply adjacency labelling schemes for $n$-vertex planar graphs whose labels have length $(3+o(1))\log n$.   (Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs.)
+The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{} and described adjacency labelling schemes for several classes of graphs, including planar graphs, that use labels of length $O(\log n)$.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved,X,X,X,X,X}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
 
-A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:smaller}.  They describe an adjacency labelling scheme for $n$-vertex graphs of bounded treewidth that use labels of length $(1+o(1))\log n$.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph.  This results in a $(2+o(1))\log n$-bit labelling scheme for $n$-vertex planar graphs.
+Muller's scheme for planar graphs \cite{muller:local}, based on the fact that planar graphs are 5-degenerate uses labels of length $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
-Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(\tfrac43+o(1))\log n$-bit labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of the strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
+A number of adjacency-labelling schemes for $n$-vertex forests that use labels of length $(1+o(1))\log n$ have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent scheme that uses labels of length $\log n + O(1)$ \cite{alstrup.dahlgaard.ea:optimal}.  Combined with the fact that planar graphs have arboricity 3, these schemes imply adjacency labelling schemes for $n$-vertex planar graphs whose labels have length $(3+o(1))\log n$.   (Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs.)
 
-\begin{figure}
+A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  They describe an adjacency labelling scheme for $n$-vertex graphs of bounded treewidth that use labels of length $(1+o(1))\log n$.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph.  This results in a $(2+o(1))\log n$-bit labelling scheme for $n$-vertex planar graphs.
+
+Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of the strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
+% We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
+
+\begin{figure}[htbp]
   \begin{center}
     \includegraphics{figs/product}
   \end{center}
   \caption{The strong product $H\boxtimes P$ of a binary tree $H$ and a path $P$.}
+  \figlabel{product}
 \end{figure}  
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
-The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $y:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  In a nutshell, Bonamy, Gavoille, and Pilipczuk's improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{\tfrac13}$ by removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H\boxtimes P'$ where $P'$ is a path of length $O(n^{1/3})$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (xn^{\tfrac13})\le (\tfrac43+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{\tfrac23})$ vertices adjacent to the cuts to have shorter labels, of length only $(\tfrac23+o(1))\log n$.  The cut vertices and the vertices adjacent to them induce a bounded-treewidth graph of size $O(n^{\tfrac23})$.  The vertices in this graph receive secondary labels of length $(\tfrac23+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3)\log n$.
+The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  However, in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
-The adjacency labelling scheme described in the current paper is also based on the product structure theorem for planar graphs, but it avoids cutting the path $P$, and thus avoids boundary vertices that take part in two different labelling schemes.  Instead, it uses a weighted labelling scheme for $P$ in which row $i$ receives a label of length $\log n-\log W_i$ where $W_i$ is related to the number of vertices of $G$ contained in $H_i$ and $H_{i-1}$.  The vertices of $G$ in row $i$ participate in a secondary labelling scheme for the subgraph of $G$ contained in $H_i$ and $H_{i-1}$ and the labels in this scheme have length $\log W_i$. Thus every vertex receives two labels, one of length $\log n-\log W_i$ and another of length $\log W_i$ for a total label length of $\log n$.  
+Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ by removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|=O(n)$ and $P'$ is a path of length $O(n^{1/3})$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|n^{1/3})\le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the vertices adjacent to them induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
-The key new technique that allows all of this to work is that the labelling schemes of the rows are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ contains all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is (essentially) based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully designing these trees, the labels for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.  
+\subsection{The New Result}
 
+The adjacency labelling scheme described in the current paper is also based on the product structure theorem for planar graphs, but it avoids cutting the path $P$, and thus avoids boundary vertices that take part in two different labelling schemes.  Instead, it uses a weighted labelling scheme on the rows of $H\boxtimes P$ in which vertices that belong to $H_i$ receives a label of length $(1+o(1))\log n-\log W_i$ where $W_i$ is related to the number of vertices of $G$ contained in $H_i$ and $H_{i-1}$.  The vertices of $G$ in row $i$ participate in a secondary labelling scheme for the subgraph of $G$ contained in $H_i$ and $H_{i-1}$ and the labels in this scheme have length $\log W_i + o(\log n)$. Thus every vertex receives two labels, one of length $(1+o(1))\log n-\log W_i$ and another of length $\log W_i + o(\log n)$ for a total label length of $(1+o(1))\log n$.  
+
+The key new technique that allows all of this to work is that the labelling schemes of the rows are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ contains all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is (essentially) based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully designing these trees, the tree $T_{i-1}$ and $T_{i}$ can be similar enough so that the labels for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.
+
+The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product, we obtain labelling schemes for all of these classes of graphs in which vertices in any $n$-vertex member of this graph are assigned labels of length $(1+o(1))\log n$.  All of these results are optimal up to the lower order term.
+
+\subsection{Outline}
+
+The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths.  \Secref{hxp} extends this solution to the case where $G$ is an $n$-vertex subgraph of $H\boxtimes P$.  \Secref{conclusion} summarizes and concludes with directions for future work.
 
 % \subsection{Proof Overview}
 % 
@@ -80,7 +95,7 @@ The key new technique that allows all of this to work is that the labelling sche
 % 
 % \ldots
 
-\snote{TODO: Gwen and Piotr's comments.}
+% \snote{TODO: Gwen and Piotr's comments.}
 
 % For graph products like $G^+$, there is a natural labelling scheme: Computer a labelling scheme $\alpha:V(H)\to\{0,1\}^*$ for $H$ and a labelling scheme $\beta:V(P)\to\{0,1\}^*$ for $P$ and assign each vertex $v:=(x,y)\in V(G^*)$ the label $\mu(v):=\alpha(x),\beta(y)$.  Given two labels $\ell_1=\alpha(x_1),\beta(y_1)$ and $\ell_2=\alpha(x_2),\beta(y_2)$ for vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ adjacency testing is done using the following formula whose three clauses follow from definition of strong product:
 % \[
@@ -92,8 +107,11 @@ The key new technique that allows all of this to work is that the labelling sche
 
 
 \section{Preliminaries}
+\seclabel{preliminaries}
 
 For a graph $G$, we use $V(G)$ and $E(G)$ to denote the vertex and edge sets of $G$.  We use $|G|$ as a shorthand for $|V(G)|$. For a vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $B_G(v):=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
+
+\subsection{Prefix-Free Codes}
 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A string $s_1,\ldots,s_k$ is \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
 
@@ -101,20 +119,22 @@ For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A 
     There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\log(i+1))$.
 \end{lem}
 
+\subsection{Labelling Schemes Based on Binary Trees}
+
 A \emph{binary tree} $T$ is a rooted binary tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $v$ in $T$, $P_T(v)$ denotes the path from the root of $T$ to $v$.  The \emph{length} of a path $P$ is the number of edges in $P$.  The \emph{depth}, $d_T(v)$ of $v$ is the length of $P_T(v)$.  The \emph{height} of $T$ is $h(T):=\max_{v\in V(T)} d_T(v)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ with $h(T)=\lfloor\log|T|\rfloor$.
 
-A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.
+A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.  (Note that the external nodes of $T$ are leaves of $T^+$ that are not actually in $T$.)
 
 A node $a\in V(T)$ is an \emph{ancestor} of $v\in V(T)$ if the path in $T$ from the root of $T$ to $v$ includes $a$.  (Note that $v$ is an ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is an ancestor of $v$ for each $v\in X$.
 
 Let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtrees and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) leaf child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
+A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) leaf child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
 
 The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
 
 \begin{obs}\obslabel{lexicographic}
-  If $T$ is a binary search tree then, for any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
+  For any binary search tree $T$ and any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
 Let $\R^+$ denote the set of positive real numbers. The following is an easy and often-used result about biased binary search trees:
@@ -123,7 +143,7 @@ Let $\R^+$ denote the set of positive real numbers. The following is an easy and
   For any function $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,n\}$ such that, for each $i\in\{1,\ldots,n\}$, $d_T(i)\le\log(W/w(i))$, where $W:=\sum_{i=1}^n w(i)$.
 \end{lem}
 
-To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(i)\le W/2$ and $\sum_{z=x+1}^{n} w(i)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees, respectively.
+To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $x\in\{1,\ldots,n\}$ such that $\sum_{z=1}^{x-1} w(z)\le W/2$ and $\sum_{z=x+1}^{n} w(z)< W/2$.  Then recurse on $\{1,\ldots,x-1\}$ and $\{x+1,\ldots,n\}$ to obtain the left and right subtrees, respectively.
 
 The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}:
 
@@ -166,11 +186,35 @@ Putting some of the preceding results together we obtain the following useful co
   for each $i\in\{1,\ldots,h\}$.  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
   
   The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \lemref{predecessor-encoding}.  That is $\delta(i)$ consists of
-  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding of the value $s=d_T(i-i)-d_T(i)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\log(s+1))=O(\log\log h)$.
+  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i-i)-d_T(i)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\log(s+1))=O(\log\log h)$.
 
   The function $A$ is now given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  Assume, for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
+
+\subsection{Product Structure Theorems}
+
+The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two vertices $v_1:=(x_1,y_1)$ and $v_2:=(x_2,y_2)$ are adjacent if and only if:
+\begin{enumerate}
+  \item  $v_1\neq v_2$; and
+  \item $x_1=x_2$ or $x_1x_2\in E(A)$; and
+  \item $y_1=y_2$ or $y_1y_2\in E(B)$.
+\end{enumerate}
+
+\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure}
+  Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
+\end{thm}
+
+\thmref{product-structure} has a number of generalizations to other minor-closed families of graphs including bounded genus graphs.  The most general of these applies to apex-minor free graphs:
+
+\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
+  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
+\end{thm}
+
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs in 2 dimensions.
+
+Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.\snote{Todo: Write a monstrous corollary}
+
 
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
@@ -491,7 +535,7 @@ $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real interv
 
 % The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(H):x\in v\}|$.  By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
 
-The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$ \snote{Help: reference?}:
+The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$ \snote{TODO: Use the references David provided}:
 
 \begin{lem}\lemlabel{interval-representation}
   For every $n$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $\log_{3/2} t\log n$ and, for every $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.  
@@ -756,6 +800,7 @@ This completes the proof of our main result.
 \end{thm}
 
 \section{Conclusion}
+\seclabel{conclusion}
 
 Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
