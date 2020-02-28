@@ -430,16 +430,34 @@ Our final lemma shows that bulk trees are balanced at all times:
        &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_0|) \\
        &= O(k + k^{-1}\log|T_{y}|) \enspace , \qedhere
   \end{align*}
-  for sufficiently large $k$.
+  for sufficiently large $k$. \snote{Again: quantify}
 \end{proof}
 
+Definition: A \emph{bulk tree sequence} is a sequence of trees $T_0,\ldots,T_h$ such that $T_0$ is a perfectly balanced binary search tree and, for each $y\in\{1,\ldots,h\}$, $I_y:=V(T_y)\setminus V(T_{y-1})$ and $D_y:= V(T_{y-1})\setminus V(T_y)$.  ....
+
+\subsection{Making Chunked Sets}
+
+\begin{lem}
+  Let $S_1,\ldots,S_h$ be arbitrary subsets of $R$.  Then there exists a bulk tree sequence $T_1,\ldots,T_h$ such that $\sum_{y=1}^h |T_y|\le 2\sum_{y=1}^h |S_i|$ and, for each $y\in\{1,\ldots,h\}$, $V(T_y)\supseteq S_y$.
+\end{lem}
+  
+%   $V(T_y)\supseteq S_i$
+%   \begin{compactenum}
+%     \item $T_1$ is a perfectly balanced search tree.  with $\sum_{y=1}^h |S_y|$.   be any sequence of number
+% \end{lem}
 
 
 
 \section{Transition Codes for Nodes}
+\seclabel{node-transitions}
 
-Ultimately, our goal is to use 
+\begin{lem}
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for any two consecutive bulk trees $T$ and $T'$ and for every $x\in V(T)\cap V(T')$, there exists $\nu(x)\in\{0,1\}^*$, $|\nu(x)| = O(k+ k^{-1}\log|T|)$ such that $B(\sigma_T(x), \nu(x)) = \sigma_{T'}(x)$.  
+\end{lem}
 
+\begin{proof}
+  Take this from the PxP section. 
+\end{proof}
 
 
 
