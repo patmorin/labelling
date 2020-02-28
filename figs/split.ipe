@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225145259" modified="D:20200225154916"/>
+<info created="D:20200225145259" modified="D:20200228161458"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -255,7 +255,15 @@ h
 <layer name="alpha"/>
 <layer name="gamma"/>
 <view layers="alpha" active="alpha"/>
-<view layers="gamma" active="alpha"/>
+<view layers="gamma" active="gamma"/>
+<path layer="gamma" stroke="gray">
+384 576 m
+448 560 l
+</path>
+<path stroke="gray">
+256 560 m
+384 576 l
+</path>
 <use layer="alpha" name="mark/disk(sx)" pos="256 576" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="288 560" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="320 544" size="normal" stroke="black"/>
@@ -375,24 +383,22 @@ h
 <use name="mark/disk(sx)" pos="400 464" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="432 496" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="464 512" size="normal" stroke="black"/>
-<use layer="gamma" matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="384 400" size="normal" stroke="black"/>
+<use layer="gamma" matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="384 400" size="normal" stroke="gray"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="256 384" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="288 368" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="320 352" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="352 336" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="448 384" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 176" name="mark/disk(sx)" pos="416 368" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 0 176" stroke="black">
-384 400 m
-256 384 l
-288 368 l
-320 352 l
-352 336 l
+<path stroke="black">
+256 560 m
+288 544 l
+320 528 l
+352 512 l
 </path>
-<path matrix="1 0 0 1 0 176" stroke="black">
-384 400 m
-448 384 l
-416 368 l
+<path stroke="black">
+448 560 m
+416 544 l
 </path>
 <path matrix="0.7 0 0 1 284.8 0" stroke="black">
 256 544 m
@@ -490,7 +496,7 @@ h
 352 336 m
 368 320 l
 </path>
-<text matrix="1 0 0 1 2 98" transformations="translations" pos="384 480" stroke="black" type="label" width="5.694" height="4.289" depth="0" valign="baseline" style="math">x</text>
+<text matrix="1 0 0 1 2 98" transformations="translations" pos="384 480" stroke="gray" type="label" width="5.694" height="4.289" depth="0" valign="baseline" style="math">x</text>
 <text matrix="1 0 0 1 -2 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">x_0=a_1</text>
 <text matrix="1 0 0 1 34 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_1=a_2</text>
 <text matrix="1 0 0 1 66 -45" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_2=a_3</text>
@@ -503,5 +509,7 @@ h
 <text matrix="1 0 0 1 77 -93" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_5</text>
 <text matrix="1 0 0 1 210 -61" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" valign="baseline" style="math">c_3</text>
 <text matrix="1 0 0 1 178 -77" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" valign="baseline" style="math">c_4</text>
+<text layer="gamma" transformations="translations" pos="272 464" stroke="black" type="label" width="17.065" height="6.81" depth="2.02" halign="center" valign="baseline" style="math">T_{&lt;x}</text>
+<text matrix="1 0 0 1 160 16" transformations="translations" pos="272 464" stroke="black" type="label" width="17.065" height="6.81" depth="2.02" halign="center" valign="baseline" style="math">T_{&gt;x}</text>
 </page>
 </ipe>
