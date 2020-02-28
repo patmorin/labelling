@@ -884,9 +884,9 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 % In summary, for each $v\in S_y$, there is a bitstring $\mu_y(v)$ of length $O(k\lg\lg n)$ that allows us to compute $\sigma_{T_{y+1}}(v)$ from $\sigma_{T_y}(v)$.
 
 
-\subsection{Adjacency Testing}
+\subsection{The Labels}
 
-Summarizing, we have a labelling scheme for any $n$-vertex subgraph $G$ of $H\boxtimes P$ that contains the following information for each vertex $z=(v,y)\in V(G)$:
+Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
 
 \begin{enumerate}[(PC1)]
   \item $\alpha(y)$; % of length $\log n-\log|T_y| + O(\lg\lg n)$;
@@ -899,6 +899,7 @@ Summarizing, we have a labelling scheme for any $n$-vertex subgraph $G$ of $H\bo
 \end{enumerate}
 The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3t$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
 
+\subsection{Adjacency Testing}
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in E(G)$ by first using $\alpha(y_1)$ and $\alpha(y_2)$ to determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
@@ -917,14 +918,24 @@ Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in 
 This completes the proof of our main result.
 
 \begin{thm}\thmlabel{main}
-  There exists a function $\mathds{A}:(\{0,1\}^*)^2\to\{0,1\}$ such that for every $t$-tree $H$, every path $P$, and every $n$-vertex subgraph $G$ of $H\boxtimes P$, there is a prefix-free code $\eta:V(G)\to\{0,1\}^*$ such that
-  $|\eta(v)|=\log n + O(\sqrt{\log n\lg\lg n}+t(\log t + \lg\lg n))$ for every $v\in V(G)$ and, for every $v,w\in V(G)$, 
-  \[  \mathds{A}(\eta(v),\eta(w)) = \begin{cases}
-        1 & \text{if $vw\in E(G)$} \\
-        0 & \text{if $vw\not\in E(G)$}
-      \end{cases}
-      \]
+  For every $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(\log n + O(\sqrt{\log n\lg\lg n}+t(\log t + \lg\lg n)))$-bit adjacency labelling scheme.
 \end{thm}
+% 
+% 
+%   For every $t\in\N$ and every $t$-tree $H$ and every path $P$, the family of subgraphs of $H\boxtimes P$ has a 
+% 
+% 
+% 
+%    subgraphs 
+%   There exists an 
+%   There exists a function $\mathds{A}:(\{0,1\}^*)^2\to\{0,1\}$ such that for every $t$-tree $H$, every path $P$, and every $n$-vertex subgraph $G$ of $H\boxtimes P$, there is a prefix-free code $\eta:V(G)\to\{0,1\}^*$ such that
+%   $|\eta(v)|=\log n + O(\sqrt{\log n\lg\lg n}+t(\log t + \lg\lg n))$ for every $v\in V(G)$ and, for every $v,w\in V(G)$, 
+%   \[  \mathds{A}(\eta(v),\eta(w)) = \begin{cases}
+%         1 & \text{if $vw\in E(G)$} \\
+%         0 & \text{if $vw\not\in E(G)$}
+%       \end{cases}
+%       \]
+% \end{thm}
 
 \section{Conclusion}
 \seclabel{conclusion}
