@@ -348,7 +348,7 @@ The $\mathrm{balance}(T_*)$ operation operates on the subtree $T_x$ of $T$ roote
 If $|V(T_x)|\ge 2^k$, let $Z\subset V(T_x)$ be the set of at most $2^k-1$ nodes of $T_x$ of depth less than $k$.  Then $T_x-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_m$.  
 % Each such tree $T_i$ has height at most $h(T)-k$.
 
-Select the nodes $X:=\{x_1,\ldots,x_{2^k}-1\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in the set $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{multisplit}(K)$ to the subtree $T_j$ with with the values $K=Y\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
+Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in the set $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{multisplit}(K)$ to the subtree $T_j$ with with the values $K=Y\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
 
 Now construct a perfectly balanced tree $T_0$ on $Z\cup X$, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.
 
@@ -804,12 +804,17 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
   
   \snote{Define $T$-ancestor, $T$-descendant, and rename $\textrm{balance}()$
   
-  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same. We therefore only need to consider the effect of the call to $\mathrm{multisplit}(x_1,\ldots,x_c)$ on the subtree $T_*$ that contains one or more nodes of $P_T(v)$.
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same. We therefore only need to consider the effect of the call to $\mathrm{balance}(x)$ on the unique depth-$\theta$ $T_y$-ancestor of $v$.
   
-  The $\textrm{balance}(x)$ identifies two special node sets $Z$ and $X$ that, are built into a perfectly balanced binary search tree so that $T_y'[Z\cup X]$ is a perfectly balanced binary search tree that contains the root of $T_y'$.   In particular, every node in $V(T_y')$ has  $T_y'$-ancestor in $Z\cup X$.
+  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textrm{balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
+  The transition code $\mu_y(x)$ contains the value $\theta$ and enough additional information to recover $\sigma_{T_*'}(v)$ from $\sigma_{T_*}(v)$. 
   
-  For each node $v\in L_y$, let $v^*=\bigcap_{w\in C_H(v)} w$.  If $v^*\cap (Z\cup X)\neq\emptyset$ then, by definition $x_{T_y'}(w)\in Z_\cup X)$
+  Now, $\textrm{balance}(x)$ identifies two special node sets $Z$ and $X$ that are built into a perfectly balanced binary search tree $T_0$ so that, eventually, $T_0$ is a subgraph of $T_*$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has  $T_*'$-ancestor in $Z\cup X$.
+  
+  For each node $v\in L_y$, let $v^*=\bigcap_{w\in C_H(v)} w$.  If $v^*\cap (Z\cup X)\neq\emptyset$ then, by definition $x_{T_*'}(w)\in Z_\cup X$ for every $w\in C_H(v)$, so $V(P_{T_*'}(v))\subseteq Z\cup X$.  Therefore, for any node such node $v$, $\sigma_{T_*'}(v)$ has length at most $h(T_0)\le k$ and can be included explicity in $\mu_y(v)$ with the addition of $O(k)$ extra bits.
 
+  Thus, we only need to consider those $v\in L_v$ such that $v^*\cap (Z\cup X)=\emptyset$.  For each such node $v$, $P_{T_*}(v)$ has vertices in common with exactly one tree $T_{*,i}$ in the forest $T_*-Z$.  Then \textrm{balance}(x)$ calls $\textrm{multisplit}(x_1,\ldots,x_c)$ on the subtree $T_{*,i}$ with $\{x_1,\ldots,x_c\}:= X\cap V(T_{*,i})$.  This, in turn results in a number of calls to $\textrm{split}(x)$ for a node $x\in v(T_{*,i}). The following claim explains the effect of one individual call to $\textrm{split}(x)$:
+  
   \begin{clm}\clmlabel{x-switch}
     Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T<x$ and $T>x$ be the two trees resulting from calling $\mathrm{split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $v=[a_v,b_v]\in S$ exactly one of the following is true:
     \begin{compactenum}
@@ -819,16 +824,16 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
     \end{compactenum}
   \end{clm}
 
-
-
-  
   \begin{proof}
     That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_v\le b_v$.
     
     By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_v,b_v]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node $z\in[a_v,b_v]$, so $z=x_{T_{>x}}(v)$.  This completes the proof of \clmref{x-switch}.
   \end{proof}
   
+  Now, consider the first call $\mathrm{split}(x_{\lceil c/2\rceil})$ on $T_{*,i}$, and let $W:=x_{T_y}(C_H(v))\cap V(T_{*,i})$.  By \clmref{x-switch}, there exists at least one $w\in W$ such that $w\neq x_{\lceil c/2\rceil}$ since, otherwise $x_{T'_y}(v)$ is a $T'_y$-ancestor of $x_{\lceil c/2\rceil}$, so $x_{T'_y}(v) \in Z\cup X$, which we have already handled above.  
   
+  
+  \{x_T(w):w\in C_H(v)
   
   
   
