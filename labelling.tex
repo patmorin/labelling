@@ -755,6 +755,7 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 % The difficulty comes from Part~(TC1) of $\tau_y(v)$.
 
 
+
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
   $H$, $G$, $L_1,\ldots,L_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in L_y\cup L_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$, $|\mu_y(v)|\in O(k\lg\lg n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.  \snote{We only need this for $v\in L_y$, right?}
@@ -766,7 +767,129 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
   
   The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in L_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w\in C_H(v)$, $x_{T_y'}(v)$ is the element of $v\cap V(T_y')$ that is closest to the root fo $T_y'$. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(w)=P_{T'}(w)$ and $\sigma_{T_y''}(w)=\sigma_{T'}(w)$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in L_y$.
   
-  The bulk deletion that converts $T_y''$ to $T_{y+1}$ is also relatively simple.  A bulk deletion consists of a sequence if individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the the tree before and after the deletion, respectively. We claim that, for any $v\in L_y$, $x_{\tilde{T}}(v)$ is an ancestor, in $T$, of $x_T(v)$. \snote{prove this now.}
+  Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence if individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the the tree before and after the deletion, respectively.  
+  
+  \begin{clm}\clmlabel{deletion-ancestor}
+    For any $v=[a_v,b_v]\in L_y$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))$ is a prefix of $\sigma_T(x_T(v))$.   
+  \end{clm}
+  
+  \begin{proof}[Proof of \clmref{deletion-ancestor}]  
+    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value in the) node $x_i$ is replaced with (the value in) node $x_{i+1}$.  
+
+    \begin{figure}
+      \begin{center}
+        \includegraphics{figs/deletion-t-tree-1}\\[1ex]
+        $\Downarrow$\\[1ex]   
+        \includegraphics{figs/deletion-t-tree-2}   
+      \end{center}
+      \caption{The effect of a single deletion on $x_T(v)$.}
+      \figlabel{deletion-t-tree}
+    \end{figure}
+    
+    If $x_T(v)=x_i$ for $i\in\{1,\ldots,r\}$, then $x_{\tilde{T}}(v)=x_i$ (see the interval $v_1$ in \figref{deletion-t-tree}) and $\sigma_{\tilde{T}}(x_i)=\sigma_{T}(x_{i-1})$.  Since $x_{i-1}$ is a $T$-ancestor of $x_i$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))=\sigma_{\tilde{T}}(x_i)$ is a prefix of $\sigma_{T}(x_{T}(x))$, as required.
+    
+    On the other hand, if $x_T(v)\neq x_i$ and $x_T(v)\neq x_{\tilde{T}}(v)$, then the only possibility is that some node $x_{\tilde{T}}(v)=x_i$ for some $x_i\in [a_v,b_v]$ (see the interval $v_2$ in \figref{deletion-t-tree}).  This can only happen if $x_i$ is not a $T$-ancestor of $x_T(v)$, but $x_i$ is a $\tilde{T}$ ancestor of $x_T(v)$.  By \lemref{common-ancestor}, $x_i$ is a $T$-descendant of $x_T(v)$.  Since $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$, $x_{i-1}$ is a $T$-ancestor of $x_T(v)$.  Therefore $\sigma_{\tilde{T}}(v)=\sigma_{\tilde{T}}(x_i)=\sigma_T(x_{i-1})$ is a prefix of $\sigma_T(x_T(v))$, as required.  This completes the proof of \clmref{deletion-ancestor}.    
+  \end{proof}
+  
+  Let $a\preceq b$ denote that $a$ is a prefix of $b$.
+  Since a bulk deletion is implemented as a sequence of individual deletions,
+  \begin{align*}
+    \sigma_{T_y''}(v) 
+      & = \sigma_{T_y''}(x_{T_y''}(w)) & \text{(for some $w\in C_H(v)$} \\
+      & \preceq \sigma_{T_y'}(x_{T_y'}(w)) & \text{(by \clmref{deletion-ancestor})} \\
+      & \preceq \sigma_{T_y'}(v) \enspace . & \text{(by \lemref{one-path})}
+  \end{align*} 
+  Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $O(\log h({T_y'}))=O(\lg\lg n)$ bits.
+  
+  
+  \snote{Define $T$-ancestor, $T$-descendant, and rename $\textrm{balance}()$
+  
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same. We therefore only need to consider the effect of the call to $\mathrm{multisplit}(x_1,\ldots,x_c)$ on the subtree $T_*$ that contains one or more nodes of $P_T(v)$.
+  
+  The $\textrm{balance}(x)$ identifies two special node sets $Z$ and $X$ that, are built into a perfectly balanced binary search tree so that $T_y'[Z\cup X]$ is a perfectly balanced binary search tree that contains the root of $T_y'$.   In particular, every node in $V(T_y')$ has  $T_y'$-ancestor in $Z\cup X$.
+  
+  For each node $v\in L_y$, let $v^*=\bigcap_{w\in C_H(v)} w$.  If $v^*\cap (Z\cup X)\neq\emptyset$ then, by definition $x_{T_y'}(w)\in Z_\cup X)$
+
+  \begin{clm}\clmlabel{x-switch}
+    Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T<x$ and $T>x$ be the two trees resulting from calling $\mathrm{split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $v=[a_v,b_v]\in S$ exactly one of the following is true:
+    \begin{compactenum}
+      \item $a_v\le x\le b_v$; or
+      \item $x< a_v$, in which case $x_{T_{>x}}(v)=x_T(v)$; or
+      \item $b_v < x$, in which case $x_{T_{<x}}(v)=x_T(v)$.
+    \end{compactenum}
+  \end{clm}
+
+
+
+  
+  \begin{proof}
+    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_v\le b_v$.
+    
+    By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_v,b_v]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node $z\in[a_v,b_v]$, so $z=x_{T_{>x}}(v)$.  This completes the proof of \clmref{x-switch}.
+  \end{proof}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  % A rebalancing operation applies \lemref{multi-split} to each subtree of $T_y$ rooted at a node of depth $(i-1)(k+1)$.  Refer to \figref{rebalance-t-tree}. At most one of these subtrees contains nodes from $P_{T_y}(v)$. We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.  Let $T_y^0$ be the result of applying \lemref{multi-split} to every subtree rooted at a depth $(i-1)(k+1)$ node that does not contain any nodes of $P_{T_y}(v)$.  By \obsref{x-switch}, $x_{T_y}(u)=x_{T_y^0}(u)$ for all $u\in C_H(v)$.  The path $P_{T_y}(v)=x_0,\ldots,x_r$ is also a path in $T_y^0$ and this is the path in $T_y^0$ from the root to the deepest node in $x_{T_y^0}(C_H(v))$. So, by definition, $P_{T_y}(v)=P_{T_y^0}(v)$.
+  
+  \begin{figure}
+    \begin{center}
+      \includegraphics{figs/rebalance-t-tree}
+    \end{center}
+    \caption{Calling $\mathrm{multipslit}(x_1,\ldots,x_c)$ on each of the depth-$\theta$ subtrees of $T_y$ except $T_*$ has no effect on $P_{T_y}(v)$.}
+    \figlabel{rebalance-t-tree}
+  \end{figure}
+  
+  Let $T_*'$ 
+  
+  
+    Let $T_y'$ be the result of applying \lemref{multi-split} to the subtree $T_*$ of $T_y^0$ that contains some nodes of $P_{T_y}(v)=P_{T_y^0}(v)=x_0,\ldots,x_r$ and let $T_*'$ denote the result of applying \lemref{multi-split} to $T_*$.
+  The subtree $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  Since the only restructuring done by \lemref{multi-split} is done by applications of \lemref{split} to subtrees contained in $T_*$,  \obsref{x-switch} implies that $x_{T_y'}(w)\in V(T_*)$.  Therefore $P_{T_y'}=x_0,\ldots,x_{(i-1)(k-1)-1},x'_0,\ldots,x'_{s}$ where $x_0',\ldots,x'_s$ is a path in $T_*'$. By including the integer $(i-1)(k+1)$ in $\mu_y(v)$, we can therefore focus on encoding the differences between $\sigma_{T_*}(x_r)$ and $\sigma_{T_*'}(x'_s)$.
+  
+  To simplify notation, we now assume that $T^*=T_y$, so that the one application of \lemref{multi-split} that affects $P_{T_y}(v)$ is at the root of $T_y$.
+  This application of \lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.
+  
+  By \obsref{x-switch} $x_{T_y^1}(w)\in\{x',x_{T_y^1}(w)\}$ for every $w\in C_H(v)$.  If $x_{T_y^1}(w)=x'$ for every $w\in C_H(v)$, then $P_{T_y^1}(v)=x'$ is a path of length 0.  This can be recorded by adding $O(1)$ bits to $\mu_y(v)$. Otherwise, there is a non-empty subset $W\subset C_H(v)$ such that $x_{T_y^1}(w)=x_{T_y}(w)$ for each $w\in W$.  Let $w^*\in W$ be an element that maximizes $d_{T_y}(w^*)$.  We claim that $w^*$ also maximizes $d_{T_y^1}(w^*)$.  Indeed, as noted already in the proof of \obsref{x-switch} $P_{T_y^1}(w^*)$ consists of $x'$ followed by a subsequence of $P_{T_y}(w^*)$ that includes every node in $W$.  Therefore, $P_{T_y^1}(w^*)$ contains every node of $W$ and ends at $w^*$.  Therefore $d_T(w^*)\ge d_T(w)$ for all $w\in W$.
+  
+  Therefore $P_{T_y^1}(v)=P_{T_y^1}(w^*)$.  Now $w^*$ appear in $P_{T_y}(v)$, so $\sigma_{T_y}(w^*)$ can be recovered from $\sigma_{T_y}(v)$ and $d_{T_y}(w^*)$, so the $O(\lg\lg n)$ bits required to encode $d_{T_y}(w^*)$ are included in $\mu_y(v)$.  Furthermore, as shown in \lemref{split}, $\sigma_{T_y^1}(w^*)=\sigma_{T_y^1}(v)$ can be recovered from $\sigma_{T_y}(w^*)$ and an additional $O(\lg\lg n)$ bits that are included in $\mu_y(v)$.  In this way, we can recover $\sigma_{T_y^1}(v)=\sigma_{T_y^1}(w^*)$ with the addition of only $O(\lg\lg n)$ bits to $\mu_y(v)$.
+  
+  Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulting in intermediate trees $T_y^1,\ldots,T_y^{2^k-1}=T_y'$.  However, these applications are partitioned into $k$ sets $R_0,\ldots,R_{k-1}$, where the applications of \lemref{multi-split} in $R_i$ operate on $2^i$ disjoint subtrees rooted at nodes of depth $i$.  In particular, only one subtree in each set $R_i$ contains any nodes from $P_{T}(v)$.  Each of these applications adds $O(\lg\lg n)$ bits to $\mu_y(v)$ for a total of $O(k\lg\lg n)$ bits.
+  
+  Therefore, $\mu_y(v)$ contains a sequence of $O(k\lg\lg n)$ bits, that makes it possible to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S_y$.
+  
+  
+  % 
+  % 
+  %  \clmref{deletion-ancestor} implies that, for each $w\in L_y$, $\sigma_{T_y''}(x_{T_y''}(w))$ is a prefix of $\sigma_{T_y'}(x_{T_y'}(w))$.  Now, $\sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''}(w))$ for some $w\in C_H(v)$.  By \lemref{one-path} $\sigma_{T_{y'}}(x_{T_y'}(w))$ is a prefix of $\sigma_{T_y'}(v)$.  Using $a\preceq b$ to denote the prefix-of relation, we have
+  % \[ \sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''}(w))
+  % \preceq \sigma_{T_y'}(x_{T_y'}(w)) \preceq \sigma_{T_y'}(v) 
+  % \]    
+  % 
+  % 
+  % By definition $\sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''(w))$ for some $w\in C_H(v)$.  By \lemref{one-path}, $\sigma_{T_y'}(x_{T'}(w))$ is a prefix of $\sigma_{T_y'}(v)$.  By (repeated applications of) \lemref{deletion-signature}, $\sigma
+  % 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   Done before, but now it's time to do it again.
 \end{proof}

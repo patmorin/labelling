@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225230024" modified="D:20200227170645"/>
+<info created="D:20200225230024" modified="D:20200302085200"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -257,6 +257,10 @@ h
 <layer name="gamma"/>
 <view layers="alpha gamma" active="alpha"/>
 <view layers="beta gamma" active="beta"/>
+<path layer="alpha" matrix="0.6 0 0 0.6 83.2 252.8" stroke="gray" pen="heavier" arrow="normal/normal">
+224 608 m
+192 656 l
+</path>
 <path layer="beta" matrix="0.6 0 0 0.6 51.2 310.4" fill="darkred">
 8 0 0 8 288 576 e
 </path>
@@ -438,5 +442,15 @@ h
 </path>
 <text matrix="1 0 0 1 -58 19" transformations="translations" pos="288 496" stroke="darkred" type="label" width="9.298" height="4.294" depth="1.49" halign="center" valign="top" style="math">v_1</text>
 <text layer="alpha" matrix="1 0 0 1 -60 34" transformations="translations" pos="280 576" stroke="darkred" type="label" width="33.909" height="7.467" depth="4.46" halign="right" valign="baseline" style="math">x_{T_y&apos;&apos;}(v_2)</text>
+<path matrix="0.7 0 0 0.7 72 175.2" stroke="gray" pen="heavier" arrow="normal/normal">
+256 560 m
+224 608 l
+</path>
+<path stroke="gray" pen="heavier" arrow="normal/normal">
+268 540 m
+256 540
+256.786 549.656 c
+256 556 l
+</path>
 </page>
 </ipe>
