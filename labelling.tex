@@ -804,16 +804,16 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
   
   \snote{Define $T$-ancestor, $T$-descendant, and rename $\textrm{balance}()$
   
-  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same. We therefore only need to consider the effect of the call to $\mathrm{balance}(x)$ on the unique depth-$\theta$ $T_y$-ancestor of $v$.
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\mathrm{balance}(x)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$.
   
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textrm{balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
-  The transition code $\mu_y(x)$ contains the value $\theta$ and enough additional information to recover $\sigma_{T_*'}(v)$ from $\sigma_{T_*}(v)$. 
+  The transition code $\mu_y(x)$ will contain enough information to recover $\sigma_{T_*'}(v)$ from $\sigma_{T_*}(v)$. 
   
-  Now, $\textrm{balance}(x)$ identifies two special node sets $Z$ and $X$ that are built into a perfectly balanced binary search tree $T_0$ so that, eventually, $T_0$ is a subgraph of $T_*$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has  $T_*'$-ancestor in $Z\cup X$.
+  Now, $\textrm{balance}(x)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $T_0$.  Eventually, $T_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has  $T_*'$-ancestor in $Z\cup X$.
   
-  For each node $v\in L_y$, let $v^*=\bigcap_{w\in C_H(v)} w$.  If $v^*\cap (Z\cup X)\neq\emptyset$ then, by definition $x_{T_*'}(w)\in Z_\cup X$ for every $w\in C_H(v)$, so $V(P_{T_*'}(v))\subseteq Z\cup X$.  Therefore, for any node such node $v$, $\sigma_{T_*'}(v)$ has length at most $h(T_0)\le k$ and can be included explicity in $\mu_y(v)$ with the addition of $O(k)$ extra bits.
+  For any $v\in L_y$ such that $P_{T_*'}(v)$ ends at a vertex $z\in Z\cup X=V(T_0)$, the problem is easy.  We include $\sigma_{T_0}(z)$, which has length at most $h(T_0)\le k$, in $\mu_y(v)$, and this (plus $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
 
-  Thus, we only need to consider those $v\in L_v$ such that $v^*\cap (Z\cup X)=\emptyset$.  For each such node $v$, $P_{T_*}(v)$ has vertices in common with exactly one tree $T_{*,i}$ in the forest $T_*-Z$.  Then \textrm{balance}(x)$ calls $\textrm{multisplit}(x_1,\ldots,x_c)$ on the subtree $T_{*,i}$ with $\{x_1,\ldots,x_c\}:= X\cap V(T_{*,i})$.  This, in turn results in a number of calls to $\textrm{split}(x)$ for a node $x\in v(T_{*,i}). The following claim explains the effect of one individual call to $\textrm{split}(x)$:
+  Thus, we only need to consider those $v\in L_v$ such that $P_{T_y'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.  By definition,  $z=x_{T_y'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$ and $[a_w,b_w]\cap (Z\cup X)=\emptyset$.    For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{*,i}$ in the forest $T_*-Z$.  Then $\mathrm{balance}(x)$ calls $\mathrm{multisplit}(x_1,\ldots,x_c)$ on the subtree $T_{*,i}$ with $\{x_1,\ldots,x_c\}:= X\cap V(T_{*,i})$.  This, in turn results in zero or more calls to $\textrm{split}(x)$ for nodes $x\in v(T_{*,i})$. The following claim explains the effect of one individual call to $\mathrm{split}(x)$:
   
   \begin{clm}\clmlabel{x-switch}
     Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T<x$ and $T>x$ be the two trees resulting from calling $\mathrm{split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $v=[a_v,b_v]\in S$ exactly one of the following is true:
@@ -830,154 +830,12 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
     By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_v,b_v]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node $z\in[a_v,b_v]$, so $z=x_{T_{>x}}(v)$.  This completes the proof of \clmref{x-switch}.
   \end{proof}
   
-  Now, consider the first call $\mathrm{split}(x_{\lceil c/2\rceil})$ on $T_{*,i}$, and let $W:=x_{T_y}(C_H(v))\cap V(T_{*,i})$.  By \clmref{x-switch}, there exists at least one $w\in W$ such that $w\neq x_{\lceil c/2\rceil}$ since, otherwise $x_{T'_y}(v)$ is a $T'_y$-ancestor of $x_{\lceil c/2\rceil}$, so $x_{T'_y}(v) \in Z\cup X$, which we have already handled above.  
+  From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or $\mathrm{split}(x)$ is called on some node $x\in[a_w,b_w]$.  But $\mathrm{split}(x)$ is only called on nodes $x\in X$, so if $x\in[a_w,b_w]$, then this would imply that $X$ contains a value in $[a_w,b_w]$ violating the assumption that $x_{T_y'}(w)\not\in Z\cup X$.
   
-  
-  \{x_T(w):w\in C_H(v)
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  % A rebalancing operation applies \lemref{multi-split} to each subtree of $T_y$ rooted at a node of depth $(i-1)(k+1)$.  Refer to \figref{rebalance-t-tree}. At most one of these subtrees contains nodes from $P_{T_y}(v)$. We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.  Let $T_y^0$ be the result of applying \lemref{multi-split} to every subtree rooted at a depth $(i-1)(k+1)$ node that does not contain any nodes of $P_{T_y}(v)$.  By \obsref{x-switch}, $x_{T_y}(u)=x_{T_y^0}(u)$ for all $u\in C_H(v)$.  The path $P_{T_y}(v)=x_0,\ldots,x_r$ is also a path in $T_y^0$ and this is the path in $T_y^0$ from the root to the deepest node in $x_{T_y^0}(C_H(v))$. So, by definition, $P_{T_y}(v)=P_{T_y^0}(v)$.
-  
-  \begin{figure}
-    \begin{center}
-      \includegraphics{figs/rebalance-t-tree}
-    \end{center}
-    \caption{Calling $\mathrm{multipslit}(x_1,\ldots,x_c)$ on each of the depth-$\theta$ subtrees of $T_y$ except $T_*$ has no effect on $P_{T_y}(v)$.}
-    \figlabel{rebalance-t-tree}
-  \end{figure}
-  
-  Let $T_*'$ 
-  
-  
-    Let $T_y'$ be the result of applying \lemref{multi-split} to the subtree $T_*$ of $T_y^0$ that contains some nodes of $P_{T_y}(v)=P_{T_y^0}(v)=x_0,\ldots,x_r$ and let $T_*'$ denote the result of applying \lemref{multi-split} to $T_*$.
-  The subtree $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  Since the only restructuring done by \lemref{multi-split} is done by applications of \lemref{split} to subtrees contained in $T_*$,  \obsref{x-switch} implies that $x_{T_y'}(w)\in V(T_*)$.  Therefore $P_{T_y'}=x_0,\ldots,x_{(i-1)(k-1)-1},x'_0,\ldots,x'_{s}$ where $x_0',\ldots,x'_s$ is a path in $T_*'$. By including the integer $(i-1)(k+1)$ in $\mu_y(v)$, we can therefore focus on encoding the differences between $\sigma_{T_*}(x_r)$ and $\sigma_{T_*'}(x'_s)$.
-  
-  To simplify notation, we now assume that $T^*=T_y$, so that the one application of \lemref{multi-split} that affects $P_{T_y}(v)$ is at the root of $T_y$.
-  This application of \lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.
-  
-  By \obsref{x-switch} $x_{T_y^1}(w)\in\{x',x_{T_y^1}(w)\}$ for every $w\in C_H(v)$.  If $x_{T_y^1}(w)=x'$ for every $w\in C_H(v)$, then $P_{T_y^1}(v)=x'$ is a path of length 0.  This can be recorded by adding $O(1)$ bits to $\mu_y(v)$. Otherwise, there is a non-empty subset $W\subset C_H(v)$ such that $x_{T_y^1}(w)=x_{T_y}(w)$ for each $w\in W$.  Let $w^*\in W$ be an element that maximizes $d_{T_y}(w^*)$.  We claim that $w^*$ also maximizes $d_{T_y^1}(w^*)$.  Indeed, as noted already in the proof of \obsref{x-switch} $P_{T_y^1}(w^*)$ consists of $x'$ followed by a subsequence of $P_{T_y}(w^*)$ that includes every node in $W$.  Therefore, $P_{T_y^1}(w^*)$ contains every node of $W$ and ends at $w^*$.  Therefore $d_T(w^*)\ge d_T(w)$ for all $w\in W$.
-  
-  Therefore $P_{T_y^1}(v)=P_{T_y^1}(w^*)$.  Now $w^*$ appear in $P_{T_y}(v)$, so $\sigma_{T_y}(w^*)$ can be recovered from $\sigma_{T_y}(v)$ and $d_{T_y}(w^*)$, so the $O(\lg\lg n)$ bits required to encode $d_{T_y}(w^*)$ are included in $\mu_y(v)$.  Furthermore, as shown in \lemref{split}, $\sigma_{T_y^1}(w^*)=\sigma_{T_y^1}(v)$ can be recovered from $\sigma_{T_y}(w^*)$ and an additional $O(\lg\lg n)$ bits that are included in $\mu_y(v)$.  In this way, we can recover $\sigma_{T_y^1}(v)=\sigma_{T_y^1}(w^*)$ with the addition of only $O(\lg\lg n)$ bits to $\mu_y(v)$.
-  
-  Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulting in intermediate trees $T_y^1,\ldots,T_y^{2^k-1}=T_y'$.  However, these applications are partitioned into $k$ sets $R_0,\ldots,R_{k-1}$, where the applications of \lemref{multi-split} in $R_i$ operate on $2^i$ disjoint subtrees rooted at nodes of depth $i$.  In particular, only one subtree in each set $R_i$ contains any nodes from $P_{T}(v)$.  Each of these applications adds $O(\lg\lg n)$ bits to $\mu_y(v)$ for a total of $O(k\lg\lg n)$ bits.
-  
-  Therefore, $\mu_y(v)$ contains a sequence of $O(k\lg\lg n)$ bits, that makes it possible to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S_y$.
-  
-  
-  % 
-  % 
-  %  \clmref{deletion-ancestor} implies that, for each $w\in L_y$, $\sigma_{T_y''}(x_{T_y''}(w))$ is a prefix of $\sigma_{T_y'}(x_{T_y'}(w))$.  Now, $\sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''}(w))$ for some $w\in C_H(v)$.  By \lemref{one-path} $\sigma_{T_{y'}}(x_{T_y'}(w))$ is a prefix of $\sigma_{T_y'}(v)$.  Using $a\preceq b$ to denote the prefix-of relation, we have
-  % \[ \sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''}(w))
-  % \preceq \sigma_{T_y'}(x_{T_y'}(w)) \preceq \sigma_{T_y'}(v) 
-  % \]    
-  % 
-  % 
-  % By definition $\sigma_{T_y''}(v)=\sigma_{T_y''}(x_{T_y''(w))$ for some $w\in C_H(v)$.  By \lemref{one-path}, $\sigma_{T_y'}(x_{T'}(w))$ is a prefix of $\sigma_{T_y'}(v)$.  By (repeated applications of) \lemref{deletion-signature}, $\sigma
-  % 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  Done before, but now it's time to do it again.
+  Thus, for every node 
+  \ldots
 \end{proof}
   
-% This part, $\sigma_{T_y}(v)$, is determined by the path from the root of $T_y$ to the deepest node $z\in x_{T_y}(C_H(v))$.  When $T_y$ is restructured to become $T_{y+1}$, the path defining $\sigma_{T_y}(v)$ changes, the relative depths of nodes in $x_{T_y}(C_H(v))$ may change and even the value $x_{T_y}(w)$ may change for any $w\in V(H)$.  
-% 
-% We now examine the three operations that define how $T_y$ is transformed into $T_{y+1}$ to show how the effects of these operations on the labels of nodes in $S^-_y\cap S^-_{y+1}$ can be encoded succinctly.  For each $v\in S_y$, the changes to $\sigma_{T_y}(v)$ required to recover $\sigma_{T_{y+1}}(v)$ will be encoded in a string $\mu_y(v)$.
-% 
-% Recall that the three operations that transform $T_y$ into $T_{y+1}$ are (S1)~rebalancing, (S2)~bulk insertion and (S3)~bulk deletion. Rebalancing takes $T_y$ onto a tree $T_y'$. Bulk insertion takes $T_y'$ onto a tree $T_y''$.  Bulk deletion takes $T_y''$ onto $T_{y+1}$.
-% 
-% 
-% \subsubsection{(S1): Rebalancing}
-% 
-% The rebalancing operation involves applying \lemref{multi-split} to all the subtrees of $T$ rooted at nodes of depth $(i-1)(k+1)$.  This, in turn, involves applying \lemref{split} to $2^k-1$ nodes so that they become roots of specific subtrees.
-% 
-% For a binary tree $T$ and a node $z\in V(T)$, let $P_T(z)$ denote the path from the root of $T$ to $z$.  We begin with a simple observation about the restructing operation in \lemref{split}.
-% 
-% \begin{obs}\obslabel{x-switch}
-%   Let $T$ be a binary search tree, let $S$ be a set of intervals, and let $T'$ be the result of applying \lemref{split} to $T$ to make some node $x'\in V(T)$ become the root.  Then, for each $v\in S$, $x_{T'}(v)\in\{x_T(v), x'\}$.
-% \end{obs}
-% 
-% \begin{proof}
-%   Consider any node $z\in V(T)$ and without loss of generality, assume $z>x'$. 
-%   If $x'$ is not in the subtree of $T$ rooted at $z$, then $P_T(z)=P_{T'}(z)$.  If $x'$ is in the subtree of $T$ rooted at $z$, then $P_T(z)$ is obtained by deleting all values less than $x'$ from $P_T(z)$ and (possibly) inserting $x'$.
-% 
-%   Now, consider any $v=[a,b]\in S$ and let $x:=x_T(v)$. By definition, $x$ is is the only node in $P_T(x)$ contained in $[a,b]$. Therefore, the only nodes of $P_{T'}(x)$ contained in $[a,b]$ are $x$ and (possibly) $x'$.  Therefore $x_{T'}(v)\in \{x,x'\}$.
-% \end{proof}
-% 
-% For any $v\in S^-_{y}\cap S^-_{y+1}$, and any $y\in\{1,\ldots,h\}$, let $P_{T_y}(v)=x_0,\ldots,x_r$ be the path from the root of $T_y$ to the deepest node in $x_{T_y}(C_H(v))$.  In other words, $\sigma_{T_y}(v)=\sigma_{T_y}(x_r)$ and $x_r=x_{T_y}(w)$ for some $w\in C_H(v)$.
-% 
-% A rebalancing operation applies \lemref{multi-split} to each subtree of $T_y$ rooted at a node of depth $(i-1)(k+1)$.  Refer to \figref{rebalance-t-tree}. At most one of these subtrees contains nodes from $P_{T_y}(v)$. We first establish that none of the other application of \lemref{multi-split} has any effect on $\sigma_{T_y}(v)$.  Let $T_y^0$ be the result of applying \lemref{multi-split} to every subtree rooted at a depth $(i-1)(k+1)$ node that does not contain any nodes of $P_{T_y}(v)$.  By \obsref{x-switch}, $x_{T_y}(u)=x_{T_y^0}(u)$ for all $u\in C_H(v)$.  The path $P_{T_y}(v)=x_0,\ldots,x_r$ is also a path in $T_y^0$ and this is the path in $T_y^0$ from the root to the deepest node in $x_{T_y^0}(C_H(v))$. So, by definition, $P_{T_y}(v)=P_{T_y^0}(v)$.
-% 
-% \begin{figure}
-%   \begin{center}
-%     \includegraphics{figs/rebalance-t-tree}
-%   \end{center}
-%   \caption{Applying \lemref{multi-split} to each of the depth-$(i-1)(k+1)$ subtrees of $T_y$ except $T_*$ has no effect on $P_{T_y}(v)$.}
-%   \figlabel{rebalance-t-tree}
-% \end{figure}
-% 
-% Let $T_y'$ be the result of applying \lemref{multi-split} to the subtree $T_*$ of $T_y^0$ that contains some nodes of $P_{T_y}(v)=P_{T_y^0}(v)=x_0,\ldots,x_r$ and let $T_*'$ denote the result of applying \lemref{multi-split} to $T_*$.
-% The subtree $T_*$ contains some suffix $x_i,\ldots,x_r$ of $x_0,\ldots,x_r$.  By definition $x_r=x_{T_y}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  Since the only restructuring done by \lemref{multi-split} is done by applications of \lemref{split} to subtrees contained in $T_*$,  \obsref{x-switch} implies that $x_{T_y'}(w)\in V(T_*)$.  Therefore $P_{T_y'}=x_0,\ldots,x_{(i-1)(k-1)-1},x'_0,\ldots,x'_{s}$ where $x_0',\ldots,x'_s$ is a path in $T_*'$. By including the integer $(i-1)(k+1)$ in $\mu_y(v)$, we can therefore focus on encoding the differences between $\sigma_{T_*}(x_r)$ and $\sigma_{T_*'}(x'_s)$.
-% 
-% To simplify notation, we now assume that $T^*=T_y$, so that the one application of \lemref{multi-split} that affects $P_{T_y}(v)$ is at the root of $T_y$.
-% This application of \lemref{multi-split} involves several applications of \lemref{split}.  Consider the first application of \lemref{split}, that takes some node $x'$ in $T_y$ and moves it to the root, creating a new tree $T_y^1$.
-% 
-% By \obsref{x-switch} $x_{T_y^1}(w)\in\{x',x_{T_y^1}(w)\}$ for every $w\in C_H(v)$.  If $x_{T_y^1}(w)=x'$ for every $w\in C_H(v)$, then $P_{T_y^1}(v)=x'$ is a path of length 0.  This can be recorded by adding $O(1)$ bits to $\mu_y(v)$. Otherwise, there is a non-empty subset $W\subset C_H(v)$ such that $x_{T_y^1}(w)=x_{T_y}(w)$ for each $w\in W$.  Let $w^*\in W$ be an element that maximizes $d_{T_y}(w^*)$.  We claim that $w^*$ also maximizes $d_{T_y^1}(w^*)$.  Indeed, as noted already in the proof of \obsref{x-switch} $P_{T_y^1}(w^*)$ consists of $x'$ followed by a subsequence of $P_{T_y}(w^*)$ that includes every node in $W$.  Therefore, $P_{T_y^1}(w^*)$ contains every node of $W$ and ends at $w^*$.  Therefore $d_T(w^*)\ge d_T(w)$ for all $w\in W$.
-% 
-% Therefore $P_{T_y^1}(v)=P_{T_y^1}(w^*)$.  Now $w^*$ appear in $P_{T_y}(v)$, so $\sigma_{T_y}(w^*)$ can be recovered from $\sigma_{T_y}(v)$ and $d_{T_y}(w^*)$, so the $O(\lg\lg n)$ bits required to encode $d_{T_y}(w^*)$ are included in $\mu_y(v)$.  Furthermore, as shown in \lemref{split}, $\sigma_{T_y^1}(w^*)=\sigma_{T_y^1}(v)$ can be recovered from $\sigma_{T_y}(w^*)$ and an additional $O(\lg\lg n)$ bits that are included in $\mu_y(v)$.  In this way, we can recover $\sigma_{T_y^1}(v)=\sigma_{T_y^1}(w^*)$ with the addition of only $O(\lg\lg n)$ bits to $\mu_y(v)$.
-% 
-% Now \lemref{multi-split} involves $2^k-1$ applications of \lemref{split} resulting in intermediate trees $T_y^1,\ldots,T_y^{2^k-1}=T_y'$.  However, these applications are partitioned into $k$ sets $R_0,\ldots,R_{k-1}$, where the applications of \lemref{multi-split} in $R_i$ operate on $2^i$ disjoint subtrees rooted at nodes of depth $i$.  In particular, only one subtree in each set $R_i$ contains any nodes from $P_{T}(v)$.  Each of these applications adds $O(\lg\lg n)$ bits to $\mu_y(v)$ for a total of $O(k\lg\lg n)$ bits.
-% 
-% Therefore, $\mu_y(v)$ contains a sequence of $O(k\lg\lg n)$ bits, that makes it possible to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$ for every $v\in S_y$.
-% 
-% \subsubsection{(S2): bulk Insertions}
-% 
-% During the bulk insertion phase, elements in $I_y:=X_{y+1}\setminus X_y$ are added to $T_y'$ to create the new tree $T_{y}''$.  The newly added elements are added to small complete binary search trees that are attached to existing nodes of $T_{y}'$.  This ensures that, in $T_y''$, no vertex of $T_y$ has any ancestor in $I_y$.  This in turn ensures that $x_{T_y''}(v)=x_{T_y'}(v)$ for every $v\in S_y$.  
-% 
-% Now, for every $v\in S_y$, $C_H(v)\subseteq S^-_y$, so $P_{T_y'}(v)$ is well-defined.  Since $T_y''$ is a supergraph of $T_y'$ and $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$, $P_{T_y''}(v)=P_{T_y'}(v)$ and therefore $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for every $v\in S_y$.
-% 
-% \subsubsection{(S3): bulk Deletions}
-% 
-% Each individual deletion either involves removing a leaf from $T_y''$ or it involves (possibly repeatedly) replacing some value $x$ with some value $x'$ that either the smallest value in $x$'s right subtree or the largest value in $x$'s left subtree.
-% 
-% Let $v=[a_v,b_v]\in S_y\cap S^-_y$.  Recall that, by definition, $a_v$ and $b_v$ are both contained in $X_y$ and in $X_{y+1}$.  Refer to interval $v_1$ in \figref{deletion-t-tree}.  If $x_{T_y''}(v)=x$, then $x\in[a_v,b_v]$ and, since $a_v,b_v\in X_{y}$, $x'\in[a_v,b_v]$.  Therefore, if $x_{T''}(v)=x$ then, after removing $x$ and replacing it with $x'$, $x_{T''}(v)=x'$.  
-% 
-% The only other possible change of this type occurs when this replacement operation causes $x'$ to become an ancestor of some node $x''$ that it wasn't before.  See vertex $v_2$ in \figref{deletion-t-tree}.  In this case, some $v\in S_y$ with $x_{T_y''}(v)=x''$ before the replacement will have $x_{T_y''}(v)=x'$ after the replacement.
-% 
-% \begin{figure}
-%   \begin{center}
-%     \includegraphics{figs/deletion-t-tree-1} \\[1ex]
-%     $\Downarrow$ \\[1ex]
-%     \includegraphics{figs/deletion-t-tree-2}
-%   \end{center}
-%   \caption{A deletion in $T''_y$ can only remove a suffix from $\sigma_{T''_y}(x_{T''_y}(v))$.}
-%   \figlabel{deletion-t-tree}
-% \end{figure}
-% 
-% In either of the preceding cases replacing $x$ with $x'$ has the effect of removing a (possibly empty) suffix from $\sigma_T(x_{T_y''}(v))$.  Therefore, the net effect of any number of these operations is to remove a (possibly empty) suffix from $\sigma_{T_y''}(v)$.  Therefore, the effect of all these operations on $\sigma_T(v)$ can be represented including one integer in the range $\{0,\ldots,h(T_y'')\}$ in $\mu_y(v)$.  This adds only $O(\lg\lg n)$ bits to $\mu_y(v)$.
-% 
-% In summary, for each $v\in S_y$, there is a bitstring $\mu_y(v)$ of length $O(k\lg\lg n)$ that allows us to compute $\sigma_{T_{y+1}}(v)$ from $\sigma_{T_y}(v)$.
-
-
 \subsection{The Labels}
 
 Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
