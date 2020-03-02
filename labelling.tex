@@ -41,7 +41,7 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x = \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The size of a graph $G$ is denoted by $|G|:=|V(G)|$.
+In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The size of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
 A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency-labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ thre exists $\ell:V(G)\to\{0,1\}^*$ such that $\ell(v)\le f(n)$ for each $v\in V(G)$ and such that, for any two vertices $v,w\in V(G)$,
 \[  A(\ell(v),\ell(w)) = 
@@ -53,7 +53,7 @@ A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency-labelling sch
 
 We prove the following:
 \begin{thm}\thmlabel{main}
-  Planar graphs have $(1+o(1))\log n$-bit labelling scheme.
+  The family of planar graphs has a $(1+o(1))\log n$-bit labelling scheme.
 \end{thm}
 
 % We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  
@@ -62,15 +62,15 @@ We prove the following:
 
 \subsection{Previous Work}
 
-The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ of $A(\cdot,\cdot)$.} and described adjacency labelling schemes for several classes of graphs, including planar graphs, that use labels of length $O(\log n)$.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved,X,X,X,X,X}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
+The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ of $A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved,X,X,X,X,X}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate uses labels of length $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
-A number of adjacency-labelling schemes for $n$-vertex forests that use labels of length $(1+o(1))\log n$ have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent scheme that uses labels of length $\log n + O(1)$ \cite{alstrup.dahlgaard.ea:optimal}.  Combined with the fact that planar graphs have arboricity 3, these schemes imply adjacency labelling schemes for $n$-vertex planar graphs whose labels have length $(3+o(1))\log n$.   (Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs.)
+A number of $(1+o(1))$-bit adjacency-labelling schemes for $n$-vertex forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + O(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal}.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))$-bit adjacency labelling schemes for $n$-vertex planar graphs.  Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs.
 
-A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  They describe an adjacency labelling scheme for $n$-vertex graphs of bounded treewidth that use labels of length $(1+o(1))\log n$.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph.  This results in a $(2+o(1))\log n$-bit labelling scheme for $n$-vertex planar graphs.
+A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for trees, they describe a $(1+o(1))$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph.  This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex planar graphs.
 
-Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of the strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
+Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of the strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
 
 \begin{figure}[htbp]
@@ -84,7 +84,7 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 
 The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  However, in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
-Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ by removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|=O(n)$, and $P'$ is a path of length $O(n^{1/3})$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|n^{1/3})\le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
+Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|=O(n)$, and $P'$ is a path of length $O(n^{1/3})$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
 \subsection{The New Result}
 
@@ -143,7 +143,7 @@ A \emph{binary tree} $T$ is a rooted binary tree in which each node except the r
 
 A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.  (Note that the external nodes of $T$ are leaves of $T^+$ that are not actually in $T$.)
 
-A node $a\in V(T)$ is an \emph{ancestor} of $v\in V(T)$ if the path in $T$ from the root of $T$ to $v$ includes $a$.  (Note that $v$ is an ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is an ancestor of $v$ for each $v\in X$.
+A node $a\in V(T)$ is a \emph{$T$-ancestor} of $v\in V(T)$ if $a\in P_T(v)$.   (Note that $v$ is a $T$-ancestor of itself.) For a node subset $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $v$ for each $v\in X$.  If $a$ is a $T$-ancestor of $v$ then $v$ is a \emph{$T$-descendant} of $a$.
 
 Let $v_0,\ldots,v_{r}$ be a path from the root $v_0$ of $T$ to some node $v_r$ (possibly $r=0$).  Then the \emph{signature} of $v_r$ in $T$, denoted $\sigma_T(v_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $v_{i}$ is the left child of $v_{i-1}$.  (Note that the signature of the root $v_0$ of $T$ is the empty string,  $\sigma_T(v_0)=\varepsilon$.)
 
@@ -247,7 +247,9 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
 
 Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs in 2 dimensions.
 
-Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.\snote{Todo: Write a monstrous corollary}
+Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.
+
+\snote{TODO: Write a monstrous corollary}
 
 
 \section{Bulk Trees}
@@ -288,7 +290,7 @@ The bulk deletion operation is implemented as a series of $|D|$ individual delet
 \end{lem}
 
 \begin{proof}
-  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any $x\in V(T')$ since the deleted leaf is not in $V(T')$.  For any node $z$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.  Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
+  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any $x\in V(T')$ since the deleted leaf is not in $V(T')$.  For any node $z$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.  Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
 \end{proof}
 
 The following consequence of \lemref{deletion-signature} follows immediately from the fact, for any node $z$ in a binary search tree $T$, $d_T(z)=|\sigma_T(z)|$.
@@ -368,18 +370,18 @@ Now construct a perfectly balanced tree $T_0$ on $Z\cup X$, for each $i\in\{0,\l
   Each such subtree is a subtree of $T^@_\iota$ for some $\iota\in\{0,\ldots,\rho\}$. Now, $V(T^@_\iota)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|T^@_\iota|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
 \end{proof}
 
-\subsubsection{The $\mathrm{bulkbalance}()$ Operation}
+\subsubsection{The $\mathrm{bulkbalance}(\theta)$ Operation}
 
 Finally, recall that a bulk tree works in phases and, within a phase, maintain a counter $y$ that counts the rounds of a phase from $0$ to $y^*$.  The $\mathrm{balance}()$ operation, described here, executes once, at the beginning of each round, before bulk insertions and deletions are done.  The operation of the $\mathrm{balance}()$ operation is simple to describe.  It calls $\mathrm{balance}(z)$ for each node $z$ of depth $y(k+1)$ in $T$.
 
-The following two lemma are immediate consequences of \lemref{multsplit-depth} and \lemref{balance-x-weight}, respectively.
+The following two lemma are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
-  Let $T$ be a bulk tree and apply the $\mathrm{bulkbalance}()$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
+  Let $T$ be a bulk tree and apply the $\mathrm{bulkbalance}(\theta)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{lem}\lemlabel{balance-weight}
-  Let $T$ be a bulk tree and apply the $\mathrm{bulkbalance}()$ operation to obtain a new tree $T'$.  Then every subtree $T_z$ of $T'$ rooted at a node $z$ of depth $(y+1)(k+1)$ has size at most $|T_x|/2^k$, where $x$ is the depth-$y(k+1)$ ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
+  Let $T$ be a bulk tree and apply the $\mathrm{bulkbalance}(\theta)$ operation to obtain a new tree $T'$.  Then every subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+(k+1)$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
 \end{lem}
 
 
@@ -437,7 +439,7 @@ In this section we show that a bulk deletion tree always has a height that is cl
   Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-depth}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
   By the inductive hypothesis (B1) is satisfied for $T_{y-1}$, $h(T_{y-1})\le 3(y-1) + r_0$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le 3y+r_0$.
   
-  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\mathrm{bulkbalance}(y-1)$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  Therefore, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$.  Finally, third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$, as required.
+  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\mathrm{bulkbalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  Therefore, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$.  Finally, third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$, as required.
 \end{proof}
 
 A \emph{bulk tree sequence} $T_0,\ldots,T_h$ is a sequence of binary search trees where $T_y$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_0,\ldots,I_{h-1}$ and $D_0,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=T_{y+1}\setminus T_y$ and $D_y:=T_{y}\setminus T_{y+1}$ for each $y\in\{0,\ldots,h-1\}$. 
@@ -518,7 +520,7 @@ The proof of \lemref{chunked-bulk-trees} follows immediately from
     \item appending $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
   To verify this we have to dig into the details of the rebalancing operations:
-  The $\textrm{bulkbalance}()$ operation calls $\textrm{balance}(x)$ on all the nodes $x$ of a given depth $\theta$.    
+  The $\textrm{bulkbalance}(\theta)$ operation calls $\textrm{balance}(x)$ on all the nodes $x$ of a given depth $\theta$.    
   For a node $z\in V(T)$, a call to $\textrm{balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textrm{balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case.
   
   Otherwise, $z$ has some ancestor $x$ on which $\textrm{balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
@@ -541,7 +543,7 @@ We begin with the special case in which $G$ is an $n$-vertex subgraph of $P_1\bo
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunk-bulk-trees} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq \bigcup_{b\in\{-1,0,1\}}L^-_{y+b}$;
@@ -610,7 +612,9 @@ $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real interv
 
 % The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(H):x\in v\}|$.  By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
 
-The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$ \snote{TODO: Use the references David provided}:
+The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$:
+
+\snote{TODO: Use the references David provided}
 
 \begin{lem}\lemlabel{interval-representation}
   For every $n$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $\log_{3/2} t\log n$ and, for every $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.  
@@ -737,7 +741,7 @@ What we will do next is to show that the solution presented in \secref{pxp} gene
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ \snote{Consistency: $S_y$ was $L_y$ in \secref{pxp}} and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le t|S_y|$. For each $y\in\{1,\ldots,t+1\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.
 
 By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ where, for each $y\in\{1,\ldots,h\}$, 
-\begin{enumerate}[(PRX1)]
+\begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq X_y$;
   \item $h(T_y)\in \log |T_y| + o(\log n)$;
   \item $W:=\sum_{y=1}^h |T_y|\in O(n)$; and
@@ -758,7 +762,7 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
-  $H$, $G$, $L_1,\ldots,L_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in L_y\cup L_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$, $|\mu_y(v)|\in O(k\lg\lg n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.  \snote{We only need this for $v\in L_y$, right?}
+  $H$, $G$, $L_1,\ldots,L_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in L_y$, there exists $\mu_y(v)\in\{0,1\}^*$, $|\mu_y(v)|\in O(k\lg\lg n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
 \end{lem}
 
 \begin{proof}
@@ -802,9 +806,16 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
   Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $O(\log h({T_y'}))=O(\lg\lg n)$ bits.
   
   
-  \snote{Define $T$-ancestor, $T$-descendant, and rename $\textrm{balance}()$
   
-  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$}.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\mathrm{balance}(x)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$.
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$. to $\textrm{bulkbalance}(\theta)$.  The $\mathrm{bulkbalance}(\theta)$ operation calls $\mathrm{balance}(x)$ on each depth-$theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in L_y$, and any $\theta'\in\{0,\ldots,\theta$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\mathrm{balance}(x)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$.
+  
+  \begin{figure}
+    \begin{center}
+      \includegraphics{figs/rebalance-t-tree}
+    \end{center}
+    \caption{Only the call to $\mathrm{balance}(x)$ on a node $x\in V(P_{T_2}(v))$ affects $\sigma_{T_2'}(v)$.}
+    \figlabel{rebalance-t-tree}
+  \end{figure}
   
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textrm{balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
   The transition code $\mu_y(x)$ will contain enough information to recover $\sigma_{T_*'}(v)$ from $\sigma_{T_*}(v)$. 
@@ -832,8 +843,9 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
   
   From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or $\mathrm{split}(x)$ is called on some node $x\in[a_w,b_w]$.  But $\mathrm{split}(x)$ is only called on nodes $x\in X$, so if $x\in[a_w,b_w]$, then this would imply that $X$ contains a value in $[a_w,b_w]$ violating the assumption that $x_{T_y'}(w)\not\in Z\cup X$.
   
-  Thus, for every node 
-  \ldots
+  Thus, for each $v\in L_y$ such that $x(v)\not\in Z\cup Y$, there exits some $w\in C_H(v)$ with $x_{T_2}(w)=x_{T_2'}(w)$ such that $P_{T_2'}(v)=P_{T_2'}(x_{T_2}(w)$, so $\sigma_{T_2'}(v)=\sigma_{T_2'}(x_{T_2}(w))$.  By \lemref{one-path}, $\sigma_{T_2}(x_{T_2}(w))$ is a prefix of of $\sigma_{T_2}(v)$ and the length of this prefix can be included in $\mu_y(x)$, which makes it possible to recover $\sigma_{T_2}(x_{T_2}(w))$ from $\sigma_{T_2}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_2}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_2}(x_{T_2}(w)), \nu_y(x_{T_2}(w))) = \sigma_{T_2'}(x_{T_2}(w)) = \sigma_{T_2'}(v)$.
+  
+  Therefore, for any $v\in L_y$ there is a string $\mu_y(x)$ of length $O(k\lg\lg n)$ that satisfies the conditions of the lemma.
 \end{proof}
   
 \subsection{The Labels}
@@ -852,6 +864,7 @@ Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(
 The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3t$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
 
 \subsection{Adjacency Testing}
+
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in E(G)$ by first using $\alpha(y_1)$ and $\alpha(y_2)$ to determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
@@ -869,8 +882,8 @@ Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in 
 
 This completes the proof of our main result.
 
-\begin{thm}\thmlabel{main}
-  For every $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(\log n + O(\sqrt{\log n\lg\lg n}+t(\log t + \lg\lg n)))$-bit adjacency labelling scheme.
+\begin{thm}\thmlabel{main-product}
+  For every $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 % 
 % 
