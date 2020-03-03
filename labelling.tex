@@ -197,29 +197,29 @@ Putting some of the preceding results together we obtain the following useful co
   Define $w':\{1,\ldots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
   Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\ldots,h\}$ using $w'$ so that 
   \[   
-    d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1 \enspace .
+    d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1
   \]
-  Also
+  and
   \[
-  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace .
+  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace ,
   \]
   for each $i\in\{1,\ldots,h\}$.  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
   
   The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \lemref{predecessor-encoding}.  That is $\delta(i)$ consists of
-  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i-i)-d_T(i)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\log(s+1))=O(\lg\lg h)$.
+  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i-i)-d_T(i)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$.
 
-  The function $A$ is now given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  Assume, for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  Assume, for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min(S)\le x\le \max(S)$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
+For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
 
 \begin{lem}\lemlabel{fractional}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists sets $V_0,\ldots,V_{h+1}$ such that
   \begin{compactenum}
-    \item for each $y\in\{1,\ldots,h\}$, $V_y\supseteq SS_y$;
+    \item for each $y\in\{1,\ldots,h\}$, $V_y\supseteq S_y$;
     \item for each $y\in\{1,\ldots,h\}$, $V_{y-1}$ 3-chunks $V_y$ and $V_{y+1}$ 3-chunks $V_y$;
     \item $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |S_y|$.
   \end{compactenum}
@@ -247,21 +247,13 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 \end{thm}
 
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs in 2 dimensions.
-
-Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.
-
-\snote{TODO: Write a monstrous corollary}
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$.  Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.
 
 
 \section{Bulk Trees}
 \seclabel{bulk-trees}
 
-The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.
-
-The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$.  
-
-The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$.}  Note that (ii) implies that $|D|\le 6|V(T)|-|D|$, so $|D|\le (6/7)|V(T)|$.
+The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$.}  Note that (ii) implies that $|D|\le 6|V(T)|-|D|$, so $|D|\le (6/7)|V(T)|$.
 
 \subsection{Phases}
 
@@ -280,8 +272,17 @@ The bulk insertion operation is implemented as follows: Let $z_0,\ldots,z_{|T||}
 \end{lem}
 
 \begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. Recall that $h(T')$ is the length of the longest root-to-leaf in $T'$. Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ and there $h(T')$ is at most $h(T)+2$.
+  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. Recall that $h(T')$ is the length of the longest root-to-leaf in $T'$. Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$, and therefre $h(T')$, is at most $h(T)+2$.
 \end{proof}
+
+\begin{lem}\lemlabel{insertion-size}
+  Let $T$ be any binary tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Let $x\in V(T)$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.  Then $|T_x'|\le 7|T_x|$.
+\end{lem}
+
+\begin{proof}
+  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)\le 6|T_x|$, so $|T_x'|=|T_x|+|I_x|\le 7|T_x|$.
+\end{proof}
+
 
 \subsection{Bulk Deletion}
 
@@ -411,16 +412,16 @@ In this section we show that a bulk deletion tree always has a height that is cl
   We will prove the lemma by establishing the following two invariants:
   \begin{enumerate}[(B1)]
     \item $h(T_y)\le h(T_0) + 3y$;
-    \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(6/2^k)^{y}$.
+    \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(7/2^k)^{y}$.
   \end{enumerate}
 
-  First we show (B2) implies (i).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/6))\rceil$ so
-  $|T_{0}|(6/2^k)^{y^*} \le 1$.  Therefore, by (B2) every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 1.  A subtree of size 1 has height 0.  Therefore,
+  First we show (B2) implies (i).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/7))\rceil$ so
+  $|T_{0}|(7/2^k)^{y^*} \le 1$.  Therefore, by (B2) every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 1.  A subtree of size 1 has height 0.  Therefore,
   \begin{align*}
     h(T_{y^*}) & \le (k+1)y^* \\
-    & = (k+1)\left\lceil \frac{\log|T_1|}{k-\log 6}\right\rceil \\
-    & \le (k+1)\left(\frac{\log|T_1|}{k-\log 6 } + 1\right)\\
-    & = \left(\frac{k+1}{k-\log 6}\right)\left(\log|T_1|\right) + (k+1)\\
+    & = (k+1)\left\lceil \frac{\log|T_1|}{k-\log 7}\right\rceil \\
+    & \le (k+1)\left(\frac{\log|T_1|}{k-\log 7 } + 1\right)\\
+    & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_1|\right) + (k+1)\\
     & = (1+O(1/k))\cdot(\log|T_1|) + (k+1) \\
     & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) \\
     & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace .
@@ -442,7 +443,7 @@ In this section we show that a bulk deletion tree always has a height that is cl
   Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-depth}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
   By the inductive hypothesis (B1) is satisfied for $T_{y-1}$, $h(T_{y-1})\le 3(y-1) + r_0$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le 3y+r_0$.
   
-  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\mathrm{bulkbalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  Therefore, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$.  Finally, third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(6/2^k)^{y}$, as required.
+  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\mathrm{bulkbalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  Therefore, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
 \end{proof}
 
 A \emph{bulk tree sequence} $T_0,\ldots,T_h$ is a sequence of binary search trees where $T_y$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_0,\ldots,I_{h-1}$ and $D_0,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=T_{y+1}\setminus T_y$ and $D_y:=T_{y}\setminus T_{y+1}$ for each $y\in\{0,\ldots,h-1\}$. 
