@@ -97,7 +97,7 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 
 The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  However, in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
-Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\in O(n)$, and $P'$ is a path of length $O(n^{1/3})$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
+Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
 \subsection{The New Result}
 
@@ -109,7 +109,7 @@ The product structure theorem has been generalized to a number of additional gra
 
 \subsection{Outline}
 
-The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties need for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths.  \Secref{hxp} extends this solution to the case where $G$ is an $n$-vertex subgraph of $H\boxtimes P$.  
+The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths.  \Secref{hxp} extends this solution to the case where $G$ is an $n$-vertex subgraph of $H\boxtimes P$.  
 % \Secref{conclusion} summarizes and concludes with directions for future work.
 
 % \subsection{Proof Overview}
@@ -172,7 +172,7 @@ The following observation allows us to replace (possibly large) numbers with (po
 Let $\R^+$ denote the set of positive real numbers. The following is an easy and often-used result about biased binary search trees:
 
 \begin{lem}\lemlabel{biased-bst}
-  For any $h\in\N^+$ and any function $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,h\}$ such that, for each $i\in\{1,\ldots,h\}$, $d_T(i)\le\log(W/w(i))$, where $W:=\sum_{y=1}^h w(y)$.
+  For any $h\in\N^+$ and any function $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,h\}$ such that, for each $y\in\{1,\ldots,h\}$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
 \end{lem}
 
 To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $y\in\{1,\ldots,h\}$ such that $\sum_{z=1}^{y-1} w(z)\le W/2$ and $\sum_{z=y+1}^{h} w(z)< W/2$.  Then recurse on $\{1,\ldots,y-1\}$ and $\{y+1,\ldots,n\}$ to obtain the left and right subtrees of $y$, respectively.
@@ -302,7 +302,7 @@ The bulk deletion operation is implemented as a series of $|D|$ individual delet
 
 
 \begin{lem}\lemlabel{deletion-signature}
-  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any $x\in V(T')$, $\sigma_{T'}(x)$ is prefix of $\sigma_T(x)$.
+  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any $x\in V(T')$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
 \end{lem}
 
 \begin{proof}
