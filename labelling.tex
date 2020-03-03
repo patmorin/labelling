@@ -562,7 +562,7 @@ Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a l
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
-The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + O(\lg\lg n)$.  The remaining components each have size $O(\lg\lg n)$.  
+The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + O(\lg\lg n)$.  The remaining components each have size $O(\lg\lg n)$, except for (GC4) which has size $O(k\lg\lg n)$.  Thus, the total length of each label is $\log n+ O(k\lg\lg n + k^{-1}\log n)$.  
 
 \subsection{Adjacency Testing}
 
