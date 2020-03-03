@@ -481,15 +481,15 @@ Definition: A \emph{bulk tree sequence} is a sequence of trees $T_0,\ldots,T_h$ 
 
 \subsection{Making Bulk Tree Sequences}
 
+Although the 3-chunking requirements on the insertion and deletion sets of bulk trees seems restrictive, the following lemma allows us to store any sequence of subsets of $\R$ in a bulk tree sequence that is not much larger.
+
 \begin{lem}\lemlabel{chunked-bulk-trees}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists a bulk tree sequence $T_1,\ldots,T_h$ such that $\sum_{y=1}^h |T_y|\le 2\sum_{y=1}^h |S_i|$ and, for each $y\in\{1,\ldots,h\}$, $V(T_y)\supseteq S_y$.
 \end{lem}
 
 \begin{proof}
-  For any finite sets
+  Apply \lemref{fractional} to the sequence $S_1,\ldots,S_h$ in order to obtain $V(T_1),\ldots,V(T_h)$ satisfying the conditions of the lemma and satisfying the 3-chunking requirement of bulk trees, namely that $V(T_y)$ 3-chunks $I_y:=V(T_{y+1})\setminus V(T_y)$ and that $V(T_{y+1})$ 3-chunks $D_y:=V(T_y)\setminus V(T_{y+1})$.
 \end{proof}
-
-The proof of \lemref{chunked-bulk-trees} follows immediately from \lemref{fractional}
 
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
