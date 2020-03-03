@@ -21,8 +21,19 @@
 \newcommand{\aref}[1]{(X\ref{a:#1})}
 \newcommand{\alabel}[1]{\label{a:#1}}
 
-\title{\MakeUppercase{Optimal Adjacency-Labelling Schemes for Planar Graphs}}
-\author{Barbados Folks}
+\title{\MakeUppercase{Optimal Adjacency Labelling Schemes for Planar Graphs}}
+\author{
+  Vida Dujmović,%
+    \thanks{School of Computer Science and Electrical Engineering, University of Ottawa, Canada. This research was partially supported by NSERC.}\quad
+  Gwenaël Joret,%
+    \thanks{Département d'Informatique, Université Libre de Bruxelles, Brussels, Belgium. Research supported by an ARC grant from the Wallonia-Brussels Federation of Belgium.}\quad
+  Cyril Gavoille,%
+    \thanks{}\quad
+  Piotr Micek,%
+    \thanks{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Krak\'{o}w, Poland. This research was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}\quad
+  and Pat Morin%
+    \thanks{School of Computer Science, Carleton University, Canada. This research was partially supported by NSERC.}
+}
 
 \begin{document}
 \begin{titlepage}
@@ -31,7 +42,7 @@
 \begin{abstract}
   We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(n))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  This is the first near-linear upper bound on the size of $U_n$.
   
-  This result is a consequence of a more general result on graphs with a certain product structure (Dujmović \etal\ FOCS~2019) that is exhibited by planar graphs, bounded genus graphs, apex-minor free graphs, and related graphs obtained by so-called shortcut systems (Dujmović, Morin, and Wood arXiv:1907.05168).
+  This result is a consequence of a more general result that applies to all graphs having a certain product structure (Dujmović \etal\ FOCS~2019) that is exhibited by planar graphs, bounded genus graphs, apex-minor free graphs, and related graphs obtained by so-called shortcut systems (Dujmović, Morin, and Wood arXiv:1907.05168).
 \end{abstract}
 \end{titlepage}
 \pagenumbering{roman}
@@ -43,7 +54,7 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The size of a graph $G$ is denoted by $|G|:=|V(G)|$.
+In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
 A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency-labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^*$ such that $\ell(v)\le f(n)$ for each $v\in V(G)$ and such that, for any two vertices $v,w\in V(G)$,
 \[  A(\ell(v),\ell(w)) = 
@@ -437,7 +448,8 @@ In this section we show that a bulk tree always has a height that is close to op
     & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) \\
     & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace .
   \end{align*}
-  for $k\in\omega(1)$.  \snote{Quantify?}
+  for $k\in\omega(1)$.  
+  % \snote{Quantify?}
 
 
   All that remains is to show that invariants (B1) and (B2) are indeed satisfied for all $y\in\{0,\ldots,y^*\}$.  The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: (B1) asserts that $h(T_0)\le h(T_0)$ and (B2) asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
@@ -475,7 +487,8 @@ The following lemma shows that bulk trees are balanced at all times:
         & \text{(since $y-y_0 < y^*$)}\\
        &= O(k + k^{-1}\log|T_{y}|) \enspace ,
   \end{align*}
-  for $k\in\omega(1)$. \snote{Again: quantify?}
+  for $k\in\omega(1)$. 
+  % \snote{Again: quantify?}
 \end{proof}
 
 Definition: A \emph{bulk tree sequence} is a sequence of trees $T_0,\ldots,T_h$ such that $T_0$ is a perfectly balanced binary search tree and, for each $y\in\{1,\ldots,h\}$, $I_y:=V(T_y)\setminus V(T_{y-1})$ and $D_y:= V(T_{y-1})\setminus V(T_y)$.  ....
@@ -912,12 +925,11 @@ This completes the proof of our main result.
 
 \section*{Acknowledgement}
 
-Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particular grateful for David Wood for helpful discussions.
+Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particular grateful to Louis Esperet and David Wood for helpful discussions.
 
   
 \bibliographystyle{plainurl}
 \bibliography{labelling}
-
 
 \appendix
 
