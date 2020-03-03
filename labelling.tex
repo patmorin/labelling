@@ -494,45 +494,50 @@ Although the 3-chunking requirements on the insertion and deletion sets of bulk 
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
+We are now getting to the main point of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
+
 \begin{lem}\lemlabel{node-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_0,\ldots,T_h$, each $y\in\{0,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$, $|\nu_y(z)| = O(k\lg h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = O(k\lg h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
 \end{lem}
 
 \begin{proof}
-  The transformation that $T_{y}$ to $T_{y+1}$ occur in three steps: rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion, which takes $T_y''$ onto $T_{y+1}$.
+  The transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps: rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.  We consider each of these in turn, saving the most difficult for last.
   
-  The transition from $T_y''$ to $T_{y+1}$ is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_T(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(x)$ using $O(\lg h(T))$ bits.
+  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_T(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(x)$ using $O(\lg h(T))$ bits.
   
-  The transition from $T_y'$ to $T_y''$ is even simpler: For every node $z\in V(T_y')\cap V_(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk addition does not require any changes to encode.
+  The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk addition does not require any changes to encode.
   
-  The most elaborate transition is from $T_y$ to $T_y'$.  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
+  The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
   \begin{enumerate}[($\nu_1$)]
-    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index that can be specified using $O(\lg h(T))$ bits.
-    \item Deleting a prefix of $b'$ whose length can be described using $O(\lg h(T))$ bits.
+    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $O(\lg h(T))$ bits.
+    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $O(\lg h(T))$ bits.
     \item Repeatedly (up to $k$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi:=\{\varepsilon\}\cup\bigcup_{j=0}^{h(T_y)}\{0^j, 1^j, 0^j1, 1^j0\}$. The length of each deleted prefix and its replacement can be described with $O(\lg h(T))$ bits for a total of $O(k\lg h(T))$ bits.
     \item Adding a specific $O(k)$-bit prefix to $b'$, which can be described with $O(k)$ bits.
-    \item appending $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
+    \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
-  To verify this we have to dig into the details of the rebalancing operations:
-  The $\textrm{bulkbalance}(\theta)$ operation calls $\textrm{balance}(x)$ on all the nodes $x$ of a given depth $\theta$.    
-  For a node $z\in V(T)$, a call to $\textrm{balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textrm{balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case.
+  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\mathrm{bulkbalance}(\theta)$ which calls $\textrm{balance}(x)$ on each of the nodes $x\in V(T_y)$ of depth $\theta$.    
+  For a node $z\in V(T)$, a call to $\textrm{balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textrm{balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
   
-  Otherwise, $z$ has some ancestor $x$ on which $\textrm{balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
-  The $\textrm{balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced top tree $T_0$ to which the subtrees $T^@_0,\ldots,T^@_\rho$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ is the instruction to delete all of $b'$ and replace it with $\nu_{4}(z):=\sigma_{T_0}(z)$.
+  Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textrm{balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
+  The $\textrm{balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $T_0$ to which the subtrees $T^@_0,\ldots,T^@_\rho$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{T_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{T_0}(z)$.  For these node ($\nu_3(z)$) is empty.
+    
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_*$ in the forest $F:=T_y-Z$.  In this case, the $\mathrm{multisplit}(x_1,\ldots,x_c)$ operation may be called on $T_*$.  If this occurs, then $z$ may be involved in at most $1+\log c\le 1+k$ subtrees that are split by calls to $\mathrm{split}(x)$.  Any call to $\mathrm{split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
-  Any $z\not\in Z\cup X$ is contained in some tree $T_*$ in the forest $F:=T_y-Z$.  In this case, the $\textsc{multisplit}(x_1,\ldots,x_c)$ operation may be called on $T_*$.  If this occurs, then $z$ may be involved in at most $1+\log c\le 1+k$ subtrees that are split by calls to $\mathrm{split}(x)$.  Any call to $\mathrm{split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees $A'$.  When this happens $\sigma_{A'}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and each of these can be recorded with $O(\lg h(T_y))$ bits that are included in $\sigma_{3}(z)$.
-  
-  At the end of this process, $z\in V(T^@_j)$ for some $j\in\{1,\ldots,m\}$, and $b'=\sigma_{T^@_j}(z)$.  The tree $T^@_j$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{T_0}(z')$, where $z'$ is the root of $T^@_j$.  This is a bitstring of length $h(T_0)+1\le k+1$.
+  At the end of this process, $z\in V(T^@_j)$ for some $j\in\{1,\ldots,\rho\}$, and $b'=\sigma_{T^@_j}(z)$.  The tree $T^@_j$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{T_0}(z')$, where $z'$ is the root of $T^@_j$.  This is a bitstring of length $h(T_0)+1\le k+1$.
 \end{proof}
-
-
-
-
 
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-We begin with the special case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals.  
+Before continuing, we show that using the techniques developed thus far, we can already solve a difficult special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
+
+\begin{figure}
+  \begin{center}
+    \includegraphics{figs/pxp}
+  \end{center}
+  \caption{The special case where $G$ is a subgraph of $P_1\boxtimes P_2$.}
+  \figlabel{pxp}
+\end{figure}
 
 
 \subsection{The Labels}
@@ -540,9 +545,9 @@ We begin with the special case in which $G$ is an $n$-vertex subgraph of $P_1\bo
 For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
 \begin{enumerate}[(PR1)]
-  \item $V(T_y)\supseteq \bigcup_{b\in\{-1,0,1\}}L^-_{y+b}$;
+  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
   \item $h(T_y)=\log|T_y| + O(k+k^{-1}\lg n)$;
-  \item $\sum_{y=1}^h|T_y| \le 12n$.
+  \item $\sum_{y=1}^h|T_y| \le 8n$.
 \end{enumerate}
 
 By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_y(x)|=O(k\lg\lg n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
@@ -553,7 +558,7 @@ Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a l
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item $\delta_{T_y}(x)$;
+  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
@@ -567,7 +572,7 @@ Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are 
   
   \item $y_1=y_2$: In this case, let $y:=y_1=y_2$, let $T:=T_y$ and lexicographically compare $\sigma_T(x_1)$ and $\sigma_T(x_2)$ to determine (without loss of generality) that $x_1<x_2$.  Using $\sigma_{T}(x_2)$ and $\delta_{T}(x_2)$, compute $\sigma_T(x_2-1)$.  If $\sigma_T(x_2-1)\neq \sigma_T(x_1)$ then immediately conclude that $z_1$ and $z_2$ are not adjacent, since $x_1x_2\not\in E(P_2)$.  Otherwise, we know that $x_1=x_2-1$ and $y_1=y_2$ so use the relevant bit of $a(z_1)$ (or $a(z_2)$) to determine if $z_1$ and $z_2$ are adjacent in $G$.
   
-  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
+  \item $y_1=y_2-1$: In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.  Now let $y:=y_2$, let $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)  Note here that it is important that part (GC3) of the label for $(x_1,y_1)=(x,y-1)$ contains $\delta_{T_{y_1+1}}(x)=\delta_{T_{y}}(x)$.
   
   \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now let $y:=y_1$, $T:=T_{y}$, and proceed as in the previous case (but consulting a different bit of $a(z_1)$ in the last step.)
 \end{enumerate}
@@ -575,8 +580,12 @@ Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are 
 This establishes our first result:
 
 \begin{thm}\thmlabel{pxp}
-  Let $P$ be an infinite path.  Then the family of subgraph of $P\boxtimes P$ has an $(\log n+ O(\lg\lg n))$-bit labelling scheme.
+  The family $\mathcal{G}$ of graphs $G$ such that $G$ is a subgraph of a strong product $P\boxtimes P$ where $P$ is a path ash a $(1+o(1))\log n$-bit labelling scheme.
 \end{thm}
+
+\begin{rem}
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $O(k + k^{-1}\lg n)$.  An asymptotically optimal choice of $k$ is therefore $k=\lceil\sqrt{\log n}\rceil$, yielding labels of length $\log n + O(\sqrt{\lg n})$.
+\end{rem}
 
 
 \section{Subgraphs of $H\boxtimes P$}
