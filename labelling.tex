@@ -146,11 +146,13 @@ This case was recognized before as an important toy problem. We include it to hi
 \section{Preliminaries}
 \seclabel{preliminaries}
 
-For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $B_G(v):=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
+For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
 \subsection{Prefix-Free Codes}
 
-For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. A string $s_1,\ldots,s_k$ is \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
+For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. 
+We denote the empty string by $\varepsilon$. 
+A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
     There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
@@ -623,7 +625,7 @@ We begin by describing a labelling scheme for $t$-Trees that, like our labelling
 
 A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  
 
-Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_t$ form a clique and, for each $i\in\{t+1,\ldots,t_m\}$, $C_H(v_i):=B_H(v_i)\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$.  The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
+Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_t$ form a clique and, for each $i\in\{t+1,\ldots,t_m\}$, $C_H(v_i):=N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$.  The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
 
 The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most $t$ neighbours among $v_1,\ldots,v_{i-1}$) implies that $V(H)$ has a proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$.  When such a colouring of $H$ is given then, for each $i\in\{t+1,\ldots,m\}$ and each $j\in\{1,\ldots,t+1\}$ the \emph{$j$-parent} $p_j(v_i)$ of $v_i$ is the unique element $p\in C_H(v_i)$ with $\varphi(p)=j$.  Note that $v_i$ is the $j$-parent of itself for exactly one $j\in\{1,\ldots,t+1\}$.
 
