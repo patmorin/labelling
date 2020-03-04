@@ -194,17 +194,20 @@ The following observation allows us to compare values in BST just given their si
 Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees, but we sketch a proof here for completeness.
 
 \begin{lem}\lemlabel{biased-bst}
-  For any $h\in\N^+$ and any function $w:\{1,\ldots,h\}\to\R^+$, there exists a binary search tree $T$ with $V(T)=\{1,\ldots,h\}$ such that, for each $y\in\{1,\ldots,h\}$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
+  For any finite $S\subset \R$ and any function $w:S\to\R^+$, there exists a binary search tree $T$ with $V(T)=S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $h$ with the vacuous base case $h=0$.  For $h\ge 1$, choose the root of $T$ to be the unique node $y_0\in\{1,\ldots,h\}$ such that $\sum_{z=1}^{y_0-1} w(z)\le W/2$ and $\sum_{z=y_0+1}^{h} w(z)< W/2$.  Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each node $y$ in the left subtree of $y_0$, 
+  The proof is by induction on $|S|$. The base case $|S|=0$ is vacuously true.
+  For any $x\in\R$, let $S_{<x}:=\{y\in S: y < x\}$ and $S_{>x}:=\{y\in S: y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
+  
+  Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$, 
   \[ 
-    d_T(y) \le 1 + \log\left(\frac{\sum_{z=1}^{r-1} w(z)}{w(y)}\right) 
+    d_T(y) \le 1 + \log\left(\frac{\sum_{z\in S_{<y_0}}w(z)}{w(y)}\right) 
             \le 1 + \log \left(\frac{W/2}{w(y)}\right) 
             = \log \left(\frac{W}{w(y)}\right) , 
   \]
-  and the same argument shows that $d_T(y) < \log (W/w(y))$ for each node $y$ in the right subtree of $y_0$.  
+  and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.  
 \end{proof}
 
 The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open} (see \figref{sigma-minus-one}):
