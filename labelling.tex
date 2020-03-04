@@ -34,7 +34,8 @@
   Vida Dujmović,%
     \thanks{School of Computer Science and Electrical Engineering, University of Ottawa, Canada. This research was partially supported by NSERC.}\quad
   Louis Esperet,%
-    \thanks{}\quad
+    \thanks{Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France. Partially supported by ANR Projects GATO
+(\textsc{anr-16-ce40-0009-01}) and GrR (\textsc{anr-18-ce40-0032}).}\quad
   Gwenaël Joret,%
     \thanks{Département d'Informatique, Université Libre de Bruxelles, Brussels, Belgium. Research supported by an ARC grant from the Wallonia-Brussels Federation of Belgium.}\quad
   Cyril Gavoille,%
@@ -86,7 +87,7 @@ We prove the following:
 
 \subsection{Previous Work}
 
-The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ of $A(\cdot,\cdot)$. \snote{Piotrek: sth is corrupted here.}} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
+;The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ and $A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
@@ -161,9 +162,13 @@ For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$.
 We denote the empty string by $\varepsilon$. 
 A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
-\begin{obs}[Elias \cite{elias:universal}]\obslabel{elias}
+%Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?
+
+\begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
     There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
-\end{obs}
+  \end{lem}
+
+  In the remainder of the paper, $\gamma$ (which we call an \emph{Elias encoding}) will be used extensively, without referring systematically to \lemref{elias}.
 
 \subsection{Labelling Schemes Based on Binary Trees}
 
@@ -209,7 +214,7 @@ Putting some of the preceding results together we obtain the following useful co
   There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
   \begin{compactenum}
     \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + O(\lg\lg h)$;
-    \item for each distinct $i,j\in\{1,\ldots,h\}$, 
+    \item for any distinct $i,j\in\{1,\ldots,h\}$, 
     \[   A(\alpha(i),\alpha(j)) 
     = \begin{cases}
        0 & \text{if $j=i$;}\\
@@ -234,16 +239,16 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   for each $i\in\{1,\ldots,h\}$.  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
   
-  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \lemref{predecessor-encoding}.  That is, $\delta(i)$ consists of
-  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i-i)-d_T(i)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$.
+  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}.  That is, $\delta(i)$ consists of
+  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  Assume, for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then output 0. Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
+For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $(a+1)$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$.
 
 \begin{lem}\lemlabel{fractional}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists sets $V_0,\ldots,V_{h+1}$ such that
@@ -276,7 +281,11 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 \end{thm}
 
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} give analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$.  Our main result, which is a labelling scheme for subgraphs of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path holds for all these classes of graphs.
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
+
+Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
+
+The case of graphs of bounded degree from minor-closed classes is particularly interesting, since prior to~\cite{bonamy.gavoille.ea:shorter}, the best known bound for adjacency labelling schemes in planar graphs of bounded degree was $2\log n$~\cite{chung:universal}, and the best known bound for planar graphs of maximum degree 4 was $\tfrac32 \log n$~\cite{AR14}. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
 
 
 \section{Bulk Trees}
