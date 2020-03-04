@@ -78,7 +78,7 @@ We prove the following:
 
 \subsection{Previous Work}
 
-The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ of $A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
+The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency-labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell:=\ell(G)$ of $A(\cdot,\cdot)$. \snote{Piotrek: sth is corrupted here.}} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
@@ -151,11 +151,11 @@ For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(
 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. 
 We denote the empty string by $\varepsilon$. 
-A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is an old result of Elias:
+A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
-\begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-    There exist a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
-\end{lem}
+\begin{obs}[Elias \cite{elias:universal}]\obslabel{elias}
+    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
+\end{obs}
 
 \subsection{Labelling Schemes Based on Binary Trees}
 
@@ -163,48 +163,51 @@ A \emph{binary tree} $T$ is a rooted tree in which each node except the root is 
 
 A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.  (Note that the external nodes of $T$ are leaves of $T^+$ that are not actually in $T$.)
 
-A node $a\in V(T)$ is a \emph{$T$-ancestor} of $x\in V(T)$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that $x$ is a $T$-ancestor and $T$-descendant of itself.)  For a node subset $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
+A node $a\in V(T)$ is a \emph{$T$-ancestor} of $x\in V(T)$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that $x$ is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
 
 Let $x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$.  (Note that the signature of the root $x_0$ of $T$ is the empty string,  $\sigma_T(x_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree  whose node set $V(T)\subset\R$ consists of real numbers and that has the \emph{BST property}:  For each node $x$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) leaf child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
+A \emph{binary search tree (BST)} $T$ is a binary tree whose node set $V(T)$ consists of real numbers and that has the \emph{BST property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
 
-The following observation allows us to replace (possibly large) numbers with (potentially shorter) binary strings:
+The following observation allows us to compare values in BST just given their signatures in the tree.
 
 \begin{obs}\obslabel{lexicographic}
   For any binary search tree $T$ and any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
-Let $\R^+$ denote the set of positive real numbers. The following is an easy and often-used result about biased binary search trees:
+Let $\R^+$ denote the set of positive real numbers. The following is an easy and often-used \snote{Piotrek: example?} result about biased binary search trees:
 
 \begin{lem}\lemlabel{biased-bst}
-  For any $h\in\N^+$ and any function $w:\{1,\ldots,n\}\to\R^+$, there exists a binary search tree $T$ containing $\{1,\ldots,h\}$ such that, for each $y\in\{1,\ldots,h\}$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
+  For any $h\in\N^+$ and any function $w:\{1,\ldots,h\}\to\R^+$, there exists a binary search tree $T$ with $V(T)=\{1,\ldots,h\}$ such that, for each $y\in\{1,\ldots,h\}$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
 \end{lem}
 
-To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $y\in\{1,\ldots,h\}$ such that $\sum_{z=1}^{y-1} w(z)\le W/2$ and $\sum_{z=y+1}^{h} w(z)< W/2$.  Then recurse on $\{1,\ldots,y-1\}$ and $\{y+1,\ldots,n\}$ to obtain the left and right subtrees of $y$, respectively.
+To construct the tree in \lemref{biased-bst}, choose the root of $T$ to be the unique node $y\in\{1,\ldots,h\}$ such that $\sum_{z=1}^{y-1} w(z)\le W/2$ and $\sum_{z=y+1}^{h} w(z)< W/2$.  Then recurse on $\{1,\ldots,y-1\}$ and $\{y+1,\ldots,h\}$ to obtain the left and right subtrees of $y$, respectively.
 
 The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}:
 
-\begin{lem}\lemlabel{predecessor-encoding}
-  Let $T$ be a binary search tree and let $x,y\in V(T)$ be such that $x<y$ and there is no node $z\in V(T)$ such that $x<z<y$ (i.e., $x$ and $y$ are consecutive in the sorted order of $V(T)$).  Then
+\begin{obs}\obslabel{predecessor-encoding}
+  Let $T$ be a binary search tree and let $x$, $y$ be nodes in $T$ such that $x<y$ and there is no node $z$ in $T$ such that $x<z<y$, i.e., $x$ and $y$ are consecutive in the sorted order of $V(T)$.  Then
   \begin{enumerate}
     \item (if $y$ has no left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by removing all trailing 0's and the last 1; or
-    \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $s:=d_T(y)-d_T(x)-1$ 1's.
+    \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
-\end{lem}
+\end{obs}
 
-Putting some of the preceding results together we obtain the following useful coding result:
+\snote{Piotrek: lets put a small figure here illustrating the two cases of Obs.}
+
+Putting some of the preceding results together we obtain the following useful coding result.
 
 \begin{lem}\lemlabel{row-code}
-  The exists a function $A:(\{0,1\}^*)^2\to\{-1,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
+  There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
   \begin{compactenum}
-    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + O(\lg\lg h)$; and
+    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + O(\lg\lg h)$;
     \item for each distinct $i,j\in\{1,\ldots,h\}$, 
     \[   A(\alpha(i),\alpha(j)) 
     = \begin{cases}
-       1 & \text{if $j=i+1$} \\
-       -1 & \text{if $j=i-1$} \\
-       \perp & \text{otherwise}
+       0 & \text{if $j=i$;}\\
+       1 & \text{if $j=i+1$;} \\
+       -1 & \text{if $j=i-1$;} \\
+       \perp & \text{otherwise.}
       \end{cases}
       \]
     \end{compactenum}
