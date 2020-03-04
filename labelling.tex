@@ -431,7 +431,7 @@ For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_
 
 Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{1,\ldots,p\}$, let $i_\ell=|Z\cap \{z_1,\ldots,z_\ell\}|$ and $j_\ell:=\ell-\max(Z\cap \{z_1,\ldots,z_\ell\})$ and let $A_\ell=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{1,\ldots,p\}$ and each $x\in V(A_\ell)$, we have $s_\ell < x < s_{\ell+1}$.
 
-Now construct a perfectly balanced tree $T_0$ with vertex set $V(T_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $T_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$. 
+Now construct a perfectly balanced tree $T_0$ with vertex set $V(T_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $T_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
 \snote{Pat: Still needs a figure.}
 
@@ -440,15 +440,15 @@ Now construct a perfectly balanced tree $T_0$ with vertex set $V(T_0):=\{s_1,\ld
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{1,\ldots, m\}$,$T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $j\in\{0,\ldots,\rho\}$, $T^@_j$ is obtained by an application of the multisplit operation to $T_i$ for some $i\in\{1,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(T^@_j)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $T_0$ is a perfectly balanced binary search tree of size $|T_0|=|Z\cup X|$.  Therefore $h(T_0)\le \lfloor\log|T_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(T_0)+1 +\max\{h(T^@_j):j\in\{1,\ldots,\rho\} \le h(T_x)+1$.  
+  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $T_0$ is a perfectly balanced binary search tree of size $|T_0|=|Z\cup X|$.  Therefore $h(T_0)\le \lfloor\log|T_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(T_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le h(T_x)+1$.  
 \end{proof}
 
 \begin{lem}\lemlabel{balance-x-weight}
-  Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=d_{T}(x)+k+1$, the subtree of $T$ rooted at $z$ has size at most $|T_x|/2^k$.
+  Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=d_{T}(x)+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
 \end{lem}
 
 \begin{proof}
-  Each such subtree is a subtree of $T^@_i$ for some $\iota\in\{0,\ldots,\rho\}$. Now, $V(T^@_i)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|T^@_i|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
+  Each such subtree is a subtree of $A_\ell$ for some $\ell\in\{0,\ldots,p\}$. Now, $V(A_\ell)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|A_\ell|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
 \end{proof}
 
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
@@ -600,11 +600,11 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   For a node $z\in V(T)$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
-  The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $T_0$ to which the subtrees $T^@_0,\ldots,T^@_\rho$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{T_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{T_0}(z)$.  For these node ($\nu_3(z)$) is empty.
+  The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $T_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{T_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{T_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_*$ in the forest $F:=T_y-Z$.  In this case, the $\textsc{MultiSplit}(x_1,\ldots,x_c)$ operation may be called on $T_*$.  If this occurs, then $z$ may be involved in at most $1+\log c\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$.  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
-  At the end of this process, $z\in V(T^@_j)$ for some $j\in\{1,\ldots,\rho\}$, and $b'=\sigma_{T^@_j}(z)$.  The tree $T^@_j$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{T_0}(z')$, where $z'$ is the root of $T^@_j$.  This is a bitstring of length $h(T_0)+1\le k+1$.
+  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{T_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(T_0)+1\le k+1$.
 \end{proof}
 
 \section{Subgraphs of $P\boxtimes P$}
@@ -905,24 +905,29 @@ The following lemma, which is analagous to \lemref{node-transitions} is the last
   
   For any $v\in S_y$ such that $P_{T_y'}(v)$ ends at a vertex $z\in Z\cup X=V(T_0)$, the problem is easy.  We include $\sigma_{T_0}(z)$, which has length at most $h(T_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
 
-  Thus, we only need to consider those $v\in S_v$ such that $P_{T_y'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.  By definition,  $z=x_{T_y'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$ and $[a_w,b_w]\cap (Z\cup X)=\emptyset$.    For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{*,i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x)$ calls $\textsc{MultiSplit}(x_1,\ldots,x_c)$ on the subtree $T_{*,i}$ with $\{x_1,\ldots,x_c\}:= X\cap V(T_{*,i})$.  This, in turn results in zero or more calls to $\textrm{split}(x)$ for nodes $x\in V(T_{*,i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
+  Thus, we only need to consider those $v\in S_v$ such that $P_{T_y'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T_y'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{common-ancestor}, $z$ is the unique node of $P_{T_y'}(z)$ contained in $[a_w,b_w]$.  Therefore
+  \begin{equation}  
+    [a_w,b_w]\cap (Z\cup X)=\emptyset \enspace . \eqlabel{empty}
+  \end{equation}
+  
+  For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
   
   \begin{clm}\clmlabel{x-switch}
-    Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $v=[a_v,b_v]\in S$ exactly one of the following is true:
+    Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
     \begin{compactenum}
-      \item $a_v\le x\le b_v$; or
-      \item $x< a_v$, in which case $x_{T_{>x}}(v)=x_T(v)$; or
-      \item $b_v < x$, in which case $x_{T_{<x}}(v)=x_T(v)$.
+      \item $a_w\le x\le b_w$; or
+      \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
+      \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
     \end{compactenum}
   \end{clm}
 
   \begin{proof}
-    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_v\le b_v$.
+    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
     
-    By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_v,b_v]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node $z\in[a_v,b_v]$, so $z=x_{T_{>x}}(v)$.  This completes the proof of \clmref{x-switch}.
+    By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_w,b_w]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node $z\in[a_w,b_w]$, so $z=x_{T_{>x}}(w)$.  This completes the proof of \clmref{x-switch}.
   \end{proof}
   
-  From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or $\textsc{Split}(x)$ is called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$, so if $x\in[a_w,b_w]$, then this would imply that $X$ contains a value in $[a_w,b_w]$ violating the assumption that $x_{T_y'}(w)\not\in Z\cup X$.
+  From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
   
   Thus, for each $v\in L_y$ such that $x(v)\not\in Z\cup Y$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w)$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(x)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
   
