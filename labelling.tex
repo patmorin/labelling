@@ -254,7 +254,7 @@ Putting some of the preceding results together we obtain the following useful co
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y|\le a(|X|+1)\le 2a|X|$.
+For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ and $|X\cup Y|\le (2a+1)|X|$. \newline\snote{I don't think we use the $2a$ inequality anymore.}
 
 \begin{lem}\lemlabel{fractional}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists sets $V_0,\ldots,V_{h+1}$ such that
