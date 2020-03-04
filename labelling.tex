@@ -302,13 +302,14 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
-\thmref{product-structure} has a number of generalizations to other minor-closed families of graphs including bounded genus graphs.  The most general of these applies to apex-minor free graphs:
+\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to 
+bounded genus graphs and most generally to apex-minor free graphs.
+%\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
+%  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
+%\end{thm}
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
 
-\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
-  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
-\end{thm}
-
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
+%Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
 
 Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
