@@ -421,7 +421,8 @@ If $|V(T_x)|\ge 2^k$, let $Z\subset V(T_x)$ be the set of at most $2^k-1$ nodes 
 
 Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{MultiSplit}(K_j)$ to the subtree $T_j$ with the values $K_j:=X\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
 
-Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node of $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.\snote{L. Why is there the right number of external nodes?} \snote{L. Why is the resulting tree a BST?}
+Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node of $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.\newline\snote{L. Why is there the right number of external nodes?} \snote{L. Why is the resulting tree a BST?}\newline
+\snote{Pat: I'm being lazy here, hiding a lot under the word "appropriate".}\newline\snote{Pat: Maybe a figure would suffice?}
 
 \begin{lem}\lemlabel{multisplit-depth}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
