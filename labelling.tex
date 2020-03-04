@@ -302,11 +302,11 @@ The case of graphs of bounded degree from minor-closed classes is particularly i
 \section{Bulk Trees}
 \seclabel{bulk-trees}
 
-The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$.}  Note that (ii) implies that $|D|\le 6|V(T)|-|D|$, so $|D|\le (6/7)|V(T)|$.
+The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$.}  Note that (ii) implies that $|D|\le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$.
 
-\subsection{Phases}
+\subsection{Phases}\label{sec:3.1}
 
-A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree are broken up into \emph{phases} that are kept track of using two integer values.  At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
+A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are broken up into \emph{phases} that are kept track of using two integer values \snote{L. Is ``broken up'' the right term here? When I read it I had the impression that each round has different phases, this got me confused in the remainder.}.  At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
 \[  
   y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil 
 \]
@@ -314,10 +314,10 @@ After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begin
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation is implemented as follows: Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i:=\{x\in I: P_T(x)=z_i\}$. Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
+The bulk insertion operation, in which a set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i:=\{x\in I: P_T(x)=z_i\}$. \snote{L. Here you mean the leaf endpoint of $P_T(x)$ is $z_i$, right?} Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
 
 \begin{lem}\lemlabel{insertion-depth}
-  Let $T$ be any binary tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
+  Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
 \begin{proof}
@@ -360,7 +360,7 @@ At the beginning of a round, before bulk insertion and bulk deletion, a rebalanc
 
 \subsubsection{$\textsc{Split}(x)$}
 
-The argument of $\textsc{Split}(x)$ is a node $x\in V(T)$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_0,\ldots,a_\iota$ and $b:=b_0,\ldots,b_\kappa$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
+The argument of $\textsc{Split}(x)$ is a node $x\in V(T)$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_0,\ldots,a_s$ and $b:=b_0,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
 
 \begin{figure}
   \begin{center}
@@ -372,7 +372,7 @@ The argument of $\textsc{Split}(x)$ is a node $x\in V(T)$ and the end result of 
   \figlabel{split}
 \end{figure}
 
-Make a binary search tree $T_0$ that has $x$ as root, the path $a_0,\ldots,a_t$ as the left subtree of $x$ and the path $b_0,\ldots,b_s$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,\iota-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,\kappa-1\}$. 
+Make a binary search tree $T_0$ that has $x$ as root, the path $a_0,\ldots,a_s$ as the left subtree of $x$ and the path $b_0,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
 
 Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the appropriate tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
 
@@ -399,21 +399,21 @@ The following lemma is immediate from \lemref{split-height}
 
 \subsubsection{$\textsc{Balance}(x)$}
 
-The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$.  If $|V(T_x)|< 2^k$, then this operation is simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  
+The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$. If $|V(T_x)|< 2^k$ (recall that $k$ is the parameter of the bulk tree $T$), then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  
 
 If $|V(T_x)|\ge 2^k$, let $Z\subset V(T_x)$ be the set of at most $2^k-1$ nodes of $T_x$ of depth less than $k$.  Then $T_x-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_m$.  
 % Each such tree $T_i$ has height at most $h(T)-k$.
 
-Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{MultiSplit}(K_j)$ to the subtree $T_j$ with with the values $K_j:=X\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
+Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{MultiSplit}(K_j)$ to the subtree $T_j$ with the values $K_j:=X\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
 
-Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node of $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.
+Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node of $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.\snote{L. Why is there the right number of external nodes?} \snote{L. Why is the resulting tree a BST?}
 
 \begin{lem}\lemlabel{multisplit-depth}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{1,\ldots, m\}$,$T_i$ is rooted at a depth-$k$ node of $T$, so $h(T_i)\le h(T)-k$. For each $j\in\{0,\ldots,\rho\}$, $T^@_j$ is obtained by an application of the multisplit operation to $T_i$ for some $i\in\{1,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(T^@_j)\le h(T_i)\le h(T)-k$.  Next, $|Z\cup Y|\le |Z|+|Y| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $T_0$ is a perfectly balanced binary search tree of size $|T_0|=|Z\cup X|$.  Therefore $h(T_0)\le \lfloor\log|T_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T')\le h(T_0)+1 +\max\{h(T^@_j):j\in\{1,\ldots,\rho\} \le h(T)+1$.  
+  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{1,\ldots, m\}$,$T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $j\in\{0,\ldots,\rho\}$, $T^@_j$ is obtained by an application of the multisplit operation to $T_i$ for some $i\in\{1,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(T^@_j)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $T_0$ is a perfectly balanced binary search tree of size $|T_0|=|Z\cup X|$.  Therefore $h(T_0)\le \lfloor\log|T_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(T_0)+1 +\max\{h(T^@_j):j\in\{1,\ldots,\rho\} \le h(T_x)+1$.  
 \end{proof}
 
 \begin{lem}\lemlabel{balance-x-weight}
@@ -421,12 +421,12 @@ Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{
 \end{lem}
 
 \begin{proof}
-  Each such subtree is a subtree of $T^@_\iota$ for some $\iota\in\{0,\ldots,\rho\}$. Now, $V(T^@_\iota)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|T^@_\iota|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
+  Each such subtree is a subtree of $T^@_i$ for some $\iota\in\{0,\ldots,\rho\}$. Now, $V(T^@_i)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|T^@_i|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
 \end{proof}
 
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
 
-The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$, and it is easy to describe.  It calls $\textsc{Balance}(z)$ for each node $z$ of depth $\theta$ in $T$.
+The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$, and it is easy to describe.  It calls $\textsc{Balance}(z)$ for each node $z$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(z)$ only influences the subtree rooted in $z$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
 The following two lemma are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
@@ -465,23 +465,26 @@ In this section we show that a bulk tree always has a height that is close to op
     \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(7/2^k)^{y}$.
   \end{enumerate}
 
-  First we show that (B1) implies (i). For each  $y\in\{0,\ldots,y^*\}$, (B1) gives the upper bound
+  First we show that (B1) implies (i). Observe that $y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1$, and thus $y^*\le \tfrac{\log |T_y|}{k-2\log 7}+4$ for any $0\le y\le y^*$.
+
+
+  For each  $y\in\{0,\ldots,y^*\}$, (B1) gives the upper bound
   \begin{align}
-       h(T_y) & \le h(T_1) + 3y \nonumber \\
-              &= \log|T_1| + 3y + r_0 \nonumber \\
-              &\le \log |T_y| + (3+\log 7)y + r_1 \nonumber \\
-              &\le \log |T_y| + (3+\log 7)y^* + r_1 \nonumber \\
-              &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_1 \enspace .
+       h(T_y) & \le h(T_0) + 3y \nonumber \\
+              &= \log|T_0| + 3y + r_0 \nonumber \\
+              &\le \log |T_y| + (3+\log 7)y + r_0 \nonumber \\
+              &\le \log |T_y| + (3+\log 7)y^* + r_0 \nonumber \\
+              &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_0 \enspace .
   \end{align}
 
   Next we show that (B2) implies (ii).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/7))\rceil$ so
   $|T_{0}|(7/2^k)^{y^*} \le 1$.  Therefore, by (B2) every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 1.  A subtree of size 1 has height 0.  Therefore,
   \begin{align*}
     h(T_{y^*}) & \le (k+1)y^* \\
-    & = (k+1)\left\lceil \frac{\log|T_1|}{k-\log 7}\right\rceil \\
-    & \le (k+1)\left(\frac{\log|T_1|}{k-\log 7 } + 1\right)\\
-    & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_1|\right) + (k+1)\\
-    & = (1+O(1/k))\cdot(\log|T_1|) + (k+1) \\
+    & = (k+1)\left\lceil \frac{\log|T_0|}{k-\log 7}\right\rceil \\
+    & \le (k+1)\left(\frac{\log|T_0|}{k-\log 7 } + 1\right)\\
+    & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
+    & = (1+O(1/k))\cdot(\log|T_0|) + (k+1) \\
     & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) \\
     & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace .
   \end{align*}
@@ -495,9 +498,9 @@ In this section we show that a bulk tree always has a height that is close to op
   Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-depth}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
   By the inductive hypothesis (B1) is satisfied for $T_{y-1}$, so $h(T_{y-1})\le 3(y-1) + r_0$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le 3y+r_0$.
   
-  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{1}|(2a/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
+  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is to perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
   % The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  
-  By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
+  By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, the third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
 \end{proof}
 
 A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
@@ -511,9 +514,9 @@ The following lemma shows that bulk trees are balanced at all times:
   Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(ii) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  In this case \lemref{bulktree-height-i}(i) implies that
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=(1+o(1)k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
   \[  h(T_y) \le (1+O(1/k))\log |T_y| + h(T_{y_0})-\log|T_{y_0}| \]  
-  Thus, all all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
+  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &\le O(k + k^{-1}\log|T_{y_0}|) 
@@ -528,7 +531,7 @@ The following lemma shows that bulk trees are balanced at all times:
   % \snote{Again: quantify?}
 \end{proof}
 
-Definition: A \emph{bulk tree sequence} is a sequence of trees $T_0,\ldots,T_h$ such that $T_0$ is a perfectly balanced binary search tree and, for each $y\in\{1,\ldots,h\}$, $I_y:=V(T_y)\setminus V(T_{y-1})$ and $D_y:= V(T_{y-1})\setminus V(T_y)$.  ....
+
 
 \subsection{Making Bulk Tree Sequences}
 
@@ -556,7 +559,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   
   The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_T(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(x)$ using $O(\lg h(T))$ bits.
   
-  The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk addition does not require any changes to encode.
+  The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk insertion does not require any changes to encode.
   
   The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
   \begin{enumerate}[($\nu_1$)]
@@ -1005,12 +1008,14 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
       \ENDIF
     \ENDIF
   \end{algorithmic}
+
+  \snote{L. Is $x_{-5}$ really necessary here?}
   
   It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
   
   That the procedure produces sets $V_1,\ldots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ is obvious.  So the resulting sets $V_1,\ldots,V_h$ satisfy the first condition of the lemma.
   
-  The prove that $V_1,\ldots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\ldots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
+  To prove that $V_1,\ldots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\ldots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
   
   Finally, we need to argue that $V_1,\ldots,V_h$ satisfy the third condition. 
   For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
