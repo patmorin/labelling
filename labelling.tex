@@ -1026,7 +1026,18 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
   \end{algorithmic}
 
   \snote{L. Is $x_{-5}$ really necessary here?}
+  \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\ldots,y_{-4}$.
   
+  Summary:
+  \begin{compactenum}
+    \item The text about including 0 should be removed.
+    \item Line~2 of BuildV should be deleted.
+    \item References to Line~6 should be changed to Line~5.
+    \item Line~3 of Add should be: {$|V_y|\ge 4$}
+    \item Line~4 of Add should be: {let $x_{-1}>x_{-2}>x_{-3}>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
+  \end{compactenum}
+  That's everything, right?
+  }
   It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
   
   That the procedure produces sets $V_1,\ldots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ is obvious.  So the resulting sets $V_1,\ldots,V_h$ satisfy the first condition of the lemma.
