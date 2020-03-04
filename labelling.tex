@@ -10,6 +10,8 @@
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.95}
 
+\usepackage[normalem]{ulem}
+
 \newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
 \newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
 \setlength{\parskip}{1ex}
@@ -219,7 +221,7 @@ The following fact about binary search trees is useful, for example, in the dele
   \begin{center}
     \includegraphics{figs/sigma-minus-one}
   \end{center}
-  \caption{An illustration of \obsref{predecessor-encoding}: (1)~$\sigma_T(y_1)=11000$ and $\sigma_T(x_1)=1{\color{light-gray}1000}$ (2)~$\sigma_T(y_2)=10{\color{light-gray}011}$ and $\sigma_T(x_2)=10011$}
+  \caption{An illustration of \obsref{predecessor-encoding}: (1)~$\sigma_T(y_1)=11000$ and $\sigma_T(x_1)=1\xout{1000}$ (2)~$\sigma_T(y_2)=10\xout{011}$ and $\sigma_T(x_2)=10011$.}
   \figlabel{sigma-minus-one}
 \end{figure}
 
