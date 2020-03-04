@@ -424,11 +424,21 @@ The following lemma is immediate from \lemref{split-height}
 
 \subsubsection{$\textsc{Balance}(x)$}
 
-The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$. 
+The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$.   Refer to \figref{balance-x}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics{figs/balance-x-1} \\[1ex]
+    $\Downarrow$ \\[1ex]
+    \includegraphics{figs/balance-x-2}
+  \end{center}
+  \caption{The operation of $\textsc{Balance}(x)$}
+  \figlabel{balance-x}
+\end{figure}
 
 If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  Otherwise, let $Z:=\{z\in V(T_x): d_{T_x}(z)< k\}$.  Call the $m\le 2^k-1$ elements of $Z$  $z_1<z_2<\cdots<z_{m}$ and, for convenience, define $z_0=-\infty$ and $z_{m+1}=\infty$.
 
-Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x)$ operation will turn $T_x$ into a tree with a top part $T_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
+Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
 
 $T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x\in V(T_i)$, $z_i< x < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$.
 
@@ -436,16 +446,14 @@ For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_
 
 Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{1,\ldots,p\}$, let $i_\ell=|Z\cap \{z_1,\ldots,z_\ell\}|$ and $j_\ell:=\ell-\max(Z\cap \{z_1,\ldots,z_\ell\})$ and let $A_\ell=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{1,\ldots,p\}$ and each $x\in V(A_\ell)$, we have $s_\ell < x < s_{\ell+1}$.
 
-Now construct a perfectly balanced tree $T_0$ with vertex set $V(T_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $T_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
-
-\snote{Pat: Still needs a figure.}
+Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
 \begin{lem}\lemlabel{multisplit-depth}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $T_0$ is a perfectly balanced binary search tree of size $|T_0|=|Z\cup X|$.  Therefore $h(T_0)\le \lfloor\log|T_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(T_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le h(T_x)+1$.  
+  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le h(T_x)+1$.  
 \end{proof}
 
 \begin{lem}\lemlabel{balance-x-weight}
@@ -605,11 +613,11 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   For a node $z\in V(T)$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
-  The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $T_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{T_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{T_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
+  The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
   Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$.  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
-  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{T_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(T_0)+1\le k+1$.
+  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
 
 \section{Subgraphs of $P\boxtimes P$}
@@ -906,9 +914,9 @@ The following lemma, which is analagous to \lemref{node-transitions} is the last
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
   The transition code $\mu_y(x)$ will contain enough information to recover $\sigma_{T_y*'}(v)$ from $\sigma_{T_y}(v)$. 
   
-  Now, $\textsc{Balance}(x)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $T_0$.  Eventually, $T_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
+  Now, $\textsc{Balance}(x)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
   
-  For any $v\in S_y$ such that $P_{T_y'}(v)$ ends at a vertex $z\in Z\cup X=V(T_0)$, the problem is easy.  We include $\sigma_{T_0}(z)$, which has length at most $h(T_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
+  For any $v\in S_y$ such that $P_{T_y'}(v)$ ends at a vertex $z\in Z\cup X=V(\hat{T}_0)$, the problem is easy.  We include $\sigma_{\hat{T}_0}(z)$, which has length at most $h(T_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
 
   Thus, we only need to consider those $v\in S_v$ such that $P_{T_y'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T_y'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{common-ancestor}, $z$ is the unique node of $P_{T_y'}(z)$ contained in $[a_w,b_w]$.  Therefore
   \begin{equation}  
