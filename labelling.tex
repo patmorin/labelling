@@ -420,15 +420,21 @@ The following lemma is immediate from \lemref{split-height}
 
 \subsubsection{$\textsc{Balance}(x)$}
 
-The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$. If $|V(T_x)|< 2^k$ (recall that $k$ is the parameter of the bulk tree $T$), then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  
+The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$. 
 
-If $|V(T_x)|\ge 2^k$, let $Z\subset V(T_x)$ be the set of at most $2^k-1$ nodes of $T_x$ of depth less than $k$.  Then $T_x-Z$ is a forest consisting of $m\le 2^{k}$ trees $T_1,\ldots,T_m$.  
-% Each such tree $T_i$ has height at most $h(T)-k$.
+If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  Otherwise, let $Z:=\{z\in V(T_x): d_{T_x}(z)< k\}$.  Call the $m\le 2^k-1$ elements of $Z$  $z_1<z_2<\cdots<z_{m}$ and, for convenience, define $z_0=-\infty$ and $z_{m+1}=\infty$.
 
-Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  For each $j\in\{1,\ldots,m\}$, apply $\textsc{MultiSplit}(K_j)$ to the subtree $T_j$ with the values $K_j:=X\cap V(T_j)$.  The end result of doing this for each $j\in\{1,\ldots,m\}$ is a collection $T^@_0,\ldots,T^@_\rho$ of subtrees where, for each $i\in\{0,\ldots,\rho\}$, $Z\cup X$ is disjoint from $[\min(V(T^@_i)), \max(V(T^@_i))]$.
+Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x)$ operation will turn $T_x$ into a tree with a top part $T_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
 
-Now construct a perfectly balanced tree $T_0$ on $Z\cup X$ and, for each $i\in\{0,\ldots,\rho\}$ replace the appropriate external node of $T_0$ with $T^@_i$ to obtain the new binary search tree $T_x'$.  In $T$, replace $T_x$ with $T_x'$.\newline\snote{L. Why is there the right number of external nodes?} \snote{L. Why is the resulting tree a BST?}\newline
-\snote{Pat: I'm being lazy here, hiding a lot under the word "appropriate".}\newline\snote{Pat: Maybe a figure would suffice?}
+$T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x\in V(T_i)$, $z_i< x < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$.
+
+For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the subtree $T_i$.  The result of this call to $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x\in V(T_{i,j})$, we have $x_{i,j}<x<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
+
+Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{1,\ldots,p\}$, let $i_\ell=|Z\cap \{z_1,\ldots,z_\ell\}|$ and $j_\ell:=\ell-\max(Z\cap \{z_1,\ldots,z_\ell\})$ and let $A_\ell=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{1,\ldots,p\}$ and each $x\in V(A_\ell)$, we have $s_\ell < x < s_{\ell+1}$.
+
+Now construct a perfectly balanced tree $T_0$ with vertex set $V(T_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $T_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$. 
+
+\snote{Pat: Still needs a figure.}
 
 \begin{lem}\lemlabel{multisplit-depth}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
