@@ -264,12 +264,16 @@ Putting some of the preceding results together we obtain the following useful co
   \[
   d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace ,
   \]
-  for each $i\in\{1,\ldots,h\}$.  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
-  
+  for each $i\in\{1,\ldots,h\}$. 
+
+  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
   The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}.  That is, $\delta(i)$ consists of
   a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$ we extract and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then output 0. Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, compute $\sigma_T(j-1)$.  If $\sigma_T(j-1)=\sigma_T(i)$ then output $1$, otherwise output $\perp$.
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted.
+   The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
+   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
+   If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
@@ -302,17 +306,18 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
-\thmref{product-structure} has a number of generalizations to other minor-closed families of graphs including bounded genus graphs.  The most general of these applies to apex-minor free graphs:
+\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to 
+bounded genus graphs and most generally to apex-minor free graphs.
+%\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
+%  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
+%\end{thm}
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
 
-\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
-  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
-\end{thm}
-
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
+%Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
 
 Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
-The case of graphs of bounded degree from minor-closed classes is particularly interesting, since prior to~\cite{bonamy.gavoille.ea:shorter}, the best known bound for adjacency labelling schemes in planar graphs of bounded degree was $2\log n$~\cite{chung:universal}, and the best known bound for planar graphs of maximum degree 4 was $\tfrac32 \log n$~\cite{AR14}. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
+The case of graphs of bounded degree from minor-closed classes is particularly interesting, since prior to~\cite{bonamy.gavoille.ea:shorter}, the best known bound for adjacency labelling schemes in planar graphs of bounded degree was $2\log n$~\cite{chung:universal}, and the best known bound for planar graphs of maximum degree 4 was $\tfrac32 \log n$~\cite{AR14}. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class. \snote{Piotrek: check the bounds and at least some ceilings.}
 
 
 \section{Bulk Trees}
