@@ -317,7 +317,9 @@ The labelling scheme for planar graphs uses labels whose largest part comes from
 
 \subsection{Phases}\label{sec:3.1}
 
-A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are broken up into \emph{phases} that are kept track of using two integer values \snote{L. Is ``broken up'' the right term here? When I read it I had the impression that each round has different phases, this got me confused in the remainder.}.  At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
+A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are partitioned into \emph{phases} that are kept track of using two integer values.
+% \snote{L. Is ``broken up'' the right term here? When I read it I had the impression that each round has different phases, this got me confused in the remainder. P: changed to partitioned}.  
+At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
 \[  
   y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil 
 \]
@@ -325,7 +327,9 @@ After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begin
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation, in which a set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i:=\{x\in I: P_T(x)=z_i\}$. \snote{L. Here you mean the leaf endpoint of $P_T(x)$ is $z_i$, right?} Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
+The bulk insertion operation, in which a set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
+% \snote{L. Here you mean the leaf endpoint of $P_T(x)$ is $z_i$, right? P: yes, fixed} 
+Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
 
 \begin{lem}\lemlabel{insertion-depth}
   Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
