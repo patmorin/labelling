@@ -165,7 +165,7 @@ For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$.
 We denote the empty string by $\varepsilon$. 
 A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
-%Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?
+%Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
     There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
@@ -721,7 +721,7 @@ The following observation shows that a vertex $v$ of $H$ is uniquely identified 
   If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that the $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-For each node $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well-defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(w)$ where $w$ is the node of maximum depth in $x_T(C_H(v))$.  The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \obsref{elias}):
+For each node $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well-defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(w)$ where $w$ is the node of maximum depth in $x_T(C_H(v))$.  The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \lemref{elias}):
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
