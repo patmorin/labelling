@@ -560,11 +560,11 @@ The following lemma shows that bulk trees are balanced at all times:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &\le O(k + k^{-1}\log|T_{y_0}|) 
-        & \text{(by \lemref{bulk-tree-height}(ii))}\\
+        & \text{(by \lemref{bulktree-height-i}(ii))}\\
        &\le O(k + k^{-1}(\log|T_{y}| + (y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
-       &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_0|) 
-        & \text{(since $y-y_0 < y^*$)}\\
+       &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_y|) 
+        & \text{(since $y-y_0 < y^*\le \frac{\log|T_y|}{k-2\log 7}$)}\\
        &= O(k + k^{-1}\log|T_{y}|) \enspace ,
   \end{align*}
   for $k\in\omega(1)$. 
