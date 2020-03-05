@@ -554,17 +554,17 @@ The following lemma shows that bulk trees are balanced at all times:
   Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(ii) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=(1+o(1)k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=(1+o(1))k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
   \[  h(T_y) \le (1+O(1/k))\log |T_y| + h(T_{y_0})-\log|T_{y_0}| \]  
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &\le O(k + k^{-1}\log|T_{y_0}|) 
-        & \text{(by \lemref{bulk-tree-height}(ii))}\\
+        & \text{(by \lemref{bulktree-height-i}(ii))}\\
        &\le O(k + k^{-1}(\log|T_{y}| + (y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
-       &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_0|) 
-        & \text{(since $y-y_0 < y^*$)}\\
+       &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_y|) 
+        & \text{(since $y-y_0 < y^*\le \frac{\log|T_y|}{k-2\log 7}$)}\\
        &= O(k + k^{-1}\log|T_{y}|) \enspace ,
   \end{align*}
   for $k\in\omega(1)$. 
