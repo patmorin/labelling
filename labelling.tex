@@ -698,14 +698,14 @@ We begin by describing a labelling scheme for $t$-Trees that, like our labelling
 
 A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  
 
-Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_t$ form a clique and, for each $i\in\{t+1,\ldots,t_m\}$, $C_H(v_i):=N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$.  The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
+Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_t$ form a clique and, for each $i\in\{t+1,\ldots,m\}$, $C_H(v_i):=N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$.  The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
 
 The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most $t$ neighbours among $v_1,\ldots,v_{i-1}$) implies that $V(H)$ has a proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$.  When such a colouring of $H$ is given then, for each $i\in\{t+1,\ldots,m\}$ and each $j\in\{1,\ldots,t+1\}$ the \emph{$j$-parent} $p_j(v_i)$ of $v_i$ is the unique element $p\in C_H(v_i)$ with $\varphi(p)=j$.  Note that $v_i$ is the $j$-parent of itself for exactly one $j\in\{1,\ldots,t+1\}$.
 
 \subsubsection{Interval Graphs}
 
 For real numbers $a\le b$, let $[a,b]:=\{ x\in\R: a\le x\le b\}$, and let
-$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which the edge $vw\in E(I)$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(H):x\in v\}|$.  
+$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which the edge $vw\in E(G_S)$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.  
 
 % By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
 
@@ -751,7 +751,7 @@ For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T
 \end{lem}
 
 \begin{proof}
-  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $v_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the edge $v_1v_2\in E(H)$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
+  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
 \end{proof}
 
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
