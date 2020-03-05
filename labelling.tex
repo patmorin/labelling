@@ -130,7 +130,7 @@ we obtain labelling schemes for all of these classes of graphs in which vertices
 \subsection{Outline}
 
 The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths.  
-This case was recognized before as an important toy problem. We include it to highlight the generic idea behind our adjacency scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  
+This case was recognized before as an important toy problem. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  
 % \Secref{conclusion} summarizes and concludes with directions for future work.
 
 % \subsection{Proof Overview}
@@ -267,7 +267,7 @@ Putting some of the preceding results together we obtain the following useful co
   for each $i\in\{1,\ldots,h\}$. 
 
   The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
-  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}.  That is, $\delta(i)$ consists of
+  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}. \snote{L. move the definition of $\delta$ outside of the proof, right after Observation 5, for future reference (in the proofs in section 4 and 5)} That is, $\delta(i)$ consists of
   a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted.
@@ -334,6 +334,8 @@ At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^
   y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil 
 \]
 After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
+
+\snote{say here that even if we don't need it now, $k$ will be $\sqrt{\log n \log \log n}$, so that the expression $O(k+k^{-1}\log n)$ (which will be seen many times), is $o(\log n)$}
 
 \subsection{Bulk Insertion}
 
@@ -410,6 +412,8 @@ Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2
   We consider only $T_{<x}$ since the argument for $T_{>x}$ is the same.
   Recall that $h(T_{<x})=\max_{z\in V(T_{<x})} d_{T_{<x}}(z)$.  For each node $z\in V(T_{<x})$, $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, so $d_{T_{<x}}(z)\le d_T(z)$.
 \end{proof}
+
+\snote{add an observation here that $\sigma_{T'}(z)$ can be easily obtained from $\sigma_T(z)$ after a split, and link to this observation in the proof of lemma 23}
 
 \subsubsection{$\textsc{MultiSplit}(x_1,\ldots,x_c)$}
 
@@ -610,12 +614,12 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
   To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x\in V(T_y)$ of depth $\theta$.    
-  For a node $z\in V(T)$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T$.  Thus, for each $z\in V(T)$, we can focus on the changes to $\sigma_T(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
+  For a node $z\in V(T_y)$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z\in V(T_y)$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$.  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c=2^k+1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
   At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
@@ -623,7 +627,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a difficult special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
 
 \begin{figure}
   \begin{center}
@@ -636,7 +640,7 @@ Before continuing, we show that using the techniques developed thus far, we can 
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
@@ -652,7 +656,7 @@ Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a l
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;
+  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;\snote{L. point to the def of $\delta$ after Observation 5}
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
@@ -674,7 +678,7 @@ Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are 
 This establishes our first result:
 
 \begin{thm}\thmlabel{pxp}
-  The family $\mathcal{G}$ of graphs $G$ such that $G$ is a subgraph of a strong product $P\boxtimes P$ where $P$ is a path ash a $(1+o(1))\log n$-bit labelling scheme.
+  The family $\mathcal{G}$ of $n$-vertex subgraphs of a strong product $P\boxtimes P$ where $P$ is a path has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
 \begin{rem}
@@ -1036,7 +1040,7 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
         \ENDIF
       \ENDFOR
     \ENDFOR
-    \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\ldots,h\}$}
+ % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\ldots,h\}$}
   \end{algorithmic}
   
   \noindent$\textsc{Add}(x, y)$:
