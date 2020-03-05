@@ -448,7 +448,7 @@ $T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some o
 
 For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the subtree $T_i$.  The result of this call to $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x\in V(T_{i,j})$, we have $x_{i,j}<x<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
 
-Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{1,\ldots,p\}$, let $i_\ell=|Z\cap \{s_1,\ldots,s_\ell\}|$ and $j_\ell:=\ell-\max(Z\cap \{s_1,\ldots,s_\ell\})$ and let $A_\ell=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{1,\ldots,p\}$ and each $x\in V(A_\ell)$, we have $s_\ell < x < s_{\ell+1}$.
+Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{1,\ldots,p\}$, let $i_\ell=|Z\cap \{s_1,\ldots,s_\ell\}|$ and $j_\ell:= \ell - \max\{ q\in\{1,\ldots,\ell\}: s_q\in Z\}$ and let $A_\ell=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{1,\ldots,p\}$ and each $x\in V(A_\ell)$, we have $s_\ell < x < s_{\ell+1}$.
 
 Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain our new subtree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
@@ -867,7 +867,7 @@ The following lemma, which is analagous to \lemref{node-transitions} is the last
   
   The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in S_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w\in C_H(v)$, $x_{T_y'}(v)$ is the element of $v\cap V(T_y')$ that is closest to the root fo $T_y'$. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(w)=P_{T'}(w)$ and $\sigma_{T_y''}(w)=\sigma_{T'}(w)$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in S_y$.
   
-  Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence if individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the the tree before and after the deletion, respectively.  
+  Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence of individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the tree before and after the deletion, respectively.  
   
   \begin{clm}\clmlabel{deletion-ancestor}
     For any $v=[a_v,b_v]\in S_y$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))$ is a prefix of $\sigma_T(x_T(v))$.   
