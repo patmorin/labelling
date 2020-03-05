@@ -267,7 +267,7 @@ Putting some of the preceding results together we obtain the following useful co
   for each $i\in\{1,\ldots,h\}$. 
 
   The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
-  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}.  That is, $\delta(i)$ consists of
+  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}. \snote{L. move the definition of $\delta$ outside of the proof, right after Observation 5, for future reference (in the proofs in section 4 and 5)} That is, $\delta(i)$ consists of
   a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted.
@@ -627,7 +627,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a difficult special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
 
 \begin{figure}
   \begin{center}
@@ -640,7 +640,7 @@ Before continuing, we show that using the techniques developed thus far, we can 
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
@@ -656,7 +656,7 @@ Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a l
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;
+  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;\snote{L. point to the def of $\delta$ after Observation 5}
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
