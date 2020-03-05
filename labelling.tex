@@ -333,7 +333,9 @@ At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^
 \]
 After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
 
-\snote{say here that even if we don't need it now, $k$ will be $\sqrt{\log n \log \log n}$, so that the expression $O(k+k^{-1}\log n)$ (which will be seen many times), is $o(\log n)$}
+\smallskip
+
+This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\sqrt{\log n \log \log n}$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
 
 \subsection{Bulk Insertion}
 
