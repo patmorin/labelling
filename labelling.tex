@@ -95,9 +95,12 @@ $A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
-A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + O(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs. \snote{Piotrek: Really?}
+A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + O(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  
+%Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs. \snote{Piotrek: Really?}
 
-A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph, see~\cite{devos.ding.ea:excluding} or \cite{dujmovic.joret.ea:planar} for a short proof.\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.} This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
+A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth. As is well known, the edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph. 
+%\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.} 
+This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
 
 Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
@@ -277,10 +280,10 @@ Putting some of the preceding results together we obtain the following useful co
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$. 
+For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$. 
 
 \begin{lem}\lemlabel{fractional}
-  For any finite sets $S_1,\ldots,S_h\subset\R$, there exists sets $V_0,\ldots,V_{h+1}$ such that
+  For any finite sets $S_1,\ldots,S_h\subset\R$, there exist sets $V_0,\ldots,V_{h+1}$ such that
   \begin{compactenum}
     \item for each $y\in\{1,\ldots,h\}$, $V_y\supseteq S_y$;
     \item for each $y\in\{1,\ldots,h\}$, $V_{y-1}$ 3-chunks $V_y$ and $V_{y+1}$ 3-chunks $V_y$;
@@ -288,7 +291,7 @@ For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$
   \end{compactenum}
 \end{lem}
 
-A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
+A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof of \lemref{fractional} that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
 
 
 \subsection{Product Structure Theorems}
@@ -363,7 +366,7 @@ The resulting tree is the outcome of the operation.
 
 \subsection{Bulk Deletion}
 
-The bulk deletion operation is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
+The bulk deletion operation of a subset $D$ of nodes is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
 
 
 \begin{lem}\lemlabel{deletion-signature}
