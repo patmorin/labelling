@@ -293,11 +293,11 @@ A proof of a much more general version of \lemref{fractional} (with larger const
 
 \subsection{Product Structure Theorems}
 
-The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two vertices $v_1:=(x_1,y_1)$ and $v_2:=(x_2,y_2)$ are adjacent if and only if:
+The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two distinct vertices $(x_1,y_1)$ and $(x_2,y_2)$ are adjacent if and only if:
 \begin{enumerate}
-  \item  $v_1\neq v_2$; and
-  \item $x_1=x_2$ or $x_1x_2\in E(A)$; and
-  \item $y_1=y_2$ or $y_1y_2\in E(B)$.
+  \item  $x_1x_2 \in E(A)$ and $y_1y_2 \in E(B)$; or
+  \item $x_1=x_2$ and $y_1y_2\in E(B)$; or
+  \item $x_1x_2 \in E(A)$ and $y_1=y_2$.
 \end{enumerate}
 
 \begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure}
@@ -315,7 +315,8 @@ Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous pro
 
 Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
-The case of graphs of bounded degree from minor-closed classes is particularly interesting, since prior to~\cite{bonamy.gavoille.ea:shorter}, the best known bound for adjacency labelling schemes in planar graphs of bounded degree was $2\log n$~\cite{chung:universal}, and the best known bound for planar graphs of maximum degree 4 was $\tfrac32 \log n$~\cite{AR14}. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class. \snote{Piotrek: check the bounds and at least some ceilings.}
+The case of graphs of bounded degree from minor-closed classes is particularly interesting, 
+since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e. $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
 
 
 \section{Bulk Trees}
