@@ -99,7 +99,7 @@ Muller's scheme for planar graphs \cite{muller:local} is based on the fact that 
 
 A number of $(1+o(1))\log n$-bit adjacency-labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + O(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs. \snote{Piotrek: Really?}
 
-A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph, see~\cite{DeVos.et.al} or \cite{dujmovic.joret.ea:planar} for a short proof.  This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
+A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth.  The edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph, see~\cite{devos.ding.ea:excluding} or \cite{dujmovic.joret.ea:planar} for a short proof.\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.} This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
 
 Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
@@ -279,7 +279,7 @@ Putting some of the preceding results together we obtain the following useful co
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ and $|X\cup Y|\le (2a+1)|X|$. \newline\snote{I don't think we use the $2a$ inequality anymore.}
+For non-empty sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$. 
 
 \begin{lem}\lemlabel{fractional}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists sets $V_0,\ldots,V_{h+1}$ such that
@@ -427,11 +427,11 @@ The following lemma is immediate from \lemref{split-height}
 The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$.   Refer to \figref{balance-x}.
 
 \begin{figure}
-  \begin{center}
-    \includegraphics{figs/balance-x-1} \\[1ex]
-    $\Downarrow$ \\[1ex]
-    \includegraphics{figs/balance-x-2}
-  \end{center}
+    \begin{center}
+      \includegraphics{figs/balance-x-1} \\[-1ex]
+      $\Downarrow$ \\[1ex]
+      \includegraphics{figs/balance-x-2}
+    \end{center}  
   \caption{The operation of $\textsc{Balance}(x)$}
   \figlabel{balance-x}
 \end{figure}
