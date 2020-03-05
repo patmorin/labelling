@@ -180,13 +180,13 @@ A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if 
 
 A \emph{binary tree} $T$ is a rooted tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $x$ in $T$, $P_T(x)$ denotes the path from the root of $T$ to $x$.  The \emph{length} of a path $P$ is the number of edges in $P$, i.e., $|P|-1$.  The \emph{depth}, $d_T(x)$ of $x$ is the length of $P_T(x)$.  The \emph{height} of $T$ is $h(T):=\max_{x\in V(T)} d_T(x)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ of height $h(T)=\lfloor\log|T|\rfloor$.
 
-A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching $2-c$ leaves to each node of $T$ with $c$ children.  We call the leaves in $V(T^+)\setminus V(T)$ the \emph{external nodes} of $T$.  (Note that the external nodes of $T$ are leaves of $T^+$ that are not actually in $T$.)
+A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching to each node $x$ of $T$ $2-c$ leaves where $c$ is the number of children of $x$.  We call the leaves of $T^+$ the \emph{external nodes} of $T$.  (Note that these external nodes are not actually in $T$.)
 
 A node $a\in V(T)$ is a \emph{$T$-ancestor} of $x\in V(T)$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that $x$ is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
 
 Let $x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$.  (Note that the signature of the root $x_0$ of $T$ is the empty string,  $\sigma_T(x_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree whose node set $V(T)$ consists of real numbers and that has the \emph{BST property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
+A \emph{binary search tree (BST)} $T$ is a binary tree whose node set $V(T)$ consists of distinct real numbers and that has the \emph{BST property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
 
 The following observation allows us to compare values in BST just given their signatures in the tree.
 
@@ -264,11 +264,11 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   for each $i\in\{1,\ldots,h\}$. 
 
-  The code $\alpha(i$) for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
   The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}. \snote{L. move the definition of $\delta$ outside of the proof, right after Observation 5, for future reference (in the proofs in section 4 and 5)} That is, $\delta(i)$ consists of
   a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted.
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
    Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
@@ -305,7 +305,7 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
 \end{thm}
 
 \thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to 
-bounded genus graphs and most generally to apex-minor free graphs.
+bounded genus graphs, and more generally to apex-minor free graphs.
 %\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
