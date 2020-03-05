@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200304161928" modified="D:20200305095233"/>
+<info created="D:20200304161928" modified="D:20200305124825"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -257,6 +257,26 @@ h
 <layer name="partition"/>
 <view layers="alpha" active="alpha"/>
 <view layers="beta partition" active="partition"/>
+<path layer="partition" stroke="pink">
+169.6 640 m
+169.6 560.522 l
+</path>
+<path stroke="pink">
+227.2 628 m
+227.2 560.522 l
+</path>
+<path stroke="pink">
+246.4 640 m
+246.4 560.522 l
+</path>
+<path stroke="pink">
+304 628 m
+304 560.522 l
+</path>
+<path stroke="pink">
+361.6 640 m
+361.6 560.522 l
+</path>
 <text layer="alpha" matrix="1.2 0 0 1 112.861 -1.45898" transformations="translations" pos="160 600" stroke="black" type="label" width="10.291" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">T_5</text>
 <path stroke="gray">
 150.4 636 m
@@ -285,10 +305,6 @@ h
 <path stroke="gray">
 342.4 636 m
 342.4 560.522 l
-</path>
-<path stroke="gold">
-131.2 596 m
-405.77 596 l
 </path>
 <text layer="partition" matrix="1.2 0 0 1 -51.2 -18.9584" transformations="translations" pos="160 592" stroke="black" type="label" width="16.629" height="6.808" depth="2.85" halign="center" valign="top" style="math">T_{0,0}</text>
 <text matrix="1.2 0 0 1 -32 -18.9584" transformations="translations" pos="160 592" stroke="black" type="label" width="16.629" height="6.808" depth="2.85" halign="center" valign="top" style="math">T_{1,0}</text>
@@ -640,7 +656,7 @@ h
 <use layer="beta" matrix="1.2 0 0 1 -89.6 -116" name="mark/disk(sx)" pos="296 744" size="normal" stroke="red"/>
 <text layer="alpha" matrix="1.2 0 0 1 -45.2 8" transformations="translations" pos="160 632" stroke="black" type="label" width="9.102" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">z_1</text>
 <text matrix="1.2 0 0 1 -6.8 20" transformations="translations" pos="160 632" stroke="black" type="label" width="9.102" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">z_2</text>
-<text matrix="1.2 0 0 1 73.6 36" transformations="translations" pos="160 632" stroke="black" type="label" width="32.549" height="4.294" depth="1.49" halign="center" valign="baseline" style="math">z_4=x_4</text>
+<text matrix="1.2 0 0 1 73.6 36" transformations="translations" pos="160 632" stroke="black" type="label" width="51.527" height="4.294" depth="1.49" halign="center" valign="baseline" style="math">x=z_4=x_4</text>
 <text matrix="1.2 0 0 1 89.2 4" transformations="translations" pos="160 632" stroke="black" type="label" width="9.102" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">z_5</text>
 <text matrix="1.2 0 0 1 155.2 4" transformations="translations" pos="160 632" stroke="black" type="label" width="9.102" height="4.294" depth="1.49" valign="baseline" style="math">z_7</text>
 <text matrix="1.2 0 0 1 132.4 16" transformations="translations" pos="160 632" stroke="black" type="label" width="32.549" height="4.294" depth="1.49" valign="baseline" style="math">z_6=x_6</text>
