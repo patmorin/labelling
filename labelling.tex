@@ -316,7 +316,7 @@ Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous pro
 Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
 The case of graphs of bounded degree from minor-closed classes is particularly interesting, 
-since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e. $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
+since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e.\ $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
 
 
 \section{Bulk Trees}
@@ -330,7 +330,7 @@ A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree 
 % \snote{L. Is ``broken up'' the right term here? When I read it I had the impression that each round has different phases, this got me confused in the remainder. P: changed to partitioned}.  
 At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
 \[  
-  y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil 
+  y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil. 
 \]
 After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
 
@@ -340,20 +340,20 @@ This will not be needed until the final sections, but it is good to have in mind
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation, in which a set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T||}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
-% \snote{L. Here you mean the leaf endpoint of $P_T(x)$ is $z_i$, right? P: yes, fixed} 
-Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
+The bulk insertion operation, in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
+Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$. 
+The resulting tree is the outcome of the operation. 
 
 \begin{lem}\lemlabel{insertion-depth}
   Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
 \begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. Recall that $h(T')$ is the length of the longest root-to-leaf in $T'$. Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$, and therefre $h(T')$, is at most $h(T)+2$.
+  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. Recall that $h(T')$ is the length of the longest root-to-leaf in $T'$. Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
 \end{proof}
 
 \begin{lem}\lemlabel{insertion-size}
-  Let $T$ be any binary tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Let $x\in V(T)$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.  Then $|T_x'|\le 7|T_x|$.
+  Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.  Then $|T_x'|\le 7|T_x|$.
 \end{lem}
 
 \begin{proof}
@@ -371,11 +371,12 @@ The bulk deletion operation is implemented as a series of $|D|$ individual delet
 \end{lem}
 
 \begin{proof}
-  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any $x\in V(T')$ since the deleted leaf is not in $V(T')$.  For any node $z$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.  
+  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any node $x$ in $T'$.  For any node $z$ in $T'$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.  
   % Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
 \end{proof}
 
-The following consequence of \lemref{deletion-signature} follows immediately from the fact that, for any node $z$ in a binary search tree $T$, $d_T(z)=|\sigma_T(z)|$.
+%The following consequence of \lemref{deletion-signature} follows immediately from the fact that, for any node $z$ in a binary search tree $T$, $d_T(z)=|\sigma_T(z)|$.
+The following is an immediate consequence. 
 
 \begin{lem}\lemlabel{deletion-depth}
   Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
@@ -388,7 +389,7 @@ At the beginning of a round, before bulk insertion and bulk deletion, a rebalanc
 
 \subsubsection{$\textsc{Split}(x)$}
 
-The argument of $\textsc{Split}(x)$ is a node $x\in V(T)$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_0,\ldots,a_s$ and $b:=b_0,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
+The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_0,\ldots,a_s$ and $b:=b_0,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
 
 \begin{figure}
   \begin{center}
