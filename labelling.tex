@@ -628,7 +628,7 @@ Although the 3-chunking requirements on the insertion and deletion sets of bulk 
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We are get to the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
+We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
 
 \begin{lem}\lemlabel{node-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = O(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
