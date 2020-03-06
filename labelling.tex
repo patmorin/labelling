@@ -201,7 +201,7 @@ The following observation allows us to compare values in a binary search tree ju
 Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees, but we sketch a proof here for completeness.
 
 \begin{lem}\lemlabel{biased-bst}
-  For any finite $S\subset \R$ and any function $w:S\to\R^+$, there exists a binary search tree $T$ with $V(T)=S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y=1}^h w(y)$.
+  For any finite $S\subset \R$ and any function $w:S\to\R^+$, there exists a binary search tree $T$ with $V(T)=S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y\in S} w(y)$.
 \end{lem}
 
 \begin{proof}
