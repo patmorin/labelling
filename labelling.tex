@@ -279,7 +279,7 @@ Putting some of the preceding results together we obtain the following useful co
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
    Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta_T(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
-  In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
+  In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
 \subsection{Chunked Sets and Fractional Cascading}
@@ -343,7 +343,7 @@ After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begin
 
 \smallskip
 
-This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\sqrt{\log n \log \log n}$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\lceil\sqrt{\log n \log \log n}\rceil$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
 
 \subsection{Bulk Insertion}
 
