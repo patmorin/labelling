@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225145259" modified="D:20200228161458"/>
+<info created="D:20200225145259" modified="D:20200306055115"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -500,8 +500,8 @@ h
 <text matrix="1 0 0 1 -2 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">x_0=a_1</text>
 <text matrix="1 0 0 1 34 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_1=a_2</text>
 <text matrix="1 0 0 1 66 -45" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_2=a_3</text>
-<text matrix="1 0 0 1 194 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="32.192" height="6.923" depth="1.49" valign="baseline" style="math">x_3=b_0</text>
-<text matrix="1 0 0 1 157 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="32.192" height="6.923" depth="1.49" halign="right" valign="baseline" style="math">x_4=b_1</text>
+<text matrix="1 0 0 1 194 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="32.192" height="6.923" depth="1.49" valign="baseline" style="math">x_3=b_1</text>
+<text matrix="1 0 0 1 157 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="32.192" height="6.923" depth="1.49" halign="right" valign="baseline" style="math">x_4=b_2</text>
 <text matrix="1 0 0 1 98 -61" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_5=a_4</text>
 <text layer="alpha" matrix="1 0 0 1 -19 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_0</text>
 <text matrix="1 0 0 1 13 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_1</text>

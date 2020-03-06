@@ -396,7 +396,7 @@ At the beginning of a round, before bulk insertion and bulk deletion, a rebalanc
 
 \subsubsection{$\textsc{Split}(x)$}
 
-The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_0,\ldots,a_s$ and $b:=b_0,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
+The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_1,\ldots,a_s$ and $b:=b_1,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
 
 \begin{figure}
   \begin{center}
@@ -408,7 +408,7 @@ The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of t
   \figlabel{split}
 \end{figure}
 
-Make a binary search tree $T_0$ that has $x$ as root, the path $a_0,\ldots,a_s$ as the left subtree of $x$ and the path $b_0,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
+Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\ldots,a_s$ as the left subtree of $x$ and the path $b_1,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
 
 Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the appropriate tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
 
@@ -422,7 +422,26 @@ Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2
   Recall that $h(T_{<x})=\max_{z\in V(T_{<x})} d_{T_{<x}}(z)$.  For each node $z\in V(T_{<x})$, $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, so $d_{T_{<x}}(z)\le d_T(z)$.
 \end{proof}
 
-\snote{add an observation here that $\sigma_{T'}(z)$ can be easily obtained from $\sigma_T(z)$ after a split, and link to this observation in the proof of lemma 23}
+The following observation shows that there is a simple relationship between a node's signature in $T$ before calling $\textsc{Split}(x)$ and its signature in the subtree $T_{<x}$ or $T_{>x}$.
+
+\begin{obs}\obslabel{split-signature}
+  Let $T$, $x$, $x_0,\ldots,x_r$, $A_1,\ldots,A_{r-1},L,R$, $a_1,\ldots,a_s$, and $b_1,\ldots,b_t$ be defined as above. Then
+  \begin{compactenum}
+    \item for each $j\in\{1,\ldots,s\}$ where $a_j=x_i$
+    \begin{compactenum}
+      \item $\sigma_{T_{<x}}(a_j)=1^{j-1}$, and 
+      \item $\sigma_{T_{<x}}(z) = 1^{j-1},0,\sigma_{A_i}(z)$ for each $z\in V(A_i)$;
+    \end{compactenum}
+    \item for each $j\in\{1,\ldots,t\}$ where $b_j=x_i$
+    \begin{compactenum}
+      \item $\sigma_{T_{>x}}(a_j)=0^{j-1}$, and 
+      \item $\sigma_{T_{>x}}(z) = 0^{j-1},1,\sigma_{A_i}(z)$ for each $z\in V(A_i)$;
+    \end{compactenum}
+    \item $\sigma_{T_{<x}}(z)=1^s,\sigma_L(z)$ for each $z\in V(L)$; and
+    \item $\sigma_{T_{>x}}(z)=0^t,\sigma_R(z)$ for each $z\in V(R)$.
+  \end{compactenum}
+  In particular, for any $z\in V(T)\setminus\{x\}$, $\sigma_{T_{<x}}(z)$ or $\sigma_{T_{>x}}(z)$ can be obtained from $\sigma_T(x)$ by deleting a prefix and replacing it with one of the $4h(T)$ strings in $\Pi:=\bigcup_{j=0}^{h(T)-1}\{0^j,0^j1,1^j,1^j0\}$.
+\end{obs}
 
 \subsubsection{$\textsc{MultiSplit}(x_1,\ldots,x_c)$}
 
@@ -616,7 +635,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   \begin{enumerate}[($\nu_1$)]
     \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $O(\lg h(T))$ bits.
     \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $O(\lg h(T))$ bits.
-    \item Repeatedly (up to $k$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi:=\{\varepsilon\}\cup\bigcup_{j=0}^{h(T_y)}\{0^j, 1^j, 0^j1, 1^j0\}$. The length of each deleted prefix and its replacement can be described with $O(\lg h(T))$ bits for a total of $O(k\lg h(T))$ bits.
+    \item Repeatedly (up to $k$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $O(\lg h(T))$ bits for a total of $O(k\lg h(T))$ bits.
     \item Adding a specific $O(k)$-bit prefix to $b'$, which can be described with $O(k)$ bits.
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
@@ -626,7 +645,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c=2^k+1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \figref{split}).  This happens at most $k+1$ times and $|\Pi|= 4(h(T_y)+1)+1$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c=2^k+1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
   At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
