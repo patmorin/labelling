@@ -568,7 +568,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
     & \le (k+1)\left(\frac{\log|T_0|}{k-\log 7 } + 1\right)\\
     & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
     & = (1+O(1/k))\cdot(\log|T_0|) + (k+1) \\
-    & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) \\
+    & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
     & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace . &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
