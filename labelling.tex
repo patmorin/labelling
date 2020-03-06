@@ -94,7 +94,9 @@ In this paper we prove the following result:
 \subsection{Previous Work}
 
 The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell(\cdot)$ as a function of $G$ and
-$A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.
+$A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. 
+
+Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.  First, a superficial review: Planar graphs have been shown to have $(c+o(1))\log n$-bit adjacency labelling schemes for successive values of $c=6,4,3,2,\tfrac{4}{3}$ and finally \thmref{main} gives the optimal\footnote{It is easy to see that, in any adjacency labelling scheme for any $n$-vertex graph $G$ in which no two vertices have the same neighbourhood, all labels must be distinct, so some label must have length at least $\lceil\log n\rceil$.} result $c=1$.
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
@@ -804,7 +806,7 @@ For each node $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at th
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
-  \item $d_T(x_T(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; 
+  \item $d_T(x_T(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$; 
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; and
   \item $\varphi'(v)$.
 \end{enumerate}
