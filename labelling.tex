@@ -942,7 +942,7 @@ The following lemma, which is analogous to \lemref{node-transitions} is the last
   \end{figure}
   
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
-  The transition code $\mu_y(x)$ will contain enough information to recover $\sigma_{T_y*'}(v)$ from $\sigma_{T_y}(v)$. 
+  The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T_y*'}(v)$ from $\sigma_{T_y}(v)$. 
   
   Now, $\textsc{Balance}(x)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
   
@@ -972,9 +972,9 @@ The following lemma, which is analogous to \lemref{node-transitions} is the last
   
   From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
   
-  Thus, for each $v\in L_y$ such that $x(v)\not\in Z\cup Y$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w)$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(x)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
+  Thus, for each $v\in L_y$ such that $x(v)\not\in Z\cup Y$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w)$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
   
-  Therefore, for any $v\in S_y$ there is a string $\mu_y(x)$ of length $O(k\lg\lg n)$ that satisfies the conditions of the lemma.
+  Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $O(k\lg\lg n)$ that satisfies the conditions of the lemma.
 \end{proof}
   
 \subsection{The Labels}
