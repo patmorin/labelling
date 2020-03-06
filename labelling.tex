@@ -1,4 +1,5 @@
 \documentclass[kpfonts]{patmorin}
+\listfiles
 \usepackage{pat}
 \usepackage{paralist}
 \usepackage{dsfont}  % for \mathds{A}
@@ -34,7 +35,7 @@
 \newcommand{\aref}[1]{(X\ref{a:#1})}
 \newcommand{\alabel}[1]{\label{a:#1}}
 
-\title{\MakeUppercase{Asymptotically-Optimal Adjacency Labelling for Planar Graphs}}
+\title{\MakeUppercase{Adjacency Labelling for Planar Graphs}}
 \author{
   Vida Dujmović,%
     \thanks{School of Computer Science and Electrical Engineering, University of Ottawa, Canada. This research was partially supported by NSERC.}\quad
@@ -55,7 +56,7 @@
 \maketitle
 
 \begin{abstract}
-  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(n))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  
+  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  
   %This is the first near-linear upper bound on the size of $U_n$.
 %  
 %  This result is a consequence of a more general result that applies to all graphs having a certain product structure (Dujmović \etal\ FOCS~2019) that is exhibited by planar graphs, bounded genus graphs, apex-minor free graphs, and related graphs obtained by so-called shortcut systems (Dujmović, Morin, and Wood arXiv:1907.05168).
@@ -134,7 +135,7 @@ we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families
 
 \subsection{Outline}
 
-The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  \Secref{conclusion} concludes with a discussion of the computational complexity of assigning labels and testing adjacency.
+The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  \Secref{conclusion} concludes with a discussion of the computational complexity of assigning labels and testing adjacency and presents directions for future work.
 
 % \subsection{Proof Overview}
 % 
@@ -604,12 +605,10 @@ The following lemma shows that bulk trees are balanced at all times:
         & \text{(by \lemref{bulktree-height-i}(ii))}\\
        &\le O(k + k^{-1}(\log|T_{y}| + (y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
-       &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_y|) 
-        & \text{(since $y-y_0 < y^*\le \frac{\log|T_y|}{k-2\log 7}+4$)}\\
-       &= O(k + k^{-1}\log|T_{y}|) \enspace ,
+       &\le O(k + k^{-1}\log|T_{y}| + y^*) 
+        & \text{(since $y-y_0 \le y^*$)} \\
+       &= O(k + k^{-1}\log|T_{y}|) \enspace . & \text{(by \eqref{ystar-bound})} & \qedhere
   \end{align*}
-  for $k\in\omega(1)$. 
-  % \snote{Again: quantify?}
 \end{proof}
 
 
@@ -629,7 +628,7 @@ Although the 3-chunking requirements on the insertion and deletion sets of bulk 
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We are now getting to the main point of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
+We are get to the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
 
 \begin{lem}\lemlabel{node-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = O(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
@@ -1031,21 +1030,20 @@ This completes the proof of our main result.
 \section{Conclusion}
 \seclabel{conclusion}
 
-We conclude with a few remarks on the computational complexity of this labelling scheme.
+We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
-Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
-
-The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  In the case of planar graphs $t=8$ and $k=O(\sqrt{\log n\log\log n})$, so the adjacency testing procedure can be implemented in $O(\log n\sqrt{\log n\log\log n})$ time.  Note that this already allows a tradeoff between the code length and the complexity of adjacency testing.
+The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, so the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.  N
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
 
-
-
-
-
-
 % \snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
-
+The current result leaves two obvious directions for future work:
+\begin{enumerate}
+  \item The precise lengths of the labels in \thmref{main} is $\log n + O(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
+  
+  \item \thmref{main-product} implies a $(1+o(1))\log n$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
+\end{enumerate}
 
 \section*{Acknowledgement}
 
