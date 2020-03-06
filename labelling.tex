@@ -271,10 +271,9 @@ Putting some of the preceding results together we obtain the following useful co
   \[
   d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace ,
   \]
-  for each $i\in\{1,\ldots,h\}$. 
+  for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
-  The third part of $\alpha(i)$ is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
