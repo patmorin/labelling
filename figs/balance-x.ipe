@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200304161928" modified="D:20200306061646"/>
+<info created="D:20200304161928" modified="D:20200306114345"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -290,31 +290,31 @@ h
 361.6 560.522 l
 </path>
 <text layer="alpha" matrix="1.2 0 0 1 112.861 -1.45898" transformations="translations" pos="160 600" stroke="black" type="label" width="10.291" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">T_5</text>
-<path stroke="gray">
+<path stroke="darkgray">
 150.4 636 m
 150.4 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 189.038 648 m
 189.038 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 208 636 m
 208 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 265.6 664 m
 265.6 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 284.8 636 m
 284.8 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 323.2 648 m
 323.2 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 342.4 636 m
 342.4 560.522 l
 </path>
@@ -341,31 +341,31 @@ h
 <text matrix="1.2 0 0 1 140.8 -18.9588" transformations="translations" pos="160 592" stroke="black" type="label" width="16.629" height="6.808" depth="2.85" halign="center" valign="top" style="math">T_{6,0}</text>
 <text matrix="1.2 0 0 1 160 -18.9588" transformations="translations" pos="160 592" stroke="black" type="label" width="16.629" height="6.808" depth="2.85" halign="center" valign="top" style="math">T_{7,0}</text>
 <text matrix="1.2 0 0 1 179.2 -18.9588" transformations="translations" pos="160 592" stroke="black" type="label" width="16.629" height="6.808" depth="2.85" halign="center" valign="top" style="math">T_{7,1}</text>
-<path stroke="gray">
+<path stroke="darkgray">
 150.4 628 m
 150.4 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 188.8 628 m
 188.8 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 208 652 m
 208 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 265.6 628 m
 265.6 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 284.8 668 m
 284.8 560.522 l
 </path>
-<path matrix="1 0 0 1 4.8 0" stroke="gray">
+<path matrix="1 0 0 1 4.8 0" stroke="darkgray">
 318.4 640 m
 318.4 560.522 l
 </path>
-<path stroke="gray">
+<path stroke="darkgray">
 342.4 652 m
 342.4 560.522 l
 </path>
