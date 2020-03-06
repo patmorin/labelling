@@ -50,6 +50,7 @@
   and Pat Morin%
     \thanks{School of Computer Science, Carleton University, Canada. This research was partially supported by NSERC.}
 }
+\date{}
 
 \begin{document}
 \begin{titlepage}
@@ -130,7 +131,7 @@ The adjacency labelling scheme described in the current paper is also based on t
 
 The key new technique that allows all of this to work is that the labelling schemes of the rows $H_1,\ldots,H_h$ are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ contains all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is essentially based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully maintaining the binary search tree $T$, the trees $T_{i-1}$ and $T_{i}$ can be similar enough so that the labels for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.
 
-The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
+The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex-minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$ \cite{dujmovic.joret.ea:planar,dujmovic.morin.ea:structure}. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
 we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.
 
 \subsection{Outline}
@@ -316,8 +317,7 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
-\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to 
-bounded genus graphs, and more generally to apex-minor free graphs.
+\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.
 %\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
@@ -700,7 +700,7 @@ The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x
 
 \subsection{Adjacency Testing}
 
-Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
+Given the labels of $z_1=(x_1,y_1)$ and $z_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $z_1$ and $z_2$ are not adjacent since $y_1y_2\not\in E(P_1)$.  
   
