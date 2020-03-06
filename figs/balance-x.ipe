@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200304161928" modified="D:20200305124825"/>
+<info created="D:20200304161928" modified="D:20200306061646"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -257,7 +257,19 @@ h
 <layer name="partition"/>
 <view layers="alpha" active="alpha"/>
 <view layers="beta partition" active="partition"/>
-<path layer="partition" stroke="pink">
+<path layer="partition" fill="lightcyan">
+184.652 622.495
+324.574 620.961
+341.01 640.794
+368.622 633.891
+372.676 648.025
+311.864 682.759
+231.001 673.665
+130.743 641.013
+137.646 624.468
+131.948 623.262 u
+</path>
+<path stroke="pink">
 169.6 640 m
 169.6 560.522 l
 </path>
@@ -699,5 +711,6 @@ h
 <text matrix="1.2 0 0 1 83.5262 -1.45898" transformations="translations" pos="160 600" stroke="black" type="label" width="10.291" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">T_4</text>
 <text matrix="1.2 0 0 1 44.881 -1.45898" transformations="translations" pos="160 600" stroke="black" type="label" width="10.291" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">T_3</text>
 <text matrix="1.2 0 0 1 5.88448 -1.45898" transformations="translations" pos="160 600" stroke="black" type="label" width="10.291" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">T_2</text>
+<text layer="partition" transformations="translations" pos="273.843 649.45" stroke="black" type="label" width="10.291" height="9.441" depth="1.49" halign="center" valign="baseline" style="math">\hat{T}_0</text>
 </page>
 </ipe>
