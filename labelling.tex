@@ -70,9 +70,10 @@
 \pagenumbering{arabic}
 \section{Introduction}
 
-In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
+%G: I moved this to Section 2
+% In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\lg x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
-A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^*$ such that $|\ell(v)|\le f(n)$ for each $v\in V(G)$ and such that, for any two vertices $v,w\in V(G)$,
+A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^*$ such that $|\ell(v)|\le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
 \[  A(\ell(v),\ell(w)) = 
       \begin{cases} 
         0 & \text{if $vw\not\in E(G)$;} \\
@@ -80,7 +81,8 @@ A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling sch
       \end{cases}
 \]
 
-We prove the following:
+Let $\log x:=\log_2 x$ denote the binary logarithm of $x$. 
+In this paper we prove the following result:
 \begin{thm}\thmlabel{main}
   The family of planar graphs has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
@@ -163,6 +165,9 @@ This case was recognized before as an important toy problem. We include it to hi
 
 \section{Preliminaries}
 \seclabel{preliminaries}
+
+All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$. 
+For convenience, we let $\lg x := \log\max\{1,x\}$. 
 
 For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
@@ -410,7 +415,7 @@ The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of t
 
 Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\ldots,a_s$ as the left subtree of $x$ and the path $b_1,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
 
-Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the appropriate tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
+Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
 
 \begin{lem}\lemlabel{split-height}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Split}(x)$ to obtain $T_{<x}$ and $T_{>x}$.  
@@ -418,9 +423,9 @@ Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consist of $r+2
 \end{lem}
 
 \begin{proof}
-  We consider only $T_{<x}$ since the argument for $T_{>x}$ is the same.
+  We consider only $T_{<x}$ since the argument for $T_{>x}$ is symmetric.
   % Recall that $h(T_{<x})=\max_{z\in V(T_{<x})} d_{T_{<x}}(z)$.  
-  For each node $z\in V(T_{<x})$, $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, so $d_{T_{<x}}(z)\le d_T(z)$, therefore $h(T_{<x})\le h(T)$.
+  For each node $z$ of $T_{<x}$, $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, so $d_{T_{<x}}(z)\le d_T(z)$, therefore $h(T_{<x})\le h(T)$.
 \end{proof}
 
 The following observation shows that there is a simple relationship between a node's signature in $T$ before calling $\textsc{Split}(x)$ and its signature in the subtree $T_{<x}$ or $T_{>x}$.
@@ -1038,6 +1043,7 @@ This completes the proof of our main result.
 % Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 % 
 % The adjacency testing function $\mathds{A}$ is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  In the case of planar graphs $t=8$ and $k=O(\sqrt{\log n\lg\lg n})$, so the adjacency testing procedure can be implemented in $O(\log n\sqrt{\log n\lg\lg n})$ time.\snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
+
 
 \section*{Acknowledgement}
 
