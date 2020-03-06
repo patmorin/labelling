@@ -236,6 +236,11 @@ The following fact about binary search trees is useful, for example, in the dele
 
 % \snote{Piotrek: lets put a small figure here illustrating the two cases of Obs. Pat: Done}
 
+\obsref{predecessor-encoding} leads to the following definition. For a binary search tree $T$ and an integer $i$ such that $V(T)$ contains $i-1$ and $i$, we define $\delta_T(i)$ as
+a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. \obsref{predecessor-encoding} implies that $\sigma_T(i)$ and $\delta_T(i)$ are enough to recover $\sigma_T(i-1)$.
+
+\smallskip
+
 Putting some of the preceding results together we obtain the following useful coding result.
 
 \begin{lem}\lemlabel{row-code}
@@ -268,12 +273,11 @@ Putting some of the preceding results together we obtain the following useful co
   for each $i\in\{1,\ldots,h\}$. 
 
   The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path.  
-  The third part $\delta(i)$ of $\alpha(i)$ is the encoding implicit in \obsref{predecessor-encoding}. \snote{L. move the definition of $\delta$ outside of the proof, right after Observation 5, for future reference (in the proofs in section 4 and 5)} That is, $\delta(i)$ consists of
-  a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta(i)=0$ or $\delta(i)=1,\gamma(s)$.  The length of $\delta(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The third part of $\alpha(i)$ is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\lg s)=O(\lg\lg h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta(\cdot)$ consists of the remaining bits. 
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
-   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
+   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta_T(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$ we proceed in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
@@ -659,7 +663,7 @@ Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a l
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$;\snote{L. point to the def of $\delta$ after Observation 5}
+  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$ (where $\delta_T$ is the function  introduced after \obsref{predecessor-encoding});
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
@@ -859,7 +863,7 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 % 
 % The difficulty comes from Part~(TC1) of $\tau_y(v)$.
 
-The following lemma, which is analagous to \lemref{node-transitions} is the last piece of the puzzle needed for a labelling scheme for subgraphs of $H\boxtimes P$.
+The following lemma, which is analogous to \lemref{node-transitions} is the last piece of the puzzle needed for a labelling scheme for subgraphs of $H\boxtimes P$.
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
