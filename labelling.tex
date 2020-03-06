@@ -93,7 +93,7 @@ In this paper we prove the following result:
 
 \subsection{Previous Work}
 
-The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the computability of $\ell(\cdot)$ as a function of $G$ and
+The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the complexity of computing $\ell(\cdot)$ as a function of $G$ and
 $A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. 
 
 Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.  First, a superficial review: Planar graphs have been shown to have $(c+o(1))\log n$-bit adjacency labelling schemes for successive values of $c=6,4,3,2,\tfrac{4}{3}$ and finally \thmref{main} gives the optimal\footnote{It is easy to see that, in any adjacency labelling scheme for any $n$-vertex graph $G$ in which no two vertices have the same neighbourhood, all labels must be distinct, so some label must have length at least $\lceil\log n\rceil$.} result $c=1$.
@@ -1022,29 +1022,25 @@ This completes the proof of our main result.
 \begin{thm}\thmlabel{main-product}
   For every $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
-% 
-% 
-%   For every $t\in\N$ and every $t$-tree $H$ and every path $P$, the family of subgraphs of $H\boxtimes P$ has a 
-% 
-% 
-% 
-%    subgraphs 
-%   There exists an 
-%   There exists a function $\mathds{A}:(\{0,1\}^*)^2\to\{0,1\}$ such that for every $t$-tree $H$, every path $P$, and every $n$-vertex subgraph $G$ of $H\boxtimes P$, there is a prefix-free code $\eta:V(G)\to\{0,1\}^*$ such that
-%   $|\eta(v)|=\log n + O(\sqrt{\log n\lg\lg n}+t(\log t + \lg\lg n))$ for every $v\in V(G)$ and, for every $v,w\in V(G)$, 
-%   \[  \mathds{A}(\eta(v),\eta(w)) = \begin{cases}
-%         1 & \text{if $vw\in E(G)$} \\
-%         0 & \text{if $vw\not\in E(G)$}
-%       \end{cases}
-%       \]
-% \end{thm}
 
-% \section{Conclusion}
-% \seclabel{conclusion}
-% 
-% Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
-% 
-% The adjacency testing function $\mathds{A}$ is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  In the case of planar graphs $t=8$ and $k=O(\sqrt{\log n\lg\lg n})$, so the adjacency testing procedure can be implemented in $O(\log n\sqrt{\log n\lg\lg n})$ time.\snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
+\thmref{main} is an immediate consequence of \thmref{main-product} and \thmref{product-structure}. 
+
+\section{Conclusion}
+
+We conclude with a few remarks on the computational complexity of this labelling scheme.
+
+Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
+
+The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  In the case of planar graphs $t=8$ and $k=O(\sqrt{\log n\lg\lg n})$, so the adjacency testing procedure can be implemented in $O(\log n\sqrt{\log n\lg\lg n})$ time.  Note that this already allows a tradeoff between the code length and the complexity of adjacency testing.
+
+In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k$ times, replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of these $k$ steps is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
+
+
+
+
+
+
+% \snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
 
 
 \section*{Acknowledgement}
