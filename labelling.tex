@@ -190,9 +190,9 @@ A node $a\in V(T)$ is a \emph{$T$-ancestor} of $x\in V(T)$ if $a\in V(P_T(x))$. 
 
 Let $x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$.  (Note that the signature of the root of $T$ is the empty string, i.e., $\sigma_T(x_0)=\varepsilon$.)
 
-A \emph{binary search tree (BST)} $T$ is a binary tree whose node set $V(T)$ consists of distinct real numbers and that has the \emph{BST property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
+A \emph{binary search tree} $T$ is a binary tree whose node set $V(T)$ consists of distinct real numbers and that has the \emph{binary search tree property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
 
-The following observation allows us to compare values in BST just given their signatures in the tree.
+The following observation allows us to compare values in a binary search tree just given their signatures in the tree.
 
 \begin{obs}\obslabel{lexicographic}
   For any binary search tree $T$ and any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
