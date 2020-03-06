@@ -130,7 +130,7 @@ The adjacency labelling scheme described in the current paper is also based on t
 The key new technique that allows all of this to work is that the labelling schemes of the rows $H_1,\ldots,H_h$ are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ contains all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is essentially based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully maintaining the binary search tree $T$, the trees $T_{i-1}$ and $T_{i}$ can be similar enough so that the labels for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.
 
 The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
-we obtain labelling schemes for all of these classes of graphs in which vertices in any $n$-vertex member of this graph are assigned labels of length $(1+o(1))\log n$.  All of these results are optimal up to the lower order term.
+we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.
 
 \subsection{Outline}
 
@@ -179,7 +179,7 @@ A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if 
 %Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\lg i)$.
+    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\log i)$.
   \end{lem}
 
   In the remainder of the paper, $\gamma$ (which we call an \emph{Elias encoding}) will be used extensively, without referring systematically to \lemref{elias}.
@@ -311,7 +311,7 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   \item $x_1x_2 \in E(A)$ and $y_1=y_2$.
 \end{enumerate}
 
-\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure}
+\begin{thm}[Dujmović \etal\ \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure}
   Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
@@ -477,7 +477,7 @@ If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly b
 
 Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite set $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
 
-$T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$.
+$T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\ldots,m\}$, $c_i\le |X|\le 2^k-1$.
 
 For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the tree $T_i$.  The result of this call to $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
 
@@ -504,7 +504,7 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$, and it is easy to describe.  It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
-The following two lemma are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
+The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
   Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
@@ -595,7 +595,7 @@ The following lemma shows that bulk trees are balanced at all times:
   Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(ii) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=(1+o(1))k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil=(1+o(1))k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
   \[  h(T_y) \le (1+O(1/k))\log |T_y| + h(T_{y_0})-\log|T_{y_0}| \]  
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
@@ -605,7 +605,7 @@ The following lemma shows that bulk trees are balanced at all times:
        &\le O(k + k^{-1}(\log|T_{y}| + (y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
        &\le O(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_y|) 
-        & \text{(since $y-y_0 < y^*\le \frac{\log|T_y|}{k-2\log 7}$)}\\
+        & \text{(since $y-y_0 < y^*\le \frac{\log|T_y|}{k-2\log 7}+4$)}\\
        &= O(k + k^{-1}\log|T_{y}|) \enspace ,
   \end{align*}
   for $k\in\omega(1)$. 
@@ -656,7 +656,7 @@ We are now getting to the main point of bulk trees:  For two consecutive trees $
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c=2^k+1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $O(k\lg h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
   At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
