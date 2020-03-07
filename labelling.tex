@@ -515,7 +515,7 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
   Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then each subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+k+1$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
 \end{lem}
 
-Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{Balance}(\theta)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
+Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{BulkBalance}(\theta)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
 
 \subsection{Analysis of Height}
 
