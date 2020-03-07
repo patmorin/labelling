@@ -832,7 +832,7 @@ The correctness of this adjacency test can be seen as follows:
   \item from \obsref{unique-id}, positive results in (A3) and (A5) are never incorrect; and 
   \item for every $vw\in E(H)$, there exists a $j\in\{1,\ldots,t+1\}$ such that $v$ is the $j$-parent of $w$ or $w$ is the $j$-parent of $v$, so the negative result in (A6) is never incorrect.    
 \end{itemize}
-In fact, this labelling scheme proves the slightly stronger result:
+In fact, this labelling scheme proves the following slightly stronger result:
 
 \begin{lem}\lemlabel{t-tree-labelling}
   Let $H$, $S$, $X$, and $T$ be defined as above.  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
@@ -892,7 +892,7 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 % 
 % The difficulty comes from Part~(TC1) of $\tau_y(v)$.
 
-The following lemma, which is analogous to \lemref{node-transitions} is the last piece of the puzzle needed for a labelling scheme for subgraphs of $H\boxtimes P$.
+The following lemma, which is analogous to \lemref{node-transitions} is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$.
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
