@@ -450,7 +450,7 @@ The following observation shows that there is a simple relationship between a no
     \item $\sigma_{T_{<x}}(z)=1^s,\sigma_L(z)$ for each $z\in V(L)$; and
     \item $\sigma_{T_{>x}}(z)=0^t,\sigma_R(z)$ for each $z\in V(R)$.
   \end{compactenum}
-  In particular, for any $z\in V(T)\setminus\{x\}$, $\sigma_{T_{<x}}(z)$ or $\sigma_{T_{>x}}(z)$ can be obtained from $\sigma_T(z)$ by deleting a prefix and replacing it with one of the $4h(T)$ strings in $\Pi:=\bigcup_{j=0}^{h(T)-1}\{0^j,0^j1,1^j,1^j0\}$.
+  In particular, for any $z\in V(T)\setminus\{x\}$, $\sigma_{T_{<x}}(z)$ or $\sigma_{T_{>x}}(z)$ can be obtained from $\sigma_T(z)$ by deleting a prefix and replacing it with one of the $4\cdot h(T)$ strings in $\Pi:=\bigcup_{j=0}^{h(T)-1}\{0^j,0^j1,1^j,1^j0\}$.
 \end{obs}
 
 \subsubsection{$\textsc{MultiSplit}(x_1,\ldots,x_c)$}
@@ -556,7 +556,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   \[  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1 , \]
   and thus 
   \begin{equation}  
-    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+4 = O(k^{-1}\log|T_y|). 
+    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+2 = O(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
   \end{equation}
 
@@ -577,8 +577,8 @@ In this section we show that a bulk tree always has a height that is asymptotica
     & = (k+1)\left\lceil \frac{\log|T_0|}{k-\log 7}\right\rceil \\
     & \le (k+1)\left(\frac{\log|T_0|}{k-\log 7 } + 1\right)\\
     & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
-    & = (1+O(1/k))\cdot(\log|T_0|) + (k+1) \\
-    & \le (1+O(1/k))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
+    & = (1+O(k^{-1}))\cdot(\log|T_0|) + (k+1) \\
+    & \le (1+O(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
     & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace . &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
