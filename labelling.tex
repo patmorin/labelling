@@ -495,7 +495,7 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le h(T_x)+1$.  
+  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.  
 \end{proof}
 
 \begin{lem}\lemlabel{balance-x-weight}
@@ -508,7 +508,9 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
 
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
 
-The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$, and it is easy to describe.  It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
+The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$.
+%, and it is easy to describe.  
+It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
@@ -516,7 +518,10 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
 \end{lem}
 
 \begin{lem}\lemlabel{balance-weight}
-  Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then each subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+k+1$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
+  Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  
+  For every node $z$ in $T$ of depth $\theta+k+1$, let $x$ be a $T$-ancestor of $z$ of depth $\theta$, 
+  then a subtree $T'_z$ of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
+  %Then each subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+k+1$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
 \end{lem}
 
 Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{BulkBalance}(\theta)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
@@ -536,7 +541,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
 \begin{proof}
   Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
   \begin{equation}
-    |T_y|\ge |T_0|/7^y \quad \Leftrightarrow \quad \log|T_0| \le \log|T_y| + y\log 7 \enspace . \eqlabel{height-diff}
+    |T_y|\ge |T_0|/7^y \quad \Leftrightarrow \quad \log|T_0| \le \log|T_y| + y\log 7, \eqlabel{height-diff}
   \end{equation}
   for each $y\in\{0,\ldots,y^*\}$. 
 
@@ -547,7 +552,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
     \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(7/2^k)^{y}$.
   \end{enumerate}
 
-  First we show that (B1) implies (i). Observe that, for any $y\{0,\ldots,y^*\}$,  
+  First we show that (B1) implies (i). Observe that, for any $y\in\{0,\ldots,y^*\}$,  
   \[  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1 , \]
   and thus 
   \begin{equation}  
