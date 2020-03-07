@@ -533,7 +533,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
 \begin{lem}\lemlabel{bulktree-height-i}
   Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ before the first round ($T_0$) and after each round ($T_1,\ldots,T_{y^*}$) of a phase, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
-    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le (1+O(1/k))\log|T_y| + r_0$; and
+    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + O(k^{-1}\log|T_y|) + r_0$; and
     \item $h(T_{y^*}) = \log|T_{y^*}|+O(k+k^{-1}\log|T_{y^*}|)$.
   \end{compactenum}
 \end{lem}
@@ -556,7 +556,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   \[  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1 , \]
   and thus 
   \begin{equation}  
-    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+4 = O(k^{-1}\log|T_y|) . 
+    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+4 = O(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
   \end{equation}
 
@@ -567,7 +567,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
               &= \log|T_0| + 3y + r_0  \\
               &\le \log |T_y| + (3+\log 7)y + r_0  &\text{(by \eqref{height-diff})} \\
               &\le \log |T_y| + (3+\log 7)y^* + r_0 &\text{(since $y\le y^*$)}\\
-              &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_0 \enspace . &\text{(by \eqref{ystar-bound})}
+              &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_0. &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
   Next we show that (B2) implies (ii).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/7))\rceil$ so
