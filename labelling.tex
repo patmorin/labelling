@@ -1030,17 +1030,17 @@ This completes the proof of our main result.
 \section{Conclusion}
 \seclabel{conclusion}
 
-We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} is has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
+We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
 The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
-In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, so the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.  N
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, so the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time. 
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
 
 % \snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
 The current result leaves two obvious directions for future work:
 \begin{enumerate}
-  \item The precise lengths of the labels in \thmref{main} is $\log n + O(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
+  \item The precise length of the labels in \thmref{main} is $\log n + O(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
   
   \item \thmref{main-product} implies a $(1+o(1))\log n$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
 \end{enumerate}
