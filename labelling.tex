@@ -808,7 +808,7 @@ The following observation shows that a vertex $v$ of $H$ is uniquely identified 
   If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that the $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-For each vertex $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well-defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \lemref{elias}):
+For each vertex $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \lemref{elias}):
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
@@ -823,7 +823,7 @@ Given the labels of two vertices $v,w\in V(H)$, we test if $v$ and $w$ are adjac
   
   \item (uniquely identify $v$) From (TC4) extract $j:=\varphi(v)$ (which is contained in $\varphi'(v)$).  From (TC2) extract $d:=d_T(x_T(p_j(v)))$. Take the length-$d$ prefix of $\sigma_T(v)$ to get $\sigma_T(x_T(v))$.
 
-  \item (check if $v$ is the $j$-parent of $w$) Extract $d:=d_T(x_T(p_j(w)))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x_T(p_j(w)))$.  If $\sigma_T(x_T(v))=\sigma_T(x_T(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ so $vw\in E(H)$, so return true.
+  \item (check if $v$ is the $j$-parent of $w$) Extract $d:=d_T(x_T(p_j(w)))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x_T(p_j(w)))$.  If $\sigma_T(x_T(v))=\sigma_T(x_T(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ and $vw\in E(H)$, so return true.
   
   \item[(A4,A5)] Repeat (A2) and (A3) with the roles of $v$ and $w$ reversed.
   
