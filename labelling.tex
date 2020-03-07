@@ -380,7 +380,7 @@ The bulk deletion operation of a subset $D$ of nodes is implemented as a series 
 
 
 \begin{lem}\lemlabel{deletion-signature}
-  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any $x\in V(T')$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
+  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
 \end{lem}
 
 \begin{proof}
@@ -403,7 +403,10 @@ At the beginning of a round, before bulk insertion and bulk deletion, a rebalanc
 \subsubsection{$\textsc{Split}(x)$}
 
 The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two subtrees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $x_0,\ldots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\ldots,x_{r-1}$ into two subsequences $a:=a_1,\ldots,a_s$ and $b:=b_1,\ldots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
-
+Note that the properties of a binary search tree guarantee that
+\[
+a_1 < \cdots < a_s < x < b_t < \cdots < b_1.
+\]
 \begin{figure}
   \begin{center}
     \includegraphics{figs/split-1} \\[1ex]
@@ -424,9 +427,9 @@ Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consists of $r+
 \end{lem}
 
 \begin{proof}
-  We consider only $T_{<x}$ since the argument for $T_{>x}$ is symmetric.
-  % Recall that $h(T_{<x})=\max_{z\in V(T_{<x})} d_{T_{<x}}(z)$.  
-  For each node $z$ of $T_{<x}$, $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, so $d_{T_{<x}}(z)\le d_T(z)$, therefore $h(T_{<x})\le h(T)$.
+  Note that for each node $z$ of $T_{<x}$, we have $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, 
+  so $d_{T_{<x}}(z)\le d_T(z)$. 
+  Therefore $h(T_{<x})\le h(T)$. The argument for $T_{>x}$ is symmetric.
 \end{proof}
 
 The following observation shows that there is a simple relationship between a node's signature in $T$ before calling $\textsc{Split}(x)$ and its signature in the subtree $T_{<x}$ or $T_{>x}$.
@@ -441,7 +444,7 @@ The following observation shows that there is a simple relationship between a no
     \end{compactenum}
     \item for each $j\in\{1,\ldots,t\}$ where $b_j=x_i$
     \begin{compactenum}
-      \item $\sigma_{T_{>x}}(a_j)=0^{j-1}$, and 
+      \item $\sigma_{T_{>x}}(b_j)=0^{j-1}$, and 
       \item $\sigma_{T_{>x}}(z) = 0^{j-1},1,\sigma_{A_i}(z)$ for each $z\in V(A_i)$;
     \end{compactenum}
     \item $\sigma_{T_{<x}}(z)=1^s,\sigma_L(z)$ for each $z\in V(L)$; and
