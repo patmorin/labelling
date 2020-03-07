@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200304063007" modified="D:20200304063547"/>
+<ipe version="70212" creator="Ipe 7.2.13">
+<info created="D:20200304063007" modified="D:20200307142637"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
-<textsize name="small" value="\small"/>
-<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -365,10 +365,10 @@ h
 224 688 m
 232 672 l
 </path>
-<text matrix="1 0 0 1 -17 14" transformations="translations" pos="120 640" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" valign="top" style="math">x_2</text>
-<text matrix="1 0 0 1 6 -6" transformations="translations" pos="104 712" stroke="black" type="label" width="9.354" height="4.297" depth="1.93" halign="right" valign="baseline" style="math">y_2</text>
-<text matrix="1 0 0 1 0 -4" transformations="translations" pos="176 728" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="center" valign="baseline" style="math">x_1</text>
-<text matrix="1 0 0 1 0.873798 36.5048" transformations="translations" pos="184 624" stroke="black" type="label" width="9.354" height="4.297" depth="1.93" halign="right" valign="baseline" style="math">y_1</text>
+<text matrix="1 0 0 1 -18.0504 26.9547" transformations="translations" pos="120 640" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" valign="top" style="math">x_2</text>
+<text matrix="1 0 0 1 13.3527 -1.09821" transformations="translations" pos="104 712" stroke="black" type="label" width="9.354" height="4.297" depth="1.93" halign="right" valign="baseline" style="math">y_2</text>
+<text matrix="1 0 0 1 0 -2.59949" transformations="translations" pos="176 728" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="center" valign="baseline" style="math">x_1</text>
+<text matrix="1 0 0 1 2.27431 39.656" transformations="translations" pos="184 624" stroke="black" type="label" width="9.354" height="4.297" depth="1.93" halign="right" valign="baseline" style="math">y_1</text>
 <use matrix="1 0 0 1 0 8" name="mark/disk(sx)" pos="48 728" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 8" name="mark/disk(sx)" pos="40 712" size="normal" stroke="black"/>
 <path stroke="black">
