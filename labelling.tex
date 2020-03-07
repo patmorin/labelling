@@ -224,7 +224,7 @@ Let $\R^+$ denote the set of positive real numbers. The following is a folklore 
   and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.  
 \end{proof}
 
-The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open} (see \figref{sigma-minus-one}):
+The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}, see \figref{sigma-minus-one}:
 
 \begin{figure}
   \begin{center}
@@ -280,7 +280,7 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, encodes the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\log s)=O(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\log s)=O(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
@@ -315,7 +315,7 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
 \end{enumerate}
 
 \begin{thm}[Dujmović \etal\ \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure}
-  Every planar graph $G$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
+  Every planar graph $G$ is a subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
 \thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.
@@ -349,7 +349,7 @@ After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begin
 
 \smallskip
 
-This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\lceil\sqrt{\log n \log \log n}\rceil$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
 
 \subsection{Bulk Insertion}
 
