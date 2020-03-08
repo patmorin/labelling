@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200303093908" modified="D:20200303094334"/>
+<ipe version="70212" creator="Ipe 7.2.13">
+<info created="D:20200303093908" modified="D:20200308202956"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
-<textsize name="small" value="\small"/>
-<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -1779,30 +1779,14 @@ h
 208 704 l
 </path>
 <use matrix="1 0 0 1 192 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path stroke="black">
+<path stroke="black" arrow="normal/normal" rarrow="normal/normal">
 192 720 m
 384 720 l
 </path>
-<path stroke="black">
-384 716 m
-384 724 l
-</path>
-<path stroke="black">
-192 716 m
-192 724 l
-</path>
 <text matrix="1 0 0 1 -4 -5" transformations="translations" pos="292 728" stroke="black" type="label" width="8.747" height="4.289" depth="0" halign="center" valign="baseline" style="math">m</text>
-<path stroke="black">
+<path stroke="black" arrow="normal/normal" rarrow="normal/normal">
 176 704 m
 176 592 l
-</path>
-<path stroke="black">
-172 704 m
-180 704 l
-</path>
-<path stroke="black">
-172 592 m
-180 592 l
 </path>
 <text matrix="1 0 0 1 8 -4" transformations="translations" pos="164 652" stroke="black" type="label" width="5.74" height="6.918" depth="0" halign="right" valign="center" style="math">h</text>
 <use layer="beta" matrix="1 0 0 1 80 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
