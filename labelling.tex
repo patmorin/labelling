@@ -812,7 +812,7 @@ We can use \lemref{common-ancestor} to create a labelling scheme for a $t$-tree 
 
 Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
 % , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
-For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap [a_v,b_v]$ (see \figref{x}).  For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(x):x\in C\}$.  
+For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap [a_v,b_v]$ (see \figref{x}).  Note that \lemref{common-ancestor} can be rephrased as $x_T(v)\in [a_v,b_v]$. For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(x):x\in C\}$.  
 
 \begin{figure}
   \begin{center}
@@ -908,14 +908,14 @@ In fact, this labelling scheme proves the following slightly stronger result:
 
 We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
-Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le t|S_y|$. For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.
+Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.
 
-By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ where, for each $y\in\{1,\ldots,h\}$, 
+By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq X_y$;
-  \item $h(T_y)\in \log |T_y| + o(\log n)$;
-  \item $W:=\sum_{y=1}^h |T_y|\in O(n)$; and
-  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every $x\in V(T_y)\cap V(T_{y+1})$, there is an $O(k\log\log n)$-bit string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}(x)}$.
+  \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$;
+  \item $W:=\sum_{y=1}^h |T_y|= O(n)$; and
+  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}(x)}$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
 \end{enumerate}
 
 % As before, we can use \lemref{row-code} to assign each vertex $v=(x,y)\in V(G)$ a label $\alpha(v)$ of length $\log n - \log|T_y| + o(\log n)$. For any two nodes $v_1=(x_1,y_1)\in V(G)$ and $v_2=(x_2,y_2)$, $\alpha(v_1)$ and $\alpha(v_2)$ are sufficient to determine if $|y_1-y_2|\le 1$ and, if so, the actual value of $y_1-y_2$.
@@ -928,18 +928,18 @@ By \lemref{chunked-bulk-trees} and \lemref{node-transitions} there is a bulk tre
 % 
 % The difficulty comes from Part~(TC1) of $\tau_y(v)$.
 
-The following lemma, which is analogous to \lemref{node-transitions} is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$.
+The following lemma, which is analogous to \lemref{node-transitions} is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of $t$-trees, has been introduced shortly after \obsref{unique-id}.
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
-  $H$, $G$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|\in O(k\log\log n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
+  $H$, $G$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y \cup S_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= O(k\log\log n)=o(\log n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
 \end{lem}
 
 \begin{proof}
-  First we note that, if $v\in L_y\cup L_{y+1}$, then the endpoints of $v$ are in $X_y\subseteq V_(T_y)$ and in $X_{y+1}\subseteq V(T_{y+1})$.
-  Like the proof of \lemref{node-transitions}, we must dig into the three bulk tree operations that transform $T_y$ into $T_{y+1}$. These are rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.
+  First we note that, if $v\in S_y\cup S_{y+1}$, then the endpoints of $v$ are in $X_y\subseteq V(T_y)$ and in $X_{y+1}\subseteq V(T_{y+1})$.
+  As in the proof of \lemref{node-transitions}, we must dig into the three bulk tree operations that transform $T_y$ into $T_{y+1}$. These are rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.
   
-  The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in S_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w\in C_H(v)$, $x_{T_y'}(v)$ is the element of $v\cap V(T_y')$ that is closest to the root fo $T_y'$. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(w)=P_{T'}(w)$ and $\sigma_{T_y''}(w)=\sigma_{T'}(w)$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in S_y$.
+  The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in S_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T_y'}(v)$ is the element of $v\cap V(T_y')$ that is closest to the root of $T_y'$\snote{L. some $v$'s should be $w$'s here}. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(w)=P_{T'}(w)$ and $\sigma_{T_y''}(w)=\sigma_{T'}(w)$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in S_y$.
   
   Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence of individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the tree before and after the deletion, respectively.  
   
@@ -1028,10 +1028,10 @@ The following lemma, which is analogous to \lemref{node-transitions} is the last
 Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
 
 \begin{enumerate}[(PC1)]
-  \item $\alpha(y)$; % of length $\log n-\log|T_y| + O(\log\log n)$;
+  \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + O(\log\log n)$;
   \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
   \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
-  \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
+  \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   \item $\varphi'(v)$;
   \item $\mu_y(v)$;
   \item $a(z)$.
