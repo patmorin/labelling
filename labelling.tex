@@ -553,10 +553,12 @@ In this section we show that a bulk tree always has a height that is asymptotica
   \end{enumerate}
 
   First we show that (B1) implies (i). Observe that, for any $y\in\{0,\ldots,y^*\}$,  
-  \[  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1 , \]
+  \[  
+  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1, 
+  \]
   and thus 
   \begin{equation}  
-    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+2 = O(k^{-1}\log|T_y|). 
+    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = O(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
   \end{equation}
 
@@ -579,7 +581,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
     & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
     & = (1+O(k^{-1}))\cdot(\log|T_0|) + (k+1) \\
     & \le (1+O(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
-    & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|) \enspace . &\text{(by \eqref{ystar-bound})}
+    & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|). &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
 
@@ -601,22 +603,23 @@ The following lemma shows that bulk trees are balanced at all times:
 \end{lem}
 
 \begin{proof}
-  % This lemma follows almost immediately from \lemref{bulktree-height-i}(ii) except for the additional $r_0$ term. 
   Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(ii) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil=(1+o(1))k^{-1}\log |T_{y_0}|$. In this case \lemref{bulktree-height-i}(i) implies that
-  \[  h(T_y) \le (1+O(1/k))\log |T_y| + h(T_{y_0})-\log|T_{y_0}| \]  
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil$.
+  %=(1+o(1))k^{-1}\log |T_{y_0}|$.
+  In this case \lemref{bulktree-height-i}(i) implies that
+  \[  h(T_y) \le \log |T_y| + O(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
-       &\le O(k + k^{-1}\log|T_{y_0}|) 
+       &= O(k + k^{-1}\log|T_{y_0}|) 
         & \text{(by \lemref{bulktree-height-i}(ii))}\\
-       &\le O(k + k^{-1}(\log|T_{y}| + (y-y_0))) 
+       &= O(k + k^{-1}(\log|T_{y}| + (y-y_0)\log7)) 
         & \text{(by \eqref{height-diff})} \\
-       &\le O(k + k^{-1}\log|T_{y}| + y^*) 
+       &= O(k + k^{-1}\log|T_{y}| + y^*) 
         & \text{(since $y-y_0 \le y^*$)} \\
-       &= O(k + k^{-1}\log|T_{y}|) \enspace . & \text{(by \eqref{ystar-bound})} & \qedhere
+       &= O(k + k^{-1}\log|T_{y}|). & \text{(by \eqref{ystar-bound})} & \qedhere
   \end{align*}
 \end{proof}
 
@@ -658,8 +661,8 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
     \item Adding a specific $O(k)$-bit prefix to $b'$, which can be described with $O(k)$ bits.
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
-  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x\in V(T_y)$ of depth $\theta$.    
-  For a node $z\in V(T_y)$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z\in V(T_y)$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
+  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
+  For a node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
@@ -672,7 +675,7 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals (see \figref{pxp}).
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, see \figref{pxp}.
 
 \begin{figure}
   \begin{center}
