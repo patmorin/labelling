@@ -58,7 +58,7 @@
 \maketitle
 
 \begin{abstract}
-  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$. 
+  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  These results generalize to bounded genus graphs, apex-minor-free graphs,  bounded-degree graphs from minor closed families, and $k$-planar graphs.
 \end{abstract}
 \end{titlepage}
 \pagenumbering{roman}
@@ -130,7 +130,41 @@ The adjacency labelling scheme described in the current paper is also based on t
 The key new technique that allows all of this to work is that the labelling schemes of the rows $H_1,\ldots,H_h$ are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ contains all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is essentially based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully maintaining the binary search tree $T$, the trees $T_{i-1}$ and $T_{i}$ can be similar enough so that the label for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.
 
 The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex-minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$ \cite{dujmovic.joret.ea:planar,dujmovic.morin.ea:structure}. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
-we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.
+we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.  The results are summarized in the theorem below.
+
+A graph is \emph{$k$-planar} if it has a drawing in the plane in which
+each edge is involved in at most $k$ crossings. Such graphs provide a natural
+generalisation of planar graphs, and have been extensively studied. See
+the recent bibliography on 1-planar graphs with 140 references
+\cite{kobourov.liotta.ea:annotated}. The definition of $k$-planar graphs
+naturally generalises for other surfaces. A graph $G$ drawn is
+$(g,k)$-planar if it has a drawing in some surface of Euler genus at most
+$g$ in which  each edge of $G$ is involved in at most $k$ crossings. Note
+that the family of  $(g,k)$-planar  graphs is not minor closed.
+
+
+\begin{thm}\thmlabel{main-all}
+  For every integer $n\ge 1$,  every n-vertex graph in each of the
+following families of graphs has a $(1+o(1))\log n$-bit adjacency
+labelling scheme. Furthermore, for each of these families of graphs
+there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every
+$n$-vertex graph in the family is isomorphic to some vertex-induced
+subgraph of $U_n$.
+   \begin{itemize}
+   \item graphs of bounded genus and more generally apex\footnote{A
+graph is \emph{apex} if it has a vertex whose removal leaves a planar
+graph.}-minor free graphs.
+     \item bounded degree graphs that exclude a fixed complete graph as
+a minor.
+   \item $k$-planar graphs and more generally $(g,k)$-planar graphs.
+     \end{itemize}
+\end{thm}
+
+
+
+
+
+
 
 \subsection{Outline}
 
@@ -313,13 +347,30 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Every planar graph $G$ is a subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
-\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.
+\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.  
+
+
 %\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{dujmovic.esperet.ea:clustered} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.  This is summarized in the following theorem:
 
-%Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs based on so-called $(k,d)$-shortcut systems.  Such graphs include $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, and Walczak and Wood \cite{DEMWW20} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.
+\begin{thm}[\cite{dujmovic.joret.ea:planar},\cite{dujmovic.esperet.ea:clustered},\cite{dujmovic.morin.ea:structure}]\thmlabel{product-structure-all}
+   Every graph $G$ in each of the following families of graphs is a subgraph of a
+strong product $H\boxtimes P$ where $P$ is a path and $H$ is a graph of bounded
+treewidth
+
+   \begin{itemize}
+   \item graphs of bounded genus and more generally apex\footnote{A
+graph is an \emph{apex} if it has a vertex whose removal leaves a planar
+graph.}-minor free graphs \cite{dujmovic.joret.ea:planar}.
+     \item bounded degree graphs that excludes a fixed complete graph as
+a minor \cite{dujmovic.esperet.ea:clustered}.
+   \item $k$-planar graphs and more generally $(g,k)$-planar graphs \cite{dujmovic.morin.ea:structure}.
+   \end{itemize}
+\end{thm}
+
+
 
 Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
@@ -1072,7 +1123,7 @@ This completes the proof of our main result.
   For every $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
-\thmref{main} is an immediate consequence of \thmref{main-product} and \thmref{product-structure}. 
+\thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}. 
 
 \section{Conclusion}
 \seclabel{conclusion}
