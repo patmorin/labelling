@@ -928,12 +928,12 @@ The correctness of this adjacency test can be seen as follows:
   \item from \obsref{unique-id}, positive results in (A3) and (A5) are never incorrect; and 
   \item for every $vw\in E(H)$, there exists a $j\in\{1,\ldots,t+1\}$ such that $v$ is the $j$-parent of $w$ or $w$ is the $j$-parent of $v$, so the negative result in (A6) is never incorrect.    
 \end{itemize}
-In fact, this labelling scheme proves the following slightly stronger result:
+In fact, this labelling scheme proves the following slightly stronger result. Let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $S$, $X$, $Q$, and $T$ be defined as above.  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that there is a prefix-free code $\tau_{H[Q]}:Q\to\{0,1\}^*$ where $|\tau_{H[Q]}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
+  Let $H$, $S$, $X$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
   \[
-      \mathds{T}(\tau_{H[Q]}(v),\tau_{H[Q]}(w)) = \begin{cases}
+      \mathds{T}(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
       -j & \text{if $v$ is the $j$-parent of $w$} \\
       j & \text{if $w$ is the $j$-parent of $v$} \\
@@ -968,9 +968,9 @@ In fact, this labelling scheme proves the following slightly stronger result:
 
 We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
-Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. 
+Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree on $m$ vertices and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
 
-For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
+For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq X_y$;
   \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$;
@@ -1090,7 +1090,7 @@ Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(
 \begin{enumerate}[(PC1)]
   \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + O(\log\log n)$;
   \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
-  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
+  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
@@ -1106,13 +1106,13 @@ Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in 
 \begin{enumerate}
   \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
 
-  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC4) contains $\tau_{y}(v_1)$ and $\tau_{y}(v_2)$ and we use this to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
+  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC4) contains $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ (defined before \lemref{t-tree-labelling}) and we use this to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
   
-  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{y}(v_1)$ and $\tau_{y}(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $x_1$ is the $j$-parent of $x_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
 
-  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{y+1}(v_1)$ and (PC2)--(PC4) contains $\tau_{y+1}(v_2)$.  We use these to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
+  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1v_2\in E(H)$.  If not, then $v_1v_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
   
-  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{y+1}(v_1)$ and $\tau_{y+1}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_{y+1}}(v_1)$ and $\tau_{T_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
 
   \item $y_2-y_1=-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
