@@ -785,7 +785,7 @@ $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real interv
 
 % By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
 
-The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$:\footnote{The specific value $\log_3 (2n+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
+The following well-known result states that every $m$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log m)$:\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
 \begin{lem}\lemlabel{interval-representation}
   For every $m$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $(t+1)\log_3(2m+1)$ and, for every $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.  
