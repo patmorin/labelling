@@ -688,7 +688,9 @@ Before continuing, we show that using the techniques developed thus far, we can 
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   
+For convenience, let $L^-_0:=\emptyset$. 
+Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
@@ -696,11 +698,11 @@ For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$
   \item $\sum_{y=1}^h|T_y| \le 8n$.
 \end{enumerate}
 
-By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_y(x)|=O(k\log\log n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
+By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_{y-1}(x)|=O(k\log h(T_{y-1}))=O(k\log\log n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
 
 Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + O(\log\log n)$.
 
-Now, in the labelling scheme for $G$, each vertex $z=(x,y)\in V(G)$ receives a label consisting of the following:  
+Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:  
 \begin{enumerate}[(GC1)]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
@@ -714,7 +716,7 @@ The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x
 
 Given the labels of $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
 \begin{enumerate}
-  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $H\boxtimes P$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.  
+  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $P_1\boxtimes P_2$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.  
   
   \item $y_1=y_2$: In this case, let $y:=y_1=y_2$.
   If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same, 
@@ -723,25 +725,25 @@ Given the labels of $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ we can test if they are 
   lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$. 
   Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$. 
   Therefore, $x_1<x_2$. 
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $H\boxtimes P$.  Otherwise, we know that 
-  $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $H\boxtimes P$.
+  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that 
+  $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   
   \item $y_1=y_2-1$: 
   In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$. 
   Now let $y:=y_2$, 
   If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same, 
-  we conclude that $x_1=x_2$. Thus $v_1=(x_1,y-1)$ and $v_2=(x_1,y)$ are adjacent in $H \boxtimes P$.
+  we conclude that $x_1=x_2$. Thus $v_1=(x_1,y-1)$ and $v_2=(x_1,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we look up the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine 
   if $v_1$ and $v_2$ are adjacent in $G$.
   Otherwise, lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$. 
   If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$.
   Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  
-  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $H\boxtimes P$.  Otherwise, we know that 
-  $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $H\boxtimes P$.
+  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that 
+  $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   If $\sigma_{T_y}(x_1)$ is larger than $\sigma_{T_y}(x_2)$, then we conclude that $x_1>x_2$.
-  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, compute $\sigma_{T_y}(x_1-1)$ and procees as in the previous case. 
+  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case. 
   Note here that it is important that part (GC3) of the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
   
   \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now proceed as in the previous case.
