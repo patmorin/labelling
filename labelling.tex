@@ -807,14 +807,7 @@ A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A 
   Since $x$ is the lowest common $T$-ancestor of $X\cap[a,b]$, either $x\in X\cap[a,b]$, in which case there is nothing prove, or there is some pair $x_1,x_2\in X\cap[a,b]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a,b]$, so $a\le x_1<x<x_2\le b$, so $x\in [a,b]$.  
 \end{proof}
 
-\subsubsection{The Labelling Scheme}
-\seclabel{t-tree-labelling}
-
-We can use \lemref{common-ancestor} to create a labelling scheme for a $t$-tree based on any binary search tree containing a stabbing set.  Let $H$ be a $t$-tree whose vertex set $V(H):=S$ consists of the intervals described by \lemref{interval-representation}, let $v_1,\ldots,v_m$ be a construction order for $H$, let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ to a proper colouring of $G_S$ described in \lemref{interval-representation}.
-
-Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
-% , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
-For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap [a_v,b_v]$ (see \figref{x}).  Note that \lemref{common-ancestor} can be rephrased as $x_T(v)\in [a_v,b_v]$. For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(x):x\in C\}$.  
+The value of $x$ in \lemref{common-ancestor} plays an important role in our work, so we introduce a notation for it.  See \figref{x}.  For any $v=[a_v,b_v]\in\mathbb{I}$ and any binary search tree $T$ such that $V(T)$ stabs $v$, we let $x_T(v)$ denote the lowest common ancestor of $V(T)\cap v$.  By \lemref{common-ancestor} $x_T(v)\in[a_v,b_v]$.  For any subset $C\subseteq \mathbb{I}$, such that $V(T)$ stabs $C$, we define $x_T(C):=\{x_T(x):x\in C\}$.
 
 \begin{figure}
   \begin{center}
@@ -824,9 +817,24 @@ For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T
   \figlabel{x}
 \end{figure}
 
+
+\subsubsection{The Labelling Scheme}
+\seclabel{t-tree-labelling}
+
+We can use \lemref{common-ancestor} to create a labelling scheme for (an induced subgraph of) a $t$-tree based on any binary search tree containing an appropriate stabbing set.  Let $H$ be a $t$-tree whose vertex set $V(H):=S$ consists of the intervals described by \lemref{interval-representation}, let $v_1,\ldots,v_m$ be a construction order for $H$, let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ to a proper colouring of $G_S$ described in \lemref{interval-representation}.
+
+% Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
+% , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
+
+We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)$ stabs $C_H(v)$.    .  
+
 \begin{lem}\lemlabel{one-path}
-  For any $v\in V(H)$ with family clique $C_H(v)$, the set of nodes $x_T(C_H(v))$ are all contained a single root-to-leaf path in $T$.
+  Let $T$ be any binary search tree that represents some $v\in V(H)$.  Then the set of nodes $x_T(C_H(v))$ are all contained a single root-to-leaf path in $T$.
 \end{lem}
+
+% \begin{lem}\lemlabel{one-path}
+%   For any $v\in V(H)$ with family clique $C_H(v)$, the set of nodes $x_T(C_H(v))$ are all contained a single root-to-leaf path in $T$.
+% \end{lem}
 
 \begin{proof}
   Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
@@ -835,14 +843,16 @@ For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
 
 \begin{obs}\obslabel{unique-id}
-    For any two distinct vertices $v,w\in V(H)$, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
+    Let $T$ be a binary search tree that represents distinct $v$ and $w$ for any two distinct vertices $v,w\in V(H)$.  Then, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
 \end{obs}
 
 \begin{proof}
   If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that the $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-For each vertex $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  The label for a vertex $v\in V(H)$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lceil\log_{3/2} m\rceil$, that can be encoded using \lemref{elias}):
+For any binary search tree that represents $v$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  
+
+For any $Q\subseteq V(H)$ we can obtain a labelling sheme for the induced graph $H[Q]$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded using \lemref{elias}):
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
@@ -851,7 +861,7 @@ For each vertex $v\in V(H)$, let $P_T(v)$ denote the path in $T$ that begins at 
   \item $\varphi'(v)$.
 \end{enumerate}
 
-Given the labels of two vertices $v,w\in V(H)$, we test if $v$ and $w$ are adjacent as follows:
+Given the labels of two vertices $v,w\in Q$, we test if $v$ and $w$ are adjacent as follows:
 \begin{enumerate}[({A}1)]
   \item If the labels of $v$ and $w$ are identical then $v=w$, so return false.
   
@@ -873,9 +883,9 @@ The correctness of this adjacency test can be seen as follows:
 In fact, this labelling scheme proves the following slightly stronger result:
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $S$, $X$, and $T$ be defined as above.  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
+  Let $H$, $S$, $X$, $Q$, and $T$ be defined as above.  There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that there is a prefix-free code $\tau_{H[Q]}:Q\to\{0,1\}^*$ where $|\tau_{H[Q]}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
   \[
-      \mathds{T}(\tau_H(v),\tau_H(w)) = \begin{cases}
+      \mathds{T}(\tau_{H[Q]}(v),\tau_{H[Q]}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
       -j & \text{if $v$ is the $j$-parent of $w$} \\
       j & \text{if $w$ is the $j$-parent of $v$} \\
@@ -910,9 +920,9 @@ In fact, this labelling scheme proves the following slightly stronger result:
 
 We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
-Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.
+Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,\ldots,h$ is a path. For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. 
 
-By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq X_y$;
   \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$;
