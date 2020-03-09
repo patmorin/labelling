@@ -795,17 +795,16 @@ The following well-known result states that every $m$-vertex $t$-tree is the sub
 
 In light of \lemref{interval-representation} we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v)$.  That is, we will treat the nodes of every $t$-tree as intervals that satisfy the conditions of \lemref{interval-representation}.
 
-A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A finite set $X\subset\R^2$ of points \emph{stabs} a set $S\subset\mathbb{I}$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$.
+A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A finite set $X\subset\R^2$ of points \emph{stabs} a set $S\subset\mathbb{I}$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. For any $v=[a_v,b_v]\in\mathbb{I}$ and any binary search tree $T$ such that $V(T)$ stabs $v$, we let $x_T(v)$ denote the lowest common ancestor of $V(T)\cap v$ (see \figref{x}).
 
 \begin{lem}\lemlabel{common-ancestor}
-  Let $S\subset\mathbb{I}$ be a finite set of intervals, let $X\subset\R$ be a finite set of points that stabs $S$, let $T$ be a binary search tree with $V(T):=X$, let $[a,b]\in S$, and let $x$ be the lowest common $T$-ancestor of $X\cap [a,b]$.  Then $x\in [a,b]$.
+If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(v)\in [a_v,b_v]$.
 \end{lem}
 
 \begin{proof}
-  Since $x$ is the lowest common $T$-ancestor of $X\cap[a,b]$, either $x\in X\cap[a,b]$, in which case there is nothing prove, or there is some pair $x_1,x_2\in X\cap[a,b]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a,b]$, so $a\le x_1<x<x_2\le b$, so $x\in [a,b]$.  
+  Since $x:=x_T(v)$ is the lowest common $T$-ancestor of $X\cap[a_v,b_v]$, either $x\in X\cap[a_v,b_v]$, in which case there is nothing prove, or there is some pair $x_1,x_2\in X\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.  
 \end{proof}
 
-The value of $x$ in \lemref{common-ancestor} plays an important role in our work, so we introduce a notation for it.  See \figref{x}.  For any $v=[a_v,b_v]\in\mathbb{I}$ and any binary search tree $T$ such that $V(T)$ stabs $v$, we let $x_T(v)$ denote the lowest common ancestor of $V(T)\cap v$.  By \lemref{common-ancestor} $x_T(v)\in[a_v,b_v]$.  For any subset $C\subseteq \mathbb{I}$, such that $V(T)$ stabs $C$, we define $x_T(C):=\{x_T(x):x\in C\}$.
 
 \begin{figure}
   \begin{center}
@@ -824,10 +823,10 @@ We can use \lemref{common-ancestor} to create a labelling scheme for (an induced
 % Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
 % , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
 
-We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)$ stabs $C_H(v)$.    .  
+We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)$ stabs $C_H(v)$.   For any subset $C\subseteq \mathbb{I}$, such that $V(T)$ stabs $C$, we define $x_T(C):=\{x_T(x):x\in C\}$.  
 
 \begin{lem}\lemlabel{one-path}
-  Let $T$ be any binary search tree that represents some $v\in V(H)$.  Then the set of nodes $x_T(C_H(v))$ are all contained a single root-to-leaf path in $T$.
+  Let $T$ be any binary search tree that represents some $v\in V(H)$.  Then the set of nodes $x_T(C_H(v))$ are all contained in a single root-to-leaf path in $T$.
 \end{lem}
 
 % \begin{lem}\lemlabel{one-path}
