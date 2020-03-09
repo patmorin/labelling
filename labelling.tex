@@ -596,7 +596,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, the third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
 \end{proof}
 
-A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (bulk balance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
+A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
 The following lemma shows that bulk trees are balanced at all times:
 \begin{lem}\lemlabel{bulk-tree-height}
   For each bulk tree sequence $T_1,\ldots,T_h$ and each $y\in\{1,\ldots,h\}$,  $h(T_y)\le \log|T_y| + O(k+k^{-1}\log|T_y|)$.
@@ -649,27 +649,27 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
 \begin{proof}
   The transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps: rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.  We consider each of these in turn, saving the most difficult for last.
   
-  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_T(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(x)$ using $O(\log h(T))$ bits.
+  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_{T_y''}(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(z)$ using $O(\log h(T_y''))=O(\log h(T_y))$ bits. (Note that $h(T_y'') \leq h(T_y)+3$, as follows from Lemmas~\ref{lem:insertion-depth} and \ref{lem:balance-depth}.)
   
   The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk insertion does not require any changes to encode.
   
   The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
   \begin{enumerate}[($\nu_1$)]
-    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $O(\log h(T))$ bits.
-    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $O(\log h(T))$ bits.
-    \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $O(\log h(T))$ bits for a total of $O(k\log h(T))$ bits.
+    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $O(\log h(T_y))$ bits.
+    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $O(\log h(T_y))$ bits.
+    \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $O(\log h(T_y))$ bits for a total of $O(k\log h(T_y))$ bits.
     \item Adding a specific $O(k)$-bit prefix to $b'$, which can be described with $O(k)$ bits.
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
   To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
-  For a node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_T(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(x)$ are empty.
+  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
   Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $O(k\log h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
-  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{1,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
+  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{0,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
 
 \section{Subgraphs of $P\boxtimes P$}
