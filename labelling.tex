@@ -506,18 +506,21 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$.
-%, and it is easy to describe.  
 It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
-  Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
+  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{lem}\lemlabel{balance-weight}
-  Let $T$ be a bulk tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  
-  For every node $z$ in $T$ of depth $\theta+k+1$, let $x$ be a $T$-ancestor of $z$ of depth $\theta$, 
-  then a subtree $T'_z$ of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
+  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  
+  Let $x$ be any node of $T$ of depth $\theta$ and let $T_x$ be the subtree of $T$ rooted at $x$.   
+  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=\theta+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$. 
+  %% PREVIOUS VERSION:
+  %For every node $z$ in $T$ of depth $\theta+k+1$, let $x$ be a $T$-ancestor of $z$ of depth $\theta$, 
+  %then a subtree $T'_z$ of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
+  %% FIRST VERSION:
   %Then each subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+k+1$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
 \end{lem}
 
