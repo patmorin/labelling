@@ -788,9 +788,9 @@ $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real interv
 The following well-known result states that every $n$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log n)$:\footnote{The specific value $\log_3 (2n+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
 \begin{lem}\lemlabel{interval-representation}
-  For every $n$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $(t+1)\log_3(2n+1)$ and, for every $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.  
+  For every $m$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $(t+1)\log_3(2m+1)$ and, for every $vw\in E(H)$, $f(v)\cap f(w)\neq\emptyset$.  
   
-  Furthermore, for every proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a proper colouring $\varphi':V(G_S)\to\{1,\ldots,\lfloor\log_3(2n+1)\rfloor\}\times\{1,\ldots,t+1\}$ where, for each $v\in V(H)$, $\varphi'(f(v))=(j,\varphi(v))$ for some $j\in\{1,\ldots,\lfloor\log_3(2n+1)\rfloor\}$.
+  Furthermore, for every proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a proper colouring $\varphi':V(G_S)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ where, for each $v\in V(H)$, $\varphi'(f(v))=(j,\varphi(v))$ for some $j\in\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$.
 \end{lem}
 
 In light of \lemref{interval-representation} we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v)$.  That is, we will treat the nodes of every $t$-tree as intervals that satisfy the conditions of \lemref{interval-representation}.
@@ -808,7 +808,7 @@ A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A 
 \subsubsection{The Labelling Scheme}
 \seclabel{t-tree-labelling}
 
-We can use \lemref{common-ancestor} to create a labelling scheme for a $t$-tree based on any binary search tree containing a stabbing set.  Let $H$ be a $t$-tree whose vertex set $V(H):=S$ consists of the intervals described by \lemref{interval-representation}, let $v_1,\ldots,v_m$ be a construction order for $H$, let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lceil\log_{3/2} m\rceil\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ to a proper colouring of $G_S$ described in \lemref{interval-representation}.
+We can use \lemref{common-ancestor} to create a labelling scheme for a $t$-tree based on any binary search tree containing a stabbing set.  Let $H$ be a $t$-tree whose vertex set $V(H):=S$ consists of the intervals described by \lemref{interval-representation}, let $v_1,\ldots,v_m$ be a construction order for $H$, let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ to a proper colouring of $G_S$ described in \lemref{interval-representation}.
 
 Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
 % , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
