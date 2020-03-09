@@ -239,8 +239,6 @@ The following fact about binary search trees is useful, for example, in the dele
   \end{enumerate}
 \end{obs}
 
-% \snote{Piotrek: lets put a small figure here illustrating the two cases of Obs. Pat: Done}
-
 \obsref{predecessor-encoding} leads to the following definition. For a binary search tree $T$ and an integer $i$ such that $V(T)$ contains $i-1$ and $i$, we define $\delta_T(i)$ as
 a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. \obsref{predecessor-encoding} implies that $\sigma_T(i)$ and $\delta_T(i)$ are enough to recover $\sigma_T(i-1)$.
 
@@ -336,8 +334,7 @@ The labelling scheme for planar graphs uses labels whose largest part comes from
 
 \subsection{Phases}\label{sec:3.1}
 
-A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are partitioned into \emph{phases} that are kept track of using two integer values.
-% \snote{L. Is ``broken up'' the right term here? When I read it I had the impression that each round has different phases, this got me confused in the remainder. P: changed to partitioned}.  
+A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are partitioned into \emph{phases} that are kept track of using two integer values.  
 At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
 \[  
   y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil. 
@@ -763,7 +760,8 @@ This establishes our first result:
 \section{Subgraphs of $H\boxtimes P$}
 \seclabel{hxp}
 
-In this section we describe adjacency labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a $t$-tree and $P=1,2,\ldots,h$ is a path.  
+In this section we describe adjacency labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P=1,2,\ldots,h$ is a path. 
+Note that every graph of treewidth $t$ is a subgraph of a $t$-tree (see below for the definition). For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do. 
 
 % Our strategy is similar the approach taken in the previous section.
 % For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will build a labelling scheme for the induced graph $H[V_y]$ where $V_y\supseteq L_{y\pm 1}$ that is based on a binary tree $T_y$ and such that the labels in this scheme have length $\log|T_y|+o(\log n)$.  In addition to this, we will use \lemref{row-code} to give each vertex $(x,y)\in V(G)$ a \emph{row label} of length $\log n - \log|T_y|+o(\log n)$.
@@ -783,7 +781,7 @@ The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most 
 \subsubsection{Interval Graphs}
 
 For real numbers $a\le b$, let $[a,b]:=\{ x\in\R: a\le x\le b\}$, and let
-$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which the edge $vw\in E(G_S)$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.  
+$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals $v, w\in S$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.  
 
 % By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
 
@@ -800,7 +798,7 @@ In light of \lemref{interval-representation} we will not distinguish between a v
 A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A finite set $X\subset\R^2$ of points \emph{stabs} a set $S\subset\mathbb{I}$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$.
 
 \begin{lem}\lemlabel{common-ancestor}
-  Let $S\subset\mathbb{I}$ be a set of intervals, let $X\subset\R$ be a set of points that stabs $S$, let $T$ be a binary search tree with $V(T):=X$, let $[a,b]\in S$, and let $x$ be the lowest common $T$-ancestor of $X\cap [a,b]$.  Then $x\in [a,b]$.
+  Let $S\subset\mathbb{I}$ be a finite set of intervals, let $X\subset\R$ be a finite set of points that stabs $S$, let $T$ be a binary search tree with $V(T):=X$, let $[a,b]\in S$, and let $x$ be the lowest common $T$-ancestor of $X\cap [a,b]$.  Then $x\in [a,b]$.
 \end{lem}
 
 \begin{proof}
@@ -837,7 +835,7 @@ We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)
 % \end{lem}
 
 \begin{proof}
-  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
+  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. Then $x_1=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
 \end{proof}
 
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
