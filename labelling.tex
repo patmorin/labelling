@@ -812,7 +812,7 @@ We can use \lemref{common-ancestor} to create a labelling scheme for a $t$-tree 
 
 Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
 % , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
-For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap [a_v,b_v]$ (see \figref{x}).  Note that \lemref{common-ancestor} can be rephrased as $x_T(v)\in [a_v,b_v]$. For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(x):x\in C\}$.  
+For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap [a_v,b_v]$ (see \figref{x}).  Note that \lemref{common-ancestor} can be rephrased as $x_T(v)\in [a_v,b_v]$. For any subset $C\subseteq V(H)$, let $x_T(C):=\{x_T(v):v\in C\}$.  
 
 \begin{figure}
   \begin{center}
@@ -827,7 +827,7 @@ For each vertex $v:=[a_v,b_v]\in V(H)$, let $x_T(v)$ denote the lowest common $T
 \end{lem}
 
 \begin{proof}
-  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. The node $x_1:=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
+  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. Then $x_1=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
 \end{proof}
 
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
