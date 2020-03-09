@@ -596,7 +596,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, the third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
 \end{proof}
 
-A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
+A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (bulk balance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
 The following lemma shows that bulk trees are balanced at all times:
 \begin{lem}\lemlabel{bulk-tree-height}
   For each bulk tree sequence $T_1,\ldots,T_h$ and each $y\in\{1,\ldots,h\}$,  $h(T_y)\le \log|T_y| + O(k+k^{-1}\log|T_y|)$.
@@ -627,7 +627,7 @@ The following lemma shows that bulk trees are balanced at all times:
 
 \subsection{Making Bulk Tree Sequences}
 
-Although the 3-chunking requirements on the insertion and deletion sets of bulk trees seems restrictive, the following lemma allows us to store any sequence of subsets of $\R$ in a bulk tree sequence that is not much larger.
+Although the 3-chunking requirements on the insertion and deletion sets of bulk trees seem restrictive, the following lemma allows us to store any sequence of subsets of $\R$ in a bulk tree sequence that is not much larger.
 
 \begin{lem}\lemlabel{chunked-bulk-trees}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exists a bulk tree sequence $T_1,\ldots,T_h$ such that $\sum_{y=1}^h |T_y|\le 2\sum_{y=1}^h |S_i|$ and, for each $y\in\{1,\ldots,h\}$, $V(T_y)\supseteq S_y$.
@@ -640,7 +640,7 @@ Although the 3-chunking requirements on the insertion and deletion sets of bulk 
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $x\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(x)$ and $\sigma_{T_{y+1}}(x)$ are so closely related that $\sigma_{T_{y+1}}(x)$ can be derived from $\sigma_{T_y}(x)$ and a short \emph{transition code} $\nu_y(x)$.  The following lemma makes this precise:
+We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise:
 
 \begin{lem}\lemlabel{node-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = O(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
@@ -1085,7 +1085,7 @@ The current result leaves two obvious directions for future work:
 
 \section*{Acknowledgement}
 
-Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particular grateful to David Wood for helpful discussions.
+Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particularly grateful to David Wood for helpful discussions.
 
   
 \bibliographystyle{plainurl}
