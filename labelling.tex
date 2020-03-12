@@ -135,37 +135,25 @@ The key new technique that allows all of this to work is that the labelling sche
 The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex-minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$ \cite{dujmovic.joret.ea:planar,dujmovic.morin.ea:structure}. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
 we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.  The results are summarized in the theorem below.
 
-A graph is \emph{$k$-planar} if it has a drawing in the plane in which
-each edge is involved in at most $k$ crossings. Such graphs provide a natural
-generalisation of planar graphs, and have been extensively studied. See
-the recent bibliography on 1-planar graphs with 140 references
-\cite{kobourov.liotta.ea:annotated}. The definition of $k$-planar graphs
-naturally generalises for other surfaces. A graph $G$ is
-\emph{$(g,k)$-planar} if it has a drawing in some surface of Euler genus at most
-$g$ in which each edge of $G$ is involved in at most $k$ crossings. Note
-that already $1$-planar graphs are not minor closed.
-
-
 \begin{thm}\thmlabel{main-all}
-  For every integer $n\ge 1$,  every n-vertex graph in each of the
-following families of graphs has a $(1+o(1))\log n$-bit adjacency
-labelling scheme. 
-%Furthermore, for each of these families of graphs
-%there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every
-%$n$-vertex graph in the family is isomorphic to some vertex-induced
-%subgraph of $U_n$.
-   \begin{itemize}
-   \item graphs of bounded genus and more generally apex\footnote{A
-graph is \emph{apex} if it has a vertex whose removal leaves a planar
-graph.}-minor free graphs.
-     \item bounded degree graphs that exclude a fixed graph as
-a minor.
-   \item $k$-planar graphs and more generally $(g,k)$-planar graphs.
-     \end{itemize}
+For every fixed integer $t\geq 1$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth $t$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme. 
+This includes in particular the following graph classes: 
+  \begin{itemize}
+  \item graphs of bounded genus and more generally apex-minor free graphs;
+    \item bounded degree graphs that exclude a fixed graph as a minor;
+  \item $k$-planar graphs and more generally $(g,k)$-planar graphs.
+    \end{itemize}
 \end{thm}
 
-
-
+A graph is \emph{apex} if it has a vertex whose removal leaves a planar graph.
+A graph is \emph{$k$-planar} if it has a drawing in the plane in which
+each edge is involved in at most $k$ crossings. Such graphs provide a natural
+generalisation of planar graphs, and have been extensively studied~\cite{kobourov.liotta.ea:annotated}.
+%See the recent bibliography on 1-planar graphs with 140 references
+The definition of $k$-planar graphs naturally generalises for other surfaces. A graph $G$ is
+\emph{$(g,k)$-planar} if it has a drawing in some surface of Euler genus at most
+$g$ in which each edge of $G$ is involved in at most $k$ crossings.
+Note that already $1$-planar graphs are not minor closed.
 
 
 
