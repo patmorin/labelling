@@ -853,7 +853,7 @@ If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(
 \end{lem}
 
 \begin{proof}
-  Since $x:=x_T(v)$ is the lowest common $T$-ancestor of $X\cap[a_v,b_v]$, either $x\in X\cap[a_v,b_v]$, in which case there is nothing prove, or there is some pair $x_1,x_2\in X\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.  
+  Since $x:=x_T(v)$ is the lowest common $T$-ancestor of $V(T)\cap[a_v,b_v]$, either $x\in V(T)\cap[a_v,b_v]$, in which case there is nothing to prove, or there is some pair $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.  
 \end{proof}
 
 
@@ -885,13 +885,13 @@ We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)
 % \end{lem}
 
 \begin{proof}
-  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. Then $x_1=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap X$.
+  Suppose for the sake of contradiction that this is not true, so there are $x_1,x_2\in x_T(C_H(v))$ neither of which is an ancestor of the other.  Then consider the lowest common ancestor $x$ of $x_1$ and $x_2$ in $T$.  Assume without loss of generality that $x_1$ is in the subtree of $T$ rooted at $x$'s left child and $x_2$ is in the subtree of $T$ rooted at $x$'s right child, so $x_1<x<x_2$. Then $x_1=x_T(v_1)$ for some $v_1:=[a_1,b_1]\in C_H(v)$ and $x_2=x_T(v_2)$ for some $v_2:=[a_2,b_2]\in C_H(v)$.  Since $v_1$ and $v_2$ are both in the family clique $C_H(v)$, the vertices $v_1$ and $v_2$ are adjacent in $H$, and therefore $[a_1,b_1]\cap[a_2,b_2]\neq\emptyset$.  This implies that $x\in [a_i,b_i]$ for at least one $i\in\{1,2\}$.  But this is a contradiction since $x_T(v_i)$ is supposed to be the lowest common ancestor of $[a_i,b_i]\cap V(T)$.
 \end{proof}
 
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
 
 \begin{obs}\obslabel{unique-id}
-    Let $T$ be a binary search tree that represents distinct $v$ and $w$ for any two distinct vertices $v,w\in V(H)$.  Then, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
+    Let $T$ be a binary search tree that represents two distinct vertices $v,w\in V(H)$.  Then, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
 \end{obs}
 
 \begin{proof}
@@ -900,7 +900,7 @@ The following observation shows that a vertex $v$ of $H$ is uniquely identified 
 
 For any binary search tree that represents $v$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  
 
-For any $Q\subseteq V(H)$ we can obtain a labelling sheme for the induced graph $H[Q]$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded using \lemref{elias}):
+For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q]$ induced by $Q$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded using \lemref{elias}):
 
 \begin{enumerate}[(TC1)]
   \item $\sigma_T(v)$;
@@ -931,7 +931,7 @@ The correctness of this adjacency test can be seen as follows:
 In fact, this labelling scheme proves the following slightly stronger result. Let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $S$, $X$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
+  Let $H$, $S$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
   \[
       \mathds{T}(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
@@ -945,7 +945,7 @@ In fact, this labelling scheme proves the following slightly stronger result. Le
 \begin{proof}
   Most of the details of this labelling are described above, though we have thus far ignored the length of the labels, which we analyze now.
   
-  Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so Part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
+  Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
 \end{proof}
 
 % Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following corollary.
@@ -970,12 +970,15 @@ We now show that the solution presented in \secref{pxp} generalizes to the curre
 
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree on $m$ vertices and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
 
-For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  Note that $|S^-_y|\le (t+1)|S_y|$. For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ where, for each $y\in\{1,\ldots,h\}$, 
+For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  
+Note that $|S^-_y|\le (t+1)|S_y|$. 
+For convenience, let $S^-_0:=\emptyset$. 
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ such that 
 \begin{enumerate}[(PR1)]
-  \item $V(T_y)\supseteq X_y$;
-  \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$;
+  \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
+  \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
   \item $W:=\sum_{y=1}^h |T_y|= O(n)$; and
-  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}(x)}$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
+  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}(x)}$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
 \end{enumerate}
 
 % As before, we can use \lemref{row-code} to assign each vertex $v=(x,y)\in V(G)$ a label $\alpha(v)$ of length $\log n - \log|T_y| + o(\log n)$. For any two nodes $v_1=(x_1,y_1)\in V(G)$ and $v_2=(x_2,y_2)$, $\alpha(v_1)$ and $\alpha(v_2)$ are sufficient to determine if $|y_1-y_2|\le 1$ and, if so, the actual value of $y_1-y_2$.
