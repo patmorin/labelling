@@ -24,6 +24,9 @@
 
 \renewcommand{\SS}{\mathcal{S}}
 
+\newcommand{\Oh}{\mathcal{O}} 
+
+
 %Piotreks overloads
 \let\le\leqslant
 \let\ge\geqslant
@@ -90,19 +93,19 @@ In this paper we prove the following result:
 % We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  
 
 \thmref{main} is optimal up to the lower order term, 
-which is $O\left(\sqrt{\log n\log\log n}\right)$ in our proof. 
+which is $\Oh\left(\sqrt{\log n\log\log n}\right)$ in our proof. 
 An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.} 
 
 \subsection{Previous Work}
 
 The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the complexity of computing $\ell(\cdot)$ as a function of $G$ and
-$A(\cdot,\cdot)$.} and described $O(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. 
+$A(\cdot,\cdot)$.} and described $\Oh(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. 
 
 Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.  First, a superficial review: Planar graphs have been shown to have $(c+o(1))\log n$-bit adjacency labelling schemes for successive values of $c=6,4,3,2,\tfrac{4}{3}$ and finally \thmref{main} gives the optimal\footnote{It is easy to see that, in any adjacency labelling scheme for any $n$-vertex graph $G$ in which no two vertices have the same neighbourhood, all labels must be distinct, so some label must have length at least $\lceil\log n\rceil$.} result $c=1$.  We now give details of these results.
 
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
-A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + O(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  
+A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + \Oh(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  
 %Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs. \snote{Piotrek: Really?}
 
 A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth. As is well known, the edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph. 
@@ -124,7 +127,7 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  
 However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
-Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
+Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $\Oh(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $\Oh(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $\Oh(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $\Oh(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
 \subsection{The New Result}
 
@@ -205,7 +208,7 @@ A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if 
 %Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in O(\log i)$.
+    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in \Oh(\log i)$.
   \end{lem}
 
   In the remainder of the paper, $\gamma$ (which we call an \emph{Elias encoding}) will be used extensively, without referring systematically to \lemref{elias}.
@@ -275,7 +278,7 @@ Putting some of the preceding results together we obtain the following useful co
 \begin{lem}\lemlabel{row-code}
   There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
   \begin{compactenum}
-    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + O(\log\log h)$;
+    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$;
     \item for any distinct $i,j\in\{1,\ldots,h\}$, 
     \[   A(\alpha(i),\alpha(j)) 
     = \begin{cases}
@@ -301,7 +304,7 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+O(\log s)=O(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+\Oh(\log s)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
@@ -386,7 +389,7 @@ After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begin
 
 \smallskip
 
-This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$, so that the expression $O(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is good to have in mind in the remainder that ultimately we will take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
 
 \subsection{Bulk Insertion}
 
@@ -573,8 +576,8 @@ In this section we show that a bulk tree always has a height that is asymptotica
 \begin{lem}\lemlabel{bulktree-height-i}
   Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ before the first round ($T_0$) and after each round ($T_1,\ldots,T_{y^*}$) of a phase, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
-    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + O(k^{-1}\log|T_y|) + r_0$; and
-    \item $h(T_{y^*}) = \log|T_{y^*}|+O(k+k^{-1}\log|T_{y^*}|)$.
+    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$; and
+    \item $h(T_{y^*}) = \log|T_{y^*}|+\Oh(k+k^{-1}\log|T_{y^*}|)$.
   \end{compactenum}
 \end{lem}
 
@@ -598,7 +601,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   \]
   and thus 
   \begin{equation}  
-    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = O(k^{-1}\log|T_y|). 
+    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
   \end{equation}
 
@@ -609,7 +612,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
               &= \log|T_0| + 3y + r_0  \\
               &\le \log |T_y| + (3+\log 7)y + r_0  &\text{(by \eqref{height-diff})} \\
               &\le \log |T_y| + (3+\log 7)y^* + r_0 &\text{(since $y\le y^*$)}\\
-              &\le \log |T_y| + O(k^{-1}\log|T_y|) + r_0. &\text{(by \eqref{ystar-bound})}
+              &\le \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
   Next we show that (B2) implies (ii).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/7))\rceil$ so
@@ -619,9 +622,9 @@ In this section we show that a bulk tree always has a height that is asymptotica
     & = (k+1)\left\lceil \frac{\log|T_0|}{k-\log 7}\right\rceil \\
     & \le (k+1)\left(\frac{\log|T_0|}{k-\log 7 } + 1\right)\\
     & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
-    & = (1+O(k^{-1}))\cdot(\log|T_0|) + (k+1) \\
-    & \le (1+O(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
-    & = \log|T_{y^*}| + O(k+k^{-1}\log |T_{y^*}|). &\text{(by \eqref{ystar-bound})}
+    & = (1+\Oh(k^{-1}))\cdot(\log|T_0|) + (k+1) \\
+    & \le (1+\Oh(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
+    & = \log|T_{y^*}| + \Oh(k+k^{-1}\log |T_{y^*}|). &\text{(by \eqref{ystar-bound})}
   \end{align*}
 
 
@@ -639,7 +642,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
 A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
 The following lemma shows that bulk trees are balanced at all times:
 \begin{lem}\lemlabel{bulk-tree-height}
-  For each bulk tree sequence $T_1,\ldots,T_h$ and each $y\in\{1,\ldots,h\}$,  $h(T_y)\le \log|T_y| + O(k+k^{-1}\log|T_y|)$.
+  For each bulk tree sequence $T_1,\ldots,T_h$ and each $y\in\{1,\ldots,h\}$,  $h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|)$.
 \end{lem}
 
 \begin{proof}
@@ -649,17 +652,17 @@ The following lemma shows that bulk trees are balanced at all times:
   All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil$.
   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
   In this case \lemref{bulktree-height-i}(i) implies that
-  \[  h(T_y) \le \log |T_y| + O(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
-  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in O(k^{-1}\log|T_y|)$ so that is what we do:
+  \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
+  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
-       &= O(k + k^{-1}\log|T_{y_0}|) 
+       &= \Oh(k + k^{-1}\log|T_{y_0}|) 
         & \text{(by \lemref{bulktree-height-i}(ii))}\\
-       &= O(k + k^{-1}(\log|T_{y}| + (y-y_0)\log7)) 
+       &= \Oh(k + k^{-1}(\log|T_{y}| + (y-y_0)\log7)) 
         & \text{(by \eqref{height-diff})} \\
-       &= O(k + k^{-1}\log|T_{y}| + y^*) 
+       &= \Oh(k + k^{-1}\log|T_{y}| + y^*) 
         & \text{(since $y-y_0 \le y^*$)} \\
-       &= O(k + k^{-1}\log|T_{y}|). & \text{(by \eqref{ystar-bound})} & \qedhere
+       &= \Oh(k + k^{-1}\log|T_{y}|). & \text{(by \eqref{ystar-bound})} & \qedhere
   \end{align*}
 \end{proof}
 
@@ -683,31 +686,31 @@ Although the 3-chunking requirements on the insertion and deletion sets of bulk 
 We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise:
 
 \begin{lem}\lemlabel{node-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = O(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
 \end{lem}
 
 \begin{proof}
   The transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps: rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.  We consider each of these in turn, saving the most difficult for last.
   
-  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_{T_y''}(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(z)$ using $O(\log h(T_y''))=O(\log h(T_y))$ bits. (Note that $h(T_y'') \leq h(T_y)+3$, as follows from Lemmas~\ref{lem:insertion-depth} and \ref{lem:balance-depth}.)
+  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_{T_y''}(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(z)$ using $\Oh(\log h(T_y''))=\Oh(\log h(T_y))$ bits. (Note that $h(T_y'') \leq h(T_y)+3$, as follows from Lemmas~\ref{lem:insertion-depth} and \ref{lem:balance-depth}.)
   
   The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk insertion does not require any changes to encode.
   
   The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
   \begin{enumerate}[($\nu_1$)]
-    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $O(\log h(T_y))$ bits.
-    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $O(\log h(T_y))$ bits.
-    \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $O(\log h(T_y))$ bits for a total of $O(k\log h(T_y))$ bits.
-    \item Adding a specific $O(k)$-bit prefix to $b'$, which can be described with $O(k)$ bits.
+    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $\Oh(\log h(T_y))$ bits.
+    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $\Oh(\log h(T_y))$ bits.
+    \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $\Oh(\log h(T_y))$ bits for a total of $\Oh(k\log h(T_y))$ bits.
+    \item Adding a specific $\Oh(k)$-bit prefix to $b'$, which can be described with $\Oh(k)$ bits.
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
   To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
-  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $O(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
+  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is an ancestor of $z$ in $T_y$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $\Oh(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
   
   Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
   The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $O(k\log h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $\Oh(k\log h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
   At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{0,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
 \end{proof}
@@ -734,13 +737,13 @@ Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequ
 
 \begin{enumerate}[(PR1)]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
-  \item $h(T_y)=\log|T_y| + O(k+k^{-1}\log n)$;
+  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $\sum_{y=1}^h|T_y| \le 8n$.
 \end{enumerate}
 
-By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_{y-1}(x)|=O(k\log h(T_{y-1}))=O(k\log\log n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
+By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_{y-1}(x)|=\Oh(k\log h(T_{y-1}))=\Oh(k\log\log n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
 
-Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + O(\log\log n)$.
+Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log n)$.
 
 Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:  
 \begin{enumerate}[(GC1)]
@@ -750,7 +753,7 @@ Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a l
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
-The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + O(k+k^{-1}\log n+\log\log n)$. For the remaining components, (GC3) has size $O(\log\log n)$, (GC4) has size $O(k\log\log n)$, and (GC5) has size $O(1)$.  Thus, the total length of each label is $\log n+ O(k\log\log n + k^{-1}\log n)$.  
+The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. For the remaining components, (GC3) has size $\Oh(\log\log n)$, (GC4) has size $\Oh(k\log\log n)$, and (GC5) has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.  
 
 \subsection{Adjacency Testing}
 
@@ -796,7 +799,7 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $O(k\log\log n + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\left\lceil\sqrt{\log n\log\log n}\right\rceil$, yielding labels of length $\log n + O\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\left\lceil\sqrt{\log n\log\log n}\right\rceil$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
 
