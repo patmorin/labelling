@@ -89,7 +89,9 @@ In this paper we prove the following result:
 
 % We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  
 
-\thmref{main} is optimal up to the lower order term.  An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.} 
+\thmref{main} is optimal up to the lower order term, 
+which is $O\left(\sqrt{\log n\log\log n}\right)$ in our proof. 
+An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.} 
 
 \subsection{Previous Work}
 
@@ -119,7 +121,8 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 \end{figure}  
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
-The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  However, in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
+The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  
+However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
 Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $O(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $O(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $O(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $O(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
@@ -137,19 +140,20 @@ each edge is involved in at most $k$ crossings. Such graphs provide a natural
 generalisation of planar graphs, and have been extensively studied. See
 the recent bibliography on 1-planar graphs with 140 references
 \cite{kobourov.liotta.ea:annotated}. The definition of $k$-planar graphs
-naturally generalises for other surfaces. A graph $G$ drawn is
-$(g,k)$-planar if it has a drawing in some surface of Euler genus at most
-$g$ in which  each edge of $G$ is involved in at most $k$ crossings. Note
-that the family of  $(g,k)$-planar  graphs is not minor closed.
+naturally generalises for other surfaces. A graph $G$ is
+\emph{$(g,k)$-planar} if it has a drawing in some surface of Euler genus at most
+$g$ in which each edge of $G$ is involved in at most $k$ crossings. Note
+that already $1$-planar graphs are not minor closed.
 
 
 \begin{thm}\thmlabel{main-all}
   For every integer $n\ge 1$,  every n-vertex graph in each of the
 following families of graphs has a $(1+o(1))\log n$-bit adjacency
-labelling scheme. Furthermore, for each of these families of graphs
-there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every
-$n$-vertex graph in the family is isomorphic to some vertex-induced
-subgraph of $U_n$.
+labelling scheme. 
+%Furthermore, for each of these families of graphs
+%there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every
+%$n$-vertex graph in the family is isomorphic to some vertex-induced
+%subgraph of $U_n$.
    \begin{itemize}
    \item graphs of bounded genus and more generally apex\footnote{A
 graph is \emph{apex} if it has a vertex whose removal leaves a planar
