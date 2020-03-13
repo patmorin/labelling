@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225145259" modified="D:20200306055115"/>
+<ipe version="70212" creator="Ipe 7.2.13">
+<info created="D:20200225145259" modified="D:20200313152528"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
-<textsize name="small" value="\small"/>
-<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -254,7 +254,7 @@ h
 <page>
 <layer name="alpha"/>
 <layer name="gamma"/>
-<view layers="alpha" active="alpha"/>
+<view layers="gamma" active="gamma"/>
 <view layers="gamma" active="gamma"/>
 <path layer="gamma" stroke="gray">
 384 576 m
@@ -281,12 +281,6 @@ h
 384 480 l
 </path>
 <path matrix="0.7 0 0 1 60.8 16" stroke="black">
-256 544 m
-240 512 l
-272 512 l
-h
-</path>
-<path matrix="0.7 0 0 1 92.8 0" stroke="black">
 256 544 m
 240 512 l
 272 512 l
@@ -333,10 +327,6 @@ h
 240 560 l
 </path>
 <path stroke="black">
-288 560 m
-272 544 l
-</path>
-<path stroke="black">
 320 544 m
 304 528 l
 </path>
@@ -368,7 +358,6 @@ h
 <text matrix="1 0 0 1 157 -61" transformations="translations" pos="256 576" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">x_4</text>
 <text matrix="1 0 0 1 93 -77" transformations="translations" pos="256 576" stroke="black" type="label" width="10.163" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">x_5</text>
 <text matrix="1 0 0 1 0 -12" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_0</text>
-<text matrix="1 0 0 1 32 -28" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_1</text>
 <text matrix="1 0 0 1 64 -44" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_2</text>
 <text matrix="1 0 0 1 96 -92" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_5</text>
 <text matrix="1 0 0 1 224 -60" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_3</text>
@@ -376,7 +365,6 @@ h
 <text matrix="1 0 0 1 160 -108" transformations="translations" pos="240 544" stroke="black" type="label" width="7.641" height="6.808" depth="0" halign="center" valign="baseline" style="math">R</text>
 <text matrix="1 0 0 1 128 -108" transformations="translations" pos="240 544" stroke="black" type="label" width="6.78" height="6.808" depth="0" halign="center" valign="baseline" style="math">L</text>
 <use name="mark/disk(sx)" pos="240 560" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="272 544" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="304 528" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="336 480" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="368 464" size="normal" stroke="black"/>
@@ -430,12 +418,6 @@ h
 272 512 l
 h
 </path>
-<path matrix="0.7 0 0 1 92.8 -16" stroke="black">
-256 544 m
-240 512 l
-272 512 l
-h
-</path>
 <path matrix="0.7 0 0 1 124.8 -32" stroke="black">
 256 544 m
 240 512 l
@@ -447,18 +429,12 @@ h
 240 560 l
 </path>
 <path matrix="1 0 0 1 0 -16" stroke="black">
-288 560 m
-272 544 l
-</path>
-<path matrix="1 0 0 1 0 -16" stroke="black">
 320 544 m
 304 528 l
 </path>
 <text matrix="1 0 0 1 0 -28" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_0</text>
-<text matrix="1 0 0 1 32 -44" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_1</text>
 <text matrix="1 0 0 1 64 -60" transformations="translations" pos="240 544" stroke="black" type="label" width="11.941" height="6.812" depth="1.49" halign="center" valign="baseline" style="math">A_2</text>
 <use matrix="1 0 0 1 0 -16" name="mark/disk(sx)" pos="240 560" size="normal" stroke="black"/>
-<use matrix="1 0 0 1 0 -16" name="mark/disk(sx)" pos="272 544" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 0 -16" name="mark/disk(sx)" pos="304 528" size="normal" stroke="black"/>
 <path matrix="0.7 0 0 1 156.8 -48" stroke="black">
 256 544 m
@@ -504,7 +480,6 @@ h
 <text matrix="1 0 0 1 157 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="32.192" height="6.923" depth="1.49" halign="right" valign="baseline" style="math">x_4=b_2</text>
 <text matrix="1 0 0 1 98 -61" transformations="translations" pos="256 576" stroke="black" type="label" width="33.182" height="4.294" depth="1.49" valign="baseline" style="math">x_5=a_4</text>
 <text layer="alpha" matrix="1 0 0 1 -19 -13" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_0</text>
-<text matrix="1 0 0 1 13 -29" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_1</text>
 <text matrix="1 0 0 1 45 -45" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_2</text>
 <text matrix="1 0 0 1 77 -93" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" halign="right" valign="baseline" style="math">c_5</text>
 <text matrix="1 0 0 1 210 -61" transformations="translations" pos="256 576" stroke="black" type="label" width="8.781" height="4.294" depth="1.49" valign="baseline" style="math">c_3</text>

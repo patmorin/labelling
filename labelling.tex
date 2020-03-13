@@ -202,7 +202,7 @@ For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(
 \subsection{Prefix-Free Codes}
 
 For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. 
-We denote the empty string by $\varepsilon$. 
+%We denote the empty string by $\varepsilon$. 
 A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
 %Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
@@ -219,16 +219,17 @@ A \emph{binary tree} $T$ is a rooted tree in which each node except the root is 
 
 A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching to each node $x$ of $T$ $2-c$ leaves where $c$ is the number of children of $x$.  We call the leaves of $T^+$ the \emph{external nodes} of $T$.  (Note that these external nodes are not actually in $T$.)
 
-A node $a\in V(T)$ is a \emph{$T$-ancestor} of $x\in V(T)$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that $x$ is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
+A node $a$ in $T$ is a \emph{$T$-ancestor} of a node $x$ in $T$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that a node is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
 
-Let $x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$.  (Note that the signature of the root of $T$ is the empty string, i.e., $\sigma_T(x_0)=\varepsilon$.)
+Let $x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$. 
+Note that the signature of the root of $T$ is the empty string.
 
 A \emph{binary search tree} $T$ is a binary tree whose node set $V(T)$ consists of distinct real numbers and that has the \emph{binary search tree property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
 
 The following observation allows us to compare values in a binary search tree just given their signatures in the tree.
 
 \begin{obs}\obslabel{lexicographic}
-  For any binary search tree $T$ and any $x,y\in V(T)$, $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
+  For any binary search tree $T$ and any nodes $x$, $y$ in $T$, we have $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
 Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees, but we sketch a proof here for completeness.
@@ -279,7 +280,7 @@ Putting some of the preceding results together we obtain the following useful co
   There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
   \begin{compactenum}
     \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$;
-    \item for any distinct $i,j\in\{1,\ldots,h\}$, 
+    \item for any $i,j\in\{1,\ldots,h\}$, 
     \[   A(\alpha(i),\alpha(j)) 
     = \begin{cases}
        0 & \text{if $j=i$;}\\
@@ -300,11 +301,12 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   and
   \[
-  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1\enspace ,
+  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1,
   \]
   for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. The length of $\delta_T(i)$ is at most $1+\Oh(\log s)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part is $\delta_T(i)$, defined after \obsref{predecessor-encoding}. 
+  The length of $\delta_T(i)$ is at most $1+\log h(T)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
    The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
@@ -348,7 +350,9 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
 %\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, map graphs, powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{dujmovic.esperet.ea:clustered} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.  This is summarized in the following theorem:
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, 
+%map graphs, Piotrek: I even dont know what are map graphs :)
+powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{dujmovic.esperet.ea:clustered} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.  This is summarized in the following theorem:
 
 \begin{thm}[\cite{dujmovic.joret.ea:planar},\cite{dujmovic.esperet.ea:clustered},\cite{dujmovic.morin.ea:structure}]\thmlabel{product-structure-all}
    Every graph $G$ in each of the following families of graphs is a subgraph of a
@@ -356,27 +360,30 @@ strong product $H\boxtimes P$ where $P$ is a path and $H$ is a graph of bounded
 treewidth:
 
    \begin{itemize}
-   \item graphs of bounded genus and more generally apex\footnote{A
-graph is an \emph{apex} if it has a vertex whose removal leaves a planar
-graph.}-minor free graphs \cite{dujmovic.joret.ea:planar}.
+   \item graphs of bounded genus and more generally apex-minor free graphs;%\cite{dujmovic.joret.ea:planar};
+   %\footnote{A
+%graph is an \emph{apex} if it has a vertex whose removal leaves a planar
+%graph.} Piotrek: definition of apex is already somewhere before
      \item bounded degree graphs that excludes a fixed graph as
-a minor \cite{dujmovic.esperet.ea:clustered}.
-   \item $k$-planar graphs and more generally $(g,k)$-planar graphs. \cite{dujmovic.morin.ea:structure}.
+a minor;% \cite{dujmovic.esperet.ea:clustered};
+   \item $k$-planar graphs and more generally $(g,k)$-planar graphs. %\cite{dujmovic.morin.ea:structure}.
    \end{itemize}
+   %Piotrek: I commented out citations. I think we give a precise description of all the contributions.
 \end{thm}
 
 
 
-Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
+%Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
-The case of graphs of bounded degree from minor-closed classes is particularly interesting, 
-since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e.\ $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
+%The case of graphs of bounded degree from minor-closed classes is particularly interesting, 
+%since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e.\ $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
+% Piotrek: Given that we put a whole thm in this section about the product thms, I find this paragraph to be too much now.
 
 
 \section{Bulk Trees}
 \seclabel{bulk-trees}
 
-The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$.}  Note that (ii) implies that $|D|\le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$.
+The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  Note that (ii) implies that $|D|\le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$.
 
 \subsection{Phases}\label{sec:3.1}
 
@@ -421,6 +428,7 @@ The bulk deletion operation of a subset $D$ of nodes is implemented as a series 
 
 \begin{lem}\lemlabel{deletion-signature}
   Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
+  In particular, $h(T')\leq h(T)$.
 \end{lem}
 
 \begin{proof}
@@ -429,11 +437,11 @@ The bulk deletion operation of a subset $D$ of nodes is implemented as a series 
 \end{proof}
 
 %The following consequence of \lemref{deletion-signature} follows immediately from the fact that, for any node $z$ in a binary search tree $T$, $d_T(z)=|\sigma_T(z)|$.
-The following is an immediate consequence. 
+%The following is an immediate consequence. 
 
-\begin{lem}\lemlabel{deletion-depth}
-  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
-\end{lem}
+%\begin{lem}\lemlabel{deletion-depth}
+%  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
+%\end{lem}
 
 
 \subsection{Rebalancing}
@@ -631,7 +639,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
   All that remains is to show that invariants (B1) and (B2) are indeed satisfied for all $y\in\{0,\ldots,y^*\}$.  The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: (B1) asserts that $h(T_0)\le h(T_0)$ and (B2) asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
   For the inductive step, assume $y\ge 1$ and invariants (B1) and (B2) hold for $T_{y-1}$.  First we establish invariant (B1) as follows:
-  Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-depth}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
+  Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-signature}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
   By the inductive hypothesis (B1) is satisfied for $T_{y-1}$, so $h(T_{y-1})\le h(T_0)+3(y-1)$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le h(T_0)+3y$.
   
   Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is to perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
