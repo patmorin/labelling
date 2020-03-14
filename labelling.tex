@@ -13,6 +13,8 @@
 
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
+\usepackage{enumerate, enumitem}
+
 
 \newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
 \newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
@@ -389,9 +391,10 @@ The labelling scheme for planar graphs uses labels whose largest part comes from
 
 A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are partitioned into \emph{phases} that are kept track of using two integer values.  
 At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
-\[  
-  y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil. 
-\]
+\begin{equation}
+  y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil.
+  \label{y-star-def}
+\end{equation}
 After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
 
 \smallskip
@@ -559,7 +562,8 @@ The following statement captures what do we win after an application of $\textsc
 \subsubsection{$\textsc{BulkBalance}(\theta)$}
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$.
-It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
+It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. 
+%Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
@@ -586,65 +590,71 @@ In this section we show that a bulk tree always has a height that is asymptotica
 \begin{lem}\lemlabel{bulktree-height-i}
   Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ before the first round ($T_0$) and after each round ($T_1,\ldots,T_{y^*}$) of a phase, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
-    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$; and
-    \item $h(T_{y^*}) = \log|T_{y^*}|+\Oh(k+k^{-1}\log|T_{y^*}|)$.
+    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, and
+    \label{item-i}
+    \item $h(T_{y^*}) = \log|T_{y^*}|+\Oh(k+k^{-1}\log|T_{y^*}|)$.\label{item-ii}
   \end{compactenum}
 \end{lem}
-
 \begin{proof}
-  Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
+  Let $I_1,\ldots,I_{y^*}$ and $D_1,\ldots,D_{y^*}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
   \begin{equation}
-    |T_y|\ge |T_0|/7^y \quad \Leftrightarrow \quad \log|T_0| \le \log|T_y| + y\log 7, \eqlabel{height-diff}
+    |T_0|/7^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + y\log 7, \eqlabel{height-diff}
   \end{equation}
   for each $y\in\{0,\ldots,y^*\}$. 
 
 
   We will prove the lemma by establishing the following two invariants:
-  \begin{enumerate}[(B1)]
-    \item $h(T_y)\le h(T_0) + 3y$;
-    \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(7/2^k)^{y}$.
+  \begin{enumerate}[label={(B\arabic*)}]
+    \item $h(T_y)\le h(T_0) + 3y$;\label{item-B1}
+    \item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|(7/2^k)^{y}$.\label{item-B2}
   \end{enumerate}
 
-  First we show that (B1) implies (i). Observe that, for any $y\in\{0,\ldots,y^*\}$,  
-  \[  
-  y^*\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1, 
-  \]
-  and thus 
-  \begin{equation}  
-    y^*\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|). 
+First we show that \ref{item-B1} implies (\ref{item-i}). Observe that, for any $y\in\{0,\ldots,y^*\}$,  we have
+  \begin{align}
+  y^*&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,&&\text{(by \eqref{height-diff})}\nonumber\\
+  \intertext{and thus}
+    y^*&\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
-  \end{equation}
+%  \end{align}
+\intertext{Therefore, for each  $y\in\{0,\ldots,y^*\}$, \ref{item-B1} gives the upper bound}
+%  \begin{align*}
+       h(T_y) & \le h(T_0) + 3y \nonumber\\
+              &= \log|T_0| + 3y + r_0  \nonumber\\
+              &\le \log |T_y| + (3+\log 7)y + r_0  &&\text{(by \eqref{height-diff})} \nonumber\\
+              &\le \log |T_y| + (3+\log 7)y^* + r_0 &&\text{(since $y\le y^*$)}\nonumber\\
+              &\le \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. &&\text{(by \eqref{ystar-bound})}\nonumber
+  \end{align}
+Thus, indeed \ref{item-B1} implies (\ref{item-i}).
 
 
-  For each  $y\in\{0,\ldots,y^*\}$, (B1) gives the upper bound
-  \begin{align*}
-       h(T_y) & \le h(T_0) + 3y \\
-              &= \log|T_0| + 3y + r_0  \\
-              &\le \log |T_y| + (3+\log 7)y + r_0  &\text{(by \eqref{height-diff})} \\
-              &\le \log |T_y| + (3+\log 7)y^* + r_0 &\text{(since $y\le y^*$)}\\
-              &\le \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. &\text{(by \eqref{ystar-bound})}
-  \end{align*}
 
-  Next we show that (B2) implies (ii).  Recall that $y^*=\lceil\log|T_0|/(\log(2^k/7))\rceil$ so
-  $|T_{0}|(7/2^k)^{y^*} \le 1$.  Therefore, by (B2) every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 1.  A subtree of size 1 has height 0.  Therefore,
+Note that when we take a logarithm of the upper bound in \ref{item-B2} for $y=y^*$, we have
+\begin{align*}
+\log|T_0| + y^*\cdot\log\left(7/2^k\right) &\geq \log|T_0|+\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(7/2^k\right)&&\text{(by (\ref{y-star-def}))}\\
+&=0.
+\end{align*}  
+Therefore, \ref{item-B2} implies that every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 
+$|T_0|(7/2^k)^{y^*} \geq 1$.
+A subtree of size 1 has height 0.  Therefore,
   \begin{align*}
     h(T_{y^*}) & \le (k+1)y^* \\
-    & = (k+1)\left\lceil \frac{\log|T_0|}{k-\log 7}\right\rceil \\
-    & \le (k+1)\left(\frac{\log|T_0|}{k-\log 7 } + 1\right)\\
-    & = \left(\frac{k+1}{k-\log 7}\right)\left(\log|T_0|\right) + (k+1)\\
-    & = (1+\Oh(k^{-1}))\cdot(\log|T_0|) + (k+1) \\
-    & \le (1+\Oh(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) & \text{(by \eqref{height-diff})}\\
-    & = \log|T_{y^*}| + \Oh(k+k^{-1}\log |T_{y^*}|). &\text{(by \eqref{ystar-bound})}
+    & = (k+1)\left\lceil \tfrac{\log|T_0|}{k-\log 7}\right\rceil&&\text{(by (\ref{y-star-def}))} \\
+    & \le (k+1)\left(\tfrac{\log|T_0|}{k-\log 7 } + 1\right)\\
+    & = \left(\tfrac{k+1}{k-\log 7}\right)\log|T_0| + (k+1)\\
+    & = (1+\Oh(k^{-1}))\cdot\log|T_0| + (k+1) \\
+    & \le (1+\Oh(k^{-1}))\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1) && \text{(by \eqref{height-diff})}\\
+    & = \log|T_{y^*}| + \Oh(k+k^{-1}\log |T_{y^*}|). &&\text{(by \eqref{ystar-bound})}
   \end{align*}
+Thus, indeed \ref{item-B2} implies (\ref{item-ii}).
 
 
-  All that remains is to show that invariants (B1) and (B2) are indeed satisfied for all $y\in\{0,\ldots,y^*\}$.  The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: (B1) asserts that $h(T_0)\le h(T_0)$ and (B2) asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
+  All that remains is to show that invariants \ref{item-B1} and \ref{item-B2} are indeed satisfied for all $y\in\{0,\ldots,y^*\}$.  The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \ref{item-B1} asserts that $h(T_0)\le h(T_0)$ and \ref{item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
-  For the inductive step, assume $y\ge 1$ and invariants (B1) and (B2) hold for $T_{y-1}$.  First we establish invariant (B1) as follows:
+  For the inductive step, assume $y\ge 1$ and invariants \ref{item-B1} and \ref{item-B2} hold for $T_{y-1}$.  First we establish invariant \ref{item-B1} as follows:
   Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-signature}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
-  By the inductive hypothesis (B1) is satisfied for $T_{y-1}$, so $h(T_{y-1})\le h(T_0)+3(y-1)$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le h(T_0)+3y$.
+  By the inductive hypothesis \ref{item-B1} is satisfied for $T_{y-1}$, so $h(T_{y-1})\le h(T_0)+3(y-1)$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le h(T_0)+3y$.
   
-  Next we establish (B2).  By (B2) applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is to perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
+  Next we establish \ref{item-B2}.  By \ref{item-B2} applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is to perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
   % The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  
   By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, the third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
 \end{proof}
@@ -657,17 +667,17 @@ The following lemma shows that bulk trees are balanced at all times:
 
 \begin{proof}
   Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
-  \lemref{bulktree-height-i}(ii) implies that $T_y$ satisfies the conditions of the lemma.  
+  \lemref{bulktree-height-i}(\ref{item-ii}) implies that $T_y$ satisfies the conditions of the lemma.  
   
   All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil$.
   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
-  In this case \lemref{bulktree-height-i}(i) implies that
+  In this case \lemref{bulktree-height-i}(\ref{item-i}) implies that
   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &= \Oh(k + k^{-1}\log|T_{y_0}|) 
-        & \text{(by \lemref{bulktree-height-i}(ii))}\\
+        & \text{(by \lemref{bulktree-height-i}(\ref{item-ii}))}\\
        &= \Oh(k + k^{-1}(\log|T_{y}| + (y-y_0)\log7)) 
         & \text{(by \eqref{height-diff})} \\
        &= \Oh(k + k^{-1}\log|T_{y}| + y^*) 
@@ -707,7 +717,7 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
   The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk insertion does not require any changes to encode.
   
   The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
-  \begin{enumerate}[($\nu_1$)]
+  \begin{enumerate}[label={($\nu_1$)}]
     \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $\Oh(\log h(T_y))$ bits.
     \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $\Oh(\log h(T_y))$ bits.
     \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $\Oh(\log h(T_y))$ bits for a total of $\Oh(k\log h(T_y))$ bits.
@@ -745,7 +755,7 @@ For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$
 For convenience, let $L^-_0:=\emptyset$. 
 Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
 
-\begin{enumerate}[(PR1)]
+\begin{enumerate}[label={(PR1)}]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
   \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $\sum_{y=1}^h|T_y| \le 8n$.
@@ -756,7 +766,7 @@ By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-
 Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log n)$.
 
 Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:  
-\begin{enumerate}[(GC1)]
+\begin{enumerate}[label={(GC1)}]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
   \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$ (where $\delta_T$ is the function  introduced after \obsref{predecessor-encoding});
@@ -907,7 +917,7 @@ For any binary search tree that represents $v$, let $P_T(v)$ denote the path in 
 
 For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q]$ induced by $Q$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded using \lemref{elias}):
 
-\begin{enumerate}[(TC1)]
+\begin{enumerate}[label={(TC1)}]
   \item $\sigma_T(v)$;
   \item $d_T(x_T(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$; 
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; and
@@ -915,16 +925,16 @@ For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q
 \end{enumerate}
 
 Given the labels of two vertices $v,w\in Q$, we test if $v$ and $w$ are adjacent as follows:
-\begin{enumerate}[({A}1)]
+\begin{enumerate}
   \item If the labels of $v$ and $w$ are identical then $v=w$, so return false.
   
   \item (uniquely identify $v$) From (TC4) extract $j:=\varphi(v)$ (which is contained in $\varphi'(v)$).  From (TC2) extract $d:=d_T(x_T(p_j(v)))$. Take the length-$d$ prefix of $\sigma_T(v)$ to get $\sigma_T(x_T(v))$.
 
   \item (check if $v$ is the $j$-parent of $w$) Extract $d:=d_T(x_T(p_j(w)))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x_T(p_j(w)))$.  If $\sigma_T(x_T(v))=\sigma_T(x_T(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ and $vw\in E(H)$, so return true.
   
-  \item[(A4,A5)] Repeat (A2) and (A3) with the roles of $v$ and $w$ reversed.
+  \item Repeat (A2) and (A3) with the roles of $v$ and $w$ reversed.
   
-  \item[(A6)] Return false
+  \item Return false
 \end{enumerate}
 
 The correctness of this adjacency test can be seen as follows:
@@ -979,7 +989,7 @@ For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S
 Note that $|S^-_y|\le (t+1)|S_y|$. 
 For convenience, let $S^-_0:=\emptyset$. 
 For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ such that 
-\begin{enumerate}[(PR1)]
+\begin{enumerate}[label={(PR1)}]
   \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
   \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
   \item $W:=\sum_{y=1}^h |T_y|= O(n)$; and
@@ -1094,7 +1104,7 @@ The following lemma, which is analogous to \lemref{node-transitions} is the last
 
 Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
 
-\begin{enumerate}[(PC1)]
+\begin{enumerate}
   \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + O(\log\log n)$;
   \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
   \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
