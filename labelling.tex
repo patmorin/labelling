@@ -590,15 +590,15 @@ Finally, recall that a bulk tree works in phases and, within a phase, maintains 
 In this section we show that a bulk tree always has a height that is asymptotically optimal.
 
 \begin{lem}\lemlabel{bulktree-height-i}
-  Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ before the first round ($T_0$) and after each round ($T_1,\ldots,T_{y^*}$) of a phase, and let $r_0=h(T_0)-\log|T_0|$.  Then,
+  Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ so that $T_y$ is the state before the $y$-th round for each $y\in\{0,\ldots,y^*\}$, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
-    \item for each $y\in\{0,\ldots,y^*\}$, $h(T_y)\le \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, and
+    \item $h(T_y)\le \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, for each $y\in\{0,\ldots,y^*\}$;
     \label{bulktree-height-item-i}
     \item $h(T_{y^*}) = \log|T_{y^*}|+\Oh(k+k^{-1}\log|T_{y^*}|)$.\label{bulktree-height-item-ii}
   \end{compactenum}
 \end{lem}
 \begin{proof}
-  Let $I_1,\ldots,I_{y^*}$ and $D_1,\ldots,D_{y^*}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
+  Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$, for each $y\in\{0,\ldots,y^*-1\}$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
   \begin{equation}
     |T_0|/7^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + y\log 7, \eqlabel{height-diff}
   \end{equation}
@@ -613,7 +613,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
 
 First we show that \itemref{item-B1} implies \itemref{bulktree-height-item-i}. Observe that, for any $y\in\{0,\ldots,y^*\}$,  we have
   \begin{align}
-  y^*&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,&&\text{(by \eqref{height-diff})}\nonumber\\
+  y^*&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,&&\text{(by \eqref{height-diff} and since $y\leq y^*$)}\nonumber\\
   \intertext{and thus}
     y^*&\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
@@ -630,7 +630,7 @@ Thus, indeed \itemref{item-B1} implies (\ref{bulktree-height-item-i}).
 
 
 
-Note that when we take a logarithm of the upper bound in \itemref{item-B2} for $y=y^*$, we have
+Note that when we take the logarithm of the upper bound in \itemref{item-B2} for $y=y^*$, we have
 \begin{align*}
 \log|T_0| + y^*\cdot\log\left(7/2^k\right) &\geq \log|T_0|+\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(7/2^k\right)&&\text{(by (\ref{y-star-def}))}\\
 &=0.
@@ -652,13 +652,12 @@ Thus, indeed \itemref{item-B2} implies (\ref{bulktree-height-item-ii}).
 
   All that remains is to show that invariants \itemref{item-B1} and \itemref{item-B2} are indeed satisfied for all $y\in\{0,\ldots,y^*\}$.  The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \itemref{item-B1} asserts that $h(T_0)\le h(T_0)$ and \itemref{item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
-  For the inductive step, assume $y\ge 1$ and invariants \itemref{item-B1} and \itemref{item-B2} hold for $T_{y-1}$.  First we establish invariant \itemref{item-B1} as follows:
-  Lemmas~\ref{lem:insertion-depth}, \ref{lem:deletion-signature}, and \ref{lem:balance-depth} imply that $h(T_y)\le h(T_{y-1})+3$.  
-  By the inductive hypothesis \itemref{item-B1} is satisfied for $T_{y-1}$, so $h(T_{y-1})\le h(T_0)+3(y-1)$.  Thus $h(T_y)\le h(T_{y-1}) + 3 \le h(T_0)+3y$.
+  For the inductive step, assume $y+1\ge 0$ and invariants \itemref{item-B1} and \itemref{item-B2} hold for $T_{y}$.  First we establish invariant \itemref{item-B1} as follows:
+  Lemmas~\ref{lem:balance-depth} (rebalancing), \ref{lem:insertion-depth} (insertions), and \ref{lem:deletion-signature} (deletions) imply that $h(T_{y+1})\le h(T_{y})+3 \leq h(T_0) + 3y +3 \leq h(T_0)+3(y+1)$.  
   
-  Next we establish \itemref{item-B2}.  By \itemref{item-B2} applied to $T_{y-1}$, every subtree of $T_{y-1}$ rooted at a node of depth $(y-1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}$.  The first step in round $y-1$ is to execute $\textsc{BulkBalance}((y-1)(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y-1}'$ in which every subtree rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y-1}/2^k$.  The second step in round $y-1$ is to perform a bulk insertion on $T_{y-1}'$ to obtain a new tree $T_{y-1}''$.  
+  Next we establish \itemref{item-B2}.  By \itemref{item-B2} applied to $T_{y}$, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  The first step in round $y$ is to execute $\textsc{BulkBalance}(y(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y}'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $\tfrac{|T_{0}|(7/2^k)^{y}}{2^k}$.  The second step in round $y$ is to perform a bulk insertion on $T_{y}'$ to obtain a new tree $T_{y-1}''$.  
   % The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  
-  By \lemref{insertion-size}, every subtree of $T_{y-1}''$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$.  Finally, the third step in round $y-1$ is to perform a bulk deletion on $T_{y-1}''$ to obtain $T_{y}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|(7/2^k)^{y}$, as required.
+  By \lemref{insertion-size}, every subtree of $T_{y}''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $7\cdot\tfrac{|T_{0}|(7/2^k)^{y}}{2^k}$.  Finally, the third step in round $y$ is to perform a bulk deletion on $T_{y}''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|(7/2^k)^{y+1}$, as required.
 \end{proof}
 
 A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
