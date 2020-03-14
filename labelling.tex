@@ -467,7 +467,7 @@ a_1 < \cdots < a_s < x < b_t < \cdots < b_1.
 
 Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\ldots,a_s$ as the left subtree of $x$ and the path $b_1,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
 
-Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
+Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$ if such a child exists.  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$.
 
 \begin{lem}\lemlabel{split-height}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Split}(x)$ to obtain $T_{<x}$ and $T_{>x}$.  
@@ -514,7 +514,7 @@ The following lemma is immediate from \lemref{split-height}.
 
 \subsubsection{$\textsc{Balance}(x)$}
 
-The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x\in V(T)$.   Refer to \figref{balance-x}.
+The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x$ in $T$.   Refer to \figref{balance-x}.
 
 \begin{figure}
     \begin{center}
@@ -532,7 +532,7 @@ Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has ran
 
 $T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\ldots,m\}$, $c_i\le |X|\le 2^k-1$.
 
-For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the tree $T_i$.  The result of this call to $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
+For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the tree $T_i$.  The result of these calls are sequences of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
 
 Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{0,\ldots,p\}$, let $i_\ell:=|Z\cap \{s_1,\ldots,s_\ell\}|$ and $j_\ell:= \ell - \max\{ q\in\{1,\ldots,\ell\}: s_q\in Z\}$ and let $A_\ell:=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{0,\ldots,p\}$ and each $x'\in V(A_\ell)$, we have $s_\ell < x' < s_{\ell+1}$.
 
@@ -545,6 +545,8 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
 \begin{proof}
   Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.  
 \end{proof}
+
+The following statement captures what do we win after an application of $\textsc{Balance}(\cdot)$ to a binary search tree.
 
 \begin{lem}\lemlabel{balance-x-weight}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=d_{T}(x)+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
