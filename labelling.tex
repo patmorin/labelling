@@ -632,12 +632,13 @@ Thus, indeed \itemref{item-B1} implies (\ref{bulktree-height-item-i}).
 
 Note that when we take the logarithm of the upper bound in \itemref{item-B2} for $y=y^*$, we have
 \begin{align*}
-\log|T_0| + y^*\cdot\log\left(7/2^k\right) &\geq \log|T_0|+\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(7/2^k\right)&&\text{(by \eqref{y-star-def})}\\
+\log|T_0| - y^*\cdot\log\left(2^k/7\right)
+&\leq \log|T_0|-\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(2^k/7\right)&&\text{(by \eqref{y-star-def})}\\
 &=0.
 \end{align*}  
 Therefore, \itemref{item-B2} implies that every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 
-$|T_0|(7/2^k)^{y^*} \geq 1$.
-A subtree of size 1 has height 0.  Therefore,
+$|T_0|(7/2^k)^{y^*} \leq 1$.
+A subtree of size $1$ has height $0$. Therefore,
   \begin{align*}
     h(T_{y^*}) & \le (k+1)y^* \\
     & = (k+1)\left\lceil \tfrac{\log|T_0|}{k-\log 7}\right\rceil&&\text{(by \eqref{y-star-def})} \\
