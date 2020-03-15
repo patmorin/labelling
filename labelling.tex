@@ -395,7 +395,7 @@ A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree 
 At the beginning of a phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
 \begin{equation}
   y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil.
-  \label{y-star-def}
+  \eqlabel{y-star-def}
 \end{equation}
 After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
 
@@ -613,7 +613,7 @@ In this section we show that a bulk tree always has a height that is asymptotica
 
 First we show that \itemref{item-B1} implies \itemref{bulktree-height-item-i}. Observe that, for any $y\in\{0,\ldots,y^*\}$,  we have
   \begin{align}
-  y^*&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,&&\text{(by \eqref{height-diff} and since $y\leq y^*$)}\nonumber\\
+  y^*&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,&&\text{(by \eqref{y-star-def}, \eqref{height-diff}, and since $y\leq y^*$)}\nonumber\\
   \intertext{and thus}
     y^*&\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|). 
     \eqlabel{ystar-bound}
@@ -632,7 +632,7 @@ Thus, indeed \itemref{item-B1} implies (\ref{bulktree-height-item-i}).
 
 Note that when we take the logarithm of the upper bound in \itemref{item-B2} for $y=y^*$, we have
 \begin{align*}
-\log|T_0| + y^*\cdot\log\left(7/2^k\right) &\geq \log|T_0|+\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(7/2^k\right)&&\text{(by (\ref{y-star-def}))}\\
+\log|T_0| + y^*\cdot\log\left(7/2^k\right) &\geq \log|T_0|+\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(7/2^k\right)&&\text{(by \eqref{y-star-def})}\\
 &=0.
 \end{align*}  
 Therefore, \itemref{item-B2} implies that every subtree of $T_{y^*}$ of depth $y^*(k+1)$ has size at most 
@@ -640,7 +640,7 @@ $|T_0|(7/2^k)^{y^*} \geq 1$.
 A subtree of size 1 has height 0.  Therefore,
   \begin{align*}
     h(T_{y^*}) & \le (k+1)y^* \\
-    & = (k+1)\left\lceil \tfrac{\log|T_0|}{k-\log 7}\right\rceil&&\text{(by (\ref{y-star-def}))} \\
+    & = (k+1)\left\lceil \tfrac{\log|T_0|}{k-\log 7}\right\rceil&&\text{(by \eqref{y-star-def})} \\
     & \le (k+1)\left(\tfrac{\log|T_0|}{k-\log 7 } + 1\right)\\
     & = \left(\tfrac{k+1}{k-\log 7}\right)\log|T_0| + (k+1)\\
     & = (1+\Oh(k^{-1}))\cdot\log|T_0| + (k+1) \\
