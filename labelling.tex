@@ -1065,7 +1065,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
     Finally, if $x_T(v)\neq x_i$ for any $i\in\{0,\ldots,r\}$ and $x_T(v)\neq x_{\tilde{T}}(v)$, then the only possibility is that $x_{\tilde{T}}(v)=x_i$ for some $x_i\in [a_v,b_v]$ (see the interval $v_2$ in \figref{deletion-t-tree}).  This can only happen if $x_i$ is not a $T$-ancestor of $x_T(v)$, but $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$.  By \lemref{common-ancestor}, $x_i$ is a $T$-descendant of $x_T(v)$.  Since $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$, $x_{i-1}$ is a $T$-ancestor of $x_T(v)$.  Therefore $\sigma_{\tilde{T}}(v)=\sigma_{\tilde{T}}(x_i)=\sigma_T(x_{i-1})$ is a prefix of $\sigma_T(x_T(v))$, as required.  This completes the proof of \clmref{deletion-ancestor}.    
   \end{proof}
   
-  Let $a\preceq b$ denote that $a$ is a prefix of $b$.
+  For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Since a bulk deletion is implemented as a sequence of individual deletions,
   \begin{align*}
     \sigma_{T_y''}(v) 
@@ -1102,7 +1102,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
   \begin{clm}\clmlabel{x-switch}
     Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
     \begin{compactenum}
-      \item $a_w\le x\le b_w$; or
+      \item $a_w\le x\le b_w$;
       \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
       \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
     \end{compactenum}
@@ -1114,7 +1114,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
     By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_w,b_w]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node in $[a_w,b_w]$, namely $z$, so $z=x_{T_{>x}}(w)$.  This completes the proof of \clmref{x-switch}.
   \end{proof}
   
-  From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, by definition $x_{T_y'}(w)\not\in Z\cup X$. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
+  From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, for the $w\in C_H(v)$ that determines $P_{T_y'}(v)=P_{T'}(x_{T_y'}(w))$ we have $x_{T_y'}(w)\not\in Z\cup X$ by \eqref{empty}. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
   
   Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
   
@@ -1133,8 +1133,8 @@ Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
   \item $\varphi'(v)$;
-  \item $\mu_y(v)$;
-  \item $a(z)$.
+  \item $\mu_y(v)$; and 
+  \item $a(z)$ (defined next).
 \end{enumerate}
 The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3t$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
 
@@ -1169,7 +1169,7 @@ This completes the proof of our main result.
 We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
 The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
-In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, so the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time. 
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time. 
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
 
