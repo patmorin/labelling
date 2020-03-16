@@ -1006,9 +1006,9 @@ In fact, this labelling scheme proves the following slightly stronger result. Le
 
 % We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
 
-We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels for the vertices of $H$ that enter or leave $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
+We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels of any vertex $v\in V(H)$ such that an element of $C_H(v)$ leaves or enters $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
-Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is a $t$-tree on $m$ vertices and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
+Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
 
 For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  
 Note that $|S^-_y|\le (t+1)|S_y|$. 
@@ -1039,7 +1039,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 \end{lem}
 
 \begin{proof}
-  First we note that, if $v\in S_y\cup S_{y+1}$, then $T_y$ and $T_{y+1}$ each represent $v$.  As in the proof of \lemref{node-transitions}, we must dig into the three bulk tree operations that transform $T_y$ into $T_{y+1}$. These are rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.
+  First we recall that, if $v\in S_y\cup S_{y+1}$, then $T_y$ and $T_{y+1}$ each represent $v$.  As in the proof of \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. These are rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.
   
   The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in S_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T_y'}(w)$ is the element of $w\cap V(T_y')$ that is closest to the root of $T_y'$. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(x_{T_y''}(w))=P_{T'}(x_{T_y'}(w))$ and $\sigma_{T_y''}(x_{T_y''}(w))=\sigma_{T'}(x_{T_y'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in S_y$.
   

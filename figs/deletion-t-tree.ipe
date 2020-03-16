@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225230024" modified="D:20200302085200"/>
+<ipe version="70212" creator="Ipe 7.2.13">
+<info created="D:20200225230024" modified="D:20200316075315"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -452,5 +452,12 @@ h
 256.786 549.656 c
 256 556 l
 </path>
+<text matrix="1 0 0 1 -7 -4" transformations="translations" pos="203.898 662.087" stroke="purple" type="label" width="29.141" height="4.294" depth="1.49" valign="baseline" style="math">x=x_0</text>
+<text matrix="1 0 0 1 -0.679887 -1.2238" transformations="translations" pos="227.422 615.99" stroke="red" type="label" width="10.163" height="4.294" depth="1.49" valign="baseline" style="math">x_1</text>
+<text matrix="1 0 0 1 3.80737 1.2238" transformations="translations" pos="247.683 558.336" stroke="blue" type="label" width="10.163" height="4.294" depth="1.49" halign="right" valign="top" style="math">x_2</text>
+<text matrix="1 0 0 1 -1.90368 2.58357" transformations="translations" pos="278.142 539.571" stroke="orange" type="label" width="10.163" height="4.294" depth="1.49" valign="top" style="math">x_3</text>
+<text layer="beta" matrix="1 0 0 1 1.63144 45.0081" transformations="translations" pos="227.422 615.99" stroke="red" type="label" width="10.163" height="4.294" depth="1.49" valign="baseline" style="math">x_1</text>
+<text matrix="1 0 0 1 4.62357 44.6006" transformations="translations" pos="247.683 558.336" stroke="blue" type="label" width="10.163" height="4.294" depth="1.49" halign="right" valign="top" style="math">x_2</text>
+<text matrix="1 0 0 1 -2.44763 19.445" transformations="translations" pos="278.142 539.571" stroke="orange" type="label" width="10.163" height="4.294" depth="1.49" valign="top" style="math">x_3</text>
 </page>
 </ipe>
