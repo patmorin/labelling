@@ -970,7 +970,7 @@ The correctness of this adjacency test can be seen as follows:
 In fact, this labelling scheme proves the following slightly stronger result. Let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $S$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T)))$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
+  Let $H$, $\rho$, $\rho'$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T))+\log\log m)$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
   \[
       \mathds{T}(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
@@ -985,6 +985,7 @@ In fact, this labelling scheme proves the following slightly stronger result. Le
   Most of the details of this labelling are described above, though we have thus far ignored the length of the labels, which we analyze now.
   
   Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
+  The unmentioned part of each label; which includes Elias encodings of the values $t$, $|\sigma_T(V)|$, and $\lfloor\log_3(2m+1)\rfloor$; requires $O(\log t+\log h(T) + \log\log m)$ bits.
 \end{proof}
 
 % Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following corollary.
