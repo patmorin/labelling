@@ -390,37 +390,53 @@ a minor;% \cite{dujmovic.esperet.ea:clustered};
 \section{Bulk Trees}
 \seclabel{bulk-trees}
 
-The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  Note that (ii) implies that $|D|\le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$.
 
-\subsection{Phases}\label{sec:3.1}
+Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$. 
+A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term. The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
+This way, we can determine if two vertices $(v,i)$ and $(w,i)$ in the same row are adjacent. 
+The key problem that we face here though are queries of the type $(v,i)$ and $(w,i+1)$: We would like to determine adjacency on the $H$-coordinate using $T_i$ or $T_{i+1}$. 
+We could extend the node set of $T_{i+1}$ by adding all vertices from $H_{i}$. This way we know that both $v$ and $w$ are included in $T_{i+1}$. 
+However, we still have a major issue: the label of $(v,i)$ describes the position of $v$ in $T_i$ but not in $T_{i+1}$.
+In this setup, in order to determine if $v$ and $w$ are adjacent in $H$ we need to know their respective positions in the same binary search tree. 
+However, there is in principle no relation between the position of $v$ in $T_i$ and its position in $T_{i+1}$. 
+To circumvent this difficulty, we build the binary search trees $T_1,\ldots,T_h$ one by one, starting with a balanced binary search tree, in such a way that $T_{i+1}$ is obtained from $T_i$ by performing small local changes. By storing some small extra information related to these local changes in the label of $(v,i)$, this will allow us to obtain the position of $v$ in $T_{i+1}$.
+Finally, we also need to guarantee that the binary search trees in our sequence are balanced so that the labels are of length $\log|T_i|$ plus a lower-order term.
 
-A bulk tree is parameterized by an integer $k\ge 1$.  The rounds of a bulk tree $T$ are partitioned into \emph{phases} that are kept track of using two integer values.  At the beginning of each phase, a counter $y$ is initialized to $0$ and a value $y^*$ is computed:
-\begin{equation}
-  y^* := \left\lceil \frac{\log|T|}{k-\log 7}\right\rceil.
-  \eqlabel{y-star-def}
-\end{equation}
-After each round, the value $y$ is incremented.  When $y=y^*$, a new phase begins, so $y$ is reset to 0 and a new value of $y^*$ is computed using the current size of $T$.
+In this section, we introduce three operations on a binary search tree that will allow us to carry out this plan. 
+These operations are called \emph{bulk insertion}, \emph{bulk deletion}, and \emph{rebalancing}. 
+Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in our sequence $T_1, \dots, T_h$ will be obtained from $T_{i-1}$ by applying these three operations. 
 
-\smallskip
 
-This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times), is $\omega(1)$ and $o(\log n)$.
+%%% Old beginning of section
+% The labelling scheme for planar graphs uses labels whose largest part comes from paths in a special type of balanced binary search tree that we call a \emph{bulk tree}.  The operations in a bulk tree proceed in \emph{rounds} where, in each round, two types of bulk operations are performed: \emph{bulk insertion}, in which a set $I\subset \R\setminus V(T)$ of new values are inserted into $T$, and \emph{bulk deletion}, in which a set $D\subseteq V(T)$ of values are removed from $T$. The sets $I$ and $D$ inserted into and deleted from $T$ in a single round must satisfy the following two restrictions: (i)~$V(T)$ $3$-chunks $I$; and (ii)~$V(T)\setminus D$ 3-chunks $D$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  Note that (ii) implies that $|D|\le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$.
+
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation, in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
-Since $V(T)$ $3$-chunks $I$, $|I_i|\le 3$ for each $i\in\{0,\ldots,|T|\}$. For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$. 
+The bulk insertion operation, in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
+For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. 
+For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$. 
 The resulting tree is the outcome of the operation. 
 
 \begin{lem}\lemlabel{insertion-depth}
-  Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
+  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
+  $V(T)$ $3$-chunks $I$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  
+  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
+  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
 \begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
+  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. 
+  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  
+  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
 \end{proof}
 
 \begin{lem}\lemlabel{insertion-size}
-  Let $T$ be any binary search tree and perform a bulk insertion on $T$ to obtain a new tree $T'$.  Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.  Then $|T_x'|\le 7|T_x|$.
+  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
+  $V(T)$ $3$-chunks $I$.
+  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
+  Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$. 
+  Then $|T_x'|\le 7|T_x|$.
 \end{lem}
 
 \begin{proof}
@@ -430,11 +446,11 @@ The resulting tree is the outcome of the operation.
 
 \subsection{Bulk Deletion}
 
-The bulk deletion operation of a subset $D$ of nodes is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
+The bulk deletion operation of a subset $D$ of nodes of a binary search tree $T$ is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
 
 
 \begin{lem}\lemlabel{deletion-signature}
-  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
+  Let $T$ be any binary search tree and perform a bulk deletion on a subset $D$ of nodes of $T$ to obtain a new tree $T'$.  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
   In particular, $h(T')\leq h(T)$.
 \end{lem}
 
@@ -450,10 +466,11 @@ The bulk deletion operation of a subset $D$ of nodes is implemented as a series 
 %  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
 %\end{lem}
 
-
 \subsection{Rebalancing}
 
-At the beginning of a round, before bulk insertion and bulk deletion, a rebalancing operation is performed.  This operation uses several subroutines that we now discuss, beginning with the most fundamental one:  $\textsc{Split}(x)$.
+%At the beginning of a round, before bulk insertion and bulk deletion, a rebalancing operation is performed.  
+
+The rebalancing operation on a binary search tree $T$ uses several subroutines that we now discuss, beginning with the most fundamental one:  $\textsc{Split}(x)$. 
 
 \subsubsection{$\textsc{Split}(x)$}
 
@@ -519,9 +536,11 @@ The following lemma is immediate from \lemref{split-height}.
   Let $T$ be any binary search tree and apply $\textsc{MultiSplit}(x_1,\ldots,x_c)$ to $T$ to obtain $T_0,\ldots,T_c$.  Then $h(T_i)\le h(T)$ for each $i\in\{0,\ldots,c\}$.
 \end{lem}
 
-\subsubsection{$\textsc{Balance}(x)$}
+\subsubsection{$\textsc{Balance}(x,k)$}
 
-The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x$ in $T$.   Refer to \figref{balance-x}.
+The $\textsc{Balance}(x,k)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x$ in $T$. 
+The goal of this operation is to balance the size of all the subtrees rooted at nodes of depth $d_T(x)+k+1$ and contained in $T_x$. 
+Refer to \figref{balance-x}.
 
 \begin{figure}
     \begin{center}
@@ -529,13 +548,13 @@ The $\textsc{Balance}(x)$ operation operates on the subtree $T_x$ of $T$ rooted 
       $\Downarrow$ \\[1ex]
       \includegraphics{figs/balance-x-2}
     \end{center}  
-  \caption{The operation of $\textsc{Balance}(x)$}
+  \caption{The operation of $\textsc{Balance}(x,k)$}
   \figlabel{balance-x}
 \end{figure}
 
 If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  Otherwise, let $Z:=\{z\in V(T_x): d_{T_x}(z)< k\}$.  Call the $m\le 2^k-1$ elements of $Z$  $z_1<z_2<\cdots<z_{m}$ and, for convenience, define $z_0=-\infty$ and $z_{m+1}=\infty$.
 
-Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite set $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
+Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has rank $\lfloor j|T_x|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite set $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x,k)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
 
 $T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\ldots,m\}$, $c_i\le |X|\le 2^k-1$.
 
@@ -546,48 +565,48 @@ Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and d
 Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain a new tree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$ in $\hat{T}_0$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
 \begin{lem}\lemlabel{multisplit-depth}
-  Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
+  Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x,k)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.  
+  Since $\textsc{Balance}(x,k)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.  
 \end{proof}
 
-The following statement captures what do we win after an application of $\textsc{Balance}(\cdot)$ to a binary search tree.
+The following statement captures what we win after an application of $\textsc{Balance}(x,k)$ to a binary search tree.
 
 \begin{lem}\lemlabel{balance-x-weight}
-  Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=d_{T}(x)+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
+  Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x,k)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=d_{T}(x)+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
 \end{lem}
 
 \begin{proof}
   Each such subtree is a subtree of $A_\ell$ for some $\ell\in\{0,\ldots,p\}$. Now, $V(A_\ell)\subset (x_j,x_{j+1})$ for some $j\in\{1,\ldots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|A_\ell|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
 \end{proof}
 
-\subsubsection{$\textsc{BulkBalance}(\theta)$}
+\subsubsection{$\textsc{BulkBalance}(\theta,k)$}
 
-The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta)$.
-It calls $\textsc{Balance}(x)$ for each node $x$ of depth $\theta$ in $T$. 
-%Note that this operation is well defined, since $\textsc{Balance}(x)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta)$ are pairwise disjoint.
+The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta,k)$.
+It calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$ in $T$. 
+%Note that this operation is well defined, since $\textsc{Balance}(x,k)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta,k)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
 \begin{lem}\lemlabel{balance-depth}
-  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
+  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta,k)$ operation to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{lem}\lemlabel{balance-weight}
-  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta)$ operation to obtain a new tree $T'$.  
+  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta,k)$ operation to obtain a new tree $T'$.  
   Let $x$ be any node of $T$ of depth $\theta$ and let $T_x$ be the subtree of $T$ rooted at $x$.   
   Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=\theta+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$. 
-  %% PREVIOUS VERSION:
-  %For every node $z$ in $T$ of depth $\theta+k+1$, let $x$ be a $T$-ancestor of $z$ of depth $\theta$, 
-  %then a subtree $T'_z$ of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
-  %% FIRST VERSION:
-  %Then each subtree $T_z$ of $T'$ rooted at a node $z$ of depth $\theta+k+1$ has size at most $|T_x|/2^k$, where $x$ is the depth-$\theta$ $T$-ancestor of $z$ and $T_x$ is the subtree of $T$ rooted at $x$.
 \end{lem}
 
-Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{BulkBalance}(\theta)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
+%Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{BulkBalance}(\theta,k)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
 
-\subsection{Analysis of Height}
+\subsection{Bulk Tree Sequences}
+
+\snote{PM \& GJ: THIS SECTION IS CURRENTLY BEING EDITED}
+
+
+%\subsection{Analysis of Height}
 
 In this section we show that a bulk tree always has asymptotically optimal height.
 
@@ -747,11 +766,11 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
     \item Adding a specific $\Oh(k)$-bit prefix to $b'$, which can be described with $\Oh(k)$ bits.
     \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
   \end{enumerate}
-  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta)$ which calls $\textsc{Balance}(x)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
-  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is a $T_y$-ancestor of $z$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $\Oh(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
+  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta,k)$ which calls $\textsc{Balance}(x,k)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
+  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x,k)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is a $T_y$-ancestor of $z$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x,k)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $\Oh(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
   
-  Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
-  The $\textsc{Balance}(x)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
+  Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x,k)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
+  The $\textsc{Balance}(x,k)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
     
   Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $\Oh(k\log h(T_y))$ bits that are included in $\nu_{3}(z)$.
   
@@ -1079,20 +1098,20 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
   \end{align*} 
   Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $O(\log h({T_y'}))=O(\log\log n)$ bits.
   
-  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$ by calling $\textsc{BulkBalance}(\theta)$, which calls $\textsc{Balance}(x)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$ by calling $\textsc{BulkBalance}(\theta,k)$, which calls $\textsc{Balance}(x,k)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
   
   \begin{figure}
     \begin{center}
       \includegraphics{figs/rebalance-t-tree}
     \end{center}
-    \caption{Only the call to $\textsc{Balance}(x)$ on a node $x\in V(P_{T_2}(v))$ affects $\sigma_{T_2'}(v)$.}
+    \caption{Only the call to $\textsc{Balance}(x,k)$ on a node $x\in V(P_{T_2}(v))$ affects $\sigma_{T_2'}(v)$.}
     \figlabel{rebalance-t-tree}
   \end{figure}
   
-  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
+  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
   The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$. 
   
-  Now, $\textsc{Balance}(x)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
+  Now, $\textsc{Balance}(x,k)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
   
   For any $v\in S_y$ such that $P_{T_y'}(v)$ ends at a vertex $z\in Z\cup X=V(\hat{T}_0)$, the problem is easy.  We include $\sigma_{\hat{T}_0}(z)$, which has length at most $h(\hat{T}_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
 
@@ -1101,7 +1120,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
     [a_w,b_w]\cap (Z\cup X)=\emptyset \enspace . \eqlabel{empty}
   \end{equation}
   
-  For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
+  For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
   
   \begin{clm}\clmlabel{x-switch}
     Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
