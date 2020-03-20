@@ -466,6 +466,16 @@ The bulk deletion operation of a subset $D$ of nodes of a binary search tree $T$
 %  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
 %\end{lem}
 
+\begin{lem}\lemlabel{deletion-size}
+  Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$ such that $V(T)\setminus D$ $3$-chunks $D$.
+  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$. 
+  Then $|T'|\ge |T|/7$. 
+\end{lem}
+
+\begin{proof}
+   Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. 
+\end{proof}
+
 \subsection{Rebalancing}
 
 %At the beginning of a round, before bulk insertion and bulk deletion, a rebalancing operation is performed.  
