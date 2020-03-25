@@ -386,10 +386,8 @@ a minor;% \cite{dujmovic.esperet.ea:clustered};
 %since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e.\ $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
 % Piotrek: Given that we put a whole thm in this section about the product thms, I find this paragraph to be too much now.
 
-
 \section{Bulk Trees}
 \seclabel{bulk-trees}
-
 
 Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$. 
 A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term. The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
@@ -413,7 +411,8 @@ Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in 
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation, in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
+The bulk insertion operation, $\textsc{BulkInsert}(I)$, 
+in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
 For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. 
 For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$. 
 The resulting tree is the outcome of the operation. 
@@ -421,7 +420,8 @@ The resulting tree is the outcome of the operation.
 \begin{lem}\lemlabel{insertion-depth}
   Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
   $V(T)$ $3$-chunks $I$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  
-  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
+  Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
+  %Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
   Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
@@ -434,23 +434,26 @@ The resulting tree is the outcome of the operation.
 \begin{lem}\lemlabel{insertion-size}
   Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
   $V(T)$ $3$-chunks $I$.
-  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
+  Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
+%  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
   Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$. 
-  Then $|T_x'|\le 7|T_x|$.
+  Then $|T_x'|\le 8|T_x|$.
 \end{lem}
 
 \begin{proof}
-  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)\le 6|T_x|$, so $|T_x'|=|T_x|+|I_x|\le 7|T_x|$.
+  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)\le 6|T_x|$, so $|T_x'|=|T_x|+|I_x|\le 7|T_x| \le 8|T_x|$.
 \end{proof}
 
 
 \subsection{Bulk Deletion}
 
-The bulk deletion operation of a subset $D$ of nodes of a binary search tree $T$ is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
+The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes of a binary search tree $T$ is implemented as a series of $|D|$ individual deletions, performed in any order, each implemented by running the following recursive algorithm for each $x\in D$:  If $x$ is a leaf, then simply remove $x$ from $T$.  Otherwise, $x$ has at least one child.  If $x$ has a left child, then recursively delete the largest value $x'$ in the subtree of $T$ rooted at the left child of $x$ and then replace $x$ with $x'$.  Otherwise $x$ has a right child, so recursively delete the smallest value $x'$ in the subtree of $T$ rooted at the right child of $x$ and then replace $x$ with $x'$.
 
 
 \begin{lem}\lemlabel{deletion-signature}
-  Let $T$ be any binary search tree and perform a bulk deletion on a subset $D$ of nodes of $T$ to obtain a new tree $T'$.  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
+  Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$. 
+  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$. 
+  Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
   In particular, $h(T')\leq h(T)$.
 \end{lem}
 
@@ -459,26 +462,18 @@ The bulk deletion operation of a subset $D$ of nodes of a binary search tree $T$
   % Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
 \end{proof}
 
-%The following consequence of \lemref{deletion-signature} follows immediately from the fact that, for any node $z$ in a binary search tree $T$, $d_T(z)=|\sigma_T(z)|$.
-%The following is an immediate consequence. 
-
-%\begin{lem}\lemlabel{deletion-depth}
-%  Let $T$ be any binary search tree and perform a bulk deletion on $T$ to obtain a new tree $T'$.  Then, $h(T')\le h(T)$.
-%\end{lem}
-
 \begin{lem}\lemlabel{deletion-size}
   Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$ such that $V(T)\setminus D$ $3$-chunks $D$.
-  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$. 
-  Then $|T'|\ge |T|/7$. 
+  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$. 
+%  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$. 
+  Then $|T'|\ge |T|/8$. 
 \end{lem}
 
 \begin{proof}
-   Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. 
+   Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. Thus $|T'| \ge |T| - 6/7|T| \geq |T|/7 \geq |T|/8$.
 \end{proof}
 
 \subsection{Rebalancing}
-
-%At the beginning of a round, before bulk insertion and bulk deletion, a rebalancing operation is performed.  
 
 The rebalancing operation on a binary search tree $T$ uses several subroutines that we now discuss, beginning with the most fundamental one:  $\textsc{Split}(x)$. 
 
@@ -596,6 +591,7 @@ The following statement captures what we win after an application of $\textsc{Ba
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta,k)$.
 It calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$ in $T$. 
+(Note that this operation is vacuous if there is no such node.) 
 %Note that this operation is well defined, since $\textsc{Balance}(x,k)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta,k)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
@@ -609,57 +605,95 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
   Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=\theta+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$. 
 \end{lem}
 
-%Finally, recall that a bulk tree works in phases and, within a phase, maintains a counter $y$ that counts the rounds of the phase from $0$ to $y^*$.  The $\textsc{BulkBalance}(\theta,k)$ operation executes once, at the beginning of each round, with the argument $\theta=y(k+1)$.
+
 
 \subsection{Bulk Tree Sequences}
 
-\snote{PM \& GJ: THIS SECTION IS CURRENTLY BEING EDITED}
+\pnote{Piotrek: We still have some annoying references across proofs, see (1) and (2) in the proof of Lemma 15.}
 
 
-%\subsection{Analysis of Height}
+A sequence $S_0,\dots,S_q$ is \emph{$3$-chunking} if $S_y$ $3$-chunks $S_{y+1}$ and $S_{y+1}$ $3$-chunks $S_y$ for each $y\in\{0,\ldots,q-1\}$.
 
-In this section we show that a bulk tree always has asymptotically optimal height.
+Given an integer $k\ge 7$\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and a $3$-chunking sequence $S_0,\ldots,S_q$
+with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$, we define
+a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\ldots,S_q$ to be
+a sequence $T_0, \dots, T_{q}$ of binary search trees with $T_0$ an arbitrary binary search tree on node set $S_0$, and  for each $y\in \{0, \dots, q-1\}$, 
+the tree $T_{y+1}$ is obtained from $T_y$ by applying 
+\begin{enumerate}[label={(\roman*)}, ref={\roman*}, noitemsep]
+    \item $\textsc{BulkBalance}(y\cdot(k+1),k)$, then
+    \item $\textsc{BulkInsert}(I)$ with $I:=S_{y+1} \setminus S_{y}$, and finally
+    \item $\textsc{BulkDelete}(D)$ with $D:=S_{y} \setminus S_{y+1}$.
+\end{enumerate}
+Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$. 
+The sequence is \emph{complete} if $q=y^*$.
+
+For $k\geq 7$ and a $3$-chunking sequence $S_1,\ldots,S_h$, we define
+a \emph{$k$-bulk tree sequence} based on $S_1,\ldots,S_h$ to be a sequence $T_1, \dots, T_h$ of binary search trees satisfying: 
+$T_1$ is a perfectly balanced binary search tree with $V(T_1)=S_1$, and 
+there exist indices $h_1,h_2,\ldots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\ell} = h$  such that $T_{h_j},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence based on $S_{h_j},\ldots,S_{h_{j+1}}$
+for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},\ldots,S_{h_{\ell}}$. 
+
+
+This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
 \begin{lem}\lemlabel{bulktree-old-B-properties}
-Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ so that $T_y$ is the state before the $y$-th round. 
-Then, for each $y\in\{0,\ldots,y^*\}$
+Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence. 
+Then, for each $y\in\{0,\ldots,q\}$ 
 \begin{compactenum}[(i)]
 \item $h(T_y)\le h(T_0) + 3y$;\label{lemma-item-B1}
-\item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most $|T_0|\cdot\left(7/2^k\right)^{y}$.\label{lemma-item-B2}
+\item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most 
+%$|T_0|\cdot\left(7/2^k\right)^{y}$.\label{lemma-item-B2}
+$|T_0|\cdot2^{-y(k-3)}$.\label{lemma-item-B2}
 \end{compactenum}
 \end{lem}
 \begin{proof}
 The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \itemref{lemma-item-B1} asserts that $h(T_0)\le h(T_0)$ and \itemref{lemma-item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
   For the inductive step, assume $y+1\ge 0$ and \itemref{lemma-item-B1} holds for $T_{y}$. 
-  Lemmas~\ref{lem:balance-depth} (rebalancing), \ref{lem:insertion-depth} (insertions), and \ref{lem:deletion-signature} (deletions) imply that $h(T_{y+1})\le h(T_{y})+3 \leq h(T_0) + 3y +3 \leq h(T_0)+3(y+1)$. Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
-  
-  Next we establish \itemref{lemma-item-B2}. Assume that \itemref{lemma-item-B2} holds for $T_{y}$. Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot(7/2^k)^{y}$.  The first step in round $y$ is to execute $\textsc{BulkBalance}(y(k+1))$.  By \lemref{balance-weight}, this results in a tree $T_{y}'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $\tfrac{|T_{0}|(7/2^k)^{y}}{2^k}$.  The second step in round $y$ is to perform a bulk insertion on $T_{y}'$ to obtain a new tree $T_{y-1}''$.  
-  % The fact that $V(T_{y-1})$ 3-chunks the newly inserted set $I_{y-1}$ ensures that the size of any subtree increases by a factor of at most $6$.  
-  By \lemref{insertion-size}, every subtree of $T_{y}''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $7\cdot\tfrac{|T_{0}|(7/2^k)^{y}}{2^k}$.  Finally, the third step in round $y$ is to perform a bulk deletion on $T_{y}''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot(7/2^k)^{y+1}$, as required.
+  In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$. 
+  By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$. 
+  Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$. 
+  Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$. 
+  Next we apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$.
+  Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+2$.
+  Finally, we apply $\textsc{BulkDelete}(D)$ to $T''$ and obtain $T_{y+1}$, where $D:=V(T_{y})\setminus V(T_{y+1})$.
+  By~\lemref{deletion-signature}, we have $h(T_{y+1}) \le h(T'')$.
+  Altogether we have
+  \[
+  h(T_{y+1}) \le h(T'') \le h(T') +2 \le h(T_y) +3 \le h(T_0) + 3y +3 = h(T_0) + 3(y+1).
+  \]
+  Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
+
+    Next we establish \itemref{lemma-item-B2}. 
+    Assume that \itemref{lemma-item-B2} holds for $T_{y}$. 
+    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k+3)}$.  
+    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k+3)}\cdot 1/2^k$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.  
+    By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k+3)}\cdot 8/2^k$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k+3)}$, as desired.
 \end{proof}
 
 \begin{cor}\corlabel{height-y-star}
-Let $T$ be a bulk tree and let $T_{y^*}$ be the state of $T$ before the $y^*$-th round. 
+Let $T_0,\ldots,T_{y^*}$ be a complete one-phase $k$-bulk tree sequence. 
 Then,
 \[
 h(T_{y^*}) \leq y^*(k+1).
 \]
 \end{cor}
 \begin{proof}
+Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$. 
 Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y=y^*$, and we plug the definition of $y^*$, we have
 \[
-\log|T_0| - y^*\cdot\log\left(2^k/7\right) 
-\leq \log|T_0|-\tfrac{\log|T_0|}{\log\left(2^k/7\right)}\cdot\log\left(2^k/7\right)
+\log|T_0| - y^*\cdot(k-3) 
+\leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
 =0.
 \]
-Thus,
-each subtree of $T_{y^*}$ rooted at a node of depth $y^*(k+1)$ has size at most 
-$|T_0|\cdot\left(7/2^k\right)^{y^*} \leq 1$.
+Thus, each subtree of $T_{y^*}$ rooted at a node of depth $y^*(k+1)$ has size at most
+\[
+|T_0|\cdot2^{-y^*(k-3)} \leq 1.
+\]
 \end{proof}
 
 \begin{lem}\lemlabel{bulktree-height-i}
-  Let $T$ be a bulk tree, let $T_0,\ldots,T_{y^*}$ be the states of $T$ so that $T_y$ is the state before the $y$-th round for each $y\in\{0,\ldots,y^*\}$, and let $r_0=h(T_0)-\log|T_0|$.  Then,
+Let $T_0,\ldots,T_{y^*}$ be a complete one-phase $k$-bulk tree sequence, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
     \item $h(T_y)= \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, for each $y\in\{0,\ldots,y^*\}$;
     \label{bulktree-height-item-i}
@@ -668,124 +702,181 @@ $|T_0|\cdot\left(7/2^k\right)^{y^*} \leq 1$.
 \end{lem}
 \begin{proof}
 Basically the two items follow from the corresponding two items of \lemref{bulktree-old-B-properties}.
-Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets inserted and deleted so that $I_y$ and $D_y$ are the bulk insertions and bulk deletions performed in round $y$, for each $y\in\{0,\ldots,y^*-1\}$.  First, recall that $|D_y|\le (6/7)|T_y|$, which implies that $|T_{y+1}|\ge |T_y|-|D_y|\ge |T_y|/7$.  Iterating this beginning with $T_0$ implies that 
+Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by 
+rebalancing and then application of $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,y^*-1\}$.  
+First, recall that by \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$. 
+Iterating this beginning with $T_0$ implies that 
   \begin{equation}
-    |T_0|/7^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + y\log 7, \eqlabel{height-diff}
+    |T_0|/8^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + 3y, \eqlabel{height-diff}
   \end{equation}
   for each $y\in\{0,\ldots,y^*\}$. 
 
-Now observe that, for each $y\in\{0,\ldots,y^*\}$,  we have
+\noindent Recalling once more that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$, observe that, for each $y\in\{0,\ldots,y^*\}$,  we have
 \begin{align}
 y^*
-&\le \tfrac{\log |T_0|}{k-\log 7}+1\le \tfrac{\log |T_y|+y^*\log 7}{k-\log 7}+1,
-&\text{(by \eqref{y-star-def}, \eqref{height-diff}, and since $y\leq y^*$)}\nonumber\\
-\intertext{and rewriting this yields}
+&\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3y^*}{k-3}+1,
+&\text{(by \eqref{height-diff}, and since $y\leq y^*$)}\nonumber\\
+\intertext{and rewriting this yields (using that $k\geq 7$)}
+%&\nonumber\\
 y^*
-&\le \tfrac{\log |T_y|}{k-2\log 7}+ \tfrac{k-\log 7}{k-2\log 7} = \Oh(k^{-1}\log|T_y|).
+&\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
+&\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|).
 \eqlabel{ystar-bound}
 \intertext{The first item of the lemma follows as for each $y\in\{0,\ldots,y^*\}$, we have}
 h(T_y) 
 & \le h(T_0) + 3y \nonumber
 &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
 &= \log|T_0| + 3y + r_0  \nonumber\\
-&\le \log |T_y| + (3+\log 7)y + r_0
+&\le \log |T_y| + 6y + r_0
 &\text{(by \eqref{height-diff})} \nonumber\\
-&\le \log |T_y| + (3+\log 7)y^* + r_0 
+&\le \log |T_y| + 6y^* + r_0 
 &\text{(since $y\le y^*$)}\nonumber\\
-&\le \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. 
+&= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. 
 &\text{(by \eqref{ystar-bound})}\nonumber\\
 \intertext{The second item of the lemma follows from}
 h(T_{y^*}) 
 & \le (k+1)y^*
 &\text{(by \corref{height-y-star})}\nonumber\\
-&\le (k+1)\left(\tfrac{\log|T_0|}{k-\log 7 } + 1\right)
-&\text{(by \eqref{y-star-def})}\nonumber\\
-& = \left(\tfrac{k+1}{k-\log 7}\right)\cdot\log|T_0| + (k+1)\nonumber\\
-& \le \left(\tfrac{k+1}{k-\log 7}\right)\cdot(\log|T_{y^*}| + y^*\log 7) + (k+1)
+&\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)
+%&\text{(by \eqref{y-star-def})}\nonumber\\
+\nonumber\\
+& = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
+& \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{y^*}| + 3y^*) + (k+1)
 &\text{(by \eqref{height-diff})}\nonumber\\
+& = \log|T_{y^*}| + \tfrac{4}{k-3}\log|T_{y^*}| + 3\cdot\tfrac{k+1}{k-3}y^* + k+1\nonumber\\
 & = \log|T_{y^*}| + \Oh(k+k^{-1}\log |T_{y^*}|).
-&\text{(by \eqref{ystar-bound})}\nonumber
+&\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by \eqref{ystar-bound})}\nonumber
 \end{align}
 \end{proof}
 
-A \emph{bulk tree sequence} $T_1,\ldots,T_h$ is a sequence of binary search trees where $T_1$ is a perfectly balanced binary search tree and for each $y\in\{2,\ldots,h\}$, $T_y$ is obtained from $T_{y-1}$ by a round of bulk tree operations (rebalance, bulk insert, bulk delete).  Note that any bulk tree sequence also defines sequences $I_1,\ldots,I_{h-1}$ and $D_1,\ldots,D_{h-1}$ of insertion and deletion sequences, respectively, where $I_y:=V(T_{y+1})\setminus V(T_y)$ and $D_y:=V(T_{y})\setminus V(T_{y+1})$ for each $y\in\{1,\ldots,h-1\}$. 
+
 The following lemma shows that bulk trees are balanced at all times:
+
 \begin{lem}\lemlabel{bulk-tree-height}
-  For each bulk tree sequence $T_1,\ldots,T_h$ and each $y\in\{1,\ldots,h\}$, we have
+  Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h\}$. 
+  Then
 \[
 h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 \]
 \end{lem}
 
 \begin{proof}
-  Let $Y\subseteq\{1,\ldots,h\}$ be the set of indices containing exactly those indices $y$ where $T_y$ begins a new phase. By definition $1\in Y$ and, since $T_1$ is a perfectly balanced binary tree it certainly satisfies the conditions of the lemma.  For $y\in Y\setminus\{1\}$, 
+  By the definition of a $k$-bulk tree sequence, $T_1$ is a perfectly balanced binary tree so $h(T_1)=\lceil\log|T_1|\rceil$ and the statement is satisfied for $y=1$.
+  Let $h_1,h_2,\ldots,h_{\ell}$ be indices with $1=h_1 < h_2 < \cdots <h_{\ell} = h$ such that $T_{h_j},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a one-phase $k$-bulk tree sequence. 
+  Let $Y:= \{h_1,h_2,\ldots,h_{\ell-1}\}$. 
+  For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the phase in which $T_y$ takes part.  Let $y^*$ be defined as in Section~\ref{sec:3.1}, but with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-\log 7}\right\rceil$.
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.  Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
   In this case \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
-  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k^{-1}\log|T_y|)$ so that is what we do:
+  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do:
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &= \Oh(k + k^{-1}\log|T_{y_0}|) 
         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
-       &= \Oh(k + k^{-1}(\log|T_{y}| + (y-y_0)\log7)) 
+       &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
-       &= \Oh(k + k^{-1}\log|T_{y}| + y^*) 
+       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*) 
         & \text{(since $y-y_0 \le y^*$)} \\
-       &= \Oh(k + k^{-1}\log|T_{y}|). & \text{(by \eqref{ystar-bound})} & \qedhere
+       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \eqref{ystar-bound})} \\
+       &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
   \end{align*}
 \end{proof}
 
 
-
-\subsection{Making Bulk Tree Sequences}
-
-Although the 3-chunking requirements on the insertion and deletion sets of bulk trees seem restrictive, the following lemma allows us to store any sequence of subsets of $\R$ in a bulk tree sequence that is not much larger.
-
-\begin{lem}\lemlabel{chunked-bulk-trees}
-  For any finite sets $S_1,\ldots,S_h\subset\R$, there exists a bulk tree sequence $T_1,\ldots,T_h$ such that $\sum_{y=1}^h |T_y|\le 2\sum_{y=1}^h |S_i|$ and, for each $y\in\{1,\ldots,h\}$, $V(T_y)\supseteq S_y$.
-\end{lem}
-
-\begin{proof}
-  Apply \lemref{fractional} to the sequence $S_1,\ldots,S_h$ in order to obtain $V(T_1),\ldots,V(T_h)$ satisfying the conditions of the lemma and satisfying the 3-chunking requirement of bulk trees, namely that $V(T_y)$ 3-chunks $I_y:=V(T_{y+1})\setminus V(T_y)$ and that $V(T_{y+1})$ 3-chunks $D_y:=V(T_y)\setminus V(T_{y+1})$.
-\end{proof}
-
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise:
+We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise.
 
 \begin{lem}\lemlabel{node-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
 \end{lem}
 
+\snote{Piotrek: define $\sigma_T(x,z)$}
+
+\snote{signature of external nodes?}
+
 \begin{proof}
-  The transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps: rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.  We consider each of these in turn, saving the most difficult for last.
+  Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h-1\}$. Let $I:=V(T_{y+1})\setminus V(T_y)$ and $D:=V(T_y) \setminus V(T_{y+1})$.
+  Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
+  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$, 
+  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and 
+  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
   
-  The transition from $T_y''$ to $T_{y+1}$ (bulk deletion) is simple.  By \lemref{deletion-signature}, the effect of each individual deletion on $\sigma_{T_y''}(z)$ is to remove a suffix.  Therefore, the net effect of all deletions is to remove a suffix.  The length of this suffix can be included in $\nu_y(z)$ using $\Oh(\log h(T_y''))=\Oh(\log h(T_y))$ bits. (Note that $h(T_y'') \leq h(T_y)+3$, as follows from Lemmas~\ref{lem:insertion-depth} and \ref{lem:balance-depth}.)
+  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
+  Thus the heights of all these trees are $\Oh(h(T_y))$.
   
-  The transition from $T_y'$ to $T_y''$ (bulk insertion) is even simpler: For every node $z\in V(T_y')\cap V(T_y'')$, $\sigma_{T_y'}(z)=\sigma_{T_y''}(z)$.  A bulk insertion does not require any changes to encode.
+  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is prefix-free encoding of natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
   
-  The most elaborate transition is from $T_y$ to $T_y'$ (rebalancing).  We will show how to obtain $\sigma_{T_y'}(z)$ by starting with $b:=\sigma_{T_y}(z)$ and performing the following operations:
-  \begin{enumerate}[label={($\nu_{\arabic*}$)}, ref={$\nu_{\arabic*}$}, noitemsep]
-    \item Splitting $b$ into two strings $b^-$ and $b'$ at some index $\theta$ that can be specified using $\Oh(\log h(T_y))$ bits.
-    \item Deleting a prefix of $b'$ whose length is at most $k$ and can be described using $\Oh(\log h(T_y))$ bits.
-    \item Repeatedly (up to $k+1$ times) deleting a prefix of $b'$ and replacing it with a string in the set $\Pi$ described in \obsref{split-signature}.  The length of each deleted prefix and its replacement can be described with $\Oh(\log h(T_y))$ bits for a total of $\Oh(k\log h(T_y))$ bits.
-    \item Adding a specific $\Oh(k)$-bit prefix to $b'$, which can be described with $\Oh(k)$ bits.
-    \item Concatenating $b^-$ and $b'$ to obtain $\sigma_{T_y'}(z)$.
-  \end{enumerate}
-  To verify this we have to dig into the details of the rebalancing operations, which involves a single call to $\textsc{BulkBalance}(\theta,k)$ which calls $\textsc{Balance}(x,k)$ on each of the nodes $x$ in $T_y$ of depth $\theta$.    
-  For each node $z$ in $T_y$, a call to $\textsc{Balance}(x,k)$ does not affect $\sigma_{T_y}(z)$ unless $x$ is a $T_y$-ancestor of $z$.  Thus, for each $z$ in $T_y$, we can focus on the changes to $\sigma_{T_y}(z)$ caused by the at most one call to $\textsc{Balance}(x,k)$ where $x$ is an ancestor of $z$. Note that, if $d_{T_y}(z)<\theta$, then $\sigma_{T_y}(z)=\sigma_{T_y'}(z)$, in which case $\nu_{y}(z)$ has $\Oh(1)$ bits indicating that this is the case and parts ($\nu_1(z)$)--($\nu_4(z)$) of $\nu_y(z)$ are empty.
+  Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$. 
+  The transition code $\nu_y(z)$ consists of two parts $\nu_y^{\textsc{Bal}}(z)$ and $\nu_y^{\textsc{Del}}(z)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
   
-  Otherwise, $z$ has some depth-$\theta$ $T_y$-ancestor $x$ on which $\textsc{Balance}(x,k)$ executes. In this case $\nu_{1}(z)=\theta$, indicating that $b$ should be split into $b^-$ and $b'$ at position $\theta$.  
-  The $\textsc{Balance}(x,k)$ operation first identifies two sets of nodes $Z$ and $X$ that will eventually form the perfectly balanced tree $\hat{T}_0$ to which the subtrees $A_0,\ldots,A_p$ are attached.  For each node $z\in Z\cup X$, $\nu_{2}(z):=|b'|$ and $\nu_{4}(z):=\sigma_{\hat{T}_0}(z)$ indicating that all of $b'$ should be deleted and replaced with $\sigma_{\hat{T}_0}(z)$.  For these nodes $\nu_3(z)$ is empty.
-    
-  Otherwise, each $z\not\in Z\cup X$ is contained in some tree $T_i$ of the forest $T_y-Z$.  In this case, $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ is called on $T_i$ (with $c_i\le 2^k-1$).  During the execution of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$, $z$ is involved in at most $1+\log c_i\le 1+k$ subtrees that are split by calls to $\textsc{Split}(x)$.  Any call to $\textsc{Split}(x)$ on a subtree $A$ that contains $z$ leaves $z$ in one of the two resulting subtrees, say $A_{<x}$.  When this happens $\sigma_{A_{<x}}(z)$ can be obtained from $b':=\sigma_{A}(z)$ by deleting a prefix and replacing it with a string from $\Pi$ (see \obsref{split-signature}).  This happens at most $k+1$ times and $|\Pi|= 4h(T_y)$, so all of these changes can be recorded with $\Oh(k\log h(T_y))$ bits that are included in $\nu_{3}(z)$.
+  The first part $\nu_y^{\textsc{Bal}}(z)$ will serve to move from $\sigma_{T_y}(z)$ to $\sigma_{T'}(z)$.
+  Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ in $T_y$ of depth $\theta$. 
+  Thus, when $\theta>h(T_y)$ the operation is vacuous.
+  In this case, $\nu^{\textsc{Bal}}_y(z)$ is defined to be $0$.
+  Assume now that $\theta\leq h(T_y)$.
+  Recall that the scope of $\textsc{Balance}(x,k)$ is the subtree of $T_y$ rooted at $x$.
+  Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$ in $T_y$. 
+  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $1,\gamma(\theta)$. 
+  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
   
-  At the end of this process, $z\in V(A_\ell)$ for some $\ell\in\{0,\ldots,p\}$, and $b'=\sigma_{A_\ell}(z)$.  The tree $A_\ell$ is a subtree of $T_y'$.  The final piece of information then is $\nu_4(z):=\sigma_{\hat{T}_0}(z')$, where $z'$ is the root of $A_\ell$.  This is a bitstring of length $h(\hat{T}_0)+1\le k+1$.
+  Assume now that $d_{T_y}(z) > \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
+  Recall that the application of $\textsc{Balance}(x,k)$ identifies first two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
+  This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$. 
+  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $1,\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
+  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
+
+  Now we are left with the case that $d_{T_y}(z)> \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$. 
+  (With a slight abuse of notations, here and further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.) 
+  Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
+  Note that
+  \begin{compactenum}[(i)]
+  \item $\sigma_{T_i}(z)$ is just a suffix of $\sigma_{T_y}(z)$;
+  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
+  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$; 
+  the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
+  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$; 
+  by~\lemref{split-height} the height of all these trees is at most $h(T_i)$;
+  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes 
+  before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\ldots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
+  \end{compactenum}
+  
+  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$.
+  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$. 
+  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$. 
+  We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
+    \[
+  \nu^{\textsc{Bal}}_y(z) := 1,\gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(x,z')|),\sigma_{\hat{T_0}}(x,z'),\gamma(b),
+  \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
+  \]
+  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
+  This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.
+  
+  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$. 
+  This turns out to be fairly easy. 
+  By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$. 
+  Therefore, it is enough to define $\nu^{\textsc{Del}}_y(z)$ to be $\gamma(|\sigma_{T_{y+1}}(z)|)$.
+  
+  Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$. 
+  It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$. 
+  
+  The function $B$ is defined as expected:  
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ checks the first bit of $\nu_y(z)$. If it is $0$ then no rebalancing happened, and then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$. 
+  Note that the bulk insertion operation has no effect on the signature of $z$.
+  
+  If the first bit is $1$, the function $B$ then decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are again the same, and $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$ exactly as before. 
+  
+  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case that $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, again as before. 
+  
+  If the bit under consideration was $1$, then this corresponds to the case that $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before. 
 \end{proof}
+
+\snote{to do: interface correctly the 'calls' to bulk tree sequences in Sections 4 and 5}
+
 
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
