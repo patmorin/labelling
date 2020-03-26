@@ -612,10 +612,10 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
 
 A sequence $S_0,\dots,S_q$ is \emph{$3$-chunking} if $S_y$ $3$-chunks $S_{y+1}$ and $S_{y+1}$ $3$-chunks $S_y$ for each $y\in\{0,\ldots,q-1\}$.
 
-Given an integer $k\ge 7$\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and a $3$-chunking sequence $S_0,\ldots,S_q$
-with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$, we define
-a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\ldots,S_q$ to be
-a sequence $T_0, \dots, T_{q}$ of binary search trees with $T_0$ an arbitrary binary search tree on node set $S_0$, and  for each $y\in \{0, \dots, q-1\}$, 
+Given an integer $k\ge 7$\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and a $3$-chunking sequence $S_0,\ldots,S_q$,
+%with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$,
+we define a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\ldots,S_q$ to be
+a sequence $T_0, \dots, T_{q}$ of binary search trees with $T_0$ an arbitrary binary search tree on node set $S_0$, and  for each $y\in \{0, \dots, q-1\}$, we have $h(T_y)>y\cdot(k+1)$ and 
 the tree $T_{y+1}$ is obtained from $T_y$ by applying 
 \begin{enumerate}[label={(\roman*)}, ref={\roman*}, noitemsep]
     \item $\textsc{BulkBalance}(y\cdot(k+1),k)$, then
@@ -623,7 +623,8 @@ the tree $T_{y+1}$ is obtained from $T_y$ by applying
     \item $\textsc{BulkDelete}(D)$ with $D:=S_{y} \setminus S_{y+1}$.
 \end{enumerate}
 Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$. 
-The sequence is \emph{complete} if $q=y^*$.
+The sequence is \emph{complete} if $h(T_q)\leq q\cdot(k+1)$.
+%$q=y^*$.
 
 For $k\geq 7$ and a $3$-chunking sequence $S_1,\ldots,S_h$, we define
 a \emph{$k$-bulk tree sequence} based on $S_1,\ldots,S_h$ to be a sequence $T_1, \dots, T_h$ of binary search trees satisfying: 
@@ -670,79 +671,96 @@ The proof is by induction on $y$.  For the base case $y=0$, both properties are 
 \end{proof}
 
 \begin{cor}\corlabel{height-y-star}
-Let $T_0,\ldots,T_{y^*}$ be a complete one-phase $k$-bulk tree sequence. 
+Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence. 
 Then,
 \[
-h(T_{y^*}) \leq y^*(k+1).
+q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
 \]
+%\[
+%h(T_{y^*}) \leq y^*(k+1).
+%\]
 \end{cor}
 \begin{proof}
-Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$. 
-Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y=y^*$, and we plug the definition of $y^*$, we have
+%Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$. 
+Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$. 
+Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
 \[
-\log|T_0| - y^*\cdot(k-3) 
+\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3) 
 \leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
-=0.
+\leq0.
 \]
-Thus, each subtree of $T_{y^*}$ rooted at a node of depth $y^*(k+1)$ has size at most
+Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most
 \[
-|T_0|\cdot2^{-y^*(k-3)} \leq 1.
+|T_0|\cdot2^{-y(k-3)} \leq 1,
 \]
+and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
+%%% OLD MATERIAL TO BE DELETED
+% \begin{align*}
+% h(T_q) &\leq q\cdot(k+1) 
+% \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil \cdot (k+1)
+% \leq \left(\tfrac{\log|T_0|}{k-3}+1\right) \cdot (k+1)\\
+% &\leq \log|T_0| + \tfrac{4}{k-3}\cdot\log|T_0| + k+1
+% \leq \log|T_0| + 4\tfrac{k}{k-3}\tfrac{1}{k}\log|T_0|+k+1\\
+% &\leq \log|T_0| + 4\tfrac{7}{4}\tfrac{1}{k}\log|T_0|+k+1&&\textrm{(as $k\geq7$)}\\
+% &=\log|T_0|+\Oh(k+k^{-1}\log|T_0|)
+% \end{align*}
+% \pnote{I put the whole proof above. Not clear though if it is a good idea to include this inequality on height. Perhaps not. Will think about it.}
 \end{proof}
 
 \begin{lem}\lemlabel{bulktree-height-i}
-Let $T_0,\ldots,T_{y^*}$ be a complete one-phase $k$-bulk tree sequence, and let $r_0=h(T_0)-\log|T_0|$.  Then,
+Let $T_0,\ldots,T_{q}$ be a complete one-phase $k$-bulk tree sequence, and let $r_0=h(T_0)-\log|T_0|$.  Then,
   \begin{compactenum}[(i)]
-    \item $h(T_y)= \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, for each $y\in\{0,\ldots,y^*\}$;
+    \item $h(T_y)= \log|T_y| + \Oh(k^{-1}\log|T_y|) + r_0$, for each $y\in\{0,\ldots,q\}$;
     \label{bulktree-height-item-i}
-    \item $h(T_{y^*}) = \log|T_{y^*}|+\Oh(k+k^{-1}\log|T_{y^*}|)$.\label{bulktree-height-item-ii}
+    \item $h(T_{q}) = \log|T_{q}|+\Oh(k+k^{-1}\log|T_{q}|)$.\label{bulktree-height-item-ii}
   \end{compactenum}
 \end{lem}
 \begin{proof}
 Basically the two items follow from the corresponding two items of \lemref{bulktree-old-B-properties}.
-Let $I_0,\ldots,I_{y^*-1}$ and $D_0,\ldots,D_{y^*-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by 
-rebalancing and then application of $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,y^*-1\}$.  
+Let $I_0,\ldots,I_{q-1}$ and $D_0,\ldots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by 
+rebalancing and then application of $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,q-1\}$.  
 First, recall that by \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$. 
 Iterating this beginning with $T_0$ implies that 
   \begin{equation}
     |T_0|/8^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + 3y, \eqlabel{height-diff}
   \end{equation}
-  for each $y\in\{0,\ldots,y^*\}$. 
+  for each $y\in\{0,\ldots,q\}$. 
 
-\noindent Recalling once more that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$, observe that, for each $y\in\{0,\ldots,y^*\}$,  we have
+\noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
+Note that, for each $y\in\{0,\ldots,q\}$,  we have
 \begin{align}
-y^*
-&\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3y^*}{k-3}+1,
-&\text{(by \eqref{height-diff}, and since $y\leq y^*$)}\nonumber\\
+q
+&\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3q}{k-3}+1,
+&\text{(by \eqref{height-diff}, and since $y\leq q$)}\nonumber\\
 \intertext{and rewriting this yields (using that $k\geq 7$)}
 %&\nonumber\\
-y^*
+q
 &\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
 &\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|).
 \eqlabel{ystar-bound}
-\intertext{The first item of the lemma follows as for each $y\in\{0,\ldots,y^*\}$, we have}
+\intertext{The first item of the lemma follows as for each $y\in\{0,\ldots,q\}$, we have}
 h(T_y) 
 & \le h(T_0) + 3y \nonumber
 &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
 &= \log|T_0| + 3y + r_0  \nonumber\\
 &\le \log |T_y| + 6y + r_0
 &\text{(by \eqref{height-diff})} \nonumber\\
-&\le \log |T_y| + 6y^* + r_0 
-&\text{(since $y\le y^*$)}\nonumber\\
+&\le \log |T_y| + 6q + r_0 
+&\text{(since $y\le q$)}\nonumber\\
 &= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. 
 &\text{(by \eqref{ystar-bound})}\nonumber\\
 \intertext{The second item of the lemma follows from}
-h(T_{y^*}) 
-& \le (k+1)y^*
-&\text{(by \corref{height-y-star})}\nonumber\\
+h(T_{q}) 
+& \le (k+1)q
+&\text{(since the sequence is complete)}\nonumber\\
 &\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)
 %&\text{(by \eqref{y-star-def})}\nonumber\\
 \nonumber\\
 & = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
-& \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{y^*}| + 3y^*) + (k+1)
+& \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{q}| + 3q) + (k+1)
 &\text{(by \eqref{height-diff})}\nonumber\\
-& = \log|T_{y^*}| + \tfrac{4}{k-3}\log|T_{y^*}| + 3\cdot\tfrac{k+1}{k-3}y^* + k+1\nonumber\\
-& = \log|T_{y^*}| + \Oh(k+k^{-1}\log |T_{y^*}|).
+& = \log|T_{q}| + \tfrac{4}{k-3}\log|T_{q}| + 3\cdot\tfrac{k+1}{k-3}q + k+1\nonumber\\
+& = \log|T_{q}| + \Oh(k+k^{-1}\log |T_{q}|).
 &\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by \eqref{ystar-bound})}\nonumber
 \end{align}
 \end{proof}
@@ -765,19 +783,22 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
   For $y\in Y\setminus\{1\}$, 
   \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.  
   
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.  Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part. 
+  %Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
-  In this case \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
+  In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
-  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do:
+  Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
+  Note that by~\eqref{ystar-bound} 
+  we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &= \Oh(k + k^{-1}\log|T_{y_0}|) 
         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
        &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0))) 
         & \text{(by \eqref{height-diff})} \\
-       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*) 
-        & \text{(since $y-y_0 \le y^*$)} \\
+%       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*) 
+%        & \text{(since $y-y_0 \le y^*$)} \\
        &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \eqref{ystar-bound})} \\
        &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
   \end{align*}
@@ -803,6 +824,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$, 
   applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and 
   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
+  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
   
   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
@@ -814,18 +836,18 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   
   The first part $\nu_y^{\textsc{Bal}}(z)$ will serve to move from $\sigma_{T_y}(z)$ to $\sigma_{T'}(z)$.
   Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ in $T_y$ of depth $\theta$. 
-  Thus, when $\theta>h(T_y)$ the operation is vacuous.
-  In this case, $\nu^{\textsc{Bal}}_y(z)$ is defined to be $0$.
-  Assume now that $\theta\leq h(T_y)$.
+  %Thus, when $\theta>h(T_y)$ the operation is vacuous.
+  %In this case, $\nu^{\textsc{Bal}}_y(z)$ is defined to be $0$.
+  %Assume now that $\theta\leq h(T_y)$.
   Recall that the scope of $\textsc{Balance}(x,k)$ is the subtree of $T_y$ rooted at $x$.
   Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$ in $T_y$. 
-  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $1,\gamma(\theta)$. 
+  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$. 
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
   
   Assume now that $d_{T_y}(z) > \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
   Recall that the application of $\textsc{Balance}(x,k)$ identifies first two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
   This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$. 
-  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $1,\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
+  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
 
   Now we are left with the case that $d_{T_y}(z)> \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$. 
@@ -848,7 +870,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$. 
   We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
     \[
-  \nu^{\textsc{Bal}}_y(z) := 1,\gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(x,z')|),\sigma_{\hat{T_0}}(x,z'),\gamma(b),
+  \nu^{\textsc{Bal}}_y(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(x,z')|),\sigma_{\hat{T_0}}(x,z'),\gamma(b),
   \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
   \]
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
@@ -863,15 +885,16 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$. 
   
   The function $B$ is defined as expected:  
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ checks the first bit of $\nu_y(z)$. If it is $0$ then no rebalancing happened, and then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$. 
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$. 
   Note that the bulk insertion operation has no effect on the signature of $z$.
   
-  If the first bit is $1$, the function $B$ then decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are again the same, and $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$ exactly as before. 
-  
-  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case that $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, again as before. 
+  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case that $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before. 
   
   If the bit under consideration was $1$, then this corresponds to the case that $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before. 
 \end{proof}
+
+
+
 
 
 \section{Subgraphs of $P\boxtimes P$}
