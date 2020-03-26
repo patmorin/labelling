@@ -110,7 +110,6 @@ Here we review results most relevant to the current work, namely results on plan
 Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use a similar approach that makes use of the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
 
 A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + \Oh(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  
-%Schnyder's representation of planar graphs in terms of dimension-3 posets \cite{schnyder:planar} also implies a $3\lceil\log n\rceil$-bit labelling scheme for planar graphs. \snote{Piotrek: Really?}
 
 A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth. As is well known, the edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph. 
 %\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.} 
@@ -187,9 +186,8 @@ The remainder of the paper is organized as follows. \Secref{preliminaries} revie
 % 
 % \ldots
 
-% \snote{TODO: Gwen and Piotr's comments.}
 
-% For graph products like $G^+$, there is a natural labelling scheme: Computer a labelling scheme $\alpha:V(H)\to\{0,1\}^*$ for $H$ and a labelling scheme $\beta:V(P)\to\{0,1\}^*$ for $P$ and assign each vertex $v:=(x,y)\in V(G^*)$ the label $\mu(v):=\alpha(x),\beta(y)$.  Given two labels $\ell_1=\alpha(x_1),\beta(y_1)$ and $\ell_2=\alpha(x_2),\beta(y_2)$ for vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ adjacency testing is done using the following formula whose three clauses follow from definition of strong product:
+% For graph products like $G^+$, there is a natural labelling scheme: Compute a labelling scheme $\alpha:V(H)\to\{0,1\}^*$ for $H$ and a labelling scheme $\beta:V(P)\to\{0,1\}^*$ for $P$ and assign each vertex $v:=(x,y)\in V(G^*)$ the label $\mu(v):=\alpha(x),\beta(y)$.  Given two labels $\ell_1=\alpha(x_1),\beta(y_1)$ and $\ell_2=\alpha(x_2),\beta(y_2)$ for vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ adjacency testing is done using the following formula whose three clauses follow from definition of strong product:
 % \[
 %     L(\ell_1,\ell_2):= (\ell_1\neq \ell_2) \wedge \A(\alpha(x_1),\alpha(x_2)) \wedge \A(\beta(y_1),\beta(y_2)) \enspace .
 % \]
@@ -750,7 +748,7 @@ h(T_{y^*})
 \end{proof}
 
 
-The following lemma shows that bulk trees are balanced at all times:
+The following lemma shows that trees in a bulk tree sequence are balanced at all times:
 
 \begin{lem}\lemlabel{bulk-tree-height}
   Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h\}$. 
@@ -789,7 +787,7 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise.
+We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise.
 
 \begin{lem}\lemlabel{node-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
@@ -875,8 +873,6 @@ We now arrive at the \emph{raison d'être} of bulk trees:  For two consecutive t
   If the bit under consideration was $1$, then this corresponds to the case that $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before. 
 \end{proof}
 
-\snote{to do: interface correctly the 'calls' to bulk tree sequences in Sections 4 and 5}
-
 
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
@@ -895,12 +891,13 @@ Before continuing, we show that using the techniques developed thus far, we can 
 \subsection{The Labels}
 
 For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   
-For convenience, let $L^-_0:=\emptyset$. 
-Apply \lemref{chunked-bulk-trees} and \lemref{bulk-tree-height} to obtain a sequence $T_1,\ldots,T_h$ of binary search trees such that
-
+Let $L^-_0:=\emptyset$. 
+Apply \lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|$. 
+Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.  
+By construction and by \lemref{bulk-tree-height}, the following properties are satisfied. 
 \begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
-  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$;
-  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$;
+  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$;
+  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$ for each $y\in\{1,\ldots,h\}$, and
   \item $\sum_{y=1}^h|T_y| \le 8n$.
 \end{enumerate}
 
@@ -1130,26 +1127,19 @@ We now show that the solution presented in \secref{pxp} generalizes to the curre
 
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
 
-For each $y\in\{1,\ldots,h\}$, let $S_y=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  
+For each $y\in\{1,\ldots,h\}$, let $S_y:=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y:=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  
 Note that $|S^-_y|\le (t+1)|S_y|$. 
-For convenience, let $S^-_0:=\emptyset$. 
-For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  By \lemref{bulk-tree-height}, \lemref{chunked-bulk-trees} and  \lemref{node-transitions} there is a bulk tree sequence $T_1,\ldots,T_h$ with parameter $k=\lceil \sqrt{\log n \log \log n}\rceil$ such that 
+Let $S^-_0:=\emptyset$. 
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  
+Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$. 
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k:=\lceil \sqrt{\log n \log \log n}\rceil$. 
+By construction, \lemref{bulk-tree-height}, and \lemref{node-transitions}, the following properties are satisfied. 
 \begin{enumerate}[label={(PR1)}, noitemsep]
   \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
   \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
-  \item $W:=\sum_{y=1}^h |T_y|= O(n)$; and
-  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}(x)}$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
+  \item $W:=\sum_{y=1}^h |T_y|= O(n)$, and
+  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
 \end{enumerate}
-
-% As before, we can use \lemref{row-code} to assign each vertex $v=(x,y)\in V(G)$ a label $\alpha(v)$ of length $\log n - \log|T_y| + o(\log n)$. For any two nodes $v_1=(x_1,y_1)\in V(G)$ and $v_2=(x_2,y_2)$, $\alpha(v_1)$ and $\alpha(v_2)$ are sufficient to determine if $|y_1-y_2|\le 1$ and, if so, the actual value of $y_1-y_2$.
-% 
-% Now, for each $y\in\{1,\ldots,h\}$, $V(T_y)$ stabs $S^-_y\cup S^-_{y-1}$, so we can use $T_y$ to create a labelling scheme $\tau_y:(S^-_y\cup S^-_{y-1})\to\{0,1\}^*$ for the induced graph $H[S^-_y\cup S^-_{y-1}]$ as described in \secref{t-tree-labelling} leading to \lemref{t-tree-labelling} where the labels have length $h(T_y) + o(\log n)=\log|T_y|+o(\log n)$.  
-% 
-% For each $v\in S^-_y$, the label $\tau_y(v)$ has four parts (TC1)--(TC4).  Parts~(TC3) and (TC4) are completely determined by $H$ and $v$ and are independent of $T_y$.  In particular parts (TC3) and (TC4) of $\tau_{y_1}(v)$ and $\tau_{y_2}(v)$ are the same for any $y_1$ and $y_2$ such that $(v,y_1),(v,y_2)\in V(G)$.  
-% 
-% Part~(TC2) of $\tau_y(v)$, however depends very much on the tree $T_y$.  Luckily, Part~(TC2) is small: It has size $o(\log n)$, so the label of $(v,y)$ can include Part~(TC2) for $\tau_{y}(v)$ and $\tau_{y+1}(v)$.
-% 
-% The difficulty comes from Part~(TC1) of $\tau_y(v)$.
 
 The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of $t$-trees, has been introduced shortly after \obsref{unique-id}.
 
