@@ -894,7 +894,8 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any any 
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1=1,\ldots,m$ and $P_2=1,\ldots,h$ are paths. Each vertex of $G$ is a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, see \figref{pxp}.
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.
+Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, and $G$ is just a subgraph of that grid, see \figref{pxp}.
 
 \begin{figure}
   \begin{center}
@@ -907,34 +908,67 @@ Before continuing, we show that using the techniques developed thus far, we can 
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.
+For each $y\in\{1,\ldots,h\}$, we let 
+\begin{align*}
+L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and let}\\
+L^-_y&=\{x-1,x:(x,y)\in V(G)\}.  
+\end{align*}
+Observe that $|L^-_y|\le 2|L_y|$ and $\sum_{y=1}^h |L^-_y|\le 2n$.
 Let $L^-_0:=\emptyset$.
-Apply \lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|$.
-Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.
-By construction and by \lemref{bulk-tree-height}, the following properties are satisfied.
-\begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
-  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$;
-  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$ for each $y\in\{1,\ldots,h\}$, and
-  \item $\sum_{y=1}^h|T_y| \le 8n$.
-\end{enumerate}
 
-By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-1}$, there exists a code $\nu_{y-1}(x)$, $|\nu_{y-1}(x)|=\Oh(k\log h(T_{y-1}))=\Oh(k\log\log n)$ such that $B(\sigma_{T_{y-1}}(x),\nu_{y-1}(x))=\sigma_{T_y}(x)$.
+Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by application 
+of~\lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$.
+Thus for each $y\in\{1,\ldots,h\}$, we have
+\begin{align*}
+V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
+\textstyle\sum_{y=1}^h |V_y|&\le 2\textstyle\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|\leq 8n.
+\end{align*}
+Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$. 
+We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
+By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$ we have
+\[
+h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n).
+\]
 
-Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log n)$.
+%By construction and by \lemref{bulk-tree-height}, the following properties are satisfied.
+%\begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
+%  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$;
+%  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$ for each $y\in\{1,\ldots,h\}$, and
+%  \item $\sum_{y=1}^h|T_y| \le 8n$.
+%\end{enumerate}
+
+\snote{Piotrek: we need a comment on $\log\log h$ below; so $m,h \leq n$, right?}
+
+Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that 
+using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$, 
+we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that 
+$|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log h)$ for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending on the value of $j$ to be $i$, $i+1$, $i-1$, or some other value, respectively.
+
+
+Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that 
+for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}$, 
+there exists a code $\nu_{y}(x)$ with $|\nu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n)$ such that $B(\sigma_{T_{y}}(x),\nu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
 Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:
 \begin{enumerate}[label={(GC\arabic*)}, ref={GC\arabic*}, noitemsep]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$ (where $\delta_T$ is the function  introduced after \obsref{predecessor-encoding});
-  \item $\nu_y(x)$; and
-  \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
+  \item\label{itm:PxP-deltas} $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$ (where $\delta_T$ is the function  introduced after \obsref{predecessor-encoding});
+  \item\label{itm:PxP-nu} $\nu_y(x)$; and
+  \item\label{itm:PXP-array} an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
-The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. For the remaining components, (GC3) has size $\Oh(\log\log n)$, (GC4) has size $\Oh(k\log\log n)$, and (GC5) has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.
+The two major components of this label are $\alpha(y)$ of length $\log n - \log|T_y| + \Oh(\log\log n)$
+and $\sigma_{T_y}(x)$ of length $\log|T_y| + \Oh(k+k^{-1}\log n)$.
+Together they have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. 
+The lengths of the remaining components hide in the lower order term.
+\itemref{itm:PxP-deltas} has size $\Oh(\log\log n)$, \itemref{itm:PxP-nu} has size $\Oh(k\log\log n)$, and \itemref{itm:PXP-array} has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.
 
 \subsection{Adjacency Testing}
 
-Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
+Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $G$ we can test if they are adjacent as follows.
+
+First note that we can decode each block of the label just because $\alpha(\cdot)$ and $\gamma(\cdot)$ are prefix-free. \snote{Piotrek: Hmm. Not really.}
+Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $P_1\boxtimes P_2$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.
 
