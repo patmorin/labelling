@@ -26,7 +26,7 @@
 
 \renewcommand{\SS}{\mathcal{S}}
 
-\newcommand{\Oh}{\mathcal{O}} 
+\newcommand{\Oh}{\mathcal{O}}
 
 
 %Piotreks overloads
@@ -65,7 +65,7 @@
 \maketitle
 
 \begin{abstract}
-  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  These results generalize to bounded genus graphs, apex-minor-free graphs,  bounded-degree graphs from minor closed families, and $k$-planar graphs.
+  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every positive integer $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  These results generalize to a number of other graph classes, including bounded genus graphs, apex-minor-free graphs,  bounded-degree graphs from minor closed families, and $k$-planar graphs.
 \end{abstract}
 \end{titlepage}
 \pagenumbering{roman}
@@ -81,41 +81,41 @@
 % In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\log x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
 A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^*$ such that $|\ell(v)|\le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
-\[  A(\ell(v),\ell(w)) = 
-      \begin{cases} 
+\[  A(\ell(v),\ell(w)) =
+      \begin{cases}
         0 & \text{if $vw\not\in E(G)$;} \\
         1 & \text{if $vw\in E(G)$.}
       \end{cases}
 \]
 
-Let $\log x:=\log_2 x$ denote the binary logarithm of $x$. 
+Let $\log x:=\log_2 x$ denote the binary logarithm of $x$.
 In this paper we prove the following result:
 \begin{thm}\thmlabel{main}
   The family of planar graphs has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
-% We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  
+% We show that there exists an \emph{adjacency labelling scheme} for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.
 
-\thmref{main} is optimal up to the lower order term, 
-which is $\Oh\left(\sqrt{\log n\log\log n}\right)$ in our proof. 
-An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.} 
+\thmref{main} is optimal up to the lower order term,
+which is $\Oh\left(\sqrt{\log n\log\log n}\right)$ in our proof.
+An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.}
 
 \subsection{Previous Work}
 
 The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the complexity of computing $\ell(\cdot)$ as a function of $G$ and
-$A(\cdot,\cdot)$.} and described $\Oh(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}. 
+$A(\cdot,\cdot)$.} and described $\Oh(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}.
 
 Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.  First, a superficial review: Planar graphs have been shown to have $(c+o(1))\log n$-bit adjacency labelling schemes for successive values of $c=6,4,3,2,\tfrac{4}{3}$ and finally \thmref{main} gives the optimal\footnote{It is easy to see that, in any adjacency labelling scheme for any $n$-vertex graph $G$ in which no two vertices have the same neighbourhood, all labels must be distinct, so some label must have length at least $\lceil\log n\rceil$.} result $c=1$.  We now give details of these results.
 
-Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use a similar approach that makes use of the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.  
+Muller's scheme for planar graphs \cite{muller:local} is based on the fact that planar graphs are 5-degenerate.  This scheme orients the edges of the graph so that each vertex has 5 outgoing edges, assigns each vertex $v$ an arbitrary $\lceil\log n\rceil$-bit identifier, and assigns a label to $v$ consisting of $v$'s identifier and the identifiers of the targets of $v$'s outgoing edges.  In this way, each vertex $v$ is assigned a label of length at most $6\lceil\log n\rceil$.  Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit} use a similar approach that makes use of the fact that planar graphs have arboricity 3 (so their edges can be partitioned into three forests \cite{nash-williams:edge-disjoint}) to devise an adjacency labelling scheme for planar graphs whose labels have length at most $4\lceil\log n\rceil$.
 
-A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + \Oh(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.  
+A number of $(1+o(1))\log n$-bit adjacency labelling schemes for forests have been devised \cite{chung:universal, alstrup.rauhe:improved,alstrup.dahlgaard.ea:optimal}, culminating with a recent $(\log n + \Oh(1))$-bit adjacency labelling scheme \cite{alstrup.dahlgaard.ea:optimal} for forests.  Combined with the fact that planar graphs have arboricity 3, these schemes imply $(3+o(1))\log n$-bit adjacency labelling schemes for planar graphs.
 
-A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth. As is well known, the edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph. 
-%\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.} 
+A further improvement, also based on the idea of partitioning the edges of a planar graph into simpler graphs was obtained by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  Generalizing the results for forests, they describe a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex graphs of bounded treewidth. As is well known, the edges of a planar graph can be partitioned into two sets, each of which induces a bounded treewidth graph.
+%\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.}
 This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
 
-Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.  
+Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\ldots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
 
 \begin{figure}[htbp]
@@ -124,22 +124,22 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
   \end{center}
   \caption{The strong product $H\boxtimes P$ of a tree $H$ and a path $P$.}
   \figlabel{product}
-\end{figure}  
+\end{figure}
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
-The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).  
+The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).
 However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
 Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $\Oh(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $\Oh(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $\Oh(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $\Oh(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
 \subsection{New Results}
 
-The adjacency labelling scheme described in the current paper is also based on the product structure theorem for planar graphs, but it avoids cutting the path $P$, and thus avoids boundary vertices that take part in two different labelling schemes.  Instead, it uses a weighted labelling scheme on the rows $H_1,\ldots,H_h$ of $H\boxtimes P$ in which vertices that belong to $H_i$ receive a label of length $(1+o(1))\log n-\log W_i$ where $W_i$ is related to the number of vertices of $G$ contained in $H_i$ and $H_{i-1}$.  The vertices of $G$ in row $i$ participate in a secondary labelling scheme for the subgraph of $G$ contained in $H_i$ and $H_{i-1}$ and the labels in this scheme have length $\log W_i + o(\log n)$. Thus every vertex receives two labels, one of length $(1+o(1))\log n-\log W_i$ and another of length $\log W_i + o(\log n)$ for a total label length of $(1+o(1))\log n$.  
+The adjacency labelling scheme described in the current paper is also based on the product structure theorem for planar graphs, but it avoids cutting the path $P$, and thus avoids boundary vertices that take part in two different labelling schemes.  Instead, it uses a weighted labelling scheme on the rows $H_1,\ldots,H_h$ of $H\boxtimes P$ in which vertices that belong to $H_i$ receive a label of length $(1+o(1))\log n-\log W_i$ where $W_i$ is related to the number of vertices of $G$ contained in $H_i$ and $H_{i-1}$.  The vertices of $G$ in row $i$ participate in a secondary labelling scheme for the subgraph of $G$ contained in $H_i$ and $H_{i-1}$ and the labels in this scheme have length $\log W_i + o(\log n)$. Thus every vertex receives two labels, one of length $(1+o(1))\log n-\log W_i$ and another of length $\log W_i + o(\log n)$ for a total label length of $(1+o(1))\log n$.
 
 The key new technique that allows all of this to work is that the labelling schemes of the rows $H_1,\ldots,H_h$ are not independent.  All of these labelling schemes are based on a single balanced binary search tree $T$ that undergoes insertions and deletions resulting in a sequence of related binary search trees $T_1,\ldots,T_h$ where each $T_i$ represents all vertices of $G$ in $H_{i}$ and $H_{i-1}$ and the label assigned to a vertex of $H_i$ is essentially based on a path from the root of $T_i$ to some vertex of $T_i$.  By carefully maintaining the binary search tree $T$, the trees $T_{i-1}$ and $T_{i}$ are similar enough so that the label for $v$ in $H_i$ can be obtained, with $o(\log n)$ additional bits from the label for $v$ in $H_{i-1}$.
 
-The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex-minor free graphs, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$ \cite{dujmovic.joret.ea:planar,dujmovic.morin.ea:structure}. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, 
-we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.  
+The product structure theorem has been generalized to a number of additional graph families including bounded-genus graphs, apex-minor free graphs, bounded-degree graphs from minor-closed families, $k$-planar graphs, powers of bounded-degree bounded genus graphs, and $k$-nearest neighbour graphs of points in $\R^2$ \cite{dujmovic.joret.ea:planar,dujmovic.morin.ea:structure}. As a side-effect of designing a labelling scheme to work directly on subgraphs of a strong product $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path,
+we obtain $(1+o(1))\log n$-bit labelling schemes for all of these graph families.  All of these results are optimal up to the lower order term.
 
 A graph is \emph{apex} if it has a vertex whose removal leaves a planar graph.
 A graph is \emph{$k$-planar} if it has a drawing in the plane in which
@@ -153,12 +153,12 @@ Note that already $1$-planar graphs are not minor closed.
 The generalization of \thmref{main} provided by known product structure theorems is summarized in the following result:
 
 \begin{thm}\thmlabel{main-all}
-  For every fixed integer $t\geq 1$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth $t$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme. 
-  This includes in particular the following graph classes: 
+  For every fixed integer $t\geq 1$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some graph $H$ of treewidth $t$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
+  This includes the following graph classes:
   \begin{compactenum}
-    \item graphs of bounded genus and more generally apex-minor free graphs;
+    \item graphs of bounded genus and, more generally, apex-minor free graphs;
     \item bounded degree graphs that exclude a fixed graph as a minor; and
-    \item $k$-planar graphs and more generally $(g,k)$-planar graphs.
+    \item $k$-planar graphs and, more generally, $(g,k)$-planar graphs.
   \end{compactenum}
 \end{thm}
 
@@ -172,18 +172,18 @@ The case of graphs of bounded degree from minor-closed classes (point~2 in \thmr
 The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  \Secref{conclusion} concludes with a discussion of the computational complexity of assigning labels and testing adjacency and presents directions for future work.
 
 % \subsection{Proof Overview}
-% 
+%
 % Like Bonamy \etal\ \cite{bonamy.gavoille.ea:shorter}.  Our starting point is a recent result that characterizes planar graphs in terms of the strong product of two simpler graphs.  The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two vertices $v_1:=(x_1,y_1)$ and $v_2:=(x_2,y_2)$ are adjacent if and only if:
 % \begin{enumerate}
 %   \item  $v_1\neq v_2$; and
 %   \item $x_1=x_2$ or $x_1x_2\in E(A)$; and
 %   \item $y_1=y_2$ or $y_1y_2\in E(B)$.
 % \end{enumerate}
-% 
+%
 % \begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]
 %   Every planar graph $G$ is the subgraph of a strong product $G^+:=H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 % \end{thm}
-% 
+%
 % \ldots
 
 
@@ -191,7 +191,7 @@ The remainder of the paper is organized as follows. \Secref{preliminaries} revie
 % \[
 %     L(\ell_1,\ell_2):= (\ell_1\neq \ell_2) \wedge \A(\alpha(x_1),\alpha(x_2)) \wedge \A(\beta(y_1),\beta(y_2)) \enspace .
 % \]
-% 
+%
 % \ldots
 
 
@@ -199,15 +199,15 @@ The remainder of the paper is organized as follows. \Secref{preliminaries} revie
 \section{Preliminaries}
 \seclabel{preliminaries}
 
-All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$. 
-For convenience, we let $\log x := \log\max\{1,x\}$. 
+All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
+\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
 
 For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
 \subsection{Prefix-Free Codes}
 
-For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$. 
-%We denote the empty string by $\varepsilon$. 
+For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$.
+%We denote the empty string by $\varepsilon$.
 A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
 %Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
@@ -224,9 +224,9 @@ A \emph{binary tree} $T$ is a rooted tree in which each node except the root is 
 
 A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching to each node $x$ of $T$ $2-c_x$ leaves where $c_x$ is the number of children of $x$.  We call the leaves of $T^+$ the \emph{external nodes} of $T$.  (Note that these external nodes are not actually in $T$.)
 
-A node $a$ in $T$ is a \emph{$T$-ancestor} of a node $x$ in $T$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that a node is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.  
+A node $a$ in $T$ is a \emph{$T$-ancestor} of a node $x$ in $T$ if $a\in V(P_T(x))$. If $a$ is a $T$-ancestor of $x$ then $x$ is a \emph{$T$-descendant} of $a$. (Note that a node is a $T$-ancestor and $T$-descendant of itself.)  For a subset of nodes $X\subseteq V(T)$, the \emph{lowest common $T$-ancestor} of $X$ is the maximum-depth node $a\in V(T)$ such that $a$ is a $T$-ancestor of $x$ for each $x\in X$.
 
-Let $P_T(x_r)=x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$. 
+Let $P_T(x_r)=x_0,\ldots,x_{r}$ be a path from the root $x_0$ of $T$ to some node $x_r$ (possibly $r=0$).  Then the \emph{signature} of $x_r$ in $T$, denoted $\sigma_T(x_r)$ is a binary string $b_1,\ldots,b_r$ where $b_i=0$ if and only if $x_{i}$ is the left child of $x_{i-1}$.
 Note that the signature of the root of $T$ is the empty string.
 
 A \emph{binary search tree} $T$ is a binary tree whose node set $V(T)$ consists of distinct real numbers and that has the \emph{binary search tree property}:  For each node $x$ in $T$, $z<x$ for each node $z$ in $x$'s left subtree and $z>x$ for each node $z$ in $x$'s right subtree. For any $x\in\R\setminus V(T)$, the \emph{search path} $P_T(x)$ in $T$ is the unique root-to-leaf path $v_0,\ldots,v_r$ in $T^+$ such that adding $x$ as a (left or right, as appropriate) child of $v_{r-1}$ in $T$ would result in a binary search tree $T'$ with $V(T')=V(T)\cup\{x\}$.
@@ -246,14 +246,14 @@ Let $\R^+$ denote the set of positive real numbers. The following is a folklore 
 \begin{proof}
   The proof is by induction on $|S|$. The base case $|S|=0$ is vacuously true.
   For any $x\in\R$, let $S_{<x}:=\{y\in S: y < x\}$ and $S_{>x}:=\{y\in S: y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
-  
-  Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$, 
-  \[ 
-    d_T(y) \le 1 + \log\left(\frac{\sum_{z\in S_{<y_0}}w(z)}{w(y)}\right) 
-            \le 1 + \log \left(\frac{W/2}{w(y)}\right) 
-            = \log \left(\frac{W}{w(y)}\right) , 
+
+  Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$,
+  \[
+    d_T(y) \le 1 + \log\left(\frac{\sum_{z\in S_{<y_0}}w(z)}{w(y)}\right)
+            \le 1 + \log \left(\frac{W/2}{w(y)}\right)
+            = \log \left(\frac{W}{w(y)}\right) ,
   \]
-  and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.  
+  and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.
 \end{proof}
 
 The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}, see \figref{sigma-minus-one}:
@@ -275,18 +275,18 @@ The following fact about binary search trees is useful, for example, in the dele
 \end{obs}
 
 \obsref{predecessor-encoding} leads to the following definition. For a binary search tree $T$ and an integer $i$ such that $V(T)$ contains $i-1$ and $i$, we define $\delta_T(i)$ as
-a single bit indicating whether $i$ has a left-child in $T$ and, in case $i$ does have a left-child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. \obsref{predecessor-encoding} implies that $\sigma_T(i)$ and $\delta_T(i)$ are enough to recover $\sigma_T(i-1)$.
+a single bit indicating whether $i$ has a left child in $T$ and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. \obsref{predecessor-encoding} implies that $\sigma_T(i)$ and $\delta_T(i)$ are enough to recover $\sigma_T(i-1)$.
 
 \smallskip
 
 Putting some of the preceding results together we obtain the following useful coding result.
 
 \begin{lem}\lemlabel{row-code}
-  There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that 
+  There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that
   \begin{compactenum}
     \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$;
-    \item for any $i,j\in\{1,\ldots,h\}$, 
-    \[   A(\alpha(i),\alpha(j)) 
+    \item for any $i,j\in\{1,\ldots,h\}$,
+    \[   A(\alpha(i),\alpha(j))
     = \begin{cases}
        0 & \text{if $j=i$;}\\
        1 & \text{if $j=i+1$;} \\
@@ -300,8 +300,8 @@ Putting some of the preceding results together we obtain the following useful co
 
 \begin{proof}
   Define $w':\{1,\ldots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
-  Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\ldots,h\}$ using $w'$ so that 
-  \[   
+  Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\ldots,h\}$ using $w'$ so that
+  \[
     d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1
   \]
   and
@@ -310,25 +310,25 @@ Putting some of the preceding results together we obtain the following useful co
   \]
   for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path $P_T(i)$ from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part, $\delta_T(i)$, is defined after \obsref{predecessor-encoding}. 
-  The length of $\delta_T(i)$ is at most $1+\log h(T)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path $P_T(i)$ from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part, $\delta_T(i)$, is defined after \obsref{predecessor-encoding}.
+  The length of $\delta_T(i)$ is at most $1+\log h(T)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two distinct sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits. 
-   The function $A$ extracts the values and lexicographically compare $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$. 
-   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta_T(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.  
+  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits.
+   The function $A$ extracts the values and lexicographically compares $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$.
+   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta_T(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.
    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
 \subsection{Chunked Sets and Fractional Cascading}
 
-For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$. 
+For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$.  A sequence $V_1,\dots,V_h\subset\R$ is \emph{$a$-chunking} if $S_y$ $a$-chunks $S_{y+1}$ and $S_{y+1}$ $a$-chunks $S_y$ for each $y\in\{0,\ldots,h-1\}$.
 
 \begin{lem}\lemlabel{fractional}
-  For any finite sets $S_1,\ldots,S_h\subset\R$, there exist sets $V_0,\ldots,V_{h+1}$ such that
+  For any finite sets $S_1,\ldots,S_h\subset\R$, there exist sets $V_1,\ldots,V_{h}\subset\R$ such that
   \begin{compactenum}
     \item for each $y\in\{1,\ldots,h\}$, $V_y\supseteq S_y$;
-    \item for each $y\in\{1,\ldots,h\}$, $V_{y-1}$ 3-chunks $V_y$ and $V_{y+1}$ 3-chunks $V_y$;
+    \item $V_1,\ldots,V_h$ is $3$-chunking;
     \item $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |S_y|$.
   \end{compactenum}
 \end{lem}
@@ -349,13 +349,13 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
   Every planar graph $G$ is a subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
 \end{thm}
 
-\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.  
+\thmref{product-structure} can be generalized (replacing $8$ with a larger constant) to bounded genus graphs, and more generally to apex-minor free graphs.
 
 
 %\begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]\thmlabel{product-structure-apex-minor-free}
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
-Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs, 
+Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs,
 %map graphs, Piotrek: I even dont know what are map graphs :)
 powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{dujmovic.esperet.ea:clustered} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.  This is summarized in the following theorem:
 
@@ -364,15 +364,15 @@ powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of poin
 strong product $H\boxtimes P$ where $P$ is a path and $H$ is a graph of bounded
 treewidth:
 
-   \begin{itemize}
-   \item graphs of bounded genus and more generally apex-minor free graphs;%\cite{dujmovic.joret.ea:planar};
+   \begin{compactitem}
+   \item graphs of bounded genus and, more generally, apex-minor free graphs;%\cite{dujmovic.joret.ea:planar};
    %\footnote{A
 %graph is an \emph{apex} if it has a vertex whose removal leaves a planar
 %graph.} Piotrek: definition of apex is already somewhere before
      \item bounded degree graphs that exclude a fixed graph as
 a minor;% \cite{dujmovic.esperet.ea:clustered};
-   \item $k$-planar graphs and more generally $(g,k)$-planar graphs. %\cite{dujmovic.morin.ea:structure}.
-   \end{itemize}
+   \item $k$-planar graphs and, more generally, $(g,k)$-planar graphs. %\cite{dujmovic.morin.ea:structure}.
+ \end{compactitem}
    %Piotrek: I commented out citations. I think we give a precise description of all the contributions.
 \end{thm}
 
@@ -380,27 +380,27 @@ a minor;% \cite{dujmovic.esperet.ea:clustered};
 
 %Our main result, which is a $(1+o(1))\log n$-bit adjacency labelling scheme for $n$-vertex subgraphs of $H\boxtimes P$, where $H$ has bounded treewidth and $P$ is a path, holds for all these classes of graphs.
 
-%The case of graphs of bounded degree from minor-closed classes is particularly interesting, 
+%The case of graphs of bounded degree from minor-closed classes is particularly interesting,
 %since the best known bound for adjacency labelling schemes in planar graphs of bounded degree was the same as for general planar graphs, i.e.\ $(4/3+o(1))\log n$. On the other hand, our main result implies an asymptotically optimal bound of $(1+o(1))\log n$ for graphs of bounded degree from any proper minor-closed class.
 % Piotrek: Given that we put a whole thm in this section about the product thms, I find this paragraph to be too much now.
 
 \section{Bulk Trees}
 \seclabel{bulk-trees}
 
-Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$. 
+Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$.
 A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term. The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
-This way, we can determine if two vertices $(v,i)$ and $(w,i)$ in the same row are adjacent. 
-The key problem that we face here though are queries of the type $(v,i)$ and $(w,i+1)$: We would like to determine adjacency on the $H$-coordinate using $T_i$ or $T_{i+1}$. 
-We could extend the node set of $T_{i+1}$ by adding all vertices from $H_{i}$. This way we know that both $v$ and $w$ are included in $T_{i+1}$. 
+This way, we can determine if two vertices $(v,i)$ and $(w,i)$ in the same row are adjacent.
+The key problem that we face here though are queries of the type $(v,i)$ and $(w,i+1)$: We would like to determine adjacency on the $H$-coordinate using $T_i$ or $T_{i+1}$.
+We could extend the node set of $T_{i+1}$ by adding all vertices from $H_{i}$. This way we know that both $v$ and $w$ are included in $T_{i+1}$.
 However, we still have a major issue: the label of $(v,i)$ describes the position of $v$ in $T_i$ but not in $T_{i+1}$.
-In this setup, in order to determine if $v$ and $w$ are adjacent in $H$ we need to know their respective positions in the same binary search tree. 
-However, there is in principle no relation between the position of $v$ in $T_i$ and its position in $T_{i+1}$. 
+In this setup, in order to determine if $v$ and $w$ are adjacent in $H$ we need to know their respective positions in the same binary search tree.
+However, there is in principle no relation between the position of $v$ in $T_i$ and its position in $T_{i+1}$.
 To circumvent this difficulty, we build the binary search trees $T_1,\ldots,T_h$ one by one, starting with a balanced binary search tree, in such a way that $T_{i+1}$ is obtained from $T_i$ by performing small local changes. By storing some small extra information related to these local changes in the label of $(v,i)$, this will allow us to obtain the position of $v$ in $T_{i+1}$.
 Finally, we also need to guarantee that the binary search trees in our sequence are balanced so that the labels are of length $\log|T_i|$ plus a lower-order term.
 
-In this section, we introduce three operations on a binary search tree that will allow us to carry out this plan. 
-These operations are called \emph{bulk insertion}, \emph{bulk deletion}, and \emph{rebalancing}. 
-Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in our sequence $T_1, \dots, T_h$ will be obtained from $T_{i-1}$ by applying these three operations. 
+In this section, we introduce three operations on a binary search tree that will allow us to carry out this plan.
+These operations are called \emph{bulk insertion}, \emph{bulk deletion}, and \emph{rebalancing}.
+Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in our sequence $T_1, \dots, T_h$ will be obtained from $T_{i-1}$ by applying these three operations.
 
 
 %%% Old beginning of section
@@ -409,32 +409,30 @@ Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in 
 
 \subsection{Bulk Insertion}
 
-The bulk insertion operation, $\textsc{BulkInsert}(I)$, 
-in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$. 
-For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$. 
-For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$. 
-The resulting tree is the outcome of the operation. 
+The bulk insertion operation, $\textsc{BulkInsert}(I)$,
+in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\ldots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\ldots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$.
+For each $i\in\{0,\ldots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$.
+For each $i\in\{1,\ldots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
+The resulting tree is the outcome of the operation.
 
 \begin{lem}\lemlabel{insertion-depth}
-  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
-  $V(T)$ $3$-chunks $I$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}  
+  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that
+  $V(T)$ $3$-chunks $I$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}
   Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
   %Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
   Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
 \begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  That $h(T')\le h(T)+2$ comes from the fact that, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$. 
-  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  
-  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
+  That $T'$ is a supergraph of $T$ is obvious.  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  Therefore, $h(T')\le h(T)+2$ since, for each $i\in\{0,\ldots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$.  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\ldots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
 \end{proof}
 
 \begin{lem}\lemlabel{insertion-size}
-  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that 
+  Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that
   $V(T)$ $3$-chunks $I$.
   Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
 %  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
-  Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$. 
+  Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.
   Then $|T_x'|\le 8|T_x|$.
 \end{lem}
 
@@ -449,22 +447,22 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
 
 
 \begin{lem}\lemlabel{deletion-signature}
-  Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$. 
-  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$. 
+  Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$.
+  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$.
   Then, for any node $x$ in $T'$, $\sigma_{T'}(x)$ is a prefix of $\sigma_T(x)$.
   In particular, $h(T')\leq h(T)$.
 \end{lem}
 
 \begin{proof}
-  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any node $x$ in $T'$.  For any node $z$ in $T'$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.  
+  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any node $x$ in $T'$.  For any node $z$ in $T'$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.
   % Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
 \end{proof}
 
 \begin{lem}\lemlabel{deletion-size}
   Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$ such that $V(T)\setminus D$ $3$-chunks $D$.
-  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$. 
-%  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$. 
-  Then $|T'|\ge |T|/8$. 
+  Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$.
+%  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$.
+  Then $|T'|\ge |T|/8$.
 \end{lem}
 
 \begin{proof}
@@ -473,7 +471,7 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
 
 \subsection{Rebalancing}
 
-The rebalancing operation on a binary search tree $T$ uses several subroutines that we now discuss, beginning with the most fundamental one:  $\textsc{Split}(x)$. 
+The rebalancing operation on a binary search tree $T$ uses several subroutines that we now discuss, beginning with the most fundamental one:  $\textsc{Split}(x)$.
 
 \subsubsection{$\textsc{Split}(x)$}
 
@@ -492,18 +490,18 @@ a_1 < \cdots < a_s < x < b_t < \cdots < b_1.
   \figlabel{split}
 \end{figure}
 
-Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\ldots,a_s$ as the left subtree of $x$ and the path $b_1,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$. 
+Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\ldots,a_s$ as the left subtree of $x$ and the path $b_1,\ldots,b_t$ as the right subtree of $x$.  Note that $a_{i+1}$ is the right child of $a_i$ for each $i\in\{1,\ldots,s-1\}$ and $b_{i+1}$ is the left child of $b_i$ for each $i\in\{1,\ldots,t-1\}$.
 
 Next, consider the forest $F:=T-\{x_0,\ldots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\ldots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ in $T_x$ and, for each $i\in\{1,\ldots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$ (if such a child exists, otherwise $A_i$ is empty).  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$ in $T_x$.
 
 \begin{lem}\lemlabel{split-height}
-  Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Split}(x)$ to obtain $T_{<x}$ and $T_{>x}$.  
+  Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Split}(x)$ to obtain $T_{<x}$ and $T_{>x}$.
   Then $h(T_{<x})\le h(T)$ and $h(T_{>x})\le h(T)$.
 \end{lem}
 
 \begin{proof}
-  Note that for each node $z$ of $T_{<x}$, we have $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$, 
-  so $d_{T_{<x}}(z)\le d_T(z)$. 
+  Note that for each node $z$ of $T_{<x}$, we have $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$,
+  so $d_{T_{<x}}(z)\le d_T(z)$.
   Therefore $h(T_{<x})\le h(T)$. The argument for $T_{>x}$ is symmetric.
 \end{proof}
 
@@ -514,12 +512,12 @@ The following observation shows that there is a simple relationship between a no
   \begin{compactenum}
     \item for each $j\in\{1,\ldots,s\}$ where $a_j=x_i$
     \begin{compactenum}
-      \item $\sigma_{T_{<x}}(a_j)=1^{j-1}$, and 
+      \item $\sigma_{T_{<x}}(a_j)=1^{j-1}$, and
       \item $\sigma_{T_{<x}}(z) = 1^{j-1},0,\sigma_{A_i}(z)$ for each $z\in V(A_i)$;
     \end{compactenum}
     \item for each $j\in\{1,\ldots,t\}$ where $b_j=x_i$
     \begin{compactenum}
-      \item $\sigma_{T_{>x}}(b_j)=0^{j-1}$, and 
+      \item $\sigma_{T_{>x}}(b_j)=0^{j-1}$, and
       \item $\sigma_{T_{>x}}(z) = 0^{j-1},1,\sigma_{A_i}(z)$ for each $z\in V(A_i)$;
     \end{compactenum}
     \item $\sigma_{T_{<x}}(z)=1^s,\sigma_L(z)$ for each $z\in V(L)$; and
@@ -534,15 +532,15 @@ From the $\textsc{Split}(x)$ operation we build the $\textsc{MultiSplit}(x_1,\ld
 
 The implementation of $\textsc{MultiSplit}(x_1,\ldots,x_c)$ is straightforward divide-and-conquer:  If $c=0$, then there is nothing to do.  Otherwise, call $\textsc{Split}(x_{\lceil c/2\rceil})$ to obtain $T_{<x_{\lceil c/2\rceil}}$ and $T_{>x_{\lceil c/2\rceil}}$.  Next, apply $\textsc{MultiSplit}(x_1,\ldots,x_{\lceil c/2\rceil-1})$ to $T_{<x_{\lceil c/2\rceil}}$ to obtain $T_0,\ldots,T_{\lceil c/2\rceil-1}$ and then apply $\textsc{MultiSplit}(x_{\lceil c/2\rceil+1},\ldots,x_c)$ to $T_{>x_{\lceil c/2\rceil}}$ to obtain $T_{\lceil c/2\rceil},\ldots,T_c$.
 
-The following lemma is immediate from \lemref{split-height}. 
+The following lemma is immediate from \lemref{split-height}.
 \begin{lem}\lemlabel{multisplit-height}
   Let $T$ be any binary search tree and apply $\textsc{MultiSplit}(x_1,\ldots,x_c)$ to $T$ to obtain $T_0,\ldots,T_c$.  Then $h(T_i)\le h(T)$ for each $i\in\{0,\ldots,c\}$.
 \end{lem}
 
 \subsubsection{$\textsc{Balance}(x,k)$}
 
-The $\textsc{Balance}(x,k)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x$ in $T$. 
-The goal of this operation is to balance the size of all the subtrees rooted at nodes of depth $d_T(x)+k+1$ and contained in $T_x$. 
+The $\textsc{Balance}(x,k)$ operation operates on the subtree $T_x$ of $T$ rooted at some node $x$ in $T$.
+The goal of this operation is to balance the size of all the subtrees rooted at nodes of depth $d_T(x)+k+1$ and contained in $T_x$.
 Refer to \figref{balance-x}.
 
 \begin{figure}
@@ -550,7 +548,7 @@ Refer to \figref{balance-x}.
       \includegraphics{figs/balance-x-1} \\[-2ex]
       $\Downarrow$ \\[1ex]
       \includegraphics{figs/balance-x-2}
-    \end{center}  
+    \end{center}
   \caption{The operation of $\textsc{Balance}(x,k)$}
   \figlabel{balance-x}
 \end{figure}
@@ -565,14 +563,14 @@ For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_
 
 Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{0,\ldots,p\}$, let $i_\ell:=|Z\cap \{s_1,\ldots,s_\ell\}|$ and $j_\ell:= \ell - \max\{ q\in\{1,\ldots,\ell\}: s_q\in Z\}$ and let $A_\ell:=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{0,\ldots,p\}$ and each $x'\in V(A_\ell)$, we have $s_\ell < x' < s_{\ell+1}$.
 
-Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain a new tree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$ in $\hat{T}_0$.  In the bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
+Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\ldots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\ldots,a_p$.  We obtain a new tree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\ldots,p\}$ in $\hat{T}_0^+$.  In the encompassing bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
 \begin{lem}\lemlabel{multisplit-depth}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x,k)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{proof}
-  Since $\textsc{Balance}(x,k)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.  
+  Since $\textsc{Balance}(x,k)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\ldots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\ldots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\ldots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\ldots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.
 \end{proof}
 
 The following statement captures what we win after an application of $\textsc{Balance}(x,k)$ to a binary search tree.
@@ -588,8 +586,8 @@ The following statement captures what we win after an application of $\textsc{Ba
 \subsubsection{$\textsc{BulkBalance}(\theta,k)$}
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta,k)$.
-It calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$ in $T$. 
-(Note that this operation is vacuous if there is no such node.) 
+It calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$ in $T$.
+(Note that this operation has no effect if there is no such node.)
 %Note that this operation is well defined, since $\textsc{Balance}(x,k)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta,k)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
 
@@ -598,9 +596,9 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
 \end{lem}
 
 \begin{lem}\lemlabel{balance-weight}
-  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta,k)$ operation to obtain a new tree $T'$.  
-  Let $x$ be any node of $T$ of depth $\theta$ and let $T_x$ be the subtree of $T$ rooted at $x$.   
-  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=\theta+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$. 
+  Let $T$ be any binary search tree and apply the $\textsc{BulkBalance}(\theta,k)$ operation to obtain a new tree $T'$.
+  Let $x$ be any node of $T$ of depth $\theta$ and let $T_x$ be the subtree of $T$ rooted at $x$.
+  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z)=\theta+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.
 \end{lem}
 
 
@@ -609,38 +607,34 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
 
 \pnote{Piotrek: We still have some annoying references across proofs, see (1) and (2) in the proof of Lemma 15.}
 
-
-A sequence $S_0,\dots,S_q$ is \emph{$3$-chunking} if $S_y$ $3$-chunks $S_{y+1}$ and $S_{y+1}$ $3$-chunks $S_y$ for each $y\in\{0,\ldots,q-1\}$.
-
-Given an integer $k\ge 7$\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and a $3$-chunking sequence $S_0,\ldots,S_q$,
+Let $k\ge 7$ be an integer\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and let $S_0,\ldots,S_q$ be a $3$-chunking sequence.
 %with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$,
-we define a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\ldots,S_q$ to be
-a sequence $T_0, \dots, T_{q}$ of binary search trees with $T_0$ an arbitrary binary search tree on node set $S_0$, and  for each $y\in \{0, \dots, q-1\}$, we have $h(T_y)>y\cdot(k+1)$ and 
-the tree $T_{y+1}$ is obtained from $T_y$ by applying 
+We define a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\ldots,S_q$ to be a sequence $T_0, \dots, T_{q}$ of binary search trees with $T_0$ an arbitrary binary search tree on node set $S_0$ and,  for each $y\in \{0, \dots, q-1\}$, we have $h(T_y)>y\cdot(k+1)$ and
+the tree $T_{y+1}$ is obtained from $T_y$ by applying
 \begin{enumerate}[label={(\roman*)}, ref={\roman*}, noitemsep]
     \item $\textsc{BulkBalance}(y\cdot(k+1),k)$, then
     \item $\textsc{BulkInsert}(I)$ with $I:=S_{y+1} \setminus S_{y}$, and finally
     \item $\textsc{BulkDelete}(D)$ with $D:=S_{y} \setminus S_{y+1}$.
 \end{enumerate}
-Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$. 
+Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$.
 The sequence is \emph{complete} if $h(T_q)\leq q\cdot(k+1)$.
 %$q=y^*$.
 
 For $k\geq 7$ and a $3$-chunking sequence $S_1,\ldots,S_h$, we define
-a \emph{$k$-bulk tree sequence} based on $S_1,\ldots,S_h$ to be a sequence $T_1, \dots, T_h$ of binary search trees satisfying: 
-$T_1$ is a perfectly balanced binary search tree with $V(T_1)=S_1$, and 
+a \emph{$k$-bulk tree sequence} based on $S_1,\ldots,S_h$ to be a sequence $T_1, \dots, T_h$ of binary search trees satisfying:
+$T_1$ is a perfectly balanced binary search tree with $V(T_1)=S_1$, and
 there exist indices $h_1,h_2,\ldots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\ell} = h$  such that $T_{h_j},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence based on $S_{h_j},\ldots,S_{h_{j+1}}$
-for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},\ldots,S_{h_{\ell}}$. 
+for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},\ldots,S_{h_{\ell}}$.
 
 
 This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
 \begin{lem}\lemlabel{bulktree-old-B-properties}
-Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence. 
-Then, for each $y\in\{0,\ldots,q\}$ 
+Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence.
+Then, for each $y\in\{0,\ldots,q\}$
 \begin{compactenum}[(i)]
 \item $h(T_y)\le h(T_0) + 3y$;\label{lemma-item-B1}
-\item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most 
+\item each subtree of $T_y$ rooted at a node of depth $y(k+1)$ has size at most
 %$|T_0|\cdot\left(7/2^k\right)^{y}$.\label{lemma-item-B2}
 $|T_0|\cdot2^{-y(k-3)}$.\label{lemma-item-B2}
 \end{compactenum}
@@ -648,11 +642,11 @@ $|T_0|\cdot2^{-y(k-3)}$.\label{lemma-item-B2}
 \begin{proof}
 The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \itemref{lemma-item-B1} asserts that $h(T_0)\le h(T_0)$ and \itemref{lemma-item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
-  For the inductive step, assume $y+1\ge 0$ and \itemref{lemma-item-B1} holds for $T_{y}$. 
-  In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$. 
-  By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$. 
-  Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$. 
-  Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$. 
+  For the inductive step, assume $y+1\ge 0$ and \itemref{lemma-item-B1} holds for $T_{y}$.
+  In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$.
+  By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$.
+  Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$.
+  Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$.
   Next we apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$.
   Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+2$.
   Finally, we apply $\textsc{BulkDelete}(D)$ to $T''$ and obtain $T_{y+1}$, where $D:=V(T_{y})\setminus V(T_{y+1})$.
@@ -663,15 +657,15 @@ The proof is by induction on $y$.  For the base case $y=0$, both properties are 
   \]
   Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
 
-    Next we establish \itemref{lemma-item-B2}. 
-    Assume that \itemref{lemma-item-B2} holds for $T_{y}$. 
-    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k+3)}$.  
-    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k+3)}\cdot 1/2^k$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.  
+    Next we establish \itemref{lemma-item-B2}.
+    Assume that \itemref{lemma-item-B2} holds for $T_{y}$.
+    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k+3)}$.
+    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k+3)}\cdot 1/2^k$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.
     By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k+3)}\cdot 8/2^k$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k+3)}$, as desired.
 \end{proof}
 
 \begin{cor}\corlabel{height-y-star}
-Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence. 
+Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence.
 Then,
 \[
 q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
@@ -681,11 +675,11 @@ q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
 %\]
 \end{cor}
 \begin{proof}
-%Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$. 
-Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$. 
+%Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
+Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
 Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
 \[
-\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3) 
+\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3)
 \leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
 \leq0.
 \]
@@ -696,7 +690,7 @@ Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at mos
 and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
 %%% OLD MATERIAL TO BE DELETED
 % \begin{align*}
-% h(T_q) &\leq q\cdot(k+1) 
+% h(T_q) &\leq q\cdot(k+1)
 % \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil \cdot (k+1)
 % \leq \left(\tfrac{\log|T_0|}{k-3}+1\right) \cdot (k+1)\\
 % &\leq \log|T_0| + \tfrac{4}{k-3}\cdot\log|T_0| + k+1
@@ -717,14 +711,14 @@ Let $T_0,\ldots,T_{q}$ be a complete one-phase $k$-bulk tree sequence, and let $
 \end{lem}
 \begin{proof}
 Basically the two items follow from the corresponding two items of \lemref{bulktree-old-B-properties}.
-Let $I_0,\ldots,I_{q-1}$ and $D_0,\ldots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by 
-rebalancing and then application of $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,q-1\}$.  
-First, recall that by \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$. 
-Iterating this beginning with $T_0$ implies that 
+Let $I_0,\ldots,I_{q-1}$ and $D_0,\ldots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
+rebalancing and then application of $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,q-1\}$.
+First, recall that by \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$.
+Iterating this beginning with $T_0$ implies that
   \begin{equation}
     |T_0|/8^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + 3y, \eqlabel{height-diff}
   \end{equation}
-  for each $y\in\{0,\ldots,q\}$. 
+  for each $y\in\{0,\ldots,q\}$.
 
 \noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
 Note that, for each $y\in\{0,\ldots,q\}$,  we have
@@ -739,18 +733,18 @@ q
 &\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|).
 \eqlabel{ystar-bound}
 \intertext{The first item of the lemma follows as for each $y\in\{0,\ldots,q\}$, we have}
-h(T_y) 
+h(T_y)
 & \le h(T_0) + 3y \nonumber
 &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
 &= \log|T_0| + 3y + r_0  \nonumber\\
 &\le \log |T_y| + 6y + r_0
 &\text{(by \eqref{height-diff})} \nonumber\\
-&\le \log |T_y| + 6q + r_0 
+&\le \log |T_y| + 6q + r_0
 &\text{(since $y\le q$)}\nonumber\\
-&= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0. 
+&= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0.
 &\text{(by \eqref{ystar-bound})}\nonumber\\
 \intertext{The second item of the lemma follows from}
-h(T_{q}) 
+h(T_{q})
 & \le (k+1)q
 &\text{(since the sequence is complete)}\nonumber\\
 &\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)
@@ -769,7 +763,7 @@ h(T_{q})
 The following lemma shows that trees in a bulk tree sequence are balanced at all times:
 
 \begin{lem}\lemlabel{bulk-tree-height}
-  Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h\}$. 
+  Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h\}$.
   Then
 \[
 h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
@@ -778,26 +772,26 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 
 \begin{proof}
   By the definition of a $k$-bulk tree sequence, $T_1$ is a perfectly balanced binary tree so $h(T_1)=\lceil\log|T_1|\rceil$ and the statement is satisfied for $y=1$.
-  Let $h_1,h_2,\ldots,h_{\ell}$ be indices with $1=h_1 < h_2 < \cdots <h_{\ell} = h$ such that $T_{h_j},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a one-phase $k$-bulk tree sequence. 
-  Let $Y:= \{h_1,h_2,\ldots,h_{\ell-1}\}$. 
-  For $y\in Y\setminus\{1\}$, 
-  \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.  
-  
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part. 
+  Let $h_1,h_2,\ldots,h_{\ell}$ be indices with $1=h_1 < h_2 < \cdots <h_{\ell} = h$ such that $T_{h_j},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a one-phase $k$-bulk tree sequence.
+  Let $Y:= \{h_1,h_2,\ldots,h_{\ell-1}\}$.
+  For $y\in Y\setminus\{1\}$,
+  \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.
+
+  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\ldots,h\}\setminus Y$. To show this, let $y_0=\max\{ y'\in Y: y'<y\}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.
   %Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e.\ $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
   In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
-  \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]  
+  \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
-  Note that by~\eqref{ystar-bound} 
+  Note that by~\eqref{ystar-bound}
   we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
-       &= \Oh(k + k^{-1}\log|T_{y_0}|) 
+       &= \Oh(k + k^{-1}\log|T_{y_0}|)
         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
-       &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0))) 
+       &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0)))
         & \text{(by \eqref{height-diff})} \\
-%       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*) 
+%       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*)
 %        & \text{(since $y-y_0 \le y^*$)} \\
        &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \eqref{ystar-bound})} \\
        &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
@@ -811,63 +805,63 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise.
 
 \begin{lem}\lemlabel{node-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.  
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
-\snote{Piotrek: define $\sigma_T(x,z)$}
+Before continuing, we extend the $\sigma$ notation slightly so that for any any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z)=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
 
 \snote{signature of external nodes?}
 
 \begin{proof}
   Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h-1\}$. Let $I:=V(T_{y+1})\setminus V(T_y)$ and $D:=V(T_y) \setminus V(T_{y+1})$.
   Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
-  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$, 
-  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and 
+  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
+  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
-  
+
   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
-  
+
   Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is prefix-free encoding of natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
-  
-  Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$. 
+
+  Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$.
   The transition code $\nu_y(z)$ consists of two parts $\nu_y^{\textsc{Bal}}(z)$ and $\nu_y^{\textsc{Del}}(z)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
-  
+
   The first part $\nu_y^{\textsc{Bal}}(z)$ will serve to move from $\sigma_{T_y}(z)$ to $\sigma_{T'}(z)$.
-  Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ in $T_y$ of depth $\theta$. 
+  Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ in $T_y$ of depth $\theta$.
   %Thus, when $\theta>h(T_y)$ the operation is vacuous.
   %In this case, $\nu^{\textsc{Bal}}_y(z)$ is defined to be $0$.
   %Assume now that $\theta\leq h(T_y)$.
-  Recall that the scope of $\textsc{Balance}(x,k)$ is the subtree of $T_y$ rooted at $x$.
-  Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$ in $T_y$. 
-  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$. 
+  Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
+  Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$.
+  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
-  
+
   Assume now that $d_{T_y}(z) > \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
-  Recall that the application of $\textsc{Balance}(x,k)$ identifies first two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
-  This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$. 
+  Recall that the application of $\textsc{Balance}(x,k)$ identifies first two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$.
+  This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$.
   In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
 
-  Now we are left with the case that $d_{T_y}(z)> \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$. 
-  (With a slight abuse of notations, here and further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.) 
+  Now we are left with the case that $d_{T_y}(z)> \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$.
+  (With a slight abuse of notations, here and further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
   Note that
   \begin{compactenum}[(i)]
   \item $\sigma_{T_i}(z)$ is just a suffix of $\sigma_{T_y}(z)$;
   \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
-  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$; 
+  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
   the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
-  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$; 
-  by~\lemref{split-height} the height of all these trees is at most $h(T_i)$;
-  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes 
+  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$;
+  by~\lemref{split-height} the height of each of these trees is at most $h(T_i)$;
+  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes
   before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\ldots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
   \end{compactenum}
-  
+
   Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$.
-  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$. 
-  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$. 
+  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
+  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
   We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
     \[
   \nu^{\textsc{Bal}}_y(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(x,z')|),\sigma_{\hat{T_0}}(x,z'),\gamma(b),
@@ -875,22 +869,22 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   \]
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
   This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.
-  
-  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$. 
-  This turns out to be fairly easy. 
-  By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$. 
+
+  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
+  This turns out to be fairly easy.
+  By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$.
   Therefore, it is enough to define $\nu^{\textsc{Del}}_y(z)$ to be $\gamma(|\sigma_{T_{y+1}}(z)|)$.
-  
-  Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$. 
-  It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$. 
-  
-  The function $B$ is defined as expected:  
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$. 
+
+  Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$.
+  It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
+
+  The function $B$ is defined as expected:
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$.
   Note that the bulk insertion operation has no effect on the signature of $z$.
-  
-  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case that $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before. 
-  
-  If the bit under consideration was $1$, then this corresponds to the case that $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before. 
+
+  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case that $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before.
+
+  If the bit under consideration was $1$, then this corresponds to the case that $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before.
 \end{proof}
 
 
@@ -913,11 +907,11 @@ Before continuing, we show that using the techniques developed thus far, we can 
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.   
-Let $L^-_0:=\emptyset$. 
-Apply \lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|$. 
-Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.  
-By construction and by \lemref{bulk-tree-height}, the following properties are satisfied. 
+For each $y\in\{1,\ldots,h\}$, we let $L_y=\{x\in\{1,\ldots,m\}:(x,y)\in V(G)\}$ and let $L^-_y:=L_y\cup\{x-1:(x,y)\in V(G)\}$.  Observe that $|L^-_y|\le 2|L_y|$, so $\sum_{y=1}^h |L^-_y|\le 2n$.
+Let $L^-_0:=\emptyset$.
+Apply \lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|$.
+Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.
+By construction and by \lemref{bulk-tree-height}, the following properties are satisfied.
 \begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
   \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$;
   \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$ for each $y\in\{1,\ldots,h\}$, and
@@ -928,7 +922,7 @@ By \lemref{node-transitions}, for each $y\in\{2,\ldots,h\}$ and each $x\in L_{y-
 
 Next, apply \lemref{row-code} using the weight function $w(y):=|T_y|$ to obtain a code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that $|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log n)$.
 
-Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:  
+Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:
 \begin{enumerate}[label={(GC\arabic*)}, ref={GC\arabic*}, noitemsep]
   \item $\alpha(y)$;
   \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
@@ -936,42 +930,42 @@ Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a l
   \item $\nu_y(x)$; and
   \item an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
 \end{enumerate}
-The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. For the remaining components, (GC3) has size $\Oh(\log\log n)$, (GC4) has size $\Oh(k\log\log n)$, and (GC5) has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.  
+The two major components of this label are $\alpha(y)$ (GC1) and $\sigma_{T_y}(x)$ (GC2) which, together have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. For the remaining components, (GC3) has size $\Oh(\log\log n)$, (GC4) has size $\Oh(k\log\log n)$, and (GC5) has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.
 
 \subsection{Adjacency Testing}
 
-Given the labels of $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
+Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ we can test if they are adjacent as follows: Using \lemref{row-code} with $\alpha(y_1)$ and $\alpha(y_2)$ (GC1), determine which of the following applies:
 \begin{enumerate}
-  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $P_1\boxtimes P_2$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.  
-  
+  \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $P_1\boxtimes P_2$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.
+
   \item $y_1=y_2$: In this case, let $y:=y_1=y_2$.
-  If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same, 
+  If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same,
   we conclude that $x_1=x_2$ and $y_1=y_2$, so $v_1=v_2$ and we should output that they are not adjacent.
-  Otherwise, 
-  lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$. 
-  Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$. 
-  Therefore, $x_1<x_2$. 
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that 
+  Otherwise,
+  lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
+  Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$.
+  Therefore, by \obsref{lexicographic}, $x_1<x_2$.
+  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
-  
-  \item $y_1=y_2-1$: 
-  In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$. 
-  Now let $y:=y_2$, 
-  If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same, 
+
+  \item $y_1=y_2-1$:
+  In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.
+  Now let $y:=y_2$,
+  If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same,
   we conclude that $x_1=x_2$. Thus $v_1=(x_1,y-1)$ and $v_2=(x_1,y)$ are adjacent in $P_1\boxtimes P_2$.
-  Now we look up the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine 
+  Now we look up the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine
   if $v_1$ and $v_2$ are adjacent in $G$.
-  Otherwise, lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$. 
+  Otherwise, lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$.
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  
-  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that 
+  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.
+  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   If $\sigma_{T_y}(x_1)$ is larger than $\sigma_{T_y}(x_2)$, then we conclude that $x_1>x_2$.
-  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case. 
+  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case.
   Note here that it is important that part (GC3) of the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
-  
+
   \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now proceed as in the previous case.
 \end{enumerate}
 
@@ -982,15 +976,15 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\left\lceil\sqrt{\log n\log\log n}\right\rceil$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n\log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
 
 \section{Subgraphs of $H\boxtimes P$}
 \seclabel{hxp}
 
-In this section we describe adjacency labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P=1,2,\ldots,h$ is a path. 
-Note that every graph of treewidth $t$ is a subgraph of a $t$-tree (see below for the definition). For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do. 
+In this section we describe adjacency labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P=1,2,\ldots,h$ is a path.
+Note that every graph of treewidth $t$ is a subgraph of a $t$-tree (see below for the definition). For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do.
 
 % Our strategy is similar the approach taken in the previous section.
 % For each $y\in\{1,\ldots,h\}$ we define $L_y=\{x: (x,y)\in V(G)\}$ and we will build a labelling scheme for the induced graph $H[V_y]$ where $V_y\supseteq L_{y\pm 1}$ that is based on a binary tree $T_y$ and such that the labels in this scheme have length $\log|T_y|+o(\log n)$.  In addition to this, we will use \lemref{row-code} to give each vertex $(x,y)\in V(G)$ a \emph{row label} of length $\log n - \log|T_y|+o(\log n)$.
@@ -1001,29 +995,29 @@ We begin by describing a labelling scheme for $t$-trees that, like our labelling
 
 \subsubsection{$t$-Trees}
 
-A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t+1$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.  
+A graph $H$ is a \emph{$t$-tree} if $H$ is a clique on $t+1$ vertices or if $H$ contains a vertex $v$ of degree $t$ whose neighbours form a clique and $H-v$ is a $t$-tree.
 
-Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_{t+1}$ form a clique and, for each $i\in\{t+2,\ldots,m\}$, $C_H(v_i):=N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$. For each $i\in\{1,\ldots,t+1\}$, the family clique $C_H(v_i)$ of $v_i$ is defined simply as the initial clique $\{v_1,\ldots,v_{t+1}\}$, and $C_H(v_i)\setminus\{v_i\}$ is the parent clique of $v_i$. The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$. 
+Note that the recursive definition of $t$-trees implies that there is a vertex ordering $v_1,\ldots,v_{m}$ of $V(H)$ such that $v_1,\ldots,v_{t+1}$ form a clique and, for each $i\in\{t+2,\ldots,m\}$, $C_H(v_i):=N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$ is a clique of size $t+1$.  We call $C_H(v_i)$ the \emph{family clique} of $v_i$ and $C_H(v_i)\setminus\{v_i\}$ the \emph{parent clique} of $v_i$. For each $i\in\{1,\ldots,t+1\}$, the family clique $C_H(v_i)$ of $v_i$ is defined simply as the initial clique $\{v_1,\ldots,v_{t+1}\}$, and $C_H(v_i)\setminus\{v_i\}$ is the parent clique of $v_i$. The order $v_1,\ldots,v_m$ is called a \emph{construction order} for $H$.
 
-The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most $t$ neighbours among $v_1,\ldots,v_{i-1}$) implies that $V(H)$ has a proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$.  When such a colouring of $H$ is given then, for each $i\in\{1,\ldots,m\}$ and each $j\in\{1,\ldots,t+1\}$ the \emph{$j$-parent} $p_j(v_i)$ of $v_i$ is the unique element $p\in C_H(v_i)$ with $\varphi(p)=j$.  Note that $v_i$ is the $j$-parent of itself for exactly one $j\in\{1,\ldots,t+1\}$. 
+The order $v_1,\ldots,v_m$ (in particular, the fact that each $v_i$ has at most $t$ neighbours among $v_1,\ldots,v_{i-1}$) implies that $V(H)$ has a proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$.  When such a colouring of $H$ is given then, for each $i\in\{1,\ldots,m\}$ and each $j\in\{1,\ldots,t+1\}$ the \emph{$j$-parent} $p_j(v_i)$ of $v_i$ is the unique element $p\in C_H(v_i)$ with $\varphi(p)=j$.  Note that $v_i$ is the $j$-parent of itself for exactly one $j\in\{1,\ldots,t+1\}$.
 
 \subsubsection{Interval Graphs}
 
 For real numbers $a\le b$, let $[a,b]:=\{ x\in\R: a\le x\le b\}$, and let
-$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals $v, w\in S$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.  
+$\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real intervals.  For a finite set $S\subset\mathbb{I}$ of intervals, the \emph{interval intersection graph} $G_S$ is the graph with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals $v, w\in S$ if and only if $v\cap w\neq \emptyset$.  The \emph{thickness} $\omega(G_S)$ of $S$ is the size of its largest clique, which (by Helly's Theorem) is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
 
-% By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.  
+% By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.
 
 The following well-known result states that every $m$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log m)$:\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
 \begin{lem}\lemlabel{interval-representation}
   For every $m$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $(t+1)\log_3(2m+1)$ and
-  $vw\in E(G_S)$ for each $vw\in E(H)$. %$f(v)\cap f(w)\neq\emptyset$.  
-  
+  $vw\in E(G_S)$ for each $vw\in E(H)$. %$f(v)\cap f(w)\neq\emptyset$.
+
   Furthermore, for every proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a proper colouring $\varphi':V(G_S)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ where, for each $v\in V(H)$, $\varphi'(f(v))=(j,\varphi(v))$ for some $j\in\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$.
 \end{lem}
 
-In light of \lemref{interval-representation} we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v)$.  That is, we will treat the nodes of every $t$-tree as intervals that satisfy the conditions of \lemref{interval-representation}.
+In light of \lemref{interval-representation} we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v)$.  That is, we will treat the nodes of $H$ as intervals that satisfy the conditions of \lemref{interval-representation}.
 
 A point $x\in\R$ \emph{stabs} an interval $[a,b]$ if $\{x\}\cap [a,b]=\{x\}$. A finite set $X\subset\R^2$ of points \emph{stabs} a set $S\subset\mathbb{I}$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. For any $v=[a_v,b_v]\in\mathbb{I}$ and any binary search tree $T$ such that $V(T)$ stabs $v$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap v$ (see \figref{x}).
 
@@ -1032,7 +1026,7 @@ If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(
 \end{lem}
 
 \begin{proof}
-  Since $x:=x_T(v)$ is the lowest common $T$-ancestor of $V(T)\cap[a_v,b_v]$, either $x\in V(T)\cap[a_v,b_v]$, in which case there is nothing to prove, or there is some pair $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.  
+  Since $x:=x_T(v)$ is the lowest common $T$-ancestor of $V(T)\cap[a_v,b_v]$, either $x\in V(T)\cap[a_v,b_v]$, in which case there is nothing to prove, or there is some pair $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  By the binary search tree property, $x_1<x<x_2$. But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.
 \end{proof}
 
 
@@ -1053,7 +1047,7 @@ We can use \lemref{common-ancestor} to create a labelling scheme for (an induced
 % Let $X\subset\R$ be any set of points that stab $S$, let $T$ be a binary search tree with $V(T):=X$.
 % , and let $\varphi:V(H)\to\{1,2,\ldots,\lfloor t\log n\rfloor\}$ be a proper colouring of the interval graph with vertex set $S$.
 
-We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)$ stabs $C_H(v)$.   For any subset $C\subseteq \mathbb{I}$, such that $V(T)$ stabs $C$, we define $x_T(C):=\{x_T(x):x\in C\}$.  
+We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)$ stabs the family clique, $C_H(v)$, of $v$.   For any subset $C\subseteq \mathbb{I}$, such that $V(T)$ stabs $C$, we define $x_T(C):=\{x_T(x):x\in C\}$.
 
 \begin{lem}\lemlabel{one-path}
   Let $T$ be any binary search tree that represents some $v\in V(H)$.  Then the set of nodes $x_T(C_H(v))$ are all contained in a single root-to-leaf path in $T$.
@@ -1070,20 +1064,20 @@ We say that a binary search tree $T$ \emph{represents} some $v\in V(H)$ if $V(T)
 The following observation shows that a vertex $v$ of $H$ is uniquely identified by $x_T(v)$ and $\varphi'(v)$.
 
 \begin{obs}\obslabel{unique-id}
-    Let $T$ be a binary search tree that represents two distinct vertices $v,w\in V(H)$.  Then, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$. 
+    Let $T$ be a binary search tree that represents two distinct vertices $v,w\in V(H)$.  Then, $x_T(v)\neq x_T(w)$ or $\varphi'(v)\neq\varphi'(w)$.  Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$.
 \end{obs}
 
 \begin{proof}
-  If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that the $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
+  If $x_T(v)=x_T(w)=x$, the intervals $v=[a_v,b_v]$ and $w=[a_w,b_w]$ each contain $x$, so $vw\in E(G_S)$.  Therefore $\varphi'(v)\neq\varphi'(w)$ since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-For any binary search tree that represents $v$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.  
+For any binary search tree that represents $v$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.
 
 For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q]$ induced by $Q$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (we ignore any integers, such as $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded using \lemref{elias}---these contribute at most $O(\log t + \log h(T) + \log\log m)$ to the length of each label):
 
 \begin{enumerate}[label={(TC\arabic*)}, ref={TC\arabic*}, noitemsep]
   \item $\sigma_T(v)$;
-  \item $d_T(x_T(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$; 
+  \item $d_T(x_T(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$;
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$; and
   \item $\varphi'(v)$.
 \end{enumerate}
@@ -1091,26 +1085,26 @@ For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q
 Given the labels of two vertices $v,w\in Q$, we test if $v$ and $w$ are adjacent as follows:
 \begin{enumerate}[label={(A\arabic*)}, ref={A\arabic*}, noitemsep]
   \item If the labels of $v$ and $w$ are identical then $v=w$, so return false.
-  
+
   \item (uniquely identify $v$) From (TC4) extract $j:=\varphi(v)$ (which is contained in $\varphi'(v)$).  From (TC2) extract $d:=d_T(x_T(p_j(v)))$. Take the length-$d$ prefix of $\sigma_T(v)$ to get $\sigma_T(x_T(v))$.
 
   \item (check if $v$ is the $j$-parent of $w$) From~(TC2), extract $d:=d_T(x_T(p_j(w)))$ and take the length-$d$ prefix of $\sigma_T(w)$ to get $\sigma_T(x_T(p_j(w)))$.  If $\sigma_T(x_T(v))=\sigma_T(x_T(p_j(w)))$ and $\varphi'(v)=\varphi'(p_j(w))$ then, by \obsref{unique-id}, $v$ is the $j$-parent of $w$ and $vw\in E(H)$, so return true.
-  
+
   \item Repeat (A2) and (A3) with the roles of $v$ and $w$ reversed. %\snote{Piotrek: this ref was (A4,A5) ...} \note{Pat:removed the only reference to A5}
-  
+
   \item Return false
 \end{enumerate}
 
 The correctness of this adjacency test can be seen as follows:
 \begin{itemize}
   \item Given the labels of $v$ and $w$ we can recover $\sigma_T(x_T(v))$, $\varphi'(v)$, $\sigma_T(x_T(w))$, and $\varphi'(w)$ so, by \obsref{unique-id}, the label of $v$ and the label of $w$ are identical if and only if $v=w$, so the negative result in (A1) is never incorrect;
-  \item from \obsref{unique-id}, positive results in (A3) and (A4) are never incorrect; and 
-  \item for every $vw\in E(H)$, there exists a $j\in\{1,\ldots,t+1\}$ such that $v$ is the $j$-parent of $w$ or $w$ is the $j$-parent of $v$, so the negative result in (A5) is never incorrect.    
+  \item from \obsref{unique-id}, positive results in (A3) and (A4) are never incorrect; and
+  \item for every $vw\in E(H)$, there exists a $j\in\{1,\ldots,t+1\}$ such that $v$ is the $j$-parent of $w$ or $w$ is the $j$-parent of $v$, so the negative result in (A5) is never incorrect.
 \end{itemize}
 In fact, this labelling scheme proves the following slightly stronger result. Let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $\rho$, $\rho'$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T))+\log\log m)$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$, 
+  Let $H$, $\varphi$, $\varphi'$, $Q$, and $T$ be defined as above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T))+\log\log m)$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$,
   \[
       \mathds{T}(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
@@ -1123,15 +1117,15 @@ In fact, this labelling scheme proves the following slightly stronger result. Le
 
 \begin{proof}
   Most of the details of this labelling are described above, though we have thus far ignored the length of the labels, which we analyze now.
-  
+
   Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
   The unmentioned part of each label; which includes Elias encodings of the values $t$, $|\sigma_T(V)|$, and $\lfloor\log_3(2m+1)\rfloor$; requires $O(\log t+\log h(T) + \log\log m)$ bits.
 \end{proof}
 
 % Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following corollary.
-% 
+%
 % \begin{cor}\corlabel{t-tree-labelling}
-%   There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$, 
+%   There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$,
 %   \[
 %       \mathds{T}(\tau_H(v),\tau_H(w)) = \begin{cases}
 %       0 & \text{if $v=w$} \\
@@ -1144,76 +1138,76 @@ In fact, this labelling scheme proves the following slightly stronger result. Le
 
 \subsection{Interval Transition Labels}
 
-% We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.  
+% We point out again that the result in \corref{t-tree-labelling} is not new and the labelling scheme is just a reformulation of the one given by Gavoille and Labourel \cite{gavoille.labourel:shorter} that happens to be convenient for what we are going to do next. Most important for us is that the largest part of the codes come from paths in the binary search tree $T$ that contains the stabbing set $X$.
 
 We now show that the solution presented in \secref{pxp} generalizes to the current setting of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels of any vertex $v\in V(H)$ such that an element of $C_H(v)$ leaves or enters $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. Let $\varphi:V(H)\to\{1,\ldots,t+1\}$ be a proper colouring of $H$, and let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ be the extension of $\varphi$ described in \lemref{interval-representation}.
 
-For each $y\in\{1,\ldots,h\}$, let $S_y:=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y:=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.  
-Note that $|S^-_y|\le (t+1)|S_y|$. 
-Let $S^-_0:=\emptyset$. 
-For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.  
-Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$. 
-Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k:=\lceil \sqrt{\log n \log \log n}\rceil$. 
-By construction, \lemref{bulk-tree-height}, and \lemref{node-transitions}, the following properties are satisfied. 
-\begin{enumerate}[label={(PR1)}, noitemsep]
+For each $y\in\{1,\ldots,h\}$, let $S_y:=\{v\in V(H): (v,y)\in V(G)\}$ and let $S^-_y:=\bigcup_{j=1}^{t+1}\{p_j(v):v\in S_y\}$.
+Note that $|S^-_y|\le (t+1)|S_y|$.
+Let $S^-_0:=\emptyset$.
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.
+Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k:=\lceil \sqrt{\log n \log \log n}\rceil$.
+By construction, \lemref{bulk-tree-height}, and \lemref{node-transitions}, the following properties are satisfied.
+\begin{compactenum}[(PR1)]  %[label={(PR1)}, noitemsep]
   \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
   \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
-  \item $W:=\sum_{y=1}^h |T_y|= O(n)$, and
+  \item $W:=\sum_{y=1}^h |T_y|= O(tn)$, and
   \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
-\end{enumerate}
+\end{compactenum}
 
-The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of $t$-trees, has been introduced shortly after \obsref{unique-id}.
+The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of a vertex $v=[a_v,b_v]$ in a $t$-tree, has been introduced shortly after \obsref{unique-id}.
 
 \begin{lem}\lemlabel{interval-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any 
+  There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any
   $H$, $G$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y \cup S_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= O(k\log\log n)=o(\log n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
 \end{lem}
 
 \begin{proof}
   First we recall that, if $v\in S_y\cup S_{y+1}$, then $T_y$ and $T_{y+1}$ each represent $v$.  As in the proof of \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. These are rebalancing, which takes $T_y$ onto $T_y'$; bulk insertion of $I_y$, which takes $T_y'$ onto $T_y''$; and bulk deletion of $D_y$, which takes $T_y''$ onto $T_{y+1}$.
-  
+
   The bulk insertion that converts $T_y'$ into $T_y''$ is the simplest to handle.  For any $v\in S_y$, $P_{T_y'}(v)$ is the path from the root of $T_y'$ to the deepest node in $x_{T_y'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T_y'}(w)$ is the element of $w\cap V(T_y')$ that is closest to the root of $T_y'$. Since $T_y''$ is a supergraph of $T_y'$ obtained by adding small subtrees at the external nodes of $T_y'$, $x_{T_y''}(w)=x_{T_y'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T_y''}(x_{T_y''}(w))=P_{T'}(x_{T_y'}(w))$ and $\sigma_{T_y''}(x_{T_y''}(w))=\sigma_{T'}(x_{T_y'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T_y''}(v)=\sigma_{T_y'}(v)$ for each $v\in S_y$.
-  
-  Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence of individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the tree before and after the deletion, respectively.  
-  
+
+  Next we consider the bulk deletion that converts $T_y''$ into $T_{y+1}$.  A bulk deletion consists of a sequence of individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the tree before and after the deletion, respectively.
+
   \begin{clm}\clmlabel{deletion-ancestor}
-    For any $v=[a_v,b_v]\in S_y$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))$ is a prefix of $\sigma_T(x_T(v))$.   
+    For any $v=[a_v,b_v]\in S_y$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))$ is a prefix of $\sigma_T(x_T(v))$.
   \end{clm}
-  
-  \begin{proof}[Proof of \clmref{deletion-ancestor}]  
-    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value in the) node $x_i$ is replaced with (the value in) node $x_{i+1}$.  
+
+  \begin{proof}[Proof of \clmref{deletion-ancestor}]
+    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value of) $x_i$ is replaced with (the value in) node $x_{i+1}$.
 
     \begin{figure}
       \begin{center}
         \includegraphics{figs/deletion-t-tree-1}\\[1ex]
-        $\Downarrow$\\[1ex]   
-        \includegraphics{figs/deletion-t-tree-2}   
+        $\Downarrow$\\[1ex]
+        \includegraphics{figs/deletion-t-tree-2}
       \end{center}
       \caption{The effect of a single deletion on $x_T(v)$.}
       \figlabel{deletion-t-tree}
     \end{figure}
-    
+
     If $x_T(v)=x_0$ then recall that $v\in S_y\subseteq S^-_y$ and $X_{y+1}\subseteq V(T_{y+1})$ contains both endpoints of each interval in $S^-_{y+1}\cup S^-_y$.  Therefore $a_v,b_v\in V(T_{y+1})$.  Therefore $r\ge 1$ and $x_1\in [a_v,b_v]$ so $x_{\tilde{T}}(v)=x_1$ and $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))=\sigma_T(x_T(v))$.
-    
+
     If $x_T(v)=x_i$ for some $i\in\{1,\ldots,r\}$, then $x_{\tilde{T}}(v)=x_i$ (see the interval $v_1$ in \figref{deletion-t-tree}) and $\sigma_{\tilde{T}}(x_i)=\sigma_{T}(x_{i-1})$.  Since $x_{i-1}$ is a $T$-ancestor of $x_i$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))=\sigma_{\tilde{T}}(x_i)$ is a prefix of $\sigma_{T}(x_{T}(v))$, as required.
-    
-    Finally, if $x_T(v)\neq x_i$ for any $i\in\{0,\ldots,r\}$ and $x_T(v)\neq x_{\tilde{T}}(v)$, then the only possibility is that $x_{\tilde{T}}(v)=x_i$ for some $x_i\in [a_v,b_v]$ (see the interval $v_2$ in \figref{deletion-t-tree}).  This can only happen if $x_i$ is not a $T$-ancestor of $x_T(v)$, but $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$.  By \lemref{common-ancestor}, $x_i$ is a $T$-descendant of $x_T(v)$.  Since $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$, $x_{i-1}$ is a $T$-ancestor of $x_T(v)$.  Therefore $\sigma_{\tilde{T}}(v)=\sigma_{\tilde{T}}(x_i)=\sigma_T(x_{i-1})$ is a prefix of $\sigma_T(x_T(v))$, as required.  This completes the proof of \clmref{deletion-ancestor}.    
+
+    Finally, if $x_T(v)\neq x_i$ for any $i\in\{0,\ldots,r\}$ and $x_T(v)\neq x_{\tilde{T}}(v)$, then the only possibility is that $x_{\tilde{T}}(v)=x_i$ for some $x_i\in [a_v,b_v]$ (see the interval $v_2$ in \figref{deletion-t-tree}).  This can only happen if $x_i$ is not a $T$-ancestor of $x_T(v)$, but $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$.  By \lemref{common-ancestor}, $x_i$ is a $T$-descendant of $x_T(v)$.  Since $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$, $x_{i-1}$ is a $T$-ancestor of $x_T(v)$.  Therefore $\sigma_{\tilde{T}}(v)=\sigma_{\tilde{T}}(x_i)=\sigma_T(x_{i-1})$ is a prefix of $\sigma_T(x_T(v))$, as required.  This completes the proof of \clmref{deletion-ancestor}.
   \end{proof}
-  
+
   For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Since a bulk deletion is implemented as a sequence of individual deletions,
   \begin{align*}
-    \sigma_{T_y''}(v) 
+    \sigma_{T_y''}(v)
       & = \sigma_{T_y''}(x_{T_y''}(w)) & \text{(for some $w\in C_H(v)$)} \\
       & \preceq \sigma_{T_y'}(x_{T_y'}(w)) & \text{(by \clmref{deletion-ancestor})} \\
       & \preceq \sigma_{T_y'}(v) \enspace . & \text{(by \lemref{one-path})}
-  \end{align*} 
+  \end{align*}
   Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $O(\log h({T_y'}))=O(\log\log n)$ bits.
-  
+
   Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$ by calling $\textsc{BulkBalance}(\theta,k)$, which calls $\textsc{Balance}(x,k)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
-  
+
   \begin{figure}
     \begin{center}
       \includegraphics{figs/rebalance-t-tree}
@@ -1221,21 +1215,21 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
     \caption{Only the call to $\textsc{Balance}(x,k)$ on a node $x\in V(P_{T_2}(v))$ affects $\sigma_{T_2'}(v)$.}
     \figlabel{rebalance-t-tree}
   \end{figure}
-  
+
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T_y'$.)
-  The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$. 
-  
+  The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
+
   Now, $\textsc{Balance}(x,k)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
-  
+
   For any $v\in S_y$ such that $P_{T_y'}(v)$ ends at a vertex $z\in Z\cup X=V(\hat{T}_0)$, the problem is easy.  We include $\sigma_{\hat{T}_0}(z)$, which has length at most $h(\hat{T}_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T_y'}(v)$ from $\sigma_{T_y}(v)$.
 
   Thus, we only need to consider those $v\in S_v$ such that $P_{T_y'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T_y'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{common-ancestor}, $z$ is the unique node of $P_{T_y'}(z)$ contained in $[a_w,b_w]$.  Therefore
-  \begin{equation}  
+  \begin{equation}
     [a_w,b_w]\cap (Z\cup X)=\emptyset \enspace . \eqlabel{empty}
   \end{equation}
-  
+
   For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
-  
+
   \begin{clm}\clmlabel{x-switch}
     Let $S$ by a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
     \begin{compactenum}
@@ -1247,17 +1241,17 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
   \begin{proof}
     That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
-    
+
     By \lemref{common-ancestor}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_w,b_w]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node in $[a_w,b_w]$, namely $z$, so $z=x_{T_{>x}}(w)$.  This completes the proof of \clmref{x-switch}.
   \end{proof}
-  
+
   From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, for the $w\in C_H(v)$ that determines $P_{T_y'}(v)=P_{T'}(x_{T_y'}(w))$ we have $x_{T_y'}(w)\not\in Z\cup X$ by \eqref{empty}. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
-  
+
   Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
-  
+
   Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $O(k\log\log n)$ that satisfies the conditions of the lemma.
 \end{proof}
-  
+
 \subsection{The Labels}
 
 Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
@@ -1265,12 +1259,12 @@ Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(
 \begin{enumerate}
   \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + O(\log\log n)$;
   \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
-  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$; 
+  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{-1,0,1\}$;
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
   \item $\varphi'(v)$;
-  \item $\mu_y(v)$; and 
+  \item $\mu_y(v)$; and
   \item $a(z)$ (defined next).
 \end{enumerate}
 The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3t$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
@@ -1279,15 +1273,15 @@ The only one of these quantities not yet defined is $a(z)$, which is a sequence 
 
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in E(G)$ by first using $\alpha(y_1)$ and $\alpha(y_2)$ to determine which of the following applies:
 \begin{enumerate}
-  \item $|y_1-y_2|>1$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
+  \item $|y_1-y_2|\ge 2$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
 
-  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC5) contains $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ (defined before \lemref{t-tree-labelling}) and we use this to test if $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
-  
+  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC5) contains $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ (defined before \lemref{t-tree-labelling}) and we use this to test if $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
+
   If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
 
-  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.  
-  
-  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_{y+1}}(v_1)$ and $\tau_{T_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1=v_2$ or $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
+
+  If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_{y+1}}(v_1)$ and $\tau_{T_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
 
   \item $y_2-y_1=-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
@@ -1298,7 +1292,7 @@ This completes the proof of our main result.
   For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
 \end{thm}
 
-\thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}. 
+\thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}.
 
 \section{Conclusion}
 \seclabel{conclusion}
@@ -1306,7 +1300,7 @@ This completes the proof of our main result.
 We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
 The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
-In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time. 
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
 
@@ -1314,7 +1308,7 @@ In a realistic $\log n$-bit word RAM model of computation with bitwise logical o
 The current result leaves two obvious directions for future work:
 \begin{enumerate}
   \item The precise length of the labels in \thmref{main} is $\log n + O(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
-  
+
   \item \thmref{main-product} implies a $(1+o(1))\log n$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
 \end{enumerate}
 
@@ -1322,7 +1316,7 @@ The current result leaves two obvious directions for future work:
 
 Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particularly grateful to Tamara~Mchedlidze and David~Wood for helpful discussions.
 
-  
+
 \bibliographystyle{plainurl}
 \bibliography{labelling}
 
@@ -1335,7 +1329,7 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 
 \begin{proof}[Proof of \lemref{fractional}]
   $V_1,\ldots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\ldots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
-  
+
   \noindent$\textsc{BuildV}(S_1,\ldots,S_h)$:
   \begin{algorithmic}[1]
     \STATE{$V_0\gets V_{h+1}\gets\Z$}
@@ -1349,12 +1343,12 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
     \ENDFOR
  % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\ldots,h\}$}
   \end{algorithmic}
-  
+
   \noindent$\textsc{Add}(x, y)$:
   \begin{algorithmic}[1]
     \IF{$y\in\{1,\ldots,h\}$}
       \STATE{$V_y\gets V_y\cup\{x\}$}
-      \IF{$|V_y|\ge 4$}      
+      \IF{$|V_y|\ge 4$}
         \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
         \IF{$\{x_{-1},\ldots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
             $\{x_{-1},\ldots,x_{-4}\}\cap V_{y+1}=\emptyset$}
@@ -1367,7 +1361,7 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 
   % % \snote{L. Is $x_{-5}$ really necessary here?}
   % % \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\ldots,y_{-4}$.
-  % 
+  %
   % Summary:
   % \begin{compactenum}
   %   \item The text about including 0 should be removed.
@@ -1379,23 +1373,23 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
   % That's everything, right?
   % }
   It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
-  
+
   That the procedure produces sets $V_1,\ldots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ is obvious.  So the resulting sets $V_1,\ldots,V_h$ satisfy the first condition of the lemma.
-  
+
   To prove that $V_1,\ldots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\ldots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
-  
-  Finally, we need to argue that $V_1,\ldots,V_h$ satisfy the third condition. 
+
+  Finally, we need to argue that $V_1,\ldots,V_h$ satisfy the third condition.
   For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
 
   We do this with a \emph{credit scheme} that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\ldots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
-  
+
   To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the $n$ values in $S_1,\ldots,S_h$.  Therefore Line~6 executes at most $n$ times and at most $2n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\ldots,V_h$ is at most $2n$. Therefore, $\sum_{y=1}^h |V_y|\le 2n$.
-   
+
   To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
-  
-  When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.  
-  
-  If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$. 
+
+  When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.
+
+  If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$.
 \end{proof}
 
 \end{document}
