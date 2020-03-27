@@ -896,6 +896,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any any 
 
 Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.
 Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, and $G$ is just a subgraph of that grid, see \figref{pxp}.
+Obviously, we may assume that $m\leq n$ and $h\leq n$.
 
 \begin{figure}
   \begin{center}
@@ -913,7 +914,8 @@ For each $y\in\{1,\ldots,h\}$, we let
 L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and let}\\
 L^-_y&=\{x-1,x:(x,y)\in V(G)\}.  
 \end{align*}
-Observe that $|L^-_y|\le 2|L_y|$ and $\sum_{y=1}^h |L^-_y|\le 2n$.
+Note that $\sum_{y=1}^h |L_y| = n$.
+Note also that $|L^-_y|\le 2|L_y|$ and $\sum_{y=1}^h |L^-_y|\le 2n$.
 Let $L^-_0:=\emptyset$.
 
 Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by application 
@@ -925,7 +927,7 @@ V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
 \end{align*}
 Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$. 
 We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
-By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$ we have
+By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$, we have
 \[
 h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n).
 \]
@@ -937,12 +939,13 @@ h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n).
 %  \item $\sum_{y=1}^h|T_y| \le 8n$.
 %\end{enumerate}
 
-\snote{Piotrek: we need a comment on $\log\log h$ below; so $m,h \leq n$, right?}
-
 Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that 
 using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$, 
-we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that 
-$|\alpha(y)|=\log n - \log|T_y| + \Oh(\log\log h)$ for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending on the value of $j$ to be $i$, $i+1$, $i-1$, or some other value, respectively.
+we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
+\[
+|\alpha(y)|=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h) \leq \log n - \log|T_y| + \Oh(\log\log n),
+\]
+for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending on the value of $j$ to be $i$, $i+1$, $i-1$, or some other value, respectively.
 
 
 Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that 
@@ -965,9 +968,13 @@ The lengths of the remaining components hide in the lower order term.
 
 \subsection{Adjacency Testing}
 
+First note that from a given label of $v=(x,y) \in V(G)$, we can decode each block of the label.
+This is because $\alpha(y)$ is prefix-free, $\gamma(|\sigma_{T_y}(x)|)$ is prefix-free so when we read it we know how long is $\sigma_{T_y}(x)$ and we can isolate it as well. 
+The $\delta$-codes are prefix-free again and $\nu_y(x)$ can be decoded (\snote{Piotrek: why?}) as well. 
+The remaining $8$-bits belong to $a(v)$.
+
 Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $G$ we can test if they are adjacent as follows.
 
-First note that we can decode each block of the label just because $\alpha(\cdot)$ and $\gamma(\cdot)$ are prefix-free. \snote{Piotrek: Hmm. Not really.}
 Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following applies:
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: In this case we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$ since they are not adjacent even in $P_1\boxtimes P_2$. %since $y_1\neq y_2$ and $y_1y_2\not\in E(P_1)$.
@@ -975,32 +982,32 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   \item $y_1=y_2$: In this case, let $y:=y_1=y_2$.
   If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same,
   we conclude that $x_1=x_2$ and $y_1=y_2$, so $v_1=v_2$ and we should output that they are not adjacent.
-  Otherwise,
+  Otherwise, we
   lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$.
   Therefore, by \obsref{lexicographic}, $x_1<x_2$.
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
+  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, we compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $x_2 < x_1-1$, so $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
 
   \item $y_1=y_2-1$:
-  In this case, use $\sigma_{T_{y_1}}(x_1)$ and $\nu_{y_1}(x_1)$ to compute $\sigma_{T_{y_2}}(x_1)$.
-  Now let $y:=y_2$,
+  In this case, we compute $B(\sigma_{T_{y_1}}(x_1), \nu_{y_1}(x_1))=\sigma_{T_{y_2}}(x_1)$.
+  Let $y:=y_2$.
   If the two bitstrings $\sigma_{T_y}(x_1)$, $\sigma_{T_y}(x_2)$ are the same,
   we conclude that $x_1=x_2$. Thus $v_1=(x_1,y-1)$ and $v_2=(x_1,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we look up the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine
   if $v_1$ and $v_2$ are adjacent in $G$.
-  Otherwise, lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
+  Otherwise, we lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$.
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, compute $\sigma_{T_y}(x_2-1)$.
-  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
+  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, we compute $\sigma_{T_y}(x_2-1)$.
+  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   If $\sigma_{T_y}(x_1)$ is larger than $\sigma_{T_y}(x_2)$, then we conclude that $x_1>x_2$.
-  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case.
+  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, we compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case.
   Note here that it is important that part (GC3) of the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
 
-  \item $y_2=y_1-1$: In this case, use $\sigma_{T_{y_2}}(x_2)$ and $\nu_{y_2}(x_2)$ to compute $\sigma_{T_{y_1}}(x_2)$.  Now proceed as in the previous case.
+  \item $y_2=y_1-1$: In this case, we compute $B(\sigma_{T_{y_2}}(x_2),\nu_{y_2}(x_2))=\sigma_{T_{y_1}}(x_2)$.  Now we proceed as in the previous case.
 \end{enumerate}
 
 This establishes our first result:
