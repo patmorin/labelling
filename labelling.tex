@@ -272,12 +272,11 @@ The following fact about binary search trees is useful, for example, in the dele
     \item (if $y$ has no left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by removing all trailing 0's and the last 1; or
     \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
+Therefore, there exists a function $D:(\{0,1\}^*)^2\to{0,1}^*$ such that for every binary search tree $T$, for every $i$ such that $i-1$ and $i$ are in $T$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
+$D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
 \end{obs}
 
-\obsref{predecessor-encoding} leads to the following definition. For a binary search tree $T$ and an integer $i$ such that $V(T)$ contains $i-1$ and $i$, we define $\delta_T(i)$ as
-a single bit indicating whether $i$ has a left child in $T$ and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. \obsref{predecessor-encoding} implies that $\sigma_T(i)$ and $\delta_T(i)$ are enough to recover $\sigma_T(i-1)$.
-
-\smallskip
+The bitstring $\delta_T(i)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $i$ has a left child in $T$ or not and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. 
 
 Putting some of the preceding results together we obtain the following useful coding result.
 
