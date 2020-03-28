@@ -626,7 +626,7 @@ there exist indices $h_1,h_2,\ldots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\el
 for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},\ldots,S_{h_{\ell}}$.
 
 
-This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\left\lceil\sqrt{\log n \log \log n}\right\rceil$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\left\lceil\sqrt{\log n / \log \log n}\right\rceil$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
 \begin{lem}\lemlabel{bulktree-old-B-properties}
 Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence.
@@ -1027,7 +1027,7 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n\log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
 
@@ -1203,7 +1203,7 @@ Note that $|S^-_y|\le (t+1)|S_y|$.
 Let $S^-_0:=\emptyset$.
 For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$.  Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ represents each $v\in S_y\cup S_{y-1}$.
 Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
-Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k:=\lceil \sqrt{\log n \log \log n}\rceil$.
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k:=\lceil \sqrt{\log n / \log \log n}\rceil$.
 By construction, \lemref{bulk-tree-height}, and \lemref{node-transitions}, the following properties are satisfied.
 \begin{compactenum}[(PR1)]  %[label={(PR1)}, noitemsep]
   \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
@@ -1354,7 +1354,7 @@ This completes the proof of our main result.
 We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$, a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n^2)$ time \cite{dujmovic.joret.ea:planar}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n^2)$ time for $n$-vertex planar graphs.
 
 The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
-In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n\log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
 
