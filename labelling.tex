@@ -314,7 +314,7 @@ Putting some of the preceding results together we obtain the following useful co
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits.
    The function $A$ extracts the values and lexicographically compares $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$.
-   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now using $\sigma_T(j)$ and $\delta_T(j)$, $A$ computes $\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.
+   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now $A$ computes $D(\sigma_T(j),\delta_T(j))=\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.
    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
@@ -807,7 +807,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
-Before continuing, we extend the $\sigma$ notation slightly so that for any any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z)=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
+Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z)=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
 
 \snote{signature of external nodes?}
 
@@ -887,9 +887,6 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any any 
 \end{proof}
 
 
-
-
-
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
@@ -910,7 +907,7 @@ Obviously, we may assume that $m\leq n$ and $h\leq n$.
 
 For each $y\in\{1,\ldots,h\}$, we let 
 \begin{align*}
-L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and let}\\
+L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and}\\
 L^-_y&=\{x-1,x:(x,y)\in V(G)\}.  
 \end{align*}
 Note that $\sum_{y=1}^h |L_y| = n$.
@@ -927,9 +924,10 @@ V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
 Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$. 
 We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
 By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$, we have
-\[
-h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n).
-\]
+\begin{align*}
+h(T_y)&=\log|T_y| + \Oh(k+k^{-1}\log |T_y|)\\
+&\leq\log|T_y| + \Oh(k+k^{-1}\log n).
+\end{align*}
 
 %By construction and by \lemref{bulk-tree-height}, the following properties are satisfied.
 %\begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
@@ -941,36 +939,49 @@ h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n).
 Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that 
 using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$, 
 we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
-\[
-|\alpha(y)|=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h) \leq \log n - \log|T_y| + \Oh(\log\log n),
-\]
-for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending on the value of $j$ to be $i$, $i+1$, $i-1$, or some other value, respectively.
+\begin{align*}
+|\alpha(y)|&=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h)\\
+&\leq \log n - \log|T_y| + \Oh(\log\log n),
+\end{align*}
+for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
 
 
 Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that 
 for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}$, 
 there exists a code $\nu_{y}(x)$ with $|\nu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n)$ such that $B(\sigma_{T_{y}}(x),\nu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
-Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label consisting of the following:
-\begin{enumerate}[label={(GC\arabic*)}, ref={GC\arabic*}, noitemsep]
-  \item $\alpha(y)$;
-  \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-  \item\label{itm:PxP-deltas} $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$ (where $\delta_T$ is the function  introduced in \obsref{predecessor-encoding});
-  \item\label{itm:PxP-nu} $\nu_y(x)$; and
-  \item\label{itm:PXP-array} an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
-\end{enumerate}
-The two major components of this label are $\alpha(y)$ of length $\log n - \log|T_y| + \Oh(\log\log n)$
-and $\sigma_{T_y}(x)$ of length $\log|T_y| + \Oh(k+k^{-1}\log n)$.
+Let $D:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \obsref{predecessor-encoding}, such that for every binary search tree $T$, and every $i$ such that $i-1$ and $i$ are in $T$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
+$D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
+
+Finally, given a vertex $v=(x,y)$ of $G$, we define
+an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$. Note that some of these $8$ vertices may not even be present in $G$ in which case the resulting bit is set to $0$ since the edge is not present in $G$.
+
+Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives the following label:
+\[
+\alpha(y), \gamma(|\sigma_{T_y}(x)|), \sigma_{T_y}(x), \delta_{T_y}(x), \delta_{T_{y+1}}(x), \nu_y(x), a(v).
+\]
+%\begin{enumerate}[label={(GC\arabic*)}, ref={GC\arabic*}, noitemsep]
+%  \item $\alpha(y)$;
+%  \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
+%  \item\label{itm:PxP-deltas} $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$; %(where $\delta_T$ is the function  introduced in \obsref{predecessor-encoding});
+%  \item\label{itm:PxP-nu} $\nu_y(x)$; and
+%  \item\label{itm:PXP-array} an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
+%\end{enumerate}
+Two major components of this label are $\alpha(y)$, of length $\log n - \log|T_y| + \Oh(\log\log n)$,
+and $\sigma_{T_y}(x)$, of length $\log|T_y| + \Oh(k+k^{-1}\log n)$.
 Together they have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. 
-The lengths of the remaining components hide in the lower order term.
-\itemref{itm:PxP-deltas} has size $\Oh(\log\log n)$, \itemref{itm:PxP-nu} has size $\Oh(k\log\log n)$, and \itemref{itm:PXP-array} has size $\Oh(1)$.  Thus, the total length of each label is $\log n+ \Oh(k\log\log n + k^{-1}\log n)$.
+The lengths of the remaining components are as follows: 
+$\gamma(|\sigma_{T_y}(x)|)$,
+$\delta_{T_y}(x)$, and $\delta_{T_{y+1}}(x)$
+ have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$. 
+Thus, in total the label has length  $\log n+ \Oh(k\log\log n + k\log k + k^{-1}\log n)$.
 
 \subsection{Adjacency Testing}
 
 First note that from a given label of $v=(x,y) \in V(G)$, we can decode each block of the label.
 This is because $\alpha(y)$ is prefix-free, $\gamma(|\sigma_{T_y}(x)|)$ is prefix-free so when we read it we know how long is $\sigma_{T_y}(x)$ and we can isolate it as well. 
-The $\delta$-codes are prefix-free again and $\nu_y(x)$ can be decoded (\snote{Piotrek: why?}) as well. 
-The remaining $8$-bits belong to $a(v)$.
+The $\delta$-codes are prefix-free again and $\nu_y(x)$ can be decoded as outlined in the proof of \lemref{node-transitions}.  
+Finally, the last $8$-bits correspond to $a(v)$.
 
 Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $G$ we can test if they are adjacent as follows.
 
@@ -985,7 +996,7 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$.
   Therefore, by \obsref{lexicographic}, $x_1<x_2$.
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, we compute $\sigma_{T_y}(x_2-1)$.  If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $x_2 < x_1-1$, so $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
+  Now we compute $D(\sigma_{T_y}(x_2),\delta_{T_y}(x_2))=\sigma_{T_y}(x_2-1)$. If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $x_2 < x_1-1$, so $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
 
@@ -998,13 +1009,13 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   if $v_1$ and $v_2$ are adjacent in $G$.
   Otherwise, we lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$.
-  Using $\sigma_{T_y}(x_2)$ and $\delta_{T_y}(x_2)$, we compute $\sigma_{T_y}(x_2-1)$.
+  We compute $D(\sigma_{T_y}(x_2),\delta_{T_y}(x_2))=\sigma_{T_y}(x_2-1)$.
   If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   If $\sigma_{T_y}(x_1)$ is larger than $\sigma_{T_y}(x_2)$, then we conclude that $x_1>x_2$.
   Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, we compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case.
-  Note here that it is important that part (GC3) of the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
+  Note here that it is important that the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
 
   \item $y_2=y_1-1$: In this case, we compute $B(\sigma_{T_{y_2}}(x_2),\nu_{y_2}(x_2))=\sigma_{T_{y_1}}(x_2)$.  Now we proceed as in the previous case.
 \end{enumerate}
@@ -1016,8 +1027,11 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n\log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n\log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
+
+
+
 
 
 \section{Subgraphs of $H\boxtimes P$}
