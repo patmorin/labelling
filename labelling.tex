@@ -310,7 +310,7 @@ Putting some of the preceding results together we obtain the following useful co
   for each $i\in\{1,\ldots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
   The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path $P_T(i)$ from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part, $\delta_T(i)$, is defined in \obsref{predecessor-encoding}.
-  The length of $\delta_T(i)$ is at most $1+\log h(T)=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two distinct sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+  The length of $\delta_T(i)$ is $\Oh(\log h(T))=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two distinct sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits.
    The function $A$ extracts the values and lexicographically compares $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$.
