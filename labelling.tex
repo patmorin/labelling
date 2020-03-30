@@ -807,7 +807,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
-Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
+Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
 
 \snote{signature of external nodes?}
 
@@ -858,7 +858,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\ldots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
   \end{compactenum}
 
-  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$.
+  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by \textsc{MultiSplit}$(x_{i,1},\ldots,x_{i,c_i})$.
   Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
   Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
   We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
