@@ -276,7 +276,7 @@ Therefore, there exists a function $D:(\{0,1\}^*)^2\to{0,1}^*$ such that for eve
 $D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
 \end{obs}
 
-The bitstring $\delta_T(i)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $i$ has a left child in $T$ or not and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$. 
+The bitstring $\delta_T(i)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $i$ has a left child in $T$ or not and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$.
 
 Putting some of the preceding results together we obtain the following useful coding result.
 
@@ -387,14 +387,18 @@ a minor;% \cite{dujmovic.esperet.ea:clustered};
 \seclabel{bulk-trees}
 
 Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$.
-A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term. The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
+A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific binary search tree $T_i$ and mapping each vertex $v$ of $H_i$ onto a node $x$ of $T_i$ that we call the \emph{position} of $v$ in $T_i$.
+% roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term.
+The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
 This way, we can determine if two vertices $(v,i)$ and $(w,i)$ in the same row are adjacent.
+
 The key problem that we face here though are queries of the type $(v,i)$ and $(w,i+1)$: We would like to determine adjacency on the $H$-coordinate using $T_i$ or $T_{i+1}$.
-We could extend the node set of $T_{i+1}$ by adding all vertices from $H_{i}$. This way we know that both $v$ and $w$ are included in $T_{i+1}$.
+We could extend the node set of $T_{i+1}$ so that it represents all vertices from $H_{i}$. This way we know that both $v$ and $w$ are represented in $T_{i+1}$.
 However, we still have a major issue: the label of $(v,i)$ describes the position of $v$ in $T_i$ but not in $T_{i+1}$.
 In this setup, in order to determine if $v$ and $w$ are adjacent in $H$ we need to know their respective positions in the same binary search tree.
 However, there is in principle no relation between the position of $v$ in $T_i$ and its position in $T_{i+1}$.
-To circumvent this difficulty, we build the binary search trees $T_1,\ldots,T_h$ one by one, starting with a balanced binary search tree, in such a way that $T_{i+1}$ is obtained from $T_i$ by performing small local changes. By storing some small extra information related to these local changes in the label of $(v,i)$, this will allow us to obtain the position of $v$ in $T_{i+1}$.
+
+To circumvent this difficulty, we build the binary search trees $T_1,\ldots,T_h$ one by one, starting with a balanced binary search tree, in such a way that $T_{i+1}$ is obtained from $T_i$ by performing carefully structured changes. By storing some small extra information related to these changes in the label of $(v,i)$, this will allow us to obtain the position of $v$ in $T_{i+1}$.
 Finally, we also need to guarantee that the binary search trees in our sequence are balanced so that the labels are of length $\log|T_i|$ plus a lower-order term.
 
 In this section, we introduce three operations on a binary search tree that will allow us to carry out this plan.
@@ -905,23 +909,23 @@ Obviously, we may assume that $m\leq n$ and $h\leq n$.
 
 \subsection{The Labels}
 
-For each $y\in\{1,\ldots,h\}$, we let 
+For each $y\in\{1,\ldots,h\}$, we let
 \begin{align*}
 L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and}\\
-L^-_y&=\{x-1,x:(x,y)\in V(G)\}.  
+L^-_y&=\{x-1,x:(x,y)\in V(G)\}.
 \end{align*}
 Note that $\sum_{y=1}^h |L_y| = n$.
 Note also that $|L^-_y|\le 2|L_y|$ and $\sum_{y=1}^h |L^-_y|\le 2n$.
 Let $L^-_0:=\emptyset$.
 
-Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by application 
+Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by application
 of~\lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$.
 Thus for each $y\in\{1,\ldots,h\}$, we have
 \begin{align*}
 V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
 \textstyle\sum_{y=1}^h |V_y|&\le 2\textstyle\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|\leq 8n.
 \end{align*}
-Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$. 
+Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.
 We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
 By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$, we have
 \begin{align*}
@@ -936,8 +940,8 @@ h(T_y)&=\log|T_y| + \Oh(k+k^{-1}\log |T_y|)\\
 %  \item $\sum_{y=1}^h|T_y| \le 8n$.
 %\end{enumerate}
 
-Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that 
-using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$, 
+Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that
+using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$,
 we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 \begin{align*}
 |\alpha(y)|&=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h)\\
@@ -946,8 +950,8 @@ we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
 
 
-Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that 
-for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}$, 
+Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that
+for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}$,
 there exists a code $\nu_{y}(x)$ with $|\nu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n)$ such that $B(\sigma_{T_{y}}(x),\nu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
 Let $D:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \obsref{predecessor-encoding}, such that for every binary search tree $T$, and every $i$ such that $i-1$ and $i$ are in $T$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
@@ -969,18 +973,18 @@ Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives the
 %\end{enumerate}
 Two major components of this label are $\alpha(y)$, of length $\log n - \log|T_y| + \Oh(\log\log n)$,
 and $\sigma_{T_y}(x)$, of length $\log|T_y| + \Oh(k+k^{-1}\log n)$.
-Together they have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$. 
-The lengths of the remaining components are as follows: 
+Together they have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$.
+The lengths of the remaining components are as follows:
 $\gamma(|\sigma_{T_y}(x)|)$,
 $\delta_{T_y}(x)$, and $\delta_{T_{y+1}}(x)$
- have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$. 
+ have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$.
 Thus, in total the label has length  $\log n+ \Oh(k\log\log n + k\log k + k^{-1}\log n)$.
 
 \subsection{Adjacency Testing}
 
 First note that from a given label of $v=(x,y) \in V(G)$, we can decode each block of the label.
-This is because $\alpha(y)$ is prefix-free, $\gamma(|\sigma_{T_y}(x)|)$ is prefix-free so when we read it we know how long is $\sigma_{T_y}(x)$ and we can isolate it as well. 
-The $\delta$-codes are prefix-free again and $\nu_y(x)$ can be decoded as outlined in the proof of \lemref{node-transitions}.  
+This is because $\alpha(y)$ is prefix-free, $\gamma(|\sigma_{T_y}(x)|)$ is prefix-free so when we read it we know how long is $\sigma_{T_y}(x)$ and we can isolate it as well.
+The $\delta$-codes are prefix-free again and $\nu_y(x)$ can be decoded as outlined in the proof of \lemref{node-transitions}.
 Finally, the last $8$-bits correspond to $a(v)$.
 
 Given the labels of two vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ in $G$ we can test if they are adjacent as follows.
