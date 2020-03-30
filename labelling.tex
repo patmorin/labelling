@@ -272,7 +272,7 @@ The following fact about binary search trees is useful, for example, in the dele
     \item (if $y$ has no left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by removing all trailing 0's and the last 1; or
     \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
-Therefore, there exists a function $D:(\{0,1\}^*)^2\to{0,1}^*$ such that for every binary search tree $T$, for every $i$ such that $i-1$ and $i$ are in $T$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
+Therefore, there exists a function $D:(\{0,1\}^*)^2\to{0,1}^*$ such that, for every binary search tree $T$ and for every $i$ such that $\{i-1,i\}\subseteq V(T)$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
 $D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
 \end{obs}
 
@@ -811,7 +811,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
-Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z)=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
+Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T_x}(z)$ where $T_x$ is the subtree of $T$ rooted at $x$.
 
 \snote{signature of external nodes?}
 
@@ -894,9 +894,10 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.
-Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, and $G$ is just a subgraph of that grid, see \figref{pxp}.
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.  Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, and $G$ is just a subgraph of this grid, see \figref{pxp}.
 Obviously, we may assume that $m\leq n$ and $h\leq n$.
+
+Our motivation for considering this special case is expository: The vertices of $P_1$ are integers $1,\ldots,m$ that can be stored directly in a binary search tree. This makes it easier to understand the role that bulk tree sequences play in our solution.  The extension of this solution to subgraphs of $H\boxtimes P$, which is the topic of \secref{hxp}, uses exactly the same ideas but requires another level of indirection since there is no natural mapping from the vertices of $H$ onto real numbers.
 
 \begin{figure}
   \begin{center}
@@ -979,6 +980,8 @@ $\gamma(|\sigma_{T_y}(x)|)$,
 $\delta_{T_y}(x)$, and $\delta_{T_{y+1}}(x)$
  have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$.
 Thus, in total the label has length  $\log n+ \Oh(k\log\log n + k\log k + k^{-1}\log n)$.
+
+\pnote{Pat: Why does $k\log k$ suddenly show up in $|\nu_y(x)|$?  It doesn't appear in \lemref{node-transitions}.}
 
 \subsection{Adjacency Testing}
 
