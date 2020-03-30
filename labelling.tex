@@ -589,7 +589,7 @@ The following statement captures what we win after an application of $\textsc{Ba
 \subsubsection{$\textsc{BulkBalance}(\theta,k)$}
 
 The ultimate restructuring operation in bulk trees is $\textsc{BulkBalance}(\theta,k)$.
-It calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$ in $T$.
+It calls \textsc{Balance}$(x,k)$ for each node $x$ of depth $\theta$ in $T$.
 (Note that this operation has no effect if there is no such node.)
 %Note that this operation is well defined, since $\textsc{Balance}(x,k)$ only influences the subtree rooted in $x$, and the subtrees modified by $\textsc{BulkBalance}(\theta,k)$ are pairwise disjoint.
 The following two lemmas are immediate consequences of \lemref{multisplit-depth} and \lemref{balance-x-weight}, respectively.
@@ -705,48 +705,44 @@ and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the defin
 \end{proof}
 
 \begin{lem}\lemlabel{bulktree-height-i}
-Let $T_0,\ldots,T_{q}$ be a complete one-phase $k$-bulk tree sequence, and let $r_0=h(T_0)-\log|T_0|$.  Then,
-  \begin{compactenum}[(i)]
-    \item $h(T_y)= \log|T_y| + r_0+\Oh(k^{-1}\log|T_y|) $, for each $y\in\{0,\ldots,q\}$;
+Let $T_0,\ldots,T_{q}$ be a complete one-phase $k$-bulk tree sequence, and let $r_0=h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\ldots,q\}$,
+\begin{compactenum}[(i)]
+\item $ |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$;\label{height-diff}
+  \item $q=\Oh(k^{-1}\log|T_y|)$; \label{ystar-bound}
+    \item $h(T_y)= \log|T_y| + r_0+\Oh(k^{-1}\log|T_y|) $; and
     \label{bulktree-height-item-i}
     \item $h(T_{q}) = \log|T_{q}|+\Oh(k+k^{-1}\log|T_{q}|)$.\label{bulktree-height-item-ii}
   \end{compactenum}
 \end{lem}
 \begin{proof}
-Basically the two items follow from the corresponding two items of \lemref{bulktree-old-B-properties}.
 Let $I_0,\ldots,I_{q-1}$ and $D_0,\ldots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
 rebalancing and then applying $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\ldots,q-1\}$.
 First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$.
-Iterating this starting with $T_0$ implies that
-  \begin{equation}
-    |T_0|/8^y\le |T_y|\quad \text{and} \quad \log|T_0| \le \log|T_y| + 3y, \eqlabel{height-diff}
-  \end{equation}
-  for each $y\in\{0,\ldots,q\}$.
+Iterating this starting with $T_0$ implies that $    |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$ for each $y\in\{0,\ldots,q\}$, which proves (\ref{height-diff}). 
 
 \noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
 Note that, for each $y\in\{0,\ldots,q\}$,  we have
 \begin{align}
 q
 &\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3q}{k-3}+1,
-&\text{(by \eqref{height-diff}, and since $y\leq q$)}\nonumber\\
+&\text{(by (\ref{height-diff}), and since $y\leq q$)}\nonumber\\
 \intertext{and rewriting this yields (using that $k\geq 7$)}
 %&\nonumber\\
 q
 &\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
-&\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|).
-\eqlabel{ystar-bound}
-\intertext{The first item of the lemma follows as for each $y\in\{0,\ldots,q\}$, we have}
+&\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|), \nonumber
+\intertext{which proves (\ref{ystar-bound}). (\ref{bulktree-height-item-i}) follows as for each $y\in\{0,\ldots,q\}$, we have}
 h(T_y)
 & \le h(T_0) + 3y \nonumber
 &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
 &= \log|T_0| + 3y + r_0  \nonumber\\
 &\le \log |T_y| + 6y + r_0
-&\text{(by \eqref{height-diff})} \nonumber\\
+&\text{(by (\ref{height-diff}))} \nonumber\\
 &\le \log |T_y| + 6q + r_0
 &\text{(since $y\le q$)}\nonumber\\
 &= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0.
-&\text{(by \eqref{ystar-bound})}\nonumber\\
-\intertext{The second item of the lemma follows from}
+&\text{(by (\ref{ystar-bound}))}\nonumber\\
+\intertext{(\ref{bulktree-height-item-ii}) follows from}
 h(T_{q})
 & \le (k+1)q
 &\text{(since the sequence is complete)}\nonumber\\
@@ -755,10 +751,10 @@ h(T_{q})
 \nonumber\\
 & = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
 & \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{q}| + 3q) + (k+1)
-&\text{(by \eqref{height-diff})}\nonumber\\
+&\text{(by (\ref{height-diff}))}\nonumber\\
 & = \log|T_{q}| + \tfrac{4}{k-3}\log|T_{q}| + 3\cdot\tfrac{k+1}{k-3}q + k+1\nonumber\\
 & = \log|T_{q}| + \Oh(k+k^{-1}\log |T_{q}|).
-&\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by \eqref{ystar-bound})}\nonumber
+&\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by (\ref{ystar-bound}))}\nonumber
 \end{align}
 \end{proof}
 
@@ -786,17 +782,17 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
   In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
-  Note that by~\eqref{ystar-bound}
+  Note that by~\ref{ystar-bound}
   we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &= \Oh(k + k^{-1}\log|T_{y_0}|)
         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
        &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0)))
-        & \text{(by \eqref{height-diff})} \\
+        & \text{(by \lemref{bulktree-height-i}(\ref{height-diff}))} \\
 %       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*)
 %        & \text{(since $y-y_0 \le y^*$)} \\
-       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \eqref{ystar-bound})} \\
+       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \lemref{bulktree-height-i}(\ref{ystar-bound}))} \\
        &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
   \end{align*}
 \end{proof}
