@@ -890,7 +890,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
 \section{Subgraphs of $P\boxtimes P$}
 \seclabel{pxp}
 
-Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.  Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid-with diagonals, and $G$ is just a subgraph of this grid, see \figref{pxp}.
+Before continuing, we show that using the techniques developed thus far, we can already solve a non-trivial special case.  In particular, we consider the case in which $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ is a path on $m$ vertices and $P_2$ is a path on $h$ vertices.  Thus, we identify each vertex of $G$ with a point $(x,y)\in\{1,\ldots,m\}\times \{1,\ldots,h\}$ in the $m\times h$ grid with diagonals, and $G$ is just a subgraph of this grid, see \figref{pxp}.
 Obviously, we may assume that $m\leq n$ and $h\leq n$.
 
 Our motivation for considering this special case is expository: The vertices of $P_1$ are integers $1,\ldots,m$ that can be stored directly in a binary search tree. This makes it easier to understand the role that bulk tree sequences play in our solution.  The extension of this solution to subgraphs of $H\boxtimes P$, which is the topic of \secref{hxp}, uses exactly the same ideas but requires another level of indirection since there is no natural mapping from the vertices of $H$ onto real numbers.
@@ -909,14 +909,13 @@ Our motivation for considering this special case is expository: The vertices of 
 For each $y\in\{1,\ldots,h\}$, we let
 \begin{align*}
 L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and}\\
-L^-_y&=\{x-1,x:(x,y)\in V(G)\}.
+L^-_y&=L_y\cup\{x-1:(x,y)\in V(G)\}.
 \end{align*}
 Note that $\sum_{y=1}^h |L_y| = n$.
-Note also that $|L^-_y|\le 2|L_y|$ and $\sum_{y=1}^h |L^-_y|\le 2n$.
+Note also that $|L^-_y|\le 2|L_y|$ and thus $\sum_{y=1}^h |L^-_y|\le 2n$.
 Let $L^-_0:=\emptyset$.
 
-Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by application
-of~\lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$.
+Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by applying~\lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$.
 Thus for each $y\in\{1,\ldots,h\}$, we have
 \begin{align*}
 V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
