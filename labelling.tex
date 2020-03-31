@@ -838,7 +838,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
 
   Assume now that $d_{T_y}(z) > \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
-  Recall that the application of $\textsc{Balance}(x,k)$ identifies first two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$.
+  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$.
   This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$.
   In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
@@ -869,7 +869,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
   This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.
 
-  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
+ Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$. We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
   This turns out to be fairly easy.
   By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$.
   Therefore, it is enough to define $\nu^{\textsc{Del}}_y(z)$ to be $\gamma(|\sigma_{T_{y+1}}(z)|)$.
