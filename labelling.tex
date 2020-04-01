@@ -103,7 +103,8 @@ An alternative, but equivalent, interpretation of \thmref{main} is that, for eve
 \subsection{Previous Work}
 
 The current paper is the latest in a series of results dating back to Kannan, Naor, and Rudich \cite{kannan.naor.ea:implicit0,kannan.naor.ea:implicit} and Muller \cite{muller:local} who defined adjacency labelling schemes\footnote{There are some small technical differences between the two definitions that have to do with the complexity of computing $\ell(\cdot)$ as a function of $G$ and
-$A(\cdot,\cdot)$.} and described $\Oh(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved}.
+$A(\cdot,\cdot)$.} and described $\Oh(\log n)$-bit adjacency labelling schemes for several classes of graphs, including planar graphs.  Since this initial work, adjacency labelling schemes and, more generally, informative labelling schemes have remained a very active area of research \cite{adjiashvili.rotbart:labeling,alstrup.kaplan.ea:adjacency,abrahamsen.alstrup.ea:near-optimal,alstrup.dahlgaard.ea:sublinear,alstrup.gortz.ea:distance,alstrup.gavoille.ea:simpler,alstrup.rauhe:improved,Alon17}.
+% Cyril: [Alon17] -> induced-universal graph of (1+o(1))2^{(n-1)/2} vertices for general n-vertex graphs.
 
 Here we review results most relevant to the current work, namely results on planar graphs and their supporting results on trees and bounded-treewidth graphs.  First, a superficial review: Planar graphs have been shown to have $(c+o(1))\log n$-bit adjacency labelling schemes for successive values of $c=6,4,3,2,\tfrac{4}{3}$ and finally \thmref{main} gives the optimal\footnote{It is easy to see that, in any adjacency labelling scheme for any $n$-vertex graph $G$ in which no two vertices have the same neighbourhood, all labels must be distinct, so some label must have length at least $\lceil\log n\rceil$.} result $c=1$.  We now give details of these results.
 
@@ -127,8 +128,7 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 \end{figure}
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
-The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph) and a $(1+o(1))\log h$-labelling scheme for $P$ (a path).
-However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
+The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph), a $\ceil{\log{h}}$-bit labelling scheme for $P$ (a path), and a constant number of bits to locally encode the subgraph of $H\boxtimes P$ (of constant arboricity).  However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
 Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $\Oh(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $\Oh(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $\Oh(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $\Oh(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
@@ -210,10 +210,12 @@ For a string $s=s_1,\ldots,s_k$, we use $|s|:=k$ to denote the length of $s$.
 %We denote the empty string by $\varepsilon$.
 A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if $k\le \ell$ and $s_1,\ldots,s_k=t_1,\ldots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation of Elias from 1975.
 
-%Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
+% Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
+
+% Cyril: I remove the $\in O(log i)$ which is, this times, completey obvious. I would not write in a FOCS submission that "2n is in O(n)". BTW, 
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1\in \Oh(\log i)$.
+    There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1$.%\in \Oh(\log i)$.
   \end{lem}
 
   In the remainder of the paper, $\gamma$ (which we call an \emph{Elias encoding}) will be used extensively, without referring systematically to \lemref{elias}.
