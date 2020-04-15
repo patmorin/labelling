@@ -100,7 +100,7 @@ In this paper we prove the following result:
 which is $\Oh\left(\sqrt{\log n\log\log n}\right)$ in our proof.
 An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.}
 
-Note that the proof of \thmref{main} is constructive: it gives an algorithm producing the labels in $O(n\log n)$ time.
+Note that the proof of \thmref{main} is constructive: it gives an algorithm producing the labels in $\Oh(n\log n)$ time.
 
 \subsection{Previous Work}
 
@@ -214,7 +214,7 @@ A string $s_1,\ldots,s_k$ is a \emph{prefix} of a string $t_1,\ldots,t_\ell$ if 
 
 % Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
 
-% Cyril: I remove the $\in O(log i)$ which is, this times, completey obvious. I would not write in a FOCS submission that "2n is in O(n)". BTW, 
+% Cyril: I remove the $\in \Oh(log i)$ which is, this times, completey obvious. I would not write in a FOCS submission that "2n is in \Oh(n)". BTW, 
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
     There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1$.%\in \Oh(\log i)$.
@@ -1236,7 +1236,7 @@ $\mathbb{I}:=\{[a,b]: a,b\in\R,\, a\le b\}$ denote the set of closed real interv
 
 % By Dilworth's Theorem (applied to the poset $(V(I),\prec)$ where $[a,b]\prec [c,d]$ iff $b<c$), the chromatic number $\chi(I)$ of $I$ is equal to its thickness, i.e., $\chi(I)=\omega(I)$.
 
-The following well-known result states that every $m$-vertex $t$-tree is the subgraph of an interval graph with thickness $O(t\log m)$:\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
+The following well-known result states that every $m$-vertex $t$-tree is the subgraph of an interval graph with thickness $\Oh(t\log m)$:\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
 \begin{lem}\lemlabel{interval-representation}
   For every $m$-vertex $t$-tree $H$, there exists a mapping $f:V(H)\to\mathbb{I}$, such that the interval intersection graph $G_S$ with $S:=\{f(v):v\in V(H)\}$ has thickness at most $(t+1)\log_3(2m+1)$ and
@@ -1301,7 +1301,7 @@ The following observation shows that a vertex $v$ of $H$ is uniquely identified 
 
 For any binary search tree that represents $v$, let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth.  By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$.  Let $\sigma_T(v):=\sigma_T(z)$ where $z$ is the node of maximum depth in $x_T(C_H(v))$.
 
-For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q]$ induced by $Q$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (in addition to the integers $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded in a prefix-free manner using \lemref{elias} and contribute at most $O(\log t + \log h(T) + \log\log m)$ to the length of each label):
+For any $Q\subseteq V(H)$ we can obtain a labelling scheme for the subgraph $H[Q]$ induced by $Q$ by using any binary search tree $T$ that represents $v$ for each $v\in Q$.  The label for a vertex $v\in Q$ consists of the following (in addition to the integers $t$, $|\sigma_T(v)|$, and $\lfloor\log_3 (2m+1)\rfloor$, that can be encoded in a prefix-free manner using \lemref{elias} and contribute at most $\Oh(\log t + \log h(T) + \log\log m)$ to the length of each label):
 
 \begin{enumerate}[label={(TC\arabic*)}, ref={TC\arabic*}, noitemsep]
   \item $\sigma_T(v)$;
@@ -1332,7 +1332,7 @@ The correctness of this adjacency test can be seen as follows:
 In fact, this labelling scheme proves the following slightly stronger result. 
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  Let $H$, $\varphi$, $\varphi'$, $Q$, and $T$ be defined as above, and let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.  Then $|\tau_{T}(v)|=h(T) + O(t(\log t + \log h(T))+\log\log m)$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$,
+  Let $H$, $\varphi$, $\varphi'$, $Q$, and $T$ be defined as above, and let $\tau_T:Q\to\{0,1\}^*$ be the prefix-free labelling of $H[Q]$ given by (TC1)--(TC4) above.  Then $|\tau_{T}(v)|=h(T) + \Oh(t(\log t + \log h(T))+\log\log m)$ for every $v\in Q$  and there exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that  for every $v,w\in Q$,
   \[
       \mathds{T}(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$} \\
@@ -1346,14 +1346,14 @@ In fact, this labelling scheme proves the following slightly stronger result.
 \begin{proof}
   Most of the details of this labelling are described above, though we have thus far ignored the length of the labels, which we analyze now.
 
-  Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so part~(TC2) of each label requires $O(t\log h(T))$ bits.  Part~(TC3) of each label requires $O(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $O(\log t + \log h(T))$ bits.
-  The unmentioned part of each label, which includes Elias encodings of the values $t$, $|\sigma_T(V)|$, and $\lfloor\log_3(2m+1)\rfloor$, requires $O(\log t+\log h(T) + \log\log m)$ bits.
+  Part (TC1) of each label has length $|\sigma_T(v)|\le h(T)$.  For each $x\in V(T)$, $d_T(x)\le h(T)$, so part~(TC2) of each label requires $\Oh(t\log h(T))$ bits.  Part~(TC3) of each label requires $\Oh(t\log t + t\log h(T))$ bits.  Part~(TC4) of each label requires $\Oh(\log t + \log h(T))$ bits.
+  The unmentioned part of each label, which includes Elias encodings of the values $t$, $|\sigma_T(V)|$, and $\lfloor\log_3(2m+1)\rfloor$, requires $\Oh(\log t+\log h(T) + \log\log m)$ bits.
 \end{proof}
 
 % Taking $X$ to be a minimal set that stabs $S$ (so $|X|\le |S|=m$) and taking $T$ to be a perfectly balanced binary search tree (so $h(T)\le \log|X|\le\log m$) we obtain the following corollary.
 %
 % \begin{cor}\corlabel{t-tree-labelling}
-%   There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=\log m + O(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$,
+%   There exists a function $\mathds{T}:(\{0,1\}^*)^2\to \Z\cup\{\perp\}$ such that, for any $m$-vertex $t$-tree $H$ there is a prefix-free code $\tau_H:V(H)\to\{0,1\}^*$ where $|\tau_H(v)|=\log m + \Oh(t(\log t + \log\log m))$ for every $v\in V(H)$ and, for every $v,w\in V(H)$,
 %   \[
 %       \mathds{T}(\tau_H(v),\tau_H(w)) = \begin{cases}
 %       0 & \text{if $v=w$} \\
@@ -1381,16 +1381,16 @@ Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ wit
 By construction, \lemref{bulk-tree-height}, and \lemref{node-transitions}, the following properties are satisfied.
 \begin{compactenum}[(PR1)]  %[label={(PR1)}, noitemsep]
   \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
-  \item $h(T_y)= \log |T_y| + O(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
-  \item $W:=\sum_{y=1}^h |T_y|= O(tn)$, and
-  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=O(k\log\log n)=o(\log n)$.
+  \item $h(T_y)= \log |T_y| + \Oh(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each $y\in\{1,\ldots,h\}$;
+  \item $W:=\sum_{y=1}^h |T_y|= \Oh(tn)$, and
+  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=\Oh(k\log\log n)=o(\log n)$.
 \end{compactenum}
 
 The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of a vertex $v=[a_v,b_v]$ in a $t$-tree, has been introduced shortly after \obsref{unique-id}.
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $B:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, for any
-  $H$, $G$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y \cup S_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= O(k\log\log n)=o(\log n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
+  $H$, $G$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y \cup S_{y+1}$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log\log n)=o(\log n)$ such that $B(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
 \end{lem}
 
 \begin{proof}
@@ -1432,7 +1432,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
       & \preceq \sigma_{T_y'}(x_{T_y'}(w)) & \text{(by \clmref{deletion-ancestor})} \\
       & \preceq \sigma_{T_y'}(v) \enspace . & \text{(by \lemref{one-path})}
   \end{align*}
-  Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $O(\log h({T_y'}))=O(\log\log n)$ bits.
+  Therefore, by including $|\sigma_{T_y''}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_y''}(v)$ from $\sigma_{T_y'}(v)$.  This requires only $\Oh(\log h({T_y'}))=\Oh(\log\log n)$ bits.
 
   Finally, we consider the rebalancing operation that takes $T_y$ onto $T_y'$ by calling \textsc{BulkBalance}$(\theta,k)$, which calls $\textsc{Balance}(x,k)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T_y'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
 
@@ -1475,9 +1475,9 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
   From \clmref{x-switch}, we can conclude that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, for the $w\in C_H(v)$ that determines $P_{T_y'}(v)=P_{T'}(x_{T_y'}(w))$ we have $x_{T_y'}(w)\not\in Z\cup X$ by \eqref{empty}. By \clmref{x-switch}, either $x_{T_y'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T_y'}(w)=x_{T_y}(w)$.
 
-  Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $O(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
+  Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T_y'}(w)=x_{T_y}(w)$ such that $P_{T_y'}(v)=P_{T_y'}(x_{T_y}(w))$, so $\sigma_{T_y'}(v)=\sigma_{T_y'}(x_{T_y}(w))$.  By \lemref{one-path}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $\Oh(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T_y'}(x_{T_y}(w)) = \sigma_{T_y'}(v)$.
 
-  Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $O(k\log\log n)$ that satisfies the conditions of the lemma.
+  Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $\Oh(k\log\log n)$ that satisfies the conditions of the lemma.
 \end{proof}
 
 \subsection{The Labels}
@@ -1485,8 +1485,8 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
 
 \begin{compactenum}[(PC1)]
-  \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + O(\log\log n)$;
-  \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + O(k+k^{-1}\log n)$;
+  \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
+  \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{0,1\}$;
     
   \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
@@ -1526,17 +1526,17 @@ This completes the proof of our main result (note that in the previous section w
 \section{Conclusion}
 \seclabel{conclusion}
 
-We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mappings $f$, $\phi$ and $\phi'$ as in \lemref{interval-representation}), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $O(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $O(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $O(n\log n)$ time for $n$-vertex planar graphs.
+We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mappings $f$, $\phi$ and $\phi'$ as in \lemref{interval-representation}), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $\Oh(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $\Oh(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $\Oh(n\log n)$ time for $n$-vertex planar graphs.
 
-The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $O(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
-In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=O(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $O(\log^{3/2} n\sqrt{\log\log n})$ time.
+The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $\Oh(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
+In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=\Oh(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $\Oh(\log^{3/2} n\sqrt{\log\log n})$ time.
 
-In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $O(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $O(\log n)$ that has a run-length encoding of size $O(k\log\log n)$.  This is, of course, easily implemented in $O(k)$ time, but perhaps a faster implementation is possible.
+In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $\Oh(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $\Oh(\log n)$ that has a run-length encoding of size $\Oh(k\log\log n)$.  This is, of course, easily implemented in $\Oh(k)$ time, but perhaps a faster implementation is possible.
 
-% \snote{If we want to bother, we could probably do this in $O(\log n)$ time.}
+% \snote{If we want to bother, we could probably do this in $\Oh(\log n)$ time.}
 The current result leaves two obvious directions for future work:
 \begin{enumerate}
-  \item The precise length of the labels in \thmref{main} is $\log n + O(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
+  \item The precise length of the labels in \thmref{main} is $\log n + \Oh(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
 
   \item \thmref{main-product} implies a $(1+o(1))\log n$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
 \end{enumerate}
