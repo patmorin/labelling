@@ -1094,7 +1094,7 @@ A finite set $X\subset\R$ \emph{stabs} a set $S$ of intervals if $X\cap [a,b]\ne
 Consider a binary search tree $T$ such that $V(T)$ stabs a set of intervals $\{f(v):v\in V(H)\}$, for some $t$-tree $H$ and some interval representation $f$ of $H$.  
 Then, we say that $T$ \emph{stabs} $H$. 
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
-For $V \subseteq V(H)$, we let $x_T(V):=\{x_T(v):v\in V\}$.
+For $U \subseteq V(H)$, we let $x_T(U):=\{x_T(v):v\in U\}$.
 
 \begin{figure}
   \begin{center}
@@ -1111,7 +1111,7 @@ Let $H$ be a $t$-tree with a fixed interval representation $v\mapsto[a_v,b_v]$.
 Let $T$ be a binary search tree that stabs $H$. 
 Then,
 \begin{compactenum}
-  \item for every $v$ in $H$, we have $x_{T}(v) \in [a_v,b_v]$; and
+  \item for every vertex $v$ in $H$, we have $x_{T}(v) \in [a_v,b_v]$; and
   \item for every clique $C$ in $H$, the set of nodes $x_T(C)$ lie in a single root-to-leaf path in $T$.
 \end{compactenum}
 \end{lem}
@@ -1135,7 +1135,7 @@ Then,
   This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
 \end{proof}
 
-\subsection{A Labelling Scheme for $t$-trees}
+\subsection{A Labelling Scheme for $t$-Trees}
 
 We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
@@ -1144,7 +1144,7 @@ We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-order
 and an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
 In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
-Let $\varphi': V(H) \to [(t+1)\log_3 (2m+1)]$ be a coloring such that $u$ and $v$ have distinct colors, whenever the intervals of $u$ and $v$ intersect. 
+Let $\varphi': V(H) \to [(t+1)\log_3 (2m+1)]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
 
 The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by 
 $x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
@@ -1165,7 +1165,7 @@ $x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
 Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
 %For any binary search tree that represents $v$, 
 We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node  $x_v \in x_T(C_H(v))$ of maximum depth. Let $\sigma_T(v):=\sigma_T(x_v)$.
-By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the lowest vertex in $x_T(C_H(v))$.
+By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
 
 
 Now, we define the label of a vertex $v$ in $H$. 
@@ -1206,7 +1206,7 @@ This proves the following result.
 \begin{lem}\lemlabel{t-tree-labelling}
   There exists a function $F:(\{0,1\}^2)\to\{0,1\}$ such that
   for any $t$-tree $H$ on $m$ vertices 
-  with a proper vertex-coloring $\varphi'$ of its interval representation using $C$ colors,
+  with a proper vertex-colouring $\varphi'$ of its interval representation using $C$ colours,
   and any binary search tree $T$ stabbing $H$,
   there is a labelling $\tau_T(u)$ for $u$ in $H$ such that 
   $|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T)))$ for $u$ in $H$, and
@@ -1220,7 +1220,7 @@ This proves the following result.
     \end{cases}
   \]
 \end{lem}
-In particular, we can take $\varphi'$ using $\Oh(t\cdot\log m)$ colors and get labels of length 
+In particular, we can take $\varphi'$ using $\Oh(t\cdot\log m)$ colours and get labels of length 
 $h(T)+\Oh(t\log t + t\log\log m + t\log h(T))$.
 
 
