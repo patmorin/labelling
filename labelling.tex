@@ -277,11 +277,11 @@ The following fact about binary search trees is useful, for example, in the dele
     \item (if $y$ has no left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by removing all trailing 0's and the last 1; or
     \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
-Therefore, there exists a function $D:(\{0,1\}^*)^2\to{0,1}^*$ such that, for every binary search tree $T$ and for every $i$ such that $\{i-1,i\}\subseteq V(T)$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
-$D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
+Therefore, there exists a function $D:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every binary search tree $T$ and for every two consecutive nodes $x, y$ in the sorted order of $V(T)$, there exists $\delta_T(y) \in \{0,1\}^*$ with $|\delta_T(y)|=\Oh(\log h(T))$ such that
+$D(\sigma_T(y),\delta_T(y))=\sigma_T(x)$.
 \end{obs}
 
-The bitstring $\delta_T(i)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $i$ has a left child in $T$ or not and, in case $i$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(i)-d_T(i-1)-1$.  More precisely, $\delta_T(i)=0$ or $\delta_T(i)=1,\gamma(s)$.
+The bitstring $\delta_T(y)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $y$ has a left child in $T$ or not and, in case $y$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(y)-d_T(x)-1$.  More precisely, $\delta_T(y)=0$ or $\delta_T(y)=1,\gamma(s)$.
 
 Putting some of the preceding results together we obtain the following useful coding result.
 
@@ -1067,7 +1067,7 @@ Note that $v_i \in C_H(v_i)$.
 \subsection{$t$-Trees and Interval Graphs}
 
 For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$ also called an \emph{interval}.
-For a (finite) set of intervals $S$, 
+For a (finite) set $S$ of intervals, 
 the \emph{interval intersection graph} $G_S$ of $S$ is the graph 
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
@@ -1091,7 +1091,7 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 In light of \lemref{interval-representation}, 
 we will fix the mapping $f$, as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
 Furthermore, we assume that all the endpoints of intervals in the represention are distinct. 
-This can be easilly achieved by local perturbations not changing the intersection graph.
+This can be easily achieved by local perturbations not changing the intersection graph.
 
 A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
 if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
@@ -1111,7 +1111,7 @@ For $V \subseteq V(H)$, we let $x_T(V)$ denote the lowest common $T$-ancestor of
 
 \begin{lem}\lemlabel{all-the-obs-about-bst-and-intervals}
 %If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(v)\in [a_v,b_v]$.
-Let $H$ be a $t$-tree with a fixed interval representation $v\to[a_v,b_v]$. 
+Let $H$ be a $t$-tree with a fixed interval representation $v\mapsto[a_v,b_v]$. 
 Let $T$ be a binary search tree that stabs $H$. 
 Then,
 \begin{compactenum}
@@ -1177,9 +1177,9 @@ Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ i
 Recall that $\gamma$ is the Elias encoding of natural numbers.
 The label of $v$ is defined to be:
 \[
-\gamma(d_T(v)), \sigma_T(v), \gamma(\varphi'(v)), \gamma(d), 
-\gamma(d_T(u_1)), \gamma(\varphi'(u_1)), \ldots,
-\gamma(d_T(u_d)), \gamma(\varphi'(u_d)).
+\gamma(d_T(v)),\, \sigma_T(v), \, \gamma(\varphi'(v)), \,\gamma(d), \,
+\gamma(d_T(u_1)), \,\gamma(\varphi'(u_1)), \,\ldots, \,
+\gamma(d_T(u_d)), \,\gamma(\varphi'(u_d)).
 \]
 To bound the length of the labels, note that 
 $d_T(w) = |\sigma_T(w)|\leq h(T)$, for all $w$ in $T$. 
