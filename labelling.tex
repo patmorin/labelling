@@ -1057,7 +1057,7 @@ Note that $v_i \in C_H(v_i)$.
 \subsection{$t$-Trees and Interval Graphs}
 
 For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$ also called an \emph{interval}.
-For a (finite) set of intervals $S$, 
+For a (finite) set $S$ of intervals, 
 the \emph{interval intersection graph} $G_S$ of $S$ is the graph 
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
@@ -1081,7 +1081,7 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 In light of \lemref{interval-representation}, 
 we will fix the mapping $f$, as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
 Furthermore, we assume that all the endpoints of intervals in the represention are distinct. 
-This can be easilly achieved by local perturbations not changing the intersection graph.
+This can be easily achieved by local perturbations not changing the intersection graph.
 
 A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
 if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
@@ -1092,7 +1092,7 @@ For $V \subseteq V(H)$, we let $x_T(V)$ denote the lowest common $T$-ancestor of
 
 \begin{lem}\lemlabel{Piotrek:all-the-obs-about-bst-and-intervals}
 %If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(v)\in [a_v,b_v]$.
-Let $H$ be a $t$-tree with a fixed interval representation $v\to[a_v,b_v]$. 
+Let $H$ be a $t$-tree with a fixed interval representation $v\mapsto[a_v,b_v]$. 
 Let $T$ be a binary search tree that stabs $H$. 
 Then,
 \begin{compactenum}
@@ -1158,9 +1158,9 @@ Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ i
 Recall that $\gamma$ is the Elias encoding of natural numbers.
 The label of $v$ is defined to be:
 \[
-\gamma(d_T(v)), \sigma_T(v), \gamma(\varphi'(v)), \gamma(d), 
-\gamma(d_T(u_1)), \gamma(\varphi'(u_1)), \ldots,
-\gamma(d_T(u_d)), \gamma(\varphi'(u_d)).
+\gamma(d_T(v)),\, \sigma_T(v), \, \gamma(\varphi'(v)), \,\gamma(d), \,
+\gamma(d_T(u_1)), \,\gamma(\varphi'(u_1)), \,\ldots, \,
+\gamma(d_T(u_d)), \,\gamma(\varphi'(u_d)).
 \]
 To bound the length of the labels, note that 
 $d_T(w) = |\sigma_T(w)|\leq h(T)$, for all $w$ in $T$. 
