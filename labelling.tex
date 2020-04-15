@@ -1375,7 +1375,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
 We are ready to combine everything together and devise labels for vertices of $G$.
 
-Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that
+Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{row-code} such that, 
 using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$,
 we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 \begin{align*}
@@ -1387,16 +1387,16 @@ for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-
 
 \snote{Piotrek: We have an issue with $F$ and~\lemref{t-tree-labelling}}
 
-Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{t-tree-labelling}.
+Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{t-tree-labelling}.
 Thus, for each $y\in\{1,\ldots,h\}$, 
-for $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by $H$ and 
-vertex coloring $\varphi$, and a binary search tree $T_y$,
+for the $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by that of $H$ and 
+vertex colouring $\varphi$, and a binary search tree $T_y$,
 there is a labelling $\tau_{T_y}(u)$ for any $u\in S^-_y \cup S^-_{y-1}$ such that
-$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$ for $u\in S^-_y \cup S^-_{y-1}$, and
+$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$, and
 $F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^-_y \cup S^-_{y-1}]$.
 
 
-Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{interval-transitions}, such that
+Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{interval-transitions} such that
 for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_{y}$,
 there exists a code $\mu_{y}(x)$ with $|\mu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $J(\sigma_{T_{y}}(x),\mu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
