@@ -15,6 +15,7 @@
 \usepackage{cancel}
 \usepackage{enumitem}
 
+\usepackage{comment}
 
 \newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
 \newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
@@ -871,7 +872,12 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
   \]
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
-  This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.
+  This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.  Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
+  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
+  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
+  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
+  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
+
 
  Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$. We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
   This turns out to be fairly easy.
@@ -1036,7 +1042,11 @@ This establishes our first result:
   The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
-\section{Piotrek: rewriting: Subgraphs of $H\boxtimes P$}
+%==============
+% Section 5
+%==============
+
+\section{Subgraphs of $H\boxtimes P$}
 \seclabel{hxp}
 
 In this section we describe adjacency labelling schemes for graphs $G$ that are subgraphs of $H\boxtimes P$ where $H$ is a graph of treewidth $t$ and $P=1,2,\ldots,h$ is a path.
@@ -1090,7 +1100,16 @@ Then, we say that $T$ \emph{stabs} $H$.
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
 For $V \subseteq V(H)$, we let $x_T(V)$ denote the lowest common $T$-ancestor of $V(T)\cap \bigcup_{v\in V} f(v)$.
 
-\begin{lem}\lemlabel{Piotrek:all-the-obs-about-bst-and-intervals}
+\begin{figure}
+  \begin{center}
+    \includegraphics{figs/x}
+  \end{center}
+  \caption{The definition of $x_T(v)$.}
+  \figlabel{x}
+\end{figure}
+
+
+\begin{lem}\lemlabel{all-the-obs-about-bst-and-intervals}
 %If $T$ is a binary search tree such that $V(T)$ stabs $v=[a_v,b_v]$, then  $x_T(v)\in [a_v,b_v]$.
 Let $H$ be a $t$-tree with a fixed interval representation $v\to[a_v,b_v]$. 
 Let $T$ be a binary search tree that stabs $H$. 
@@ -1150,7 +1169,7 @@ $x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
 Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
 %For any binary search tree that represents $v$, 
 We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth. 
-By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. 
+By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. 
 Let $\sigma_T(v):=\sigma_T(x_T(C_H(v)))$.
 
 Now, we define the label of a vertex $v$ in $H$. 
@@ -1190,27 +1209,250 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
 This proves the following result. 
 
 \begin{lem}\lemlabel{t-tree-labelling}
-  There exists a function $T:(\{0,1\}^2)\to\{0,1\}$ such that
+  There exists a function $F:(\{0,1\}^2)\to\{0,1\}$ such that
   for any $t$-tree $H$ on $m$ vertices 
-  with a vertex-coloring $\varphi'$ fixed as above,
+  with a proper vertex-coloring $\varphi'$ of its interval representation using $C$ colors,
   and any binary search tree $T$ stabbing $H$,
   there is a labelling $\tau_T(u)$ for $u$ in $H$ such that 
-  for every $v,w$ in $H$, we have
+  $|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T))$ for $u$ in $H$, and
+  for every $v,w \in V(H)$, we have
   \[
-      T(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
-      0 & \text{if $v=w$} \\
-      -1 & \text{if $v$ is in $C_H(w)$} \\
-      1 & \text{if $w$ is in $C_H(v)$.}% \\
-%      \perp & \text{otherwise.}
+      F(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
+      0 & \text{if $v=w$;} \\
+      -1 & \text{if $v$ and $w$ are adjacent in $H$, and $w\in C_H(v)$;} \\
+      1 & \text{if $v$ and $w$ are adjacent in $H$, and $v\in C_H(w)$;} \\
+      \perp & \text{otherwise.}
     \end{cases}
   \]
 \end{lem}
+In particular, we can take $\varphi'$ using $\Oh(t\cdot\log m)$ colors and get labels of length 
+$h(T)+\Oh(t\log t + t\log\log m + t\log h(T))$.
+
+
+\subsection{Interval Transition Labels}
+
+We now show that the solution presented in \secref{pxp} generalizes to the current setting.
+
+% of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels of any vertex $v\in V(H)$ such that an element of $C_H(v)$ leaves or enters $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
+
+Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. 
+Fix an interval representation of $H$ with clique number at most $\lfloor\log_3 (2m+1)\rfloor\}$, see~\lemref{interval-representation}. 
+As before, we often do not distinguish between a vertex $v$ in $H$ and its interval $[a_v,b_v]$.
+Let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}$ be a proper colouring the interval representation of $H$.
+
+For each $y\in\{1,\ldots,h\}$, let 
+\begin{align*}
+S_y&=\{v\in V(H): (v,y)\in V(G)\}, \text{ and}\\
+S^-_y&=\textstyle\bigcup_{v\in S_y} C_H(v).
+\end{align*}
+Note that $\sum_{y=1}^h |S_y| =n$ and $|S_y^-| \leq (t+1)|S_y|$. 
+Thus $\sum_{y=1}^h |S_y^-| \leq (t+1)n$. 
+Let $S^-_0=\emptyset$. 
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S^-_y\cup S^-_{y-1}$. 
+Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
+Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$.
+By construction, we have
+\[
+\textstyle\sum_{y=1}^h |T_y| \le 2\textstyle\sum_{y=1}^h |X_y| \le 4\textstyle\sum_{y=1}^h |S^-_y\cup S^-_{y-1}| \le 8(t+1)n.
+\]
+By \lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$ we have
+% and \lemref{node-transitions}, the following properties are satisfied.
+\begin{align*}
+h(T_y)&= \log |T_y| + \Oh(k+k^{-1}\log |T_y|)\\
+&\leq \log |T_y| + \Oh(k+k^{-1}\log n).
+\end{align*}
+
+%\begin{compactenum}[(PR1)]  %[label={(PR1)}, noitemsep]
+%  \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
+%  \item $h(T_y)= \log |T_y| + \Oh(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each %$y\in\{1,\ldots,h\}$;
+%  \item $W:=\sum_{y=1}^h |T_y|= \Oh(tn)$, and
+%  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=\Oh(k\log\log n)=o(\log n)$.
+%\end{compactenum}
+
+The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of a vertex $v=[a_v,b_v]$ in a $t$-tree, has been introduced shortly after \obsref{unique-id}.
+
+\begin{lem}\lemlabel{interval-transitions}
+  There exists a function $J:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, 
+  for any $H$, $P$, $G$, $\varphi'$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
+\end{lem}
+
+\begin{proof}
+  First we recall that, if $v\in S_y$, 
+  then $C_H(v) \subseteq S^-_y$. 
+  Thus, $C_H(v)$ is stabbed by $V(T_y)$ and $V(T_{y+1})$.
+  Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
+  As in the proof of \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. 
+  Recall that the three steps are: 
+  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
+  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
+  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
+  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
+
+\snote{Piotrek: We shall still go over this proof. So far I just changed obvious typos/mistakes.}
+
+
+  The bulk insertion that converts $T'$ into $T''$ is the simplest to handle.  For any $v\in S_y$, $P_{T'}(v)$ is the path from the root of $T'$ to the deepest node in $x_{T'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T'}(w)$ is the element of $w\cap V(T')$ that is closest to the root of $T'$. Since $T''$ is a supergraph of $T'$ obtained by adding small subtrees at the external nodes of $T'$, $x_{T''}(w)=x_{T'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T''}(x_{T''}(w))=P_{T'}(x_{T'}(w))$ and $\sigma_{T''}(x_{T''}(w))=\sigma_{T'}(x_{T'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for each $v\in S_y$.
+
+  Next we consider the bulk deletion that converts $T''$ into $T_{y+1}$.  A bulk deletion consists of a sequence of individual deletions. Consider one such deletion and let $T$ and $\tilde{T}$ denote the tree before and after the deletion, respectively.
+
+  \begin{clm}\clmlabel{deletion-ancestor}
+    For any $v=[a_v,b_v]\in S_y$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))$ is a prefix of $\sigma_T(x_T(v))$.
+  \end{clm}
+
+  \begin{proof}[Proof of \clmref{deletion-ancestor}]
+    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value of) $x_i$ is replaced with (the value in) node $x_{i+1}$.
+
+    \begin{figure}
+      \begin{center}
+        \includegraphics{figs/deletion-t-tree-1}\\[1ex]
+        $\Downarrow$\\[1ex]
+        \includegraphics{figs/deletion-t-tree-2}
+      \end{center}
+      \caption{The effect of a single deletion on $x_T(v)$.}
+      \figlabel{deletion-t-tree}
+    \end{figure}
+
+    If $x_T(v)=x_0$ then recall that $v\in S_y\subseteq S^-_y$ and $X_{y+1}\subseteq V(T_{y+1})$ contains both endpoints of each interval in $S^-_{y+1}\cup S^-_y$.  Therefore $a_v,b_v\in V(T_{y+1})$.  Therefore $r\ge 1$ and $x_1\in [a_v,b_v]$ so $x_{\tilde{T}}(v)=x_1$ and $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))=\sigma_T(x_T(v))$.
+
+    If $x_T(v)=x_i$ for some $i\in\{1,\ldots,r\}$, then $x_{\tilde{T}}(v)=x_i$ (see the interval $v_1$ in \figref{deletion-t-tree}) and $\sigma_{\tilde{T}}(x_i)=\sigma_{T}(x_{i-1})$.  Since $x_{i-1}$ is a $T$-ancestor of $x_i$, $\sigma_{\tilde{T}}(x_{\tilde{T}}(v))=\sigma_{\tilde{T}}(x_i)$ is a prefix of $\sigma_{T}(x_{T}(v))$, as required.
+
+    Finally, if $x_T(v)\neq x_i$ for any $i\in\{0,\ldots,r\}$ and $x_T(v)\neq x_{\tilde{T}}(v)$, then the only possibility is that $x_{\tilde{T}}(v)=x_i$ for some $x_i\in [a_v,b_v]$ (see the interval $v_2$ in \figref{deletion-t-tree}).  This can only happen if $x_i$ is not a $T$-ancestor of $x_T(v)$, but $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$.  By \lemref{all-the-obs-about-bst-and-intervals}, $x_i$ is a $T$-descendant of $x_T(v)$.  Since $x_i$ is a $\tilde{T}$-ancestor of $x_T(v)$, $x_{i-1}$ is a $T$-ancestor of $x_T(v)$.  Therefore $\sigma_{\tilde{T}}(v)=\sigma_{\tilde{T}}(x_i)=\sigma_T(x_{i-1})$ is a prefix of $\sigma_T(x_T(v))$, as required.  This completes the proof of \clmref{deletion-ancestor}.
+  \end{proof}
+
+  For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
+  Since a bulk deletion is implemented as a sequence of individual deletions,
+  \begin{align*}
+    \sigma_{T_{y+1}}(v)
+      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(w)) & \text{(for some $w\in C_H(v)$)} \\
+      & \preceq \sigma_{T''}(x_{T''}(w)) & \text{(by \clmref{deletion-ancestor})} \\
+      & \preceq \sigma_{T''}(v). & \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
+  \end{align*}
+  Therefore, by including $|\sigma_{T_{y+1}}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_{y+1}}(v)$ from $\sigma_{T'}(v)$.  This requires only $\Oh(\log h({T_{y+1}}))=\Oh(\log h({T_y}))$ bits.
+
+  Finally, we consider the rebalancing operation that takes $T_y$ onto $T'$ by calling \textsc{BulkBalance}$(\theta,k)$, which calls $\textsc{Balance}(x,k)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics{figs/rebalance-t-tree}
+    \end{center}
+    \caption{Only the call to $\textsc{Balance}(x,k)$ on a node $x\in V(P_{T_y}(v))$ affects $\sigma_{T'}(v)$.}
+    \figlabel{rebalance-t-tree}
+  \end{figure}
+
+  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
+  The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T'}(v)$ from $\sigma_{T_y}(v)$.
+
+  Now, $\textsc{Balance}(x,k)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
+
+  For any $v\in S_y$ such that $P_{T'}(v)$ ends at a vertex $z\in Z\cup X=V(\hat{T}_0)$, the problem is easy.  We include $\sigma_{\hat{T}_0}(z)$, which has length at most $h(\hat{T}_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T'}(v)$ from $\sigma_{T_y}(v)$.
+
+  Thus, we only need to consider those $v\in S_v$ such that $P_{T'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{all-the-obs-about-bst-and-intervals}, $z$ is the unique node of $P_{T'}(z)$ contained in $[a_w,b_w]$.  Therefore
+  \begin{equation}
+    [a_w,b_w]\cap (Z\cup X)=\emptyset \enspace . \eqlabel{empty}
+  \end{equation}
+
+  For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
+
+  \begin{clm}\clmlabel{x-switch}
+    Let $S$ be a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
+    \begin{compactenum}
+      \item $a_w\le x\le b_w$;
+      \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
+      \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
+    \end{compactenum}
+  \end{clm}
+
+  \begin{proof}
+    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
+
+    By \lemref{all-the-obs-about-bst-and-intervals}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_w,b_w]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node in $[a_w,b_w]$, namely $z$, so $z=x_{T_{>x}}(w)$.  This completes the proof of \clmref{x-switch}.
+  \end{proof}
+
+  From \clmref{x-switch}, we can conclude that $P_{T'}(v)=P_{T'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, for the $w\in C_H(v)$ that determines $P_{T'}(v)=P_{T'}(x_{T'}(w))$ we have $x_{T'}(w)\not\in Z\cup X$ by \eqref{empty}. By \clmref{x-switch}, either $x_{T'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T'}(w)=x_{T_y}(w)$.
+
+  Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T'}(w)=x_{T_y}(w)$ such that $P_{T'}(v)=P_{T'}(x_{T_y}(w))$, so $\sigma_{T'}(v)=\sigma_{T'}(x_{T_y}(w))$.  By \lemref{all-the-obs-about-bst-and-intervals}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $\Oh(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T'}(x_{T_y}(w)) = \sigma_{T'}(v)$.
+
+  Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $\Oh(k\log h(T_y))$ that satisfies the conditions of the lemma.
+\end{proof}
+
+\subsection{The Labels}
+
+We are read to combine everything together and devise labels for vertices of $G$.
+
+Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that
+using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$,
+we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
+\begin{align*}
+|\alpha(y)|&=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h)\\
+&\leq \log\bigl( 8(t+1)n\bigr) - \log|T_y| + \Oh(\log\log n)\\
+&\leq \log n + \log t -\log|T_y| + \Oh(\log\log n),
+\end{align*}
+for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
+
+
+Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{interval-transitions}, such that
+for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_{y}$,
+there exists a code $\mu_{y}(x)$ with $|\mu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $J(\sigma_{T_{y}}(x),\mu_{y}(x))=\sigma_{T_{y+1}}(x)$.
+
+%Piotrek: just copy-pasted stuff: ignore
+%Finally, given a vertex $v=(x,y)$ of $G$, we define
+%an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$. Note that some of these $8$ vertices may not even be present in $G$ in which case the resulting bit is set to $0$ since the edge is not present in $G$.
+
+%Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives the following label:
+%\[
+%\alpha(y), \gamma(|\sigma_{T_y}(x)|), \sigma_{T_y}(x), \delta_{T_y}(x), \delta_{T_{y+1}}(x), \nu_y(x), a(v).
+%\]
+
+\snote{Piotrek: I got here. Need to eat sth. Almost done.}
+
+Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
+
+\begin{compactenum}[(PC1)]
+  \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
+  \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
+  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{0,1\}$;
+    
+  \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
+  %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
+  %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
+  \item $\varphi'(v)$;
+  \item $\mu_y(v)$; and
+  \item $a(z)$ (defined next).
+  \end{compactenum}
+  The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3(t+1)$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
+
+\subsection{Adjacency Testing}
+
+Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ we test if $z_1z_2\in E(G)$ by first using $\alpha(y_1)$ and $\alpha(y_2)$ to determine which of the following applies:
+\begin{enumerate}
+  \item $|y_1-y_2|\ge 2$: In this case $y_1\neq y_2$ and $y_1y_2\not\in P$, so $z_1z_2\not\in E(H\boxtimes P)$, so $z_1z_2\not\in E(G)$.
+
+  \item $y_1=y_2$.  Let $y=y_1=y_2$.  In this case (PC2)--(PC5) contains $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ (defined in \lemref{t-tree-labelling} using (TC1)--(TC4)) and we use this to test if $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
+
+  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+
+  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1=v_2$ or $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
+
+  If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_{y+1}}(v_1)$ and $\tau_{T_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+
+  \item $y_2-y_1=-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
+\end{enumerate}
+
+This completes the proof of our main result (note that in the previous section we assumed without loss of generality that $h\le n$ and $m\le n$, but here we can only assume that $h\le n$ and $m\le tn$, using the fact that every $n$-vertex graph of treewidth at most $t$ is a subgraph of a $t$-tree on at most $tn$ vertices).
+
+\begin{thm}\thmlabel{main-product}
+  For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
+\end{thm}
+
+\thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}.
+
 
 
 %======================
 % original Section 5
 %======================
-
+\begin{comment}
 \section{Subgraphs of $H\boxtimes P$}
 \seclabel{hxp}
 
@@ -1522,7 +1764,7 @@ This completes the proof of our main result (note that in the previous section w
 \end{thm}
 
 \thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}.
-
+\end{comment}
 \section{Conclusion}
 \seclabel{conclusion}
 
