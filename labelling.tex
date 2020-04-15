@@ -1095,7 +1095,7 @@ This can be easily achieved by local perturbations not changing the intersection
 
 A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
 if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
-Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$. 
+Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$, for some graph $H$. 
 Then, we say that $T$ \emph{stabs} $H$. 
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
 For $V \subseteq V(H)$, we let $x_T(V)$ denote the lowest common $T$-ancestor of $V(T)\cap \bigcup_{v\in V} f(v)$.
@@ -1145,8 +1145,8 @@ We describe a labelling scheme for $t$-trees that, like our labelling scheme for
 
 
 We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-ordering,
-and an interval representation $v\to[a_v,b_v]$ as in~\lemref{interval-representation}. 
-In particular, the clique number of obtained interval graph is at most $(t+1)\log_3 (2m+1)$.
+and an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
+In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
 Let $\varphi': V(H) \to [(t+1)\log_3 (2m+1)]$ be a coloring such that $u$ and $v$ have distinct colors, whenever the intervals of $u$ and $v$ intersect. 
 
