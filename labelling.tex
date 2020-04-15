@@ -1065,15 +1065,13 @@ Note that $v_i \in C_H(v_i)$.
 
 \subsection{$t$-Trees and Interval Graphs}
 
-For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$ also called an \emph{interval}.
-For a (finite) set $S$ of intervals, 
+The \emph{clique number} $\omega(G)$ of a graph $G$ is the maximum size of a clique in $G$. 
+For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$, also called an \emph{interval}.
+For a finite set $S$ of intervals, 
 the \emph{interval intersection graph} $G_S$ of $S$ is the graph 
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
-The \emph{clique number} $\omega(G)$ of a graph $G$ is the maximum size of a clique in $G$.
-By Helly's property, for a family of intervals $S$, 
-the clique number $\omega(G_S)$ 
-is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
+By Helly's property, the clique number $\omega(G_S)$ of $G_S$ is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
 
 The following well-known result states that every $m$-vertex $t$-tree is a subgraph of an interval graph of clique number $\Oh(t\log m)$.\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
@@ -1088,13 +1086,12 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 \end{lem}
 
 In light of \lemref{interval-representation}, 
-we will fix the mapping $f$, as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
+we will fix the mapping $f$ as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
 Furthermore, we assume that all the endpoints of intervals in the represention are distinct. 
 This can be easily achieved by local perturbations not changing the intersection graph.
 
-A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
-if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
-Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$, for some graph $H$. 
+A finite set $X\subset\R$ \emph{stabs} a set $S$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
+Consider a binary search tree $T$ such that $V(T)$ stabs a set of intervals $\{f(v):v\in V(H)\}$, for some $t$-tree $H$ and some interval representation $f$ of $H$.  
 Then, we say that $T$ \emph{stabs} $H$. 
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
 For $V \subseteq V(H)$, we let $x_T(V):=\{x_T(v):v\in V\}$.
