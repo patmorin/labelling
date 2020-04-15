@@ -203,7 +203,7 @@ The remainder of the paper is organized as follows. \Secref{preliminaries} revie
 \seclabel{preliminaries}
 
 All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
-\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
+%\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
 
 For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
@@ -986,8 +986,6 @@ $\delta_{T_y}(x)$, and $\delta_{T_{y+1}}(x)$
  have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$.
 Thus, in total the label has length  $\log n+ \Oh(k\log\log n + k\log k + k^{-1}\log n)$.
 
-\pnote{Pat: Why does $k\log k$ suddenly show up in $|\nu_y(x)|$?  It doesn't appear in \lemref{node-transitions}.}
-
 \subsection{Adjacency Testing}
 
 First note that from a given label of $v=(x,y) \in V(G)$, we can decode each block of the label.
@@ -1053,9 +1051,10 @@ In this section we describe adjacency labelling schemes for graphs $G$ that are 
 
 
 Let $t$ be a positive integer.
-A graph $H$ is a \emph{$t$-tree}\footnote{For convenience, we work with a slightly more general definition of a $t$-tree than the one usually in the literature.} if there is an ordering $v_1,\ldots,v_m$ of $V(H)$ such that 
-for every $i\in\{1,\ldots,m\}$, the neighbors of $v_i$ earlier in the order, i.e.\ $N_H(v_i) \cap \{v_1,\ldots,v_{i-1}\}$ induce a clique of size at most $t$ in $H$.
-It is well-known that every graph of treewidth $t$ is a subgraph of a $t$-tree. 
+A graph $H$ is a \emph{$t$-tree} if there is an ordering $v_1,\ldots,v_m$ of $V(H)$ such that 
+for every $i\in\{1,\ldots,m\}$, the neighbors of $v_i$ earlier in the order, i.e.\ $N_H(v_i) \cap \{v_1,\ldots,v_{i-1}\}$ induce a clique of size at most $t$ in $H$. 
+(Let us emphasize that this is slightly more general than the usual definition of $t$-trees from the literature, which requires the neighbors of $v_i$ earlier in the order to be a clique of size exactly $\min\{i-1, t\}$; this broader definition will be more convenient for our purposes.) 
+Every graph of treewidth $t$ is a subgraph of a $t$-tree. 
 For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do.
 
 
@@ -1066,15 +1065,13 @@ Note that $v_i \in C_H(v_i)$.
 
 \subsection{$t$-Trees and Interval Graphs}
 
-For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$ also called an \emph{interval}.
-For a (finite) set $S$ of intervals, 
+The \emph{clique number} $\omega(G)$ of a graph $G$ is the maximum size of a clique in $G$. 
+For two real numbers $a$ and $b$ with $a<b$ by $[a,b]$ we denote the set $\{ x\in\R: a\le x\le b\}$, also called an \emph{interval}.
+For a finite set $S$ of intervals, 
 the \emph{interval intersection graph} $G_S$ of $S$ is the graph 
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
-The \emph{clique number} $\omega(G)$ of a graph $G$ is just the maximum size of a clique in $G$.
-By Helly's property, for a family of intervals $S$, 
-the clique number $\omega(G_S)$ 
-is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
+By Helly's property, the clique number $\omega(G_S)$ of $G_S$ is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
 
 The following well-known result states that every $m$-vertex $t$-tree is a subgraph of an interval graph of clique number $\Oh(t\log m)$.\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
@@ -1089,16 +1086,15 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 \end{lem}
 
 In light of \lemref{interval-representation}, 
-we will fix the mapping $f$, as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
+we will fix the mapping $f$ as an \emph{interval representation} of our $t$-tree $H$, and we will not distinguish between a vertex $v\in V(H)$ and the interval $f(v):=[a_v,b_v]$. 
 Furthermore, we assume that all the endpoints of intervals in the represention are distinct. 
 This can be easily achieved by local perturbations not changing the intersection graph.
 
-A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
-if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
-Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$, for some graph $H$. 
+A finite set $X\subset\R$ \emph{stabs} a set $S$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
+Consider a binary search tree $T$ such that $V(T)$ stabs a set of intervals $\{f(v):v\in V(H)\}$, for some $t$-tree $H$ and some interval representation $f$ of $H$.  
 Then, we say that $T$ \emph{stabs} $H$. 
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
-For $V \subseteq V(H)$, we let $x_T(V):=\{x_T(v):v\in V\}$.
+For $U \subseteq V(H)$, we let $x_T(U):=\{x_T(v):v\in U\}$.
 
 \begin{figure}
   \begin{center}
@@ -1115,7 +1111,7 @@ Let $H$ be a $t$-tree with a fixed interval representation $v\mapsto[a_v,b_v]$.
 Let $T$ be a binary search tree that stabs $H$. 
 Then,
 \begin{compactenum}
-  \item for every $v$ in $H$, we have $x_{T}(v) \in [a_v,b_v]$; and
+  \item for every vertex $v$ in $H$, we have $x_{T}(v) \in [a_v,b_v]$; and
   \item for every clique $C$ in $H$, the set of nodes $x_T(C)$ lie in a single root-to-leaf path in $T$.
 \end{compactenum}
 \end{lem}
@@ -1139,7 +1135,7 @@ Then,
   This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
 \end{proof}
 
-\subsection{A Labelling Scheme for $t$-trees}
+\subsection{A Labelling Scheme for $t$-Trees}
 
 We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
@@ -1148,28 +1144,28 @@ We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-order
 and an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
 In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
-Let $\varphi': V(H) \to [(t+1)\log_3 (2m+1)]$ be a coloring such that $u$ and $v$ have distinct colors, whenever the intervals of $u$ and $v$ intersect. 
+Let $\varphi: V(H) \to [(t+1)\log_3 (2m+1)]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
 
 The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by 
-$x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
+$x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 
 \begin{obs}\obslabel{unique-id}
     Let $T$ be a binary search tree that stabs $H$.
     Let $u$ and $v$ be two distinct vertices in $H$. 
-    Then, $x_T(u)\neq x_T(v)$ or $\varphi'(u)\neq\varphi'(v)$. 
-    Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi'(v)\neq\varphi'(w)$.
+    Then, $x_T(u)\neq x_T(v)$ or $\varphi(u)\neq\varphi(v)$. 
+    Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi(v)\neq\varphi(w)$.
 \end{obs}
 
 \begin{proof}
   If $x_T(u)=x_T(v)=:x$, the intervals $[a_u,b_u]$ and $[a_v,b_v]$ each contain $x$, 
   so they intersect. 
-  Therefore, $\varphi'(v)\neq\varphi'(w)$.% since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
+  Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
 Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
 %For any binary search tree that represents $v$, 
 We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node  $x_v \in x_T(C_H(v))$ of maximum depth. Let $\sigma_T(v):=\sigma_T(x_v)$.
-By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the lowest vertex in $x_T(C_H(v))$.
+By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
 
 
 Now, we define the label of a vertex $v$ in $H$. 
@@ -1177,30 +1173,30 @@ Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ i
 Recall that $\gamma$ is the Elias encoding of natural numbers.
 The label of $v$ is defined to be:
 \[
-\gamma(d_T(v)),\, \sigma_T(v), \, \gamma(\varphi'(v)), \,\gamma(d), \,
-\gamma(d_T(u_1)), \,\gamma(\varphi'(u_1)), \,\ldots, \,
-\gamma(d_T(u_d)), \,\gamma(\varphi'(u_d)).
+\gamma(d_T(v)),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
+\gamma(d_T(u_1)), \,\gamma(\varphi(u_1)), \,\ldots, \,
+\gamma(d_T(u_d)), \,\gamma(\varphi(u_d)).
 \]
 To bound the length of the labels, note that 
-$d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all $w$ in $T$. 
-Moreover, $d\leq t+1$ and $\varphi'$ takes values bounded in $\Oh(t\log m)$. 
+$d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
+Moreover, $d\leq t+1$ and $\varphi$ takes values bounded in $\Oh(t\log m)$. 
 Thus, in total the label has length at most 
 $h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
 
 
-For the adjacency testing, first note that from a given label of $v$ in $H$, we can decode each block of the label. 
+For the adjacency testing, first note that from a given label of a vertex $v$ in $H$, we can decode each block of the label. 
 This is just because $\gamma$, the Elias encoding, is prefix-free. 
-Note also that the first three blocks of the label allow us to obtain $\sigma_T(x_T(v))$ and $\varphi'(v)$.
+Note also that the first three blocks of the label allow us to obtain $\sigma_T(x_T(v))$ and $\varphi(v)$.
 
 Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
 \begin{enumerate}
-  \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi'(v)=\varphi'(w)$, we conclude that $v=w$ (by~\obsref{unique-id}) so they are not adjacent in $H$. 
+  \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi(v)=\varphi(w)$, we conclude that $v=w$ (by~\obsref{unique-id}) so they are not adjacent in $H$. 
   \item Let $d=|C_H(v)|$ and $u_1,\ldots, u_d$ be the vertices in $C_H(v)$. 
-  From the label of $v$, we decode $\sigma_T(x_T(u_i))$ and $\varphi'(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi'(w)=\varphi'(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
+  From the label of $v$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
+  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
   \item  Now, let $d=|C_H(w)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(w)$. 
-  From the label of $w$, we decode $\sigma_T(x_T(u_i))$ and $\varphi'(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi'(v)=\varphi'(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
+  From the label of $w$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
+  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
   \item Otherwise, $v$ and $w$ are not adjacent in $H$. 
   This is because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
 \end{enumerate}
@@ -1210,10 +1206,10 @@ This proves the following result.
 \begin{lem}\lemlabel{t-tree-labelling}
   There exists a function $F:(\{0,1\}^2)\to\{0,1\}$ such that
   for any $t$-tree $H$ on $m$ vertices 
-  with a proper vertex-coloring $\varphi'$ of its interval representation using $C$ colors,
+  with a proper vertex-colouring $\varphi$ of its interval representation using $C$ colours,
   and any binary search tree $T$ stabbing $H$,
   there is a labelling $\tau_T(u)$ for $u$ in $H$ such that 
-  $|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T)))$ for $u$ in $H$, and
+  $|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T)))$, and
   for every $v,w \in V(H)$, we have
   \[
       F(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
@@ -1224,7 +1220,7 @@ This proves the following result.
     \end{cases}
   \]
 \end{lem}
-In particular, we can take $\varphi'$ using $\Oh(t\cdot\log m)$ colors and get labels of length 
+In particular, we can take $\varphi$ using $\Oh(t\cdot\log m)$ colours and get labels of length 
 $h(T)+\Oh(t\log t + t\log\log m + t\log h(T))$.
 
 
@@ -1237,7 +1233,7 @@ We now show that the solution presented in \secref{pxp} generalizes to the curre
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. 
 Fix an interval representation of $H$ with clique number at most $\lfloor(t+1)\log_3 (2m+1)\rfloor\}$, see~\lemref{interval-representation}. 
 As before, we often do not distinguish between a vertex $v$ in $H$ and its interval $[a_v,b_v]$.
-Let $\varphi':V(H)\to\{1,\ldots,\lfloor(t+1)\log_3 (2m+1)\rfloor\}$ be a proper colouring of the interval representation of $H$.
+Let $\varphi:V(H)\to\{1,\ldots,\lfloor(t+1)\log_3 (2m+1)\rfloor\}$ be a proper colouring of the interval representation of $H$.
 
 For each $y\in\{1,\ldots,h\}$, let 
 \begin{align*}
@@ -1273,7 +1269,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $J:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, 
-  for any $H$, $P$, $G$, $\varphi'$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
+  for any $H$, $P$, $G$, $\varphi$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{T_y}(v), \mu_y(v))=\sigma_{T_{y+1}}(v)$.
 \end{lem}
 
 \begin{proof}
