@@ -393,7 +393,7 @@ a minor;% \cite{dujmovic.esperet.ea:clustered};
 Our labelling scheme for a subgraph $G$ of $H \boxtimes P$ uses labels that depend in part on the rows ($H$-coordinates) of $G$, where each row corresponds to one vertex of $P$: Say $P$ consists of vertices $1, 2, \dots, h$ in this order, then the \emph{$i$-th row} of $G$ is the subgraph $H_i$ of $G$ induced by the vertex set $\{(v, i) \in V(G)\}$.
 A naive approach to create labels for each $H_i$ is to use a labelling scheme for bounded treewidth graphs; roughly, this entails building a specific binary search tree $T_i$ and mapping each vertex $v$ of $H_i$ onto a node $x$ of $T_i$ that we call the \emph{position} of $v$ in $T_i$.
 % roughly, this entails building a specific balanced binary search tree $T_i$ on the vertices of $H_i$ in such a way that the label of each vertex $(v, i)$ is of length $\log |T_i|$ plus a lower-order term.
-The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{t-tree-labelling}).
+The label of $(v, i)$ encodes the position of $v$ in $T_i$ plus some small extra information (see~\secref{hxp}).
 This way, we can determine if two vertices $(v,i)$ and $(w,i)$ in the same row are adjacent.
 
 The key problems that we face here though are queries of the type $(v,i)$ and $(w,i+1)$: We would like to determine adjacency on the $H$-coordinate using $T_i$ or $T_{i+1}$.
