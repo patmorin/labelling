@@ -1389,37 +1389,42 @@ we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 \end{align*}
 for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
 
+\snote{Piotrek: We have an issue with $F$ and~\lemref{t-tree-labelling}}
+
+Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{t-tree-labelling}.
+Thus, for each $y\in\{1,\ldots,h\}$, 
+for $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by $H$ and 
+vertex coloring $\varphi$, and a binary search tree $T_y$,
+there is a labelling $\tau_{T_y}(u)$ for any $u\in S^-_y \cup S^-_{y-1}$ such that
+$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$ for $u\in S^-_y \cup S^-_{y-1}$, and
+$F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^-_y \cup S^-_{y-1}]$.
+
 
 Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{interval-transitions}, such that
 for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_{y}$,
 there exists a code $\mu_{y}(x)$ with $|\mu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $J(\sigma_{T_{y}}(x),\mu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
-%Piotrek: just copy-pasted stuff: ignore
-%Finally, given a vertex $v=(x,y)$ of $G$, we define
-%an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$. Note that some of these $8$ vertices may not even be present in $G$ in which case the resulting bit is set to $0$ since the edge is not present in $G$.
 
-%Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives the following label:
-%\[
-%\alpha(y), \gamma(|\sigma_{T_y}(x)|), \sigma_{T_y}(x), \delta_{T_y}(x), \delta_{T_{y+1}}(x), \nu_y(x), a(v).
-%\]
+Let $z=(v,y)$ be a vertex in $G$.
+Let $d = |C_{H}(v)|$ and let $u_1,\ldots,u_d$ be the vertices of $C_H(v)$. 
+Recall that each $u_i$ is stabbed by $T_y$ and $T_{y+1}$.
+We define $a(z)$ to be an array of $3d$ bits indicating whether 
+each of the edges between $(x,y)$ and $(u_i,y\pm1)$.
+The label of $z=(v,y)$ is the concatenation of the following bit-strings:
 
-\snote{Piotrek: I got here. Need to eat sth. Almost done.}
-
-Summarizing, for any $n$-vertex subgraph $G$ of $H\boxtimes P$, each vertex $z=(v,y)\in V(G)$ has a label that contains the following information:
-
-\begin{compactenum}[(PC1)]
-  \item $\alpha(y)$ (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
-  \item $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
-  \item $d_{T_{y+b}}(x_{T_{y+b}}(p_j(v)))$ for each $j\in\{1,\ldots,t+1\}$ and $b\in\{0,1\}$;
-    
-  \item $\varphi'(p_j(v))$ for each $j\in\{1,\ldots,t+1\}$;
+\begin{compactenum}[(L1)]
+  \item $\alpha(y)$;% (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
+  \item $\gamma(|\sigma_{T_y}(v)|)$ and $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
+  \item $\varphi(v)$;
+  \item $\gamma(d)$;
+  \item $d_{T_{y+b}}(x_{T_{y+b}}(u_i))$ for each $i\in\{1,\ldots,d\}$ and $b\in\{0,1\}$;
+  \item $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
-  \item $\varphi'(v)$;
   \item $\mu_y(v)$; and
-  \item $a(z)$ (defined next).
+  \item $a(z)$.
   \end{compactenum}
-  The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3(t+1)$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
+%  The only one of these quantities not yet defined is $a(z)$, which is a sequence of $3(t+1)$ bits that indicate which of the potential edges joining $z$ to elements of $\{(p_j(v),y+b): j\in\{1,\ldots,t+1\},\, b\in\{-1,0,1\}\}$ are actually present in $G$.
 
 \subsection{Adjacency Testing}
 
