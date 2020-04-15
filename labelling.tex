@@ -1182,7 +1182,7 @@ The label of $v$ is defined to be:
 \gamma(d_T(u_d)), \,\gamma(\varphi'(u_d)).
 \]
 To bound the length of the labels, note that 
-$d_T(w) = |\sigma_T(w)|\leq h(T)$, for all $w$ in $T$. 
+$d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all $w$ in $T$. 
 Moreover, $d\leq t+1$ and $\varphi'$ takes values bounded in $\Oh(t\log m)$. 
 Thus, in total the label has length at most 
 $h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
@@ -1190,8 +1190,7 @@ $h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
 
 For the adjacency testing, first note that from a given label of $v$ in $H$, we can decode each block of the label. 
 This is just because $\gamma$, the Elias encoding, is prefix-free. 
-Note also that given all the blocks of the label, 
-we can determine $\sigma_T(x_T(v))$ and $\varphi'(v)$.
+Note also that the first three blocks of the label allow us to obtain $\sigma_T(x_T(v))$ and $\varphi'(v)$.
 
 Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
 \begin{enumerate}
