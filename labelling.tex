@@ -203,7 +203,7 @@ The remainder of the paper is organized as follows. \Secref{preliminaries} revie
 \seclabel{preliminaries}
 
 All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
-\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
+%\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
 
 For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
@@ -985,8 +985,6 @@ $\gamma(|\sigma_{T_y}(x)|)$,
 $\delta_{T_y}(x)$, and $\delta_{T_{y+1}}(x)$
  have length $\Oh(\log\log n + \log k)$, $\nu_y(x)$ has length $\Oh(k\log\log n + k\log k)$, and $a(v)$ has length $\Oh(1)$.
 Thus, in total the label has length  $\log n+ \Oh(k\log\log n + k\log k + k^{-1}\log n)$.
-
-\pnote{Pat: Why does $k\log k$ suddenly show up in $|\nu_y(x)|$?  It doesn't appear in \lemref{node-transitions}.}
 
 \subsection{Adjacency Testing}
 
