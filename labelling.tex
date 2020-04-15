@@ -1235,9 +1235,9 @@ We now show that the solution presented in \secref{pxp} generalizes to the curre
 % of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels of any vertex $v\in V(H)$ such that an element of $C_H(v)$ leaves or enters $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
 
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. 
-Fix an interval representation of $H$ with clique number at most $\lfloor\log_3 (2m+1)\rfloor\}$, see~\lemref{interval-representation}. 
+Fix an interval representation of $H$ with clique number at most $\lfloor(t+1)\log_3 (2m+1)\rfloor\}$, see~\lemref{interval-representation}. 
 As before, we often do not distinguish between a vertex $v$ in $H$ and its interval $[a_v,b_v]$.
-Let $\varphi':V(H)\to\{1,\ldots,\lfloor\log_3 (2m+1)\rfloor\}$ be a proper colouring the interval representation of $H$.
+Let $\varphi':V(H)\to\{1,\ldots,\lfloor(t+1)\log_3 (2m+1)\rfloor\}$ be a proper colouring of the interval representation of $H$.
 
 For each $y\in\{1,\ldots,h\}$, let 
 \begin{align*}
@@ -1377,7 +1377,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
 \subsection{The Labels}
 
-We are read to combine everything together and devise labels for vertices of $G$.
+We are ready to combine everything together and devise labels for vertices of $G$.
 
 Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that
 using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$,
