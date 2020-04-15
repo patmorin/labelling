@@ -1425,11 +1425,13 @@ The length of the components are as follows:
 (L2) is of length $\log|T_y| + \Oh(k+k^{-1}\log n)$, 
 (L3) is of length $\Oh(\log t + \log\log n)$,
 (L4) is of length $\Oh(\log t)$, 
-(L5) is of length $\Oh(t\cdot (\log\log n + \log k))$ \snote{Piotrek: we shall double-check}, 
+(L5) is of length $\Oh(t\cdot (\log\log n + \log k))$, %\snote{Piotrek: we shall double-check}, 
 (L6) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
 (L7) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L8) is of length $\Oh(t)$.
-In total the label length is \snote{fill in}.
+In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n) + \Oh(t\cdot\log\log n + t\cdot\log k + t\cdot\log t)$.
+When we treat $t$ as a fixed constant we get 
+$\log n + \Oh(k\log\log n+k^{-1}\log n)$.
 
 \subsection{Adjacency Testing}
 
