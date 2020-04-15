@@ -1443,13 +1443,18 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   \item $y_1=y_2$:  
   In this case, let $y:=y_1=y_2$. 
   Note that (L2), (L3), (L4), (L5), (L6) contain all the pieces of the labels $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ from~\lemref{t-tree-labelling}. 
-  We compute $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H[S^-_y]$. 
+  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$,
+  we can compute $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H[S^-_y]$. 
   If $v_1$ and $v_2$ are not adjacent in $H[S^-_y]$, so not adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ so neither in $G$.
+  If $v_1$ and $v_2$ are adjacent in $H[S^-_y]$, so not adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$.  
+  Now ... hmmm
+
+\snote{Piotrek: I'm here.}
+
+we shall look up $a(z_1)$ or $a(z_2)$
 
 
-  In this case (PC2)--(PC5) contains $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ (defined in \lemref{t-tree-labelling} using (TC1)--(TC4)) and we use this to test if $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
-
-  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
+%  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
 
   \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1=v_2$ or $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
 
