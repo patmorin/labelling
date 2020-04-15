@@ -288,7 +288,7 @@ Putting some of the preceding results together we obtain the following useful co
 \begin{lem}\lemlabel{row-code}
   There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\ldots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\ldots,h\}\to \{0,1\}^*$ such that
   \begin{compactenum}
-    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$;
+    \item for each $i\in\{1,\ldots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$, where $W:=\sum_{j=1}^h w(j)$;
     \item for any $i,j\in\{1,\ldots,h\}$,
     \[   A(\alpha(i),\alpha(j))
     = \begin{cases}
@@ -814,7 +814,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
 
 Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
 
-\snote{signature of external nodes?}
+%\snote{signature of external nodes?}
 
 \begin{proof}
   Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\ldots,h-1\}$. Let $I:=V(T_{y+1})\setminus V(T_y)$ and $D:=V(T_y) \setminus V(T_{y+1})$.
@@ -1284,7 +1284,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
 
-\snote{Piotrek: We shall still go over this proof. So far I just changed obvious typos/mistakes.}
+%\snote{Piotrek: We shall still go over this proof. So far I just changed obvious typos/mistakes.}
 
 
   The bulk insertion that converts $T'$ into $T''$ is the simplest to handle.  For any $v\in S_y$, $P_{T'}(v)$ is the path from the root of $T'$ to the deepest node in $x_{T'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T'}(w)$ is the element of $w\cap V(T')$ that is closest to the root of $T'$. Since $T''$ is a supergraph of $T'$ obtained by adding small subtrees at the external nodes of $T'$, $x_{T''}(w)=x_{T'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T''}(x_{T''}(w))=P_{T'}(x_{T'}(w))$ and $\sigma_{T''}(x_{T''}(w))=\sigma_{T'}(x_{T'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for each $v\in S_y$.
