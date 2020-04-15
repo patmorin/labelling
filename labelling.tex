@@ -1098,7 +1098,7 @@ if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$.
 Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$, for some graph $H$. 
 Then, we say that $T$ \emph{stabs} $H$. 
 For $v \in V(H)$, we let $x_T(v)$ denote the lowest common $T$-ancestor of $V(T)\cap f(v)$, see \figref{x}.
-For $V \subseteq V(H)$, we let $x_T(V)$ denote the lowest common $T$-ancestor of $V(T)\cap \bigcup_{v\in V} f(v)$.
+For $V \subseteq V(H)$, we let $x_T(V):=\{x_T(v):v\in V\}$.
 
 \begin{figure}
   \begin{center}
@@ -1116,7 +1116,7 @@ Let $T$ be a binary search tree that stabs $H$.
 Then,
 \begin{compactenum}
   \item for every $v$ in $H$, we have $x_{T}(v) \in [a_v,b_v]$; and
-  \item for every clique $C$ in $H$, the set of nodes $\{x_T(v)\mid v\in C\}$ lie in a single root-to-leaf path in $T$.
+  \item for every clique $C$ in $H$, the set of nodes $x_T(C)$ lie in a single root-to-leaf path in $T$.
 \end{compactenum}
 \end{lem}
 \begin{proof}
@@ -1168,9 +1168,9 @@ $x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
 
 Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
 %For any binary search tree that represents $v$, 
-We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth. 
-By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. 
-Let $\sigma_T(v):=\sigma_T(x_T(C_H(v)))$.
+We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node  $x_v \in x_T(C_H(v))$ of maximum depth. Let $\sigma_T(v):=\sigma_T(x_v)$.
+By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the lowest vertex in $x_T(C_H(v))$.
+
 
 Now, we define the label of a vertex $v$ in $H$. 
 Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ is one of them. 
