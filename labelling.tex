@@ -1043,7 +1043,7 @@ In this section we describe adjacency labelling schemes for graphs $G$ that are 
 
 
 Let $t$ be a positive integer.
-A graph $H$ is a \emph{$t$-tree} if there is an ordering $v_1,\ldots,v_m$ of $V(H)$ such that 
+A graph $H$ is a \emph{$t$-tree}\footnote{For convenience, we work with a slightly more general definition of a $t$-tree than the one usually in the literature.} if there is an ordering $v_1,\ldots,v_m$ of $V(H)$ such that 
 for every $i\in\{1,\ldots,m\}$, the neighbors of $v_i$ earlier in the order, i.e.\ $N_H(v_i) \cap \{v_1,\ldots,v_{i-1}\}$ induce a clique of size at most $t$ in $H$.
 It is well-known that every graph of treewidth $t$ is a subgraph of a $t$-tree. 
 For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do.
@@ -1083,7 +1083,7 @@ we will fix the mapping $f$, as an \emph{interval representation} of our $t$-tre
 Furthermore, we assume that all the endpoints of intervals in the represention are distinct. 
 This can be easilly achieved by local perturbations not changing the intersection graph.
 
-A finite set $X\subset\R$ of points \emph{stabs} a family of intervals $S$, 
+A finite set $X\subset\R$ \emph{stabs} a family of intervals $S$, 
 if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$. 
 Consider a binary search tree $T$ such that $V(T)$ stabs a family of intervals $\{f(v):v\in V(H)\}$. 
 Then, we say that $T$ \emph{stabs} $H$. 
@@ -1101,11 +1101,11 @@ Then,
 \end{compactenum}
 \end{lem}
 \begin{proof}
-  For the proof of the first item, consider $x:=x_T(v)$..
+  For the proof of the first item, consider $x:=x_T(v)$.
   Either we have $x\in V(T)\cap[a_v,b_v]$, in which case there is nothing to prove, 
   or there are two nodes $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.  
   By the binary search tree property, $x_1<x<x_2$. 
-  But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$.
+  But $x_1,x_2 \in [a_v,b_v]$, so $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$, as desired.
 
   For the proof of the second item, we just show it for $C$ being of size $2$, so inducing a single edge. 
   The statement for general cliques will follow immediately by induction.
@@ -1117,10 +1117,13 @@ Then,
   Since $u_1u_2 \in E(H)$ the corresponsing intervals $[a_{u_1},b_{u_1}]$, $[a_{u_2}, b_{u_2}]$ intersect, so their union is an interval as well. 
   Since $x_1,x_2$ lies in the union and $x_1 < x < x_2$, the node $x$ lies in the union as well.
   Therefore $x\in[a_{u_1},b_{u_1}]$ or $x\in [a_{u_2}, b_{u_2}]$. 
-  This contradicts the choice of their $x_T$-values and completes the proof of the second item.
+  This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
 \end{proof}
 
 \subsection{A Labelling Scheme for $t$-trees}
+
+We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
+
 
 We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-ordering,
 and an interval representation $v\to[a_v,b_v]$ as in~\lemref{interval-representation}. 
@@ -1129,7 +1132,7 @@ Since interval graphs are perfect, their clique number coincides with their chro
 Let $\varphi': V(H) \to [(t+1)\log_3 (2m+1)]$ be a coloring such that $u$ and $v$ have distinct colors, whenever the intervals of $u$ and $v$ intersect. 
 
 The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by 
-$x_T(v)$ and $\varphi'(v)$. This gives a ground for an adjacency labelling scheme.
+$x_T(v)$ and $\varphi'(v)$. This gives ground for an adjacency labelling scheme.
 
 \begin{obs}\obslabel{unique-id}
     Let $T$ be a binary search tree that stabs $H$.
@@ -1144,14 +1147,15 @@ $x_T(v)$ and $\varphi'(v)$. This gives a ground for an adjacency labelling schem
   Therefore, $\varphi'(v)\neq\varphi'(w)$.% since $\varphi'$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
 
-
-For any binary search tree that represents $v$, 
-let $P_T(v)$ denote the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth. 
+Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
+%For any binary search tree that represents $v$, 
+We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node in $x_T(C_H(v))$ of maximum depth. 
 By \lemref{one-path}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. 
 Let $\sigma_T(v):=\sigma_T(x_T(C_H(v)))$.
 
-Now, we define a label of vertex $v$ in $H$. 
+Now, we define the label of a vertex $v$ in $H$. 
 Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ is one of them. 
+Recall that $\gamma$ is the Elias encoding of natural numbers.
 The label of $v$ is defined to be:
 \[
 \gamma(d_T(v)), \sigma_T(v), \gamma(\varphi'(v)), \gamma(d), 
