@@ -1171,46 +1171,21 @@ By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and co
 Now, we define the label of a vertex $v$ in $H$. 
 Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ is one of them. 
 Recall that $\gamma$ is the Elias encoding of natural numbers.
-The label of $v$ is defined to be:
+The label $\tau_T(v)$ of $v$ is defined as follows 
+(in fact it is defined in the context of $H$, $\varphi$, and $T$ that stabs $H$).
 \[
-\gamma(d_T(v)),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
+\tau_T(v):=\gamma(|\sigma_T(v)|),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
 \gamma(d_T(u_1)), \,\gamma(\varphi(u_1)), \,\ldots, \,
 \gamma(d_T(u_d)), \,\gamma(\varphi(u_d)).
 \]
-To bound the length of the labels, note that 
-$d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
-Moreover, $d\leq t+1$ and $\varphi$ takes values bounded in $\Oh(t\log m)$. 
-Thus, in total the label has length at most 
-$h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
-
-
-For the adjacency testing, first note that from a given label of a vertex $v$ in $H$, we can decode each block of the label. 
-This is just because $\gamma$, the Elias encoding, is prefix-free. 
-Note also that the first three blocks of the label allow us to obtain $\sigma_T(x_T(v))$ and $\varphi(v)$.
-
-Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
-\begin{enumerate}
-  \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi(v)=\varphi(w)$, we conclude that $v=w$ (by~\obsref{unique-id}) so they are not adjacent in $H$. 
-  \item Let $d=|C_H(v)|$ and $u_1,\ldots, u_d$ be the vertices in $C_H(v)$. 
-  From the label of $v$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
-  \item  Now, let $d=|C_H(w)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(w)$. 
-  From the label of $w$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ and therefore $v$ and $w$ are adjacent in $H$.
-  \item Otherwise, $v$ and $w$ are not adjacent in $H$. 
-  This is because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
-\end{enumerate}
-
-This proves the following result. 
-
 \begin{lem}\lemlabel{t-tree-labelling}
-  There exists a function $F:(\{0,1\}^2)\to\{0,1\}$ such that
-  for any $t$-tree $H$ on $m$ vertices 
-  with a proper vertex-colouring $\varphi$ of its interval representation using $C$ colours,
+  There exists a function $F:(\{0,1\}^2)\to\{0,-1,1,\perp\}$ such that
+  for any $t$-tree $H$ %on $m$ vertices 
+  with a proper vertex-colouring $\varphi$ of its interval representation, %using $C$ colours,
   and any binary search tree $T$ stabbing $H$,
-  there is a labelling $\tau_T(u)$ for $u$ in $H$ such that 
-  $|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T)))$, and
-  for every $v,w \in V(H)$, we have
+  %there is a labelling $\tau_T(u)$ for $u$ in $H$ such that 
+  %$|\tau_T(u)| = h(T) + \log t + \Oh(t\cdot(\log C + \log h(T)))$, and
+  for every $v$, $w$ in $H$, we have
   \[
       F(\tau_{T}(v),\tau_{T}(w)) = \begin{cases}
       0 & \text{if $v=w$;} \\
@@ -1220,9 +1195,35 @@ This proves the following result.
     \end{cases}
   \]
 \end{lem}
-In particular, we can take $\varphi$ using $\Oh(t\cdot\log m)$ colours and get labels of length 
-$h(T)+\Oh(t\log t + t\log\log m + t\log h(T))$.
+Note that $d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
+Moreover, $|C_H(w)|\leq t+1$ for all $w$ in $T$. 
+Thus when $H$ is an $m$-vertex $t$-tree and $\varphi$ takes values bounded in $\Oh(t\log m)$,
+we get labels $\tau_T$ of length
+$h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
 
+\begin{proof}[Proof of~\lemref{t-tree-labelling}]
+For the adjacency testing, first note that from a given label $\tau_T(v)$ of a vertex $v$ in $H$, we can decode each block of the label. 
+This is just because $\gamma$, the Elias encoding, is prefix-free. 
+
+Note that from the blocks of $\tau_T(v)$ we can determine $\sigma_T(x_T(v))$, $\varphi(v)$, and 
+$\sigma_T(x_T(u))$, $\varphi(u)$, for all $u\in C_H(v)$.
+
+Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
+\begin{enumerate}
+  \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi(v)=\varphi(w)$, we conclude that $v=w$ (by~\obsref{unique-id}), so $F$ outputs $0$ in this case.
+  \item Let $d=|C_H(v)|$ and $u_1,\ldots, u_d$ be the vertices in $C_H(v)$. 
+  From the label of $v$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
+  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ (by~\obsref{unique-id}) and $F$ outputs $-1$.
+
+  \item  Now, let $d=|C_H(w)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(w)$. 
+  From the label of $w$, we decode $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
+  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ (by~\obsref{unique-id}) and $F$ outputs $1$.
+
+  \item Otherwise, $v\neq w$ and $v$ and $w$ are not adjacent in $H$. 
+  This is because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
+  Thus, in this case $F$ outputs $\perp$.
+\end{enumerate}
+\end{proof}
 
 \subsection{Interval Transition Labels}
 
@@ -1257,13 +1258,6 @@ By \lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$ we have
 h(T_y)&= \log |T_y| + \Oh(k+k^{-1}\log |T_y|)\\
 &\leq \log |T_y| + \Oh(k+k^{-1}\log n).
 \end{align*}
-
-%\begin{compactenum}[(PR1)]  %[label={(PR1)}, noitemsep]
-%  \item $V(T_y)\supseteq X_y$ for each $y\in\{1,\ldots,h\}$;
-%  \item $h(T_y)= \log |T_y| + \Oh(k+k^{-1}\log |T_y|)= \log |T_y| + o(\log n)$ for each %$y\in\{1,\ldots,h\}$;
-%  \item $W:=\sum_{y=1}^h |T_y|= \Oh(tn)$, and
-%  \item There is a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $y\in\{1,\ldots,h-1\}$ and each $x\in V(T_y)\cap V(T_{y+1})$, there is a string $\nu_y(x)$ such that $B(\sigma_{T_y}(x),\nu_y(x))=\sigma_{T_{y+1}}(x)$ and $|\nu_y(x)|=\Oh(k\log\log n)=o(\log n)$.
-%\end{compactenum}
 
 The following lemma, which is analogous to \lemref{node-transitions}, is the last piece of the puzzle needed for an adjacency labelling scheme for subgraphs of $H\boxtimes P$. Recall that the notation $\sigma_T(v)$ and $P_T(v)$, used below in the context of a vertex $v=[a_v,b_v]$ in a $t$-tree, has been introduced shortly after \obsref{unique-id}.
 
@@ -1429,13 +1423,15 @@ The length of the components are as follows:
 (L6) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
 (L7) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L8) is of length $\Oh(t)$.
-In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + t \log\log n + t \log k + t \log t)$.
+In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
 If $t$ is a fixed constant then this is  
-$\log n + \Oh(k\log\log n+k^{-1}\log n)$.
+$\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
 
 \subsection{Adjacency Testing}
 
 First note that from a given label of $z=(v,y) \in V(G)$, we can decode each block of the label. 
+Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(u_i)$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $v'\in\{v,u_1,\ldots,u_d\}$.
+
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ of vertices in $G$ we test if the vertices are adjacent as follows.
 
 Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following applies:
@@ -1445,8 +1441,8 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   \item $y_1=y_2$:  
   In this case, let $y:=y_1=y_2$. 
   Note that (L2), (L3), (L4), (L5), (L6) contain all the pieces of the labels $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ from~\lemref{t-tree-labelling}. 
-  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$,
-  we can compute $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H[S_y]$. 
+  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$, by~\lemref{t-tree-labelling},
+  we compute $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H[S_y]$. 
   If $v_1$ and $v_2$ are not adjacent in $H[S_y]$, so not adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ so neither in $G$.
   If $v_1$ and $v_2$ are adjacent in $H[S_y]$, so adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$. 
   If $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))=1$, 
@@ -1457,10 +1453,12 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   and then finally we look up the appropriate bit in $a(z_1)$ to see whether the corresponding edge in $H\boxtimes P$ is present in $G$ or not.
   \item $y_1=y_2-1$: 
   In this case, let $y=y_1$. 
-  We compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
+  Since $v_1 \in S_y$, by~\lemref{interval-transitions},
+  e compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
   Now, $\sigma_{T_{y+1}}(v_1)$ was the only missing piece of $\tau_{T_{y+1}}(v_1)$ and 
   just from the label $z_2=(v_2,y+1)$ we have $\tau_{T_{y+1}}(v_2)$. 
-  We compute $F(\sigma_{T_{y+1}}(v_1),\tau_{T_{y+1}}(v_2))$ to test if $v_1=v_2$ or $v_1v_2\in E(H)$. 
+  Since $v_1 \in S_y$, $v_2 \in S_{y+1}$, and $T_{y+1}$ stabs $H[S_y \cup S_{y+1}]$, by~\lemref{t-tree-labelling}, 
+  we can compute $F(\sigma_{T_{y+1}}(v_1),\tau_{T_{y+1}}(v_2))$ to test if $v_1=v_2$ or $v_1v_2\in E(H)$. 
   If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
 
   If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  
@@ -1469,7 +1467,7 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   \item $y_2=y_1-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
 
-This completes the proof of our main result (note that in the previous section we assumed without loss of generality that $h\le n$ and $m\le n$, but here we can only assume that $h\le n$ and $m\le tn$, using the fact that every $n$-vertex graph of treewidth at most $t$ is a subgraph of a $t$-tree on at most $tn$ vertices).
+%This completes the proof of our main result (note that in the previous section we assumed without loss of generality that $h\le n$ and $m\le n$, but here we can only assume that $h\le n$ and $m\le tn$, using the fact that every $n$-vertex graph of treewidth at most $t$ is a subgraph of a $t$-tree on at most $tn$ vertices).
 
 \begin{thm}\thmlabel{main-product}
   For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
