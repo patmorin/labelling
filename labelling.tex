@@ -1385,15 +1385,15 @@ we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 \end{align*}
 for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
 
-\snote{Piotrek: We have an issue with $F$ and~\lemref{t-tree-labelling}}
+%\snote{Piotrek: We have an issue with $F$ and~\lemref{t-tree-labelling}}
 
 Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{t-tree-labelling}.
-Thus, for each $y\in\{1,\ldots,h\}$, 
-for the $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by that of $H$ and 
-vertex colouring $\varphi$, and a binary search tree $T_y$,
-there is a labelling $\tau_{T_y}(u)$ for any $u\in S^-_y \cup S^-_{y-1}$ such that
-$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$, and
-$F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^-_y \cup S^-_{y-1}]$.
+%Thus, for each $y\in\{1,\ldots,h\}$, 
+%for the $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by that of $H$ and 
+%vertex colouring $\varphi$, and a binary search tree $T_y$,
+%there is a labelling $\tau_{T_y}(u)$ for any $u\in S^-_y \cup S^-_{y-1}$ such that
+%$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$, and
+%$F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^-_y \cup S^-_{y-1}]$.
 
 
 Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{interval-transitions} such that
@@ -1455,19 +1455,18 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   If $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))=-1$, 
   we identify the position of $v_2$ on the list of vertices in $N_H(v_1)$
   and then finally we look up the appropriate bit in $a(z_1)$ to see whether the corresponding edge in $H\boxtimes P$ is present in $G$ or not.
+  \item $y_1=y_2-1$: 
+  In this case, let $y=y_1$. 
+  We compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
+  Now, $\sigma_{T_{y+1}}(v_1)$ was the only missing piece of $\tau_{T_{y+1}}(v_1)$ and 
+  just from the label $z_2=(v_2,y+1)$ we have $\tau_{T_{y+1}}(v_2)$. 
+  We compute $F(\sigma_{T_{y+1}}(v_1),\tau_{T_{y+1}}(v_2))$ to test if $v_1=v_2$ or $v_1v_2\in E(H)$. 
+  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
 
+  If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  
+  In this case proceeding as in the previous case, we can now consult the relevant bit of $a(z_1)$ or $a(z_2)$ to determine if $z_1z_2\in E(G)$.
 
-\snote{Piotrek: I'm here.}
-
-
-
-%  If $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$ in $H$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
-
-  \item $y_2-y_1=1$: Let $y=y_1$ (so that $y_2=y+1$).  We use $\mu_y(v_1)$ and $\sigma_{T_y}(v_1)$ to compute $\sigma_{T_{y+1}}(v_1)$.  Now, $\sigma_{T_{y+1}}(v_1)$ and (PC3)--(PC4) contains $\tau_{T_{y+1}}(v_1)$ and (PC2)--(PC4) contains $\tau_{T_{y+1}}(v_2)$.  We use these to test if $v_1=v_2$ or $v_1v_2\in E(H)$.  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
-
-  If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  In this case $\tau_{T_{y+1}}(v_1)$ and $\tau_{T_{y+1}}(v_2)$ also tell us that (without loss of generality) $v_1$ is the $j$-parent of $v_2$.  We can now consult the relevant bit of $a(z_1)$ to determine if $z_1z_2\in E(G)$.
-
-  \item $y_2-y_1=-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
+  \item $y_2=y_1-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
 
 This completes the proof of our main result (note that in the previous section we assumed without loss of generality that $h\le n$ and $m\le n$, but here we can only assume that $h\le n$ and $m\le tn$, using the fact that every $n$-vertex graph of treewidth at most $t$ is a subgraph of a $t$-tree on at most $tn$ vertices).
@@ -1799,12 +1798,12 @@ This completes the proof of our main result (note that in the previous section w
 \section{Conclusion}
 \seclabel{conclusion}
 
-We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mappings $f$, $\phi$ and $\phi'$ as in \lemref{interval-representation}), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $\Oh(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $\Oh(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $\Oh(n\log n)$ time for $n$-vertex planar graphs.
+We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mapping $f$ as in \lemref{interval-representation} and colouring $\varphi$), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $\Oh(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $\Oh(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $\Oh(n\log n)$ time for $n$-vertex planar graphs.
 
 The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $\Oh(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
 In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=\Oh(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $\Oh(\log^{3/2} n\sqrt{\log\log n})$ time.
 
-In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $\Oh(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $B$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string in $\Pi$.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $\Oh(\log n)$ that has a run-length encoding of size $\Oh(k\log\log n)$.  This is, of course, easily implemented in $\Oh(k)$ time, but perhaps a faster implementation is possible.
+In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $\Oh(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $J$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string described in~\obsref{split-signature}.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $\Oh(\log n)$ that has a run-length encoding of size $\Oh(k\log\log n)$.  This is, of course, easily implemented in $\Oh(k)$ time, but perhaps a faster implementation is possible.
 
 % \snote{If we want to bother, we could probably do this in $\Oh(\log n)$ time.}
 The current result leaves two obvious directions for future work:
