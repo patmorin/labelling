@@ -1165,7 +1165,9 @@ $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 Let $T$ be a binary search tree that stabs $H$ and let $v\in V(H)$.
 %For any binary search tree that represents $v$, 
 We define $P_T(v)$ to be the path in $T$ that begins at the root of $T$ and ends at the node  $x_v \in x_T(C_H(v))$ of maximum depth. Let $\sigma_T(v):=\sigma_T(x_v)$.
-By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. Note that by the previous definition we have $ d_T(v)\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
+By \lemref{all-the-obs-about-bst-and-intervals}, $P_T(v)$ is well defined and contains every node in $x_T(C_H(v))$. 
+%In the remainder, for convenience we also write $d_T(v)$ as a shorthand for $d_T(x_T(v))$. 
+Note that $ d_T(x_T(v))\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
 
 
 Now, we define the label of a vertex $v$ in $H$. 
@@ -1175,8 +1177,8 @@ The label $\tau_T(v)$ of $v$ is defined as follows
 (in fact it is defined in the context of $H$, $\varphi$, and $T$ that stabs $H$).
 \[
 \tau_T(v):=\gamma(|\sigma_T(v)|),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
-\gamma(d_T(u_1)), \,\gamma(\varphi(u_1)), \,\ldots, \,
-\gamma(d_T(u_d)), \,\gamma(\varphi(u_d)).
+\gamma(d_T(x_T(u_1))), \,\gamma(\varphi(u_1)), \,\ldots, \,
+\gamma(d_T(x_T(u_d))), \,\gamma(\varphi(u_d)).
 \]
 \begin{lem}\lemlabel{t-tree-labelling}
   There exists a function $F:(\{0,1\}^2)\to\{0,-1,1,\perp\}$ such that
@@ -1195,7 +1197,7 @@ The label $\tau_T(v)$ of $v$ is defined as follows
     \end{cases}
   \]
 \end{lem}
-Note that $d_T(w) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
+Note that $d_T(x_T(w)) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
 Moreover, $|C_H(w)|\leq t+1$ for all $w$ in $T$. 
 Thus when $H$ is an $m$-vertex $t$-tree and $\varphi$ takes values bounded in $\Oh(t\log m)$,
 we get labels $\tau_T$ of length
@@ -1407,7 +1409,7 @@ The label of $z=(v,y)$ is the concatenation of the following bit-strings:
   \item $\gamma(|\sigma_{T_y}(v)|)$ and $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $\gamma(\varphi(v))$;
   \item $\gamma(d)$;
-  \item $\gamma(d_{T_{y+b}}(u_i))$ for each $i\in\{1,\ldots,d\}$ and $b\in\{0,1\}$;
+  \item $\gamma(d_{T_{y+b}}(x_T(u_i)))$ for each $i\in\{1,\ldots,d\}$ and $b\in\{0,1\}$;
   \item $\gamma(\varphi(u_i))$ for each $i\in\{1,\ldots,d\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
@@ -1430,7 +1432,7 @@ $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
 \subsection{Adjacency Testing}
 
 First note that from a given label of $z=(v,y) \in V(G)$, we can decode each block of the label. 
-Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(u_i)$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $v'\in\{v,u_1,\ldots,u_d\}$.
+Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $v'\in\{v,u_1,\ldots,u_d\}$.
 
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ of vertices in $G$ we test if the vertices are adjacent as follows.
 
