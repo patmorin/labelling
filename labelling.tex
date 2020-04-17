@@ -1173,13 +1173,21 @@ Note that $ d_T(x_T(v))\le |\sigma_T(v)|$, and equality holds only if $x_T(v)$ i
 Now, we define the label of a vertex $v$ in $H$. 
 Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ is one of them. 
 Recall that $\gamma$ is the Elias encoding of natural numbers.
-The label $\tau_T(v)$ of $v$ is defined as follows 
-(in fact it is defined in the context of $H$, $\varphi$, and $T$ that stabs $H$).
-\[
-\tau_T(v):=\gamma(|\sigma_T(v)|),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
-\gamma(d_T(x_T(u_1))), \,\gamma(\varphi(u_1)), \,\ldots, \,
-\gamma(d_T(x_T(u_d))), \,\gamma(\varphi(u_d)).
-\]
+The label $\tau_T(v)$ of $v$ is defined 
+(in the context of $H$, $\varphi$, and $T$ that stabs $H$) 
+as the concatenation of
+%\[
+%\tau_T(v):=\gamma(|\sigma_T(v)|),\, \sigma_T(v), \, \gamma(\varphi(v)), \,\gamma(d), \,
+%\gamma(d_T(x_T(u_1))), \,\gamma(\varphi(u_1)), \,\ldots, \,
+%\gamma(d_T(x_T(u_d))), \,\gamma(\varphi(u_d)).
+%\]
+\begin{compactenum}[(T1)]
+  \item $\gamma(|\sigma_{T}(v)|)$ and $\sigma_{T}(v)$;
+  \item $\gamma(\varphi(v))$;
+  \item $\gamma(d)$;
+  \item $\gamma(d_{T}(x_T(u_i)))$ for each $i\in\{1,\ldots,d\}$;
+  \item $\gamma(\varphi(u_i))$ for each $i\in\{1,\ldots,d\}$.
+  \end{compactenum}
 \begin{lem}\lemlabel{t-tree-labelling}
   There exists a function $F:(\{0,1\}^2)\to\{0,-1,1,\perp\}$ such that
   for any $t$-tree $H$ %on $m$ vertices 
@@ -1197,7 +1205,7 @@ The label $\tau_T(v)$ of $v$ is defined as follows
     \end{cases}
   \]
 \end{lem}
-Note that $d_T(x_T(w)) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
+Recall that $d_T(x_T(w)) \le |\sigma_T(w)|\leq h(T)$, for all nodes $w$ in $T$. 
 Moreover, $|C_H(w)|\leq t+1$ for all $w$ in $T$. 
 Thus when $H$ is an $m$-vertex $t$-tree and $\varphi$ takes values bounded in $\Oh(t\log m)$,
 we get labels $\tau_T$ of length
