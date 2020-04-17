@@ -1440,7 +1440,7 @@ $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
 \subsection{Adjacency Testing}
 
 First note that from a given label of $z=(v,y) \in V(G)$, we can decode each block of the label. 
-Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $v'\in\{v,u_1,\ldots,u_d\}$.
+Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $w\in\{v,u_1,\ldots,u_d\}$.
 
 Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ of vertices in $G$ we test if the vertices are adjacent as follows.
 
@@ -1464,7 +1464,7 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   \item $y_1=y_2-1$: 
   In this case, let $y=y_1$. 
   Since $v_1 \in S_y$, by~\lemref{interval-transitions},
-  e compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
+  we can compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
   Now, $\sigma_{T_{y+1}}(v_1)$ was the only missing piece of $\tau_{T_{y+1}}(v_1)$ and 
   just from the label $z_2=(v_2,y+1)$ we have $\tau_{T_{y+1}}(v_2)$. 
   Since $v_1 \in S_y$, $v_2 \in S_{y+1}$, and $T_{y+1}$ stabs $H[S_y \cup S_{y+1}]$, by~\lemref{t-tree-labelling}, 
