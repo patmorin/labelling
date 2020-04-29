@@ -1085,8 +1085,8 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 %  Furthermore, for every proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a proper colouring $\varphi':V(G_S)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ of $G_S$ where, for each $v\in V(H)$, $\varphi'(f(v))=(j,\varphi(v))$ for some $j\in\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$.
 \end{lem}
 
-In light of \lemref{interval-representation}, 
-a mapping $f$ assigning to every vertex $v$ of a graph $H$ an interval $f(v)$ in such a way that $f(v)$ and $f(w)$ intersect whenever $vw\in E(H)$, we call an \emph{interval representation} of $H$.
+In light of \lemref{interval-representation}, we call an \emph{interval representation} of $H$ 
+a mapping $f$ assigning to every vertex $v$ of a graph $H$ an interval $f(v)$ in such a way that $f(v)$ and $f(w)$ intersect whenever $vw\in E(H)$.
 We will always assume that all the endpoints of intervals in the represention are distinct. 
 This can be easily achieved by local perturbations not changing the intersection graph.
 
@@ -1145,7 +1145,7 @@ We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-order
 and an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
 In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
-Let $\varphi: V(H) \to [(t+1)\log_3 (2m+1)]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
+Let $\varphi: V(H) \to [\lceil(t+1)\log_3 (2m+1)\rceil]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
 
 The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by 
 $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
@@ -1158,7 +1158,7 @@ $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 \end{obs}
 
 \begin{proof}
-  If $x_T(u)=x=x_T(v)$, then by \lemref{all-the-obs-about-bst-and-intervals}.\itemref{itm:v-in-its-interval} intervals $[a_u,b_u]$ and $[a_v,b_v]$ each contain $x$, 
+  If $x_T(u)=x=x_T(v)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_u,b_u]$ and $[a_v,b_v]$ each contain $x$, 
   so they intersect. 
   Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
@@ -1166,7 +1166,7 @@ $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 \textcolor{red}{Piotrek: I removed the def of $P_T(v)$. It might be that I put it back if we really need it later.}
 
 Let $T$ be a binary search tree that stabs $H$ and let $v$ be a vertex in $H$. 
-Recall that by \lemref{all-the-obs-about-bst-and-intervals}.\itemref{itm:clique-on-a-single-path} 
+Recall that by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:clique-on-a-single-path} 
 all the vertices in the family clique $C_H(v)$ of $v$ lie on a single root-to-leaf path in $T$. 
 Consider the path $P$ in $T$ that begins at the root of $T$ and ends at the node 
 $x \in x_T(C_H(v))$ of maximum depth. 
