@@ -1325,6 +1325,12 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
   The transition code $\mu_y(v)$ is the concactenation of three parts $\mu_y^{\textsc{Bal}}(v)$, $\mu_y^{\textsc{Ins}}(v)$, and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
 
   First we describe the $\mu_y^{\textsc{Ins}}(v)$. 
+  Let $H''$ be the subgraph of $H$ induced by $S_y\cup S_{y-1}\cup I$.
+  The transition code $\mu_y^{\textsc{Ins}}(v)$ will serve to move 
+  from $\sigma_{H^*_{y},T'}$ to $\sigma_{H'',T''}(v)$. 
+  Recall that the bulk insertion of new nodes in $T'$ to get $T''$ results simply in attaching some small subtrees (of height at most $2$) to the leaves of $T'$. 
+  Recall also that $\sigma_{H^*_{y},T'}$ encodes a single path in $T'$ from the root to a node $x$ that is the deepest node in $x_{T'}(C_{H^*_{y}}(v))$. 
+  Since $C_{H^*_{y}}(v) \subseteq C_{H''}(v)$ the path ....
 
   \textcolor{red}{Piotrek: I got here. Under construction.}
   
