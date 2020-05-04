@@ -1172,7 +1172,7 @@ for every vertex $v$ in $H$,
 all the nodes in $x_T(C_H(v))$ lie on a single root-to-leaf path in $T$. 
 We define
 \[
-\sigma_{H,T}(v):=\sigma_T(x),\quad\text{where $x$ is a node in $x_T(C_H(v))$ of maximum depth in $T$.}
+\sigma_{H,T}(v):=\sigma_T(x),\quad\text{where $x$ is the node in $x_T(C_H(v))$ of maximum depth in $T$.}
 \]
 Note that $d_T(x_T(v))\le |\sigma_{H,T}(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
 
@@ -1300,14 +1300,11 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $J:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, 
-  for any $H$, $P$, $G$, $\varphi$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{H^*_y,T_y}(v), \mu_y(v))=\sigma_{H^*_{y+1},T_{y+1}}(v)$.
+  for any $H$, $P$, $G$, $\varphi$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\sigma_{H^*_y,T_y}(v)|+|\mu_y(v)|= \log h(T_y) + \Oh(k\log h(T_y))$ such that $J(\sigma_{H^*_y,T_y}(v), \mu_y(v))=\sigma_{H^*_{y+1},T_{y+1}}(v)$.
 \end{lem}
 
 Before continuing, we recall that for any binary search tree $T$ and two nodes $z$, $x$ in $T$ such that $x$ is a $T$-ancestor of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
 For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
-
-\textcolor{red}{Piotrek: Fill in the asymptotics whenever we define labels in the proof.}
-
 
 \begin{proof}
   Let $v \in S_y$. 
@@ -1340,13 +1337,16 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   This way, for every $u \in S_y$, $x_{T'}(u) = x_{T''}(u)$ and therefore 
   $\sigma_{H^*_{y},T'}(u) = \sigma_{H^*_{y},T''}(u)$.
   Let $P^1$ be the path in $T''$ encoded by $\sigma_{H^*_{y},T''}(v)$. 
-  Thus $P^1$ is a path from the root of $T''$ to the deepest node $x$ in $x_{T''}(C_{H^*_{y}}(v))$. 
+  Thus $P^1$ is a path from the root of $T''$ to the deepest node $x^1$ in $x_{T''}(C_{H^*_{y}}(v))$. 
   Similarly, let $P^2$ be the path in $T''$ encoded by $\sigma_{H'',T''}(v)$, 
-  i.e.\ the path from the root to a node $x''$ that is the deepest node in $x_{T''}(C_{H''}(v))$. 
+  i.e.\ the path from the root to the node $x^2$ that is the deepest node in $x_{T''}(C_{H''}(v))$. 
   Since $C_{H^*_{y}}(v) \subseteq C_{H''}(v)$, we conclude that $P^1$ is a subpath of $P^2$ in $T''$.
   We define 
-  \[\mu_y^{\textsc{Ins}}(v) := \gamma(|\sigma_{H'',T''}(x,x'')|),\sigma_{H'',T''}(x,x'').
+  \[\mu_y^{\textsc{Ins}}(v) := \gamma(|\sigma_{H'',T''}(x^1,x^2)|),\sigma_{H'',T''}(x^1,x^2).
   \]
+  Note that $|\mu_y^{\textsc{Ins}}(v)| = \Oh(\log h(T_y)) + |\sigma_{H'',T''}(x^1,x^2)|$. 
+
+\textcolor{red}{Piotrek: There is an issue with the assymptotics that might force us to get back and close the $S_y$ sets under taking parents.}
 
 %  The bulk insertion that converts $T'$ into $T''$ is the simplest to handle.  For any $v\in S_y$, $P_{T'}(v)$ is the path from the root of $T'$ to the deepest node in $x_{T'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T'}(w)$ is the element of $w\cap V(T')$ that is closest to the root of $T'$. Since $T''$ is a supergraph of $T'$ obtained by adding small subtrees at the external nodes of $T'$, $x_{T''}(w)=x_{T'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T''}(x_{T''}(w))=P_{T'}(x_{T'}(w))$ and $\sigma_{T''}(x_{T''}(w))=\sigma_{T'}(x_{T'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for each $v\in S_y$.
 
@@ -1388,7 +1388,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
         $\Downarrow$\\[1ex]
         \includegraphics{figs/deletion-t-tree-2}
       \end{center}
-      \caption{The effect of a single deletion on $x_T(v)$.}
+      \caption{The effect of a single deletion on $x_{T^{\text{bef}}}(v)$.}
       \figlabel{deletion-t-tree}
     \end{figure}
 
@@ -1409,15 +1409,15 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     \[
     \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))= \sigma_{T^{\text{aft}}}(x_i) = \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{i}) = \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).\]
 
-    Finally, if $\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)\neq \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)$ and
+    Finally, if $\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u))\neq \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))$ and
     $x_{T^{\text{bef}}}(u)\neq x_i$ for all $i\in\{0,\ldots,r\}$, 
     then the only possibility is that $x_{T^{\text{aft}}}(u)=x_i$ for some $x_i\in [a_u,b_u]$ (see the interval $v_2$ in \figref{deletion-t-tree}). 
-    This can only happen if $x_{T^{\text{bef}}}(u)$ is a $T^{\text{bef}}$-ancestor of $x_i$ and $x_i$ is a $T^{\text{aft}}$-ancestor of $x_{T^{bef}}(u)$. 
-    The latter is equivalent with the fact that $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{T^{bef}}(u)$.
+    This can only happen if $x_{T^{\text{bef}}}(u)$ is a $T^{\text{bef}}$-ancestor of $x_i$ and $x_i$ is a $T^{\text{aft}}$-ancestor of $x_{T^{\text{bef}}}(u)$. 
+    The latter is equivalent with the fact that $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{T^{\text{bef}}}(u)$.
     Therefore, we have
     \[
     \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)) = \sigma_{T^{\text{aft}}}(x_i) = 
-    \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{T^{bef}}(u)).
+    \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
     \]
     This completes the proof of the claim.
   \end{proof}
@@ -1426,7 +1426,7 @@ Since a bulk deletion is a sequence of individual deletions, by a multiple appli
 %guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
   \begin{align*}
     \sigma_{H^*_{y+1},T_{y+1}}(v)
-      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^*_{y+1},}(v)$)} \\
+      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^*_{y+1}}(v)$)} \\
       & \preceq \sigma_{T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
       & \preceq \sigma_{H^*_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
   \end{align*}
@@ -1452,7 +1452,13 @@ We define
   \mu_y^{\text{Bal}}(v) := \gamma(\theta).
   \]
 
-  Assume now that $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$.
+  Assume now that $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $x^1$ at depth $\theta$. 
+  Recall that the application of $\textsc{Balance}(x,k)$ first indentifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
+  Clearly, whatever we also $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$. 
+  In the case that $\sigma_{H^*_y,T'}(v)$ encodes a path from the root of $T'$ to a node $z\in Z\cup X$, we define
+  \[
+  \mu_y^{\text{Bal}}(v) := \gamma(\theta),0,|\sigma_{T'}(x,z)|,\sigma_{T'}(x,z).
+  \]
 
     \textcolor{red}{Piotrek: I got here. Under construction.}
  
