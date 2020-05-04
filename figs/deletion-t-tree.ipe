@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70212" creator="Ipe 7.2.13">
-<info created="D:20200225230024" modified="D:20200316075315"/>
+<info created="D:20200225230024" modified="D:20200504142705"/>
+<preamble>\usepackage{amsmath}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +221,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
-<textsize name="small" value="\small"/>
-<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -264,7 +265,7 @@ h
 <path layer="beta" matrix="0.6 0 0 0.6 51.2 310.4" fill="darkred">
 8 0 0 8 288 576 e
 </path>
-<text matrix="1 0 0 1 -60 82" transformations="translations" pos="280 576" stroke="darkred" type="label" width="33.909" height="7.467" depth="4.46" halign="right" valign="baseline" style="math">x_{T_y&apos;&apos;}(v_2)</text>
+<text matrix="1 0 0 1 -63.6413 84.2758" transformations="translations" pos="280 576" stroke="darkred" type="label" width="37.783" height="7.473" depth="2.49" halign="right" valign="baseline" style="math">x_{T^{\textrm{aft}}}(v_1)</text>
 <path layer="alpha" matrix="0.6 0 0 0.6 51.2 262.4" fill="darkred">
 8 0 0 8 288 576 e
 </path>
@@ -426,8 +427,8 @@ h
 312 512 l
 </path>
 <text matrix="1 0 0 1 -4 11" transformations="translations" pos="288 496" stroke="black" type="label" width="9.298" height="4.294" depth="1.49" halign="center" valign="top" style="math">v_2</text>
-<text layer="alpha" matrix="1 0 0 1 4 2" transformations="translations" pos="280 576" stroke="seagreen" type="label" width="33.909" height="7.467" depth="4.46" halign="right" valign="baseline" style="math">x_{T_y&apos;&apos;}(v_2)</text>
-<text layer="beta" matrix="1 0 0 1 -27 34" transformations="translations" pos="280 576" stroke="seagreen" type="label" width="33.909" height="7.467" depth="4.46" halign="right" valign="baseline" style="math">x_{T_y&apos;&apos;}(v_2)</text>
+<text layer="alpha" matrix="1 0 0 1 15.3792 9.73782" transformations="translations" pos="280 576" stroke="seagreen" type="label" width="38.648" height="7.473" depth="2.49" halign="right" valign="baseline" style="math">x_{T^{\textrm{bef}}}(v_2)</text>
+<text layer="beta" matrix="1 0 0 1 -8.33819 43.5585" transformations="translations" pos="280 576" stroke="seagreen" type="label" width="37.783" height="7.473" depth="2.49" halign="right" valign="baseline" style="math">x_{T^{\textrm{aft}}}(v_2)</text>
 <path layer="alpha" stroke="black" pen="ultrafat" cap="1">
 188 664 m
 196 648 l
@@ -441,7 +442,7 @@ h
 204 520 l
 </path>
 <text matrix="1 0 0 1 -58 19" transformations="translations" pos="288 496" stroke="darkred" type="label" width="9.298" height="4.294" depth="1.49" halign="center" valign="top" style="math">v_1</text>
-<text layer="alpha" matrix="1 0 0 1 -60 34" transformations="translations" pos="280 576" stroke="darkred" type="label" width="33.909" height="7.467" depth="4.46" halign="right" valign="baseline" style="math">x_{T_y&apos;&apos;}(v_2)</text>
+<text layer="alpha" matrix="1 0 0 1 -55.4483 17.614" transformations="translations" pos="280 576" stroke="darkred" type="label" width="38.648" height="7.473" depth="2.49" halign="right" valign="baseline" style="math">x_{T^{\textrm{bef}}}(v_1)</text>
 <path matrix="0.7 0 0 0.7 72 175.2" stroke="gray" pen="heavier" arrow="normal/normal">
 256 560 m
 224 608 l
