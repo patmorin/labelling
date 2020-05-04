@@ -1306,6 +1306,8 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 Before continuing, we recall that for any binary search tree $T$ and two nodes $z$, $x$ in $T$ such that $x$ is a $T$-ancestor of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
 For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
 
+\textcolor{red}{Piotrek: Fill in the asymptotics whenever we define labels in the proof.}
+
 
 \begin{proof}
   Let $v \in S_y$. 
@@ -1421,11 +1423,11 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \end{proof}
 
 Since a bulk deletion is a sequence of individual deletions, by a multiple applications of~\clmref{deletion-ancestor} we get that 
-guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
+%guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
   \begin{align*}
     \sigma_{H^*_{y+1},T_{y+1}}(v)
-      & = \sigma_{H^*_{y+1},T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^*_{y+1},}(v)$)} \\
-      & \preceq \sigma_{H^*_{y+1},T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
+      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^*_{y+1},}(v)$)} \\
+      & \preceq \sigma_{T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
       & \preceq \sigma_{H^*_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
   \end{align*}
 
@@ -1433,17 +1435,29 @@ guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_
   \[
   \sigma_{H^*_{y+1},T_{y+1}}(v) \preceq \sigma_{H^*_{y+1},T''}(v) \preceq \sigma_{H'',T''}(v).
   \]
-  
+
 We define 
   \[\mu_y^{\textsc{Del}}(v) := \gamma(\sigma_{H^{*}_{y+1},T_{y+1}}(v)).
   \]
 
-  \textcolor{red}{Piotrek: I got here. Under construction.}
 
+  Finally, we are going to define $\mu_y^{\text{Bal}}(v)$ that serves to move from $\sigma_{H^*_{y},T_{y}}(v)$ to $\sigma_{H^*_{y},T'}(v)$.
+  The rebalancing operation that we obtain $T'$ from $T_y$ applying \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$.
+  Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$ to restructure the subtree of $T_y$ rooted at $x$. See~\figref{rebalance-t-tree}. 
+  Let $P^1$ be the path in $T_y$ encoded by $\sigma_{H^*_{y},T_{y}}(v)$. 
+  Thus $P^1$ is the path from the root of $T_y$ to the deepest node $x^1$ in $x_{T_y}(C_{H^*_{y}}(v))$.
+  Clearly, if $P^1$ is not hitting vertices of depth greater than $\theta$, then $\sigma_{H^*_{y},T_{y}}(v)=\sigma_{H^*_{y},T'}(v)$.
+  Thus, in the case that $|\sigma_{H^*_{y},T_{y}}(v)| \leq \theta$, we define
+  \[
+  \mu_y^{\text{Bal}}(v) := \gamma(\theta).
+  \]
 
-%  Therefore, by including $|\sigma_{T_{y+1}}(v)|$ in $\mu_y(v)$ we can derive $\sigma_{T_{y+1}}(v)$ from $\sigma_{T'}(v)$.  This requires only $\Oh(\log h({T_{y+1}}))=\Oh(\log h({T_y}))$ bits.
+  Assume now that $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$.
 
-  Finally, we consider the rebalancing operation that takes $T_y$ onto $T'$ by calling \textsc{BulkBalance}$(\theta,k)$, which calls $\textsc{Balance}(x,k)$ on each depth-$\theta$ node $x$ of $T_y$ to restructure the subtree of $T_y$ rooted at $x$ (refer to \figref{rebalance-t-tree}). Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
+    \textcolor{red}{Piotrek: I got here. Under construction.}
+ 
+
+  Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
 
   \begin{figure}
     \begin{center}
