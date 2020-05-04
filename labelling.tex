@@ -1260,32 +1260,30 @@ an interval representation of $H$ with clique number at most $\lfloor(t+1)\log_3
 Let $\varphi:V(H)\to\{1,\ldots,\lfloor(t+1)\log_3 (2m+1)\rfloor\}$ be a proper colouring of the interval representation of $H$.
 
 For each $y\in\{1,\ldots,h\}$, let 
-%\begin{align*}
-\[
-S_y=\{v\in V(H): (v,y)\in V(G)\}.  %\text{ and}\\
-\]
-%S^-_y&=\textstyle\bigcup_{v\in S_y} C_H(v).
-%\end{align*}
-Note that $\sum_{y=1}^h |S_y| =n$.
+\begin{align*}
+S_y&=\{v\in V(H): (v,y)\in V(G)\}, \text{ and}\\
+S^+_y&=\textstyle\bigcup_{v\in S_y} C_H(v).
+\end{align*}
+Note that $\sum_{y=1}^h |S_y| =n$ and $\sum_{y=1}^h |S^+_y| \leq (t+1)n$.
 %and $|S_y^-| \leq (t+1)|S_y|$. 
 %Thus $\sum_{y=1}^h |S_y^-| \leq (t+1)n$. 
 %Let $S^-_0=\emptyset$. 
 Let $S_0=\emptyset$. 
-For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals in $S_y\cup S_{y-1}$. 
+For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals representing vertices in $S^+_y\cup S^+_{y-1}$. 
 %Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
 Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
 Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$.
 
-For each $y\in\{1,\ldots,h\}$, let $H^*_y$ be the subgraph of $H$ induced by $S_y\cup S_{y-1}$. 
-Thus each $H^*_y$ is a $t$-tree. 
-We fix the witnessing vertex ordering of $H^*_y$ inherited from $H$.
-Similarly, we fix the interval representation of $H^*_y$ and the proper colouring $\varphi$ of the interval representation, as the projection of respective ones for $H$.
+For each $y\in\{1,\ldots,h\}$, let $H^+_y$ be the subgraph of $H$ induced by $S^+_y\cup S^+_{y-1}$. 
+In particular, each $H^+_y$ is a $t$-tree. 
+We fix the witnessing vertex ordering of $H^+_y$ inherited from $H$.
+Similarly, we fix the interval representation of $H^+_y$ and the proper colouring $\varphi$ of the interval representation, as the projection of respective ones for $H$.
 
-Since $X_y \subseteq V_y = V(T_y)$, we have that $T_y$ stabs $H^*_y$.
+Since $X_y \subseteq V_y = V(T_y)$, we have that $T_y$ stabs $H^+_y$.
 
 By construction, we have
 \[
-\textstyle\sum_{y=1}^h |T_y| \le 2\textstyle\sum_{y=1}^h |X_y| \le 4\textstyle\sum_{y=1}^h |S_y\cup S_{y-1}| \le 8n.
+\textstyle\sum_{y=1}^h |T_y| \le 2\textstyle\sum_{y=1}^h |X_y| \le 4\textstyle\sum_{y=1}^h |S^+_y\cup S^+_{y-1}| \le 8(t+1)n.
 \]
 
 By \lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$ we have
@@ -1300,7 +1298,7 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
 
 \begin{lem}\lemlabel{interval-transitions}
   There exists a function $J:(\{0,1\}^*)^2\to \{0,1\}^*$ such that, 
-  for any $H$, $P$, $G$, $\varphi$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\sigma_{H^*_y,T_y}(v)|+|\mu_y(v)|= \log h(T_y) + \Oh(k\log h(T_y))$ such that $J(\sigma_{H^*_y,T_y}(v), \mu_y(v))=\sigma_{H^*_{y+1},T_{y+1}}(v)$.
+  for any $H$, $P$, $G$, $\varphi$, $S_1,\ldots,S_h$, $X_1,\ldots,X_h$, and each $k$-bulk tree sequence $T_1,\ldots,T_h$ defined as above, for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{H^+_y,T_y}(v), \mu_y(v))=\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 \end{lem}
 
 Before continuing, we recall that for any binary search tree $T$ and two nodes $z$, $x$ in $T$ such that $x$ is a $T$-ancestor of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
@@ -1308,9 +1306,9 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
 
 \begin{proof}
   Let $v \in S_y$. 
-  First of all, note that $v$ is a vertex in $H^*_y$ and $H^*_{y+1}$.
-  Since $T_y$ stabs $H^*_y$ and $T_{y+1}$ stabs $H^*_{y+1}$,
-  we conclude that $\sigma_{H^*_{y},T_y}(v)$, $\sigma_{H^*_{y+1},T_{y+1}}(v)$ are well-defined.
+  First of all, note that $v$ is a vertex in $H^+_y$ and $H^+_{y+1}$.
+  Since $T_y$ stabs $H^+_y$ and $T_{y+1}$ stabs $H^+_{y+1}$,
+  we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined.
 
   As in the proof of \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. 
   Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
@@ -1324,56 +1322,36 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
-  The transition code $\mu_y(v)$ is the concatenation of three parts $\mu_y^{\textsc{Bal}}(v)$, $\mu_y^{\textsc{Ins}}(v)$, and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
+  The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
+  % Let $H''$ be the subgraph of $H$ induced by $S^+_{y+1}\cup S^+_y\cup S^+_{y-1}$.
+  % Note that $T''$ stabs $H''$. 
+  The $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$. 
+  Below, we will argue that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
+  The $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
-  First we describe $\mu_y^{\textsc{Ins}}(v)$. 
-  Note that $T'$ stabs $H''$. 
-  Let $H''$ be the subgraph of $H$ induced by $S_{y+1}\cup S_y\cup S_{y-1}$.
-  The transition code $\mu_y^{\textsc{Ins}}(v)$ will serve to move 
-  from $\sigma_{H^*_{y},T'}(v)$ to $\sigma_{H'',T''}(v)$. 
+  First we will argue that
+  \[
+  \sigma_{H^+_{y},T'}(v) = \sigma_{H^+_{y},T''}(v) = \sigma_{H^+_{y+1},T''}(v).
+  \]
   Recall that an application of $\textsc{BulkInsert}(I)$ to $T'$ 
   results in attaching some small subtrees (of height at most $2$)
   to the leaves of $T'$. 
-  This way, for every $u \in S_y$, $x_{T'}(u) = x_{T''}(u)$ and therefore 
-  $\sigma_{H^*_{y},T'}(u) = \sigma_{H^*_{y},T''}(u)$.
-  Let $P^1$ be the path in $T''$ encoded by $\sigma_{H^*_{y},T''}(v)$. 
-  Thus $P^1$ is a path from the root of $T''$ to the deepest node $x^1$ in $x_{T''}(C_{H^*_{y}}(v))$. 
-  Similarly, let $P^2$ be the path in $T''$ encoded by $\sigma_{H'',T''}(v)$, 
-  i.e.\ the path from the root to the node $x^2$ that is the deepest node in $x_{T''}(C_{H''}(v))$. 
-  Since $C_{H^*_{y}}(v) \subseteq C_{H''}(v)$, we conclude that $P^1$ is a subpath of $P^2$ in $T''$.
-  We define 
-  \[\mu_y^{\textsc{Ins}}(v) := \gamma(|\sigma_{H'',T''}(x^1,x^2)|),\sigma_{H'',T''}(x^1,x^2).
-  \]
-  Note that $|\mu_y^{\textsc{Ins}}(v)| = \Oh(\log h(T_y)) + |\sigma_{H'',T''}(x^1,x^2)|$. 
-
-\textcolor{red}{Piotrek: There is an issue with the assymptotics that might force us to get back and close the $S_y$ sets under taking parents.}
-
-%  The bulk insertion that converts $T'$ into $T''$ is the simplest to handle.  For any $v\in S_y$, $P_{T'}(v)$ is the path from the root of $T'$ to the deepest node in $x_{T'}(C_H(v))$.  Furthermore, for each $w=[a_w,b_w]\in C_H(v)$, $x_{T'}(w)$ is the element of $w\cap V(T')$ that is closest to the root of $T'$. Since $T''$ is a supergraph of $T'$ obtained by adding small subtrees at the external nodes of $T'$, $x_{T''}(w)=x_{T'}(w)$ for each $w\in C_H(v)$.  Therefore $P_{T''}(x_{T''}(w))=P_{T'}(x_{T'}(w))$ and $\sigma_{T''}(x_{T''}(w))=\sigma_{T'}(x_{T'}(w))$ for each $w\in C_H(v)$, so $\sigma_{T''}(v)=\sigma_{T'}(v)$ for each $v\in S_y$.
-
+  This way, for every $u \in C_H(v) \subseteq S^+_y$, we have $x_{T'}(u) = x_{T''}(u)$. 
+  Therefore 
+  $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
+  Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$) encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively. 
+  Again, since $v\in S_y$ we have that $S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore
+  $C_{H^+_{y}}(v) = C_H(v) = C_{H^+_{y+1}}(v)$ and $\sigma_{H^+_{y},T''}(v) =\sigma_{H^+_{y+1},T''}(v)$.
 
   Next we describe $\mu_y^{\textsc{Del}}(v)$. 
-%  Let $H''$ be the subgraph of $H$ induced by $S_y\cup S_{y-1}\cup I$.
   The transition code $\mu_y^{\textsc{Del}}(v)$ serves to move 
-  from $\sigma_{H'',T''}(v)$ to $\sigma_{H^*_{y+1},T''}(v)$, and then to
-   $\sigma_{H^*_{y+1},T_{y+1}}(v)$. 
-
-  Recall that $\sigma_{H'',T''}(v)$ encodes the path $P^2$ in $T''$ from the root to 
-  the deepest node in $x_{T''}(C_{H''}(v))$ 
-  while $\sigma_{H^*_{y+1},T''}(v)$ encodes a path, say $P^3$, in $T''$ from the root to 
-  the deepest node in $x_{T''}(C_{H^*_{y+1}}(v))$.
-  Since $C_{H^*_{y+1}}(v) \subseteq C_{H''}(v)$, we conclude that $P^3$ is a subpath of $P^2$ in $T''$. 
-  Thus
-  \[
-  \sigma_{H^*_{y+1},T''}(v)\preceq \sigma_{H'',T''}(v).
-  \]
-
-  Now we need to study the changes in the signature that occur while moving from $T''$ to $T_{y+1}$. 
+  from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$. 
   An application of $\textsc{BulkDelete}(D)$ to $T''$ results in 
   a sequence of individual deletions.
   Consider a single deletion of an element $x$ and let $T^{\text{bef}}$ and $T^{\text{aft}}$ denote the trees before and after the deletion, respectively.
 
   \begin{clm}\clmlabel{deletion-ancestor}
-  For every $u\in S_{y+1}\cup S_y$,
+  For every $u\in S^+_y$, we have
   \[
   \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))\preceq\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
   \]
@@ -1425,37 +1403,32 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
 Since a bulk deletion is a sequence of individual deletions, by a multiple applications of~\clmref{deletion-ancestor} we get that 
 %guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
   \begin{align*}
-    \sigma_{H^*_{y+1},T_{y+1}}(v)
-      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^*_{y+1}}(v)$)} \\
+    \sigma_{H^+_{y+1},T_{y+1}}(v)
+      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^+_{y+1}}(v)=C_H(v)$)} \\
       & \preceq \sigma_{T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
-      & \preceq \sigma_{H^*_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
+      & \preceq \sigma_{H^+_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
   \end{align*}
-
-  Putting it altogether we get that 
-  \[
-  \sigma_{H^*_{y+1},T_{y+1}}(v) \preceq \sigma_{H^*_{y+1},T''}(v) \preceq \sigma_{H'',T''}(v).
-  \]
 
 We define 
   \[\mu_y^{\textsc{Del}}(v) := \gamma(\sigma_{H^{*}_{y+1},T_{y+1}}(v)).
   \]
 
 
-  Finally, we are going to define $\mu_y^{\text{Bal}}(v)$ that serves to move from $\sigma_{H^*_{y},T_{y}}(v)$ to $\sigma_{H^*_{y},T'}(v)$.
+  Finally, we are going to define $\mu_y^{\textsc{Bal}}(v)$ that serves to move from $\sigma_{H^+_{y},T_{y}}(v)$ to $\sigma_{H^+_{y},T'}(v)$.
   The rebalancing operation that we obtain $T'$ from $T_y$ applying \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$.
   Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$ to restructure the subtree of $T_y$ rooted at $x$. See~\figref{rebalance-t-tree}. 
-  Let $P^1$ be the path in $T_y$ encoded by $\sigma_{H^*_{y},T_{y}}(v)$. 
-  Thus $P^1$ is the path from the root of $T_y$ to the deepest node $x^1$ in $x_{T_y}(C_{H^*_{y}}(v))$.
-  Clearly, if $P^1$ is not hitting vertices of depth greater than $\theta$, then $\sigma_{H^*_{y},T_{y}}(v)=\sigma_{H^*_{y},T'}(v)$.
-  Thus, in the case that $|\sigma_{H^*_{y},T_{y}}(v)| \leq \theta$, we define
+  Let $P^1$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$. 
+  Thus $P^1$ is the path from the root of $T_y$ to the deepest node $x^1$ in $x_{T_y}(C_{H^+_{y}}(v))$.
+  Clearly, if $P^1$ is not hitting vertices of depth greater than $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
+  Thus, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \leq \theta$, we define
   \[
-  \mu_y^{\text{Bal}}(v) := \gamma(\theta).
+  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta).
   \]
 
-  Assume now that $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $x^1$ at depth $\theta$. 
+  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $x^1$ at depth $\theta$. 
   Recall that the application of $\textsc{Balance}(x,k)$ first indentifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
-  Clearly, whatever we also $|\sigma_{H^*_{y},T_{y}}(v)| > \theta$. 
-  In the case that $\sigma_{H^*_y,T'}(v)$ encodes a path from the root of $T'$ to a node $z\in Z\cup X$, we define
+  Clearly, whatever we also $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$. 
+  In the case that $\sigma_{H^+_y,T'}(v)$ encodes a path from the root of $T'$ to a node $z\in Z\cup X$, we define
   \[
   \mu_y^{\text{Bal}}(v) := \gamma(\theta),0,|\sigma_{T'}(x,z)|,\sigma_{T'}(x,z).
   \]
