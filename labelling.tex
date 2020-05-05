@@ -1336,11 +1336,12 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Recall that an application of $\textsc{BulkInsert}(I)$ to $T'$ 
   results in attaching some small subtrees (of height at most $2$)
   to the leaves of $T'$. 
-  This way, for every $u \in C_H(v) \subseteq S^+_y$, we have $x_{T'}(u) = x_{T''}(u)$. 
-  Therefore 
+  This way, for every $u \in C_H(v) \subseteq S^+_y$, we have $x_{T'}(u) = x_{T''}(u)$ and 
+  $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
+  Therefore, 
   $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
-  Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$) encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively. 
-  Again, since $v\in S_y$ we have that $S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore
+  Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$ encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively. 
+  Again, since $v\in S_y$ we have that $S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore, 
   $C_{H^+_{y}}(v) = C_H(v) = C_{H^+_{y+1}}(v)$ and $\sigma_{H^+_{y},T''}(v) =\sigma_{H^+_{y+1},T''}(v)$.
 
   Next we describe $\mu_y^{\textsc{Del}}(v)$. 
@@ -1371,7 +1372,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     \end{figure}
 
     First we look at the case $x_{T^{\text{bef}}}(u)=x_0$. 
-    Recall that $u\in S_y\cup S_{y+1}$ so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$. 
+    Recall that $u\in S^+_y$ so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$. 
     This means that $x_0\neq a_u$ and $x_0\neq b_u$ and both endpoints lie in the subtree of $T^{\text{bef}}$ rooted at $x_0$. 
     In particular, $x_0$ is not a leaf and $r\geq 1$. 
     By~\lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval}, we have $a_u < x_0 < b_u$. 
@@ -1410,31 +1411,35 @@ Since a bulk deletion is a sequence of individual deletions, by a multiple appli
   \end{align*}
 
 We define 
-  \[\mu_y^{\textsc{Del}}(v) := \gamma(\sigma_{H^{*}_{y+1},T_{y+1}}(v)).
+  \[\mu_y^{\textsc{Del}}(v) := \gamma(\sigma_{H^{+}_{y+1},T_{y+1}}(v)).
   \]
-
+Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
 
   Finally, we are going to define $\mu_y^{\textsc{Bal}}(v)$ that serves to move from $\sigma_{H^+_{y},T_{y}}(v)$ to $\sigma_{H^+_{y},T'}(v)$.
   The rebalancing operation that we obtain $T'$ from $T_y$ applying \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$.
   Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$ to restructure the subtree of $T_y$ rooted at $x$. See~\figref{rebalance-t-tree}. 
-  Let $P^1$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$. 
-  Thus $P^1$ is the path from the root of $T_y$ to the deepest node $x^1$ in $x_{T_y}(C_{H^+_{y}}(v))$.
-  Clearly, if $P^1$ is not hitting vertices of depth greater than $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
-  Thus, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \leq \theta$, we define
+  Let $Q$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$. 
+  Thus $Q$ is the path from the root of $T_y$ to the deepest node $z$ in $x_{T_y}(C_{H^+_{y}}(v))$.
+  Clearly, if $Q$ is not hitting vertices of depth at least $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
+  Thus, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| < \theta$, we define
   \[
   \mu_y^{\textsc{Bal}}(v) := \gamma(\theta).
   \]
+  Note that in this case $|\mu_y^{\textsc{Bal}}(v)| = \Oh(\log \theta) = \Oh(\log h(T_y))$.
 
-  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $x^1$ at depth $\theta$. 
+  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $z$ at depth $\theta$. 
+  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$ so $Q'$ is the path form the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
+  However \textsc{Balance}$(x,k)$ reshuffles nodes in the subtree of $x$, we will have ... hmmm
+
+    \textcolor{red}{Piotrek: I got here. Under construction.}
+
   Recall that the application of $\textsc{Balance}(x,k)$ first indentifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
   Clearly, whatever we also $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$. 
   In the case that $\sigma_{H^+_y,T'}(v)$ encodes a path from the root of $T'$ to a node $z\in Z\cup X$, we define
   \[
-  \mu_y^{\text{Bal}}(v) := \gamma(\theta),0,|\sigma_{T'}(x,z)|,\sigma_{T'}(x,z).
+  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),0,|\sigma_{T'}(x,z)|,\sigma_{T'}(x,z).
   \]
 
-    \textcolor{red}{Piotrek: I got here. Under construction.}
- 
 
   Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
 
