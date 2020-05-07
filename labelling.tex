@@ -1412,9 +1412,9 @@ We define
   \]
 Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
 
-  Finally, we are going to define $\mu_y^{\textsc{Bal}}(v)$ that serves to move from $\sigma_{H^+_{y},T_{y}}(v)$ to $\sigma_{H^+_{y},T'}(v)$.
-  The rebalancing operation that we obtain $T'$ from $T_y$ applying \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$.
-  Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$ to restructure the subtree of $T_y$ rooted at $x$. See~\figref{rebalance-t-tree}. 
+  Finally, we are going to define $\mu_y^{\textsc{Bal}}(v)$ that serves to move from $\sigma_{H^+_{y},T_{y}}(v)$ to $\sigma_{H^+_{y},T'}(v)$. 
+  Recall that $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$ and the resulting tree is $T'$.
+  Recall also that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$ to restructure the subtree of $T_y$ rooted at $x$. See~\figref{rebalance-t-tree}. 
   Let $Q$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$. 
   Thus $Q$ is the path from the root of $T_y$ to the deepest node $z$ in $x_{T_y}(C_{H^+_{y}}(v))$.
   Clearly, if $Q$ is not hitting vertices of depth at least $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
@@ -1424,21 +1424,20 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
   \]
   Note that in this case $|\mu_y^{\textsc{Bal}}(v)| = \Oh(\log \theta) = \Oh(\log h(T_y))$.
 
-  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$ and let $x$ be a $T_y$-ancestor of $z$ at depth $\theta$. 
-  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$ so $Q'$ is the path form the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
-  However \textsc{Balance}$(x,k)$ reshuffles nodes in the subtree of $x$, we will have ... hmmm
-
-    \textcolor{red}{Piotrek: I got here. Under construction.}
-
-  Recall that the application of $\textsc{Balance}(x,k)$ first indentifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$. 
-  Clearly, whatever we also $|\sigma_{H^+_{y},T_{y}}(v)| > \theta$. 
-  In the case that $\sigma_{H^+_y,T'}(v)$ encodes a path from the root of $T'$ to a node $z\in Z\cup X$, we define
+  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be a $T_y$-ancestor of $z$ at depth $\theta$. 
+  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
+  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$ so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
+  Recall that the application of $\textsc{Balance}(x,k)$ first indentifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of $T_*'$. 
+  If $z' \in Z\cup X$, then $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
+  In this case, we define
   \[
-  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),0,|\sigma_{T'}(x,z)|,\sigma_{T'}(x,z).
+  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),0,|\sigma_{\hat{T_0}}(z')|,\sigma_{\hat{T_0}}(z').
   \]
+  Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log k) + \Oh(k) = \Oh(\log h(T_y)+k)$.
 
+  Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
 
-  Therefore, for any $v\in S_y$, and any $\theta'\in\{0,\ldots,\theta\}$, the length-$\theta'$ prefix of $\sigma_{T_y}(v)$ and length-$\theta'$ prefix of $\sigma_{T'}(v)$ are the same.  By including the value of $\theta$ in $\mu_y(v)$, we then only need to consider the effect of the call to $\textsc{Balance}(x,k)$ where $x$ is the unique depth-$\theta$ node of $T_y$ contained in $P_{T_y}(v)$ (if any).
+\textcolor{red}{Piotrek: I got here.}
 
   \begin{figure}
     \begin{center}
@@ -1447,13 +1446,6 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
     \caption{Only the call to $\textsc{Balance}(x,k)$ on a node $x\in V(P_{T_y}(v))$ affects $\sigma_{T'}(v)$.}
     \figlabel{rebalance-t-tree}
   \end{figure}
-
-  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
-  The transition code $\mu_y(v)$ will contain enough information to recover $\sigma_{T'}(v)$ from $\sigma_{T_y}(v)$.
-
-  Now, $\textsc{Balance}(x,k)$ identifies two special node sets $Z$ and $X$ that it turns into a perfectly balanced binary search tree $\hat{T}_0$.  Eventually, $\hat{T}_0$ will become a subgraph of $T_*'$ that contains the root of $T_*'$.   In particular, every node in $V(T_*')$ has a $T_*'$-ancestor in $Z\cup X$.
-
-  For any $v\in S_y$ such that $P_{T'}(v)$ ends at a vertex $z\in Z\cup X=V(\hat{T}_0)$, the problem is easy.  We include $\sigma_{\hat{T}_0}(z)$, which has length at most $h(\hat{T}_0)\le k$, in $\mu_y(v)$, and this (along with $\theta$) is sufficient to recover $\sigma_{T'}(v)$ from $\sigma_{T_y}(v)$.
 
   Thus, we only need to consider those $v\in S_v$ such that $P_{T'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{all-the-obs-about-bst-and-intervals}, $z$ is the unique node of $P_{T'}(z)$ contained in $[a_w,b_w]$.  Therefore
   \begin{equation}
