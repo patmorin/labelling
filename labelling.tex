@@ -835,21 +835,18 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
 
   The first part $\nu_y^{\textsc{Bal}}(z)$ will serve to move from $\sigma_{T_y}(z)$ to $\sigma_{T'}(z)$.
   Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T_y$.
-  %Thus, when $\theta>h(T_y)$ the operation is vacuous.
-  %In this case, $\nu^{\textsc{Bal}}_y(z)$ is defined to be $0$.
-  %Assume now that $\theta\leq h(T_y)$.
   Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
   Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$.
-  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) \leq \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$.
+  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) < \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
 
-  Assume now that $d_{T_y}(z) > \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
-  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree rooted at $x$ in $T'$.
-  This means that if $z\in Z\cup X$ then $\sigma_{T'}(x,z) =\sigma_{\hat{T_0}}(z)$.
-  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{T'}(x,z)|),\sigma_{T'}(x,z)$.
+  Assume now that $d_{T_y}(z) \geq \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
+  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree that replaces the subtree of $x$ in $T$.
+  This means that if $z\in Z\cup X$ then $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
+  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z)|),\sigma_{\hat{T_0}}(z)$.
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
 
-  Now we are left with the case that $d_{T_y}(z)> \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$.
+  Now we are left with the case that $d_{T_y}(z)\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$.
   (With a slight abuse of notations, here and further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
   Note that
@@ -869,7 +866,7 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
   We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
     \[
-  \nu^{\textsc{Bal}}_y(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(x,z')|),\sigma_{\hat{T_0}}(x,z'),\gamma(b),
+  \nu^{\textsc{Bal}}_y(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z'),\gamma(b),
   \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
   \]
   Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
@@ -889,10 +886,10 @@ Before continuing, we extend the $\sigma$ notation slightly so that for any node
   It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
 
   The function $B$ is defined as expected:
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| \leq \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$.
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| < \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$.
   Note that the bulk insertion operation has no effect on the signature of $z$.
 
-  If $|\sigma_{T_y}(z)| > \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before.
+  If $|\sigma_{T_y}(z)| \geq \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before.
 
   If the bit under consideration was $1$, then this corresponds to the case where $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before.
 \end{proof}
