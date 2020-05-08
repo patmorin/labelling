@@ -1540,7 +1540,8 @@ The label of $z=(v,y)$ is the concatenation of the following bit-strings:
   \item $\gamma(\varphi(v))$;
   \item $\gamma(d)$;
   \item $\gamma(d_{T_{y}}(x_{T_{y}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
-  \item if $y\neq h$ then $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
+  \item if $y=h$ then $0$;\\
+  if $y\neq h$ then $1$, $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
   \item $\gamma(\varphi(u_i))$ for each $i\in\{1,\ldots,d\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
@@ -1552,10 +1553,10 @@ The length of the components are as follows:
 (L2) is of length $\log|T_y| + \Oh(k+k^{-1}\log n)$, 
 (L3) is of length $\Oh(\log t + \log\log n)$,
 (L4) is of length $\Oh(\log t)$, 
-(L5) is of length $\Oh(t\cdot (\log\log n + \log k))$, %\snote{Piotrek: we shall double-check}, 
-(L6) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
-(L7) is of length $\Oh(k\log\log n + k\log k)$, and 
-(L8) is of length $\Oh(t)$.
+(L5) and (L6) is of length $\Oh(t\cdot (\log\log n + \log k))$,
+(L7) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
+(L8) is of length $\Oh(k\log\log n + k\log k)$, and 
+(L9) is of length $\Oh(t)$.
 In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
 If $t$ is a fixed constant then this is  
 $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
