@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20200225214259" modified="D:20200302113140"/>
+<ipe version="70212" creator="Ipe 7.2.13">
+<info created="D:20200225214259" modified="D:20200508153732"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
-<textsize name="small" value="\small"/>
-<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -339,8 +339,8 @@ h
 <use name="mark/disk(sx)" pos="332.038 645.055" size="normal" stroke="blue"/>
 <use name="mark/disk(sx)" pos="336.727 658.762" size="normal" stroke="blue"/>
 <text matrix="1 0 0 1 0 13" transformations="translations" pos="320 560" stroke="black" type="label" width="10.402" height="6.812" depth="1.49" halign="center" valign="top" style="math">T_*</text>
-<text matrix="1 0 0 1 -51 -49" transformations="translations" pos="376 680" stroke="blue" type="label" width="41.055" height="7.473" depth="2.49" valign="baseline" style="math">x(C_H(v))</text>
-<text matrix="1 0 0 1 11 0" transformations="translations" pos="320 656" stroke="red" type="label" width="25.608" height="7.473" depth="2.49" halign="right" valign="baseline" style="math">P_T(v)</text>
+<text matrix="1 0 0 1 -51 -49" transformations="translations" pos="376 680" stroke="blue" type="label" width="5.694" height="4.289" depth="0" valign="baseline" style="math">x</text>
+<text matrix="1 0 0 1 11 0" transformations="translations" pos="320 656" stroke="red" type="label" width="7.876" height="6.815" depth="1.93" halign="right" valign="baseline" style="math">Q</text>
 <use name="mark/disk(sx)" pos="296.157 679.982" size="normal" stroke="black"/>
 <path stroke="black">
 108 680 m

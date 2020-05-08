@@ -813,7 +813,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
-Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
+%Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
 
 %\snote{signature of external nodes?}
 
@@ -1435,10 +1435,6 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
   \]
   Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log k) + \Oh(k) = \Oh(\log h(T_y)+k)$.
 
-  Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
-
-\textcolor{red}{Piotrek: I got here.}
-
   \begin{figure}
     \begin{center}
       \includegraphics{figs/rebalance-t-tree}
@@ -1447,33 +1443,56 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
     \figlabel{rebalance-t-tree}
   \end{figure}
 
-  Thus, we only need to consider those $v\in S_v$ such that $P_{T'}(v)$ ends a vertex $z\not\in Z\cup X$ with $d_{T_y}(z)>\theta$.    By definition,  $z=x_{T'}(w)$ for some $w=[a_w,b_w]\in C_H(v)$.  By \lemref{all-the-obs-about-bst-and-intervals}, $z$ is the unique node of $P_{T'}(z)$ contained in $[a_w,b_w]$.  Therefore
-  \begin{equation}
-    [a_w,b_w]\cap (Z\cup X)=\emptyset \enspace . \eqlabel{empty}
-  \end{equation}
 
-  For each such node $v$, $P_{T_y}(v)$ has vertices (including $z$) in common with exactly one tree $T_{i}$ in the forest $T_*-Z$.  Then $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x)$ for nodes $x\in V(T_{i})$. The following claim explains the effect of one individual call to $\textsc{Split}(x)$:
+  Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$. 
+  Let $w \in C_{H^+_y}(v)=C_H(v)$ be the vertex witnessing $z' = x_{T}(w)$.
+  By \lemref{all-the-obs-about-bst-and-intervals}, 
+  $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e.\ the interval representing $w$.  Therefore, $[a_w,b_w]\cap (Z\cup X)=\emptyset$.
+  Let $T_i$ be the tree in the forest $T_*-Z$ that contains $z'$ (and the unique one that overlaps with $Q'$). 
+  Then $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$.  This, in turn results in zero or more calls to $\textsc{Split}(x')$ for nodes $x'\in V(T_{i})\cap X$. The following claim explains the effect of one individual call to $\textsc{Split}(x')$:
 
   \begin{clm}\clmlabel{x-switch}
-    Let $S$ be a set of intervals, let $T$ be a binary search tree where $V(T)$ stabs $S$, and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$.  Then, for each $w=[a_w,b_w]\in S$ exactly one of the following is true:
+    Let $T$ be a binary search tree that stabs an interval $[a_w,b_w]$, 
+    and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$. Then, exactly one of the following is true:
     \begin{compactenum}
       \item $a_w\le x\le b_w$;
       \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
       \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
     \end{compactenum}
   \end{clm}
-
   \begin{proof}
     That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
 
-    By \lemref{all-the-obs-about-bst-and-intervals}, $z=x_T(v)$ is the unique node $z\in V(T)$ such that $P_T(z)$ has exactly one node $z\in [a_w,b_w]$.  Now $P_{T_{>x}}(z)$ is obtained from $P_T(z)$ by deleting all values less than or equal to $x$. Therefore $P_{T_{>x}}(z)$ has exactly one node in $[a_w,b_w]$, namely $z$, so $z=x_{T_{>x}}(w)$.  This completes the proof of \clmref{x-switch}.
+    By \lemref{all-the-obs-about-bst-and-intervals}, $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$. 
+    Recall that by construction 
+    the path $P'$ from the root to $z$ in $T_{>x}$ is obtained from $P$ 
+    by deleting all values less than or equal to $x$. 
+    Therefore the path $P'$ in $T_{>x}$ has exactly one node in $[a_w,b_w]$, namely $z$, 
+    so $z=x_{T_{>x}}(w)$. This completes the proof of \clmref{x-switch}.
   \end{proof}
 
-  From \clmref{x-switch}, we can conclude that $P_{T'}(v)=P_{T'}(x_{T_y}(w))$ for some $w\in C_H(v)$.  Indeed, for the vertex $w\in C_H(v)$ that determines $P_{T'}(v)=P_{T'}(x_{T'}(w))$ we have $x_{T'}(w)\not\in Z\cup X$ by \eqref{empty}. By \clmref{x-switch}, either $x_{T'}(w)=x_{T_y}(w)$ or at some point $\textsc{Split}(x)$ was called on some node $x\in[a_w,b_w]$.  But $\textsc{Split}(x)$ is only called on nodes $x\in X$ so, by \eqref{empty}, $x_{T'}(w)=x_{T_y}(w)$.
+  Since all the call $\textsc{Split}(x')$ generated by $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on the subtree $T_{i}$ are called with $x'\in X$ and $[a_w,b_w]\cap X =\emptyset$, \clmref{x-switch} guarantees that 
+  \begin{align*}
+  x_{T'}(w) &= x_{T_y}(w), \textrm{ and}\\
+  \sigma_{H^+_y,T'}(v) = \sigma_{T'}(x_{T'}(w)) &= \sigma_{T'}(x_{T_y}(w)).
+  \end{align*}
 
-  Thus, for each $v\in S_y$ such that $x(v)\not\in Z\cup X$, there exists some $w\in C_H(v)$ with $x_{T'}(w)=x_{T_y}(w)$ such that $P_{T'}(v)=P_{T'}(x_{T_y}(w))$, so $\sigma_{T'}(v)=\sigma_{T'}(x_{T_y}(w))$.  By \lemref{all-the-obs-about-bst-and-intervals}, $\sigma_{T_y}(x_{T_y}(w))$ is a prefix of $\sigma_{T_y}(v)$ and the length of this prefix can be included in $\mu_y(v)$, which makes it possible to recover $\sigma_{T_y}(x_{T_y}(w))$ from $\sigma_{T_y}(v)$ .  By \lemref{node-transitions}, there exists a function $B$ and a string $\nu_y(x_{T_y}(w))$ of length $\Oh(k\log\log n)$ such that $B(\sigma_{T_y}(x_{T_y}(w)), \nu_y(x_{T_y}(w))) = \sigma_{T'}(x_{T_y}(w)) = \sigma_{T'}(v)$.
+  Finally, by \lemref{node-transitions} there exists a function $B'$ and a bitstring 
+  $\nu^{\textsc{Bal}}_y(x_{T_y}(w))$ of length $\Oh(k\log h(T_y))$ such that 
+  $B'(\sigma_{T_y}(x_{T_y}(w)), \nu^{\textsc{Bal}}_y(x_{T_y}(w))) = \sigma_{T'}(x_{T_y}(w))$. 
 
-  Therefore, for any $v\in S_y$ there is a string $\mu_y(v)$ of length $\Oh(k\log h(T_y))$ that satisfies the conditions of the lemma.
+  All this justifies the following definition (in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$):
+  \[
+   \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),1,|\sigma_{T_y}(x_{T_y}(w))|,\nu^{\textsc{Bal}}_y(x_{T_y}(w)).
+  \]
+  Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log h(T_y)) + \Oh(k\log h(T_y)) = \Oh(k\log h(T_y))$.
+
+  The function $J$ is defined as expected:
+  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\nu_y(v)$, the function $J$ first decodes $\theta$ ...
+
+\textcolor{red}{Piotrek: I got here.}
+
+  %and checks whether $|\sigma_{T_y}(z)| < \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and 
 \end{proof}
 
 \subsection{The Labels}
