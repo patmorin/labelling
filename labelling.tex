@@ -1505,7 +1505,7 @@ we have a prefix-free code $\alpha:\{1,\ldots,h\}\to\{0,1\}^*$ such that
 \begin{align*}
 |\alpha(y)|&=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h)\\
 &\leq \log\bigl( 8(t+1)n\bigr) - \log|T_y| + \Oh(\log\log n)\\
-&\leq \log n + \log t -\log|T_y| + \Oh(\log\log n),
+&\leq \log n -\log|T_y| + \Oh(\log\log n + \log t),
 \end{align*}
 for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
 
@@ -1521,22 +1521,26 @@ Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{t-tree-labe
 
 Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{interval-transitions} such that
 for each $y\in\{1,\ldots,h-1\}$ and each $v\in S_{y}$,
-there exists a code $\mu_{y}(x)$ with $|\mu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $J(\sigma_{T_{y}}(x),\mu_{y}(x))=\sigma_{T_{y+1}}(x)$.
+there exists a code $\mu_{y}(v)$ with $|\mu_{y}(v)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $J(\sigma_{H^+_y,T_{y}}(v),\mu_{y}(v))=\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
 
-Let $z=(v,y)$ be a vertex in $G$.
+Let $z=(v,y)$ be a vertex in $G$. 
+Recall that $S^+_y \subseteq V(H^+_y)$ and $S^+_y\subseteq V(H^+_{y+1})$ (the latter if $y\neq h$) and therefore 
+$C_{H}(v) = C_{H^+_y}(v) = C_{H^+_{y+1}}(v)$.
 Let $d = |C_{H}(v)|$ and let $u_1,\ldots,u_d$ be the vertices of $C_H(v)$. 
-Recall that each $u_i$ is stabbed by $T_y$ and $T_{y+1}$.
+Recall that $d\leq t+1$.
+%Recall that each $u_i$ is stabbed by $T_y$ and $T_{y+1}$.
 We define $a(z)$ to be an array of $3d$ bits indicating whether 
-each of the edges between $(x,y)$ and $(u_i,y\pm1)$ are present in $G$. 
+each of the edges between $(v,y)$ and $(u_i,y\pm1)$ are present in $G$. 
 The label of $z=(v,y)$ is the concatenation of the following bit-strings:
 
 \begin{compactenum}[(L1)]
   \item\label{label-alpha} $\alpha(y)$;% (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
-  \item $\gamma(|\sigma_{T_y}(v)|)$ and $\sigma_{T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
+  \item $\gamma(|\sigma_{H^+_y,T_y}(v)|)$ and $\sigma_{H^+_y,T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $\gamma(\varphi(v))$;
   \item $\gamma(d)$;
-  \item $\gamma(d_{T_{y+b}}(x_T(u_i)))$ for each $i\in\{1,\ldots,d\}$ and $b\in\{0,1\}$;
+  \item $\gamma(d_{T_{y}}(x_{T_{y}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
+  \item if $y\neq h$ then $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
   \item $\gamma(\varphi(u_i))$ for each $i\in\{1,\ldots,d\}$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
@@ -1544,7 +1548,7 @@ The label of $z=(v,y)$ is the concatenation of the following bit-strings:
   \item $a(z)$.
   \end{compactenum}
 The length of the components are as follows: 
-(L1) is of length $\log n + \log t -\log|T_y| + \Oh(\log\log n)$, 
+(L1) is of length $\log n -\log|T_y| + \Oh(\log\log n + \log t)$, 
 (L2) is of length $\log|T_y| + \Oh(k+k^{-1}\log n)$, 
 (L3) is of length $\Oh(\log t + \log\log n)$,
 (L4) is of length $\Oh(\log t)$, 
