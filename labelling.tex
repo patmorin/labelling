@@ -917,17 +917,16 @@ Our motivation for considering this special case is expository: The vertices of 
 For each $y\in\{1,\ldots,h\}$, we let
 \begin{align*}
 L_y&=\{x:(x,y)\in V(G)\}, \textrm{ and}\\
-L^-_y&=L_y\cup\{x-1:(x,y)\in V(G)\}.
+L^+_y&=L_y\cup\{x-1:(x,y)\in V(G)\}.
 \end{align*}
-Note that $\sum_{y=1}^h |L_y| = n$.
-Note also that $|L^-_y|\le 2|L_y|$ and thus $\sum_{y=1}^h |L^-_y|\le 2n$.
-Let $L^-_0:=\emptyset$.
+Note that $\sum_{y=1}^h |L_y| = n$ and $\sum_{y=1}^h |L^+_y|\le 2n$.
+Let $L^+_0:=\emptyset$.
 
-Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by applying~\lemref{fractional} to the sequence $L^-_{1}\cup L^-_{0},\ldots,L^-_{h}\cup L^-_{h-1}$.
+Let $V_1,\ldots,V_{h}$ be the $3$-chunking sequence obtained by applying~\lemref{fractional} to the sequence $L^+_{1}\cup L^+_{0},\ldots,L^+_{h}\cup L^+_{h-1}$.
 Thus for each $y\in\{1,\ldots,h\}$, we have
 \begin{align*}
-V_y&\supseteq L^-_{y}\cup L^-_{y-1}, \textrm{ and}\\
-\textstyle\sum_{y=1}^h |V_y|&\le 2\textstyle\sum_{y=1}^h |L^-_{y}\cup L^-_{y-1}|\leq 8n.
+V_y&\supseteq L^+_{y}\cup L^+_{y-1}, \textrm{ and}\\
+\textstyle\sum_{y=1}^h |V_y|&\le 2\textstyle\sum_{y=1}^h |L^+_{y}\cup L^+_{y-1}|\leq 8n.
 \end{align*}
 Next, let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$.
 We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
@@ -936,13 +935,6 @@ By~\lemref{bulk-tree-height}, for each $y\in\{1,\ldots,h\}$, we have
 h(T_y)&=\log|T_y| + \Oh(k+k^{-1}\log |T_y|)\\
 &\leq\log|T_y| + \Oh(k+k^{-1}\log n).
 \end{align*}
-
-%By construction and by \lemref{bulk-tree-height}, the following properties are satisfied.
-%\begin{enumerate}[label={(PR\arabic*)}, ref={PR\arabic*}, noitemsep]
-%  \item $V(T_y)\supseteq L^-_{y}\cup L^-_{y-1}$ for each $y\in\{1,\ldots,h\}$;
-%  \item $h(T_y)=\log|T_y| + \Oh(k+k^{-1}\log n)$ for each $y\in\{1,\ldots,h\}$, and
-%  \item $\sum_{y=1}^h|T_y| \le 8n$.
-%\end{enumerate}
 
 Let $A:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{row-code} such that
 using the weight function $w(y):=|T_y|$ for each $y\in\{1,\ldots,h\}$,
@@ -955,7 +947,7 @@ for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-
 
 
 Let $B:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \lemref{node-transitions}, such that
-for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}$,
+for each $y\in\{1,\ldots,h-1\}$ and each $x\in L_{y}\subseteq V(T_y)\cap V(T_{y+1})$,
 there exists a code $\nu_{y}(x)$ with $|\nu_{y}(x)|=\Oh(k\log h(T_{y}))=\Oh(k\log\log n+k \log k)$ such that $B(\sigma_{T_{y}}(x),\nu_{y}(x))=\sigma_{T_{y+1}}(x)$.
 
 Let $D:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function, given by \obsref{predecessor-encoding}, such that for every binary search tree $T$, and every $i$ such that $i-1$ and $i$ are in $T$, there exists $\delta_T(i) \in \{0,1\}^*$ with $|\delta_T(i)|=\Oh(\log h(T))$ such that
@@ -964,17 +956,19 @@ $D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
 Finally, given a vertex $v=(x,y)$ of $G$, we define
 an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$. Note that some of these $8$ vertices may not even be present in $G$ in which case the resulting bit is set to $0$ since the edge is not present in $G$.
 
-Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives the following label:
-\[
-\alpha(y), \gamma(|\sigma_{T_y}(x)|), \sigma_{T_y}(x), \delta_{T_y}(x), \delta_{T_{y+1}}(x), \nu_y(x), a(v).
-\]
-%\begin{enumerate}[label={(GC\arabic*)}, ref={GC\arabic*}, noitemsep]
-%  \item $\alpha(y)$;
-%  \item $\gamma(|\sigma_{T_y}(x)|)$ and $\sigma_{T_y}(x)$;
-%  \item\label{itm:PxP-deltas} $\delta_{T_y}(x)$ and $\delta_{T_{y+1}}(x)$; %(where $\delta_T$ is the function  introduced in \obsref{predecessor-encoding});
-%  \item\label{itm:PxP-nu} $\nu_y(x)$; and
-%  \item\label{itm:PXP-array} an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$.  (Note that some of these 8 vertices may not even be present in $G$ in which case the resulting bit is set to 0 since the edge is not present in $G$.)
-%\end{enumerate}
+Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label that is the concatenation of the following bit-strings:
+\begin{compactenum}[(P1)]
+\item $\alpha(y)$;
+\item $\gamma(|\sigma_{T_y}(x)|)$, $\sigma_{T_y}(x)$;
+\item $\delta_{T_y}(x)$; 
+\item 
+if $y\neq h$ then $1,\delta_{T_{y+1}}(x)$;\\
+if $y=h$ then $0$;
+\item 
+if $y\neq h$ then $1,\nu_y(x)$;\\
+if $y=h$ then $0$; and
+\item $a(v)$.
+\end{compactenum}
 Two major components of this label are $\alpha(y)$, of length $\log n - \log|T_y| + \Oh(\log\log n)$,
 and $\sigma_{T_y}(x)$, of length $\log|T_y| + \Oh(k+k^{-1}\log n)$.
 Together they have length $\log n + \Oh(k+k^{-1}\log n+\log\log n)$.
@@ -1004,7 +998,8 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
   Without loss of generality, $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$.
   Therefore, by \obsref{lexicographic}, $x_1<x_2$.
-  Now we compute $D(\sigma_{T_y}(x_2),\delta_{T_y}(x_2))=\sigma_{T_y}(x_2-1)$. If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $x_2 < x_1-1$, so $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
+  Recall that $x_2 \in L_y$ and $L^+_y\subseteq V(T_y)$, so $x_2-1 \in V(T_y)$.
+  We compute $D(\sigma_{T_y}(x_2),\delta_{T_y}(x_2))=\sigma_{T_y}(x_2-1)$. If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $x_2 < x_1-1$, so $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
 
@@ -1016,15 +1011,19 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   Now we look up the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine
   if $v_1$ and $v_2$ are adjacent in $G$.
   Otherwise, we lexicographically compare $\sigma_{T_y}(x_1)$ and $\sigma_{T_y}(x_2)$.
-  If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$.
+  If $\sigma_{T_y}(x_1)$ is smaller than $\sigma_{T_y}(x_2)$, then we conclude that $x_1<x_2$. 
+  Recall that $x_2 \in L_y$ and $L^+_y\subseteq V(T_y)$, so $x_2-1 \in V(T_y)$.
   We compute $D(\sigma_{T_y}(x_2),\delta_{T_y}(x_2))=\sigma_{T_y}(x_2-1)$.
   If $\sigma_{T_y}(x_2-1)\neq \sigma_{T_y}(x_1)$, then we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$.  Otherwise, we know that
   $v_1=(x_2-1,y-1)$ and $v_2=(x_2,y)$ are adjacent in $P_1\boxtimes P_2$.
   Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   If $\sigma_{T_y}(x_1)$ is larger than $\sigma_{T_y}(x_2)$, then we conclude that $x_1>x_2$.
-  Using $\sigma_{T_y}(x_1)$ and $\delta_{T_y}(x_1)$, we compute $\sigma_{T_y}(x_1-1)$ and proceed as in the previous case.
-  Note here that it is important that the label for $v_1=(x_1,y_1)$ contains $\delta_{T_{y_1+1}}(x_1)=\delta_{T_{y}}(x_1)$.
-
+  Recall that $x_1 \in L_{y-1}$ and $L^+_{y-1}\subseteq V(T_y)$, so $x_1-1 \in V(T_y)$. 
+  We compute $D(\sigma_{T_{y}}(x_1),\delta_{T_{y}}(x_1))=\sigma_{T_y}(x_1-1)$.
+  If $\sigma_{T_y}(x_1-1)\neq \sigma_{T_y}(x_2)$, then we immediately conclude that $v_1$ and $v_2$ are not adjacent in $G$, since they are not adjacent even in $P_1\boxtimes P_2$. 
+  Otherwise, we know that
+  $v_1=(x_1,y-1)$ and $v_2=(x_1-1,y)$ are adjacent in $P_1\boxtimes P_2$.
+  Now we use the relevant bit of $a(v_1)$ (or $a(v_2)$) to determine if $v_1$ and $v_2$ are adjacent in $G$.
   \item $y_2=y_1-1$: In this case, we compute $B(\sigma_{T_{y_2}}(x_2),\nu_{y_2}(x_2))=\sigma_{T_{y_1}}(x_2)$.  Now we proceed as in the previous case.
 \end{enumerate}
 
@@ -1262,9 +1261,9 @@ S_y&=\{v\in V(H): (v,y)\in V(G)\}, \text{ and}\\
 S^+_y&=\textstyle\bigcup_{v\in S_y} C_H(v).
 \end{align*}
 Note that $\sum_{y=1}^h |S_y| =n$ and $\sum_{y=1}^h |S^+_y| \leq (t+1)n$.
-%and $|S_y^-| \leq (t+1)|S_y|$. 
-%Thus $\sum_{y=1}^h |S_y^-| \leq (t+1)n$. 
-%Let $S^-_0=\emptyset$. 
+%and $|S_y^+| \leq (t+1)|S_y|$. 
+%Thus $\sum_{y=1}^h |S_y^+| \leq (t+1)n$. 
+%Let $S^+_0=\emptyset$. 
 Let $S_0=\emptyset$. 
 For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals representing vertices in $S^+_y\cup S^+_{y-1}$. 
 %Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
@@ -1512,11 +1511,11 @@ for each $y\in\{1,\ldots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-
 
 Let $F:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{t-tree-labelling}.
 %Thus, for each $y\in\{1,\ldots,h\}$, 
-%for the $t$-tree $H[S^-_y \cup S^-_{y-1}]$ with an interval representation induced by that of $H$ and 
+%for the $t$-tree $H[S^+_y \cup S^+_{y-1}]$ with an interval representation induced by that of $H$ and 
 %vertex colouring $\varphi$, and a binary search tree $T_y$,
-%there is a labelling $\tau_{T_y}(u)$ for any $u\in S^-_y \cup S^-_{y-1}$ such that
+%there is a labelling $\tau_{T_y}(u)$ for any $u\in S^+_y \cup S^+_{y-1}$ such that
 %$|\tau_{T_y}(u)| = h(T_y) + \Oh(t\log t + t\log\log n)$, and
-%$F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^-_y \cup S^-_{y-1}]$.
+%$F(\tau_{T_y}(v),\tau_{T_y}(w))$ determines if $v$ and $w$ are adjacent in $H[S^+_y \cup S^+_{y-1}]$.
 
 
 Let $J:(\{0,1\}^{*})^2\to\{0,1\}^*$ be the function given by \lemref{interval-transitions} such that
@@ -1540,13 +1539,16 @@ The label of $z=(v,y)$ is the concatenation of the following bit-strings:
   \item $\gamma(|\sigma_{H^+_y,T_y}(v)|)$ and $\sigma_{H^+_y,T_y}(v)$; % of length $\log|T_y| + \Oh(k+k^{-1}\log n)$;
   \item $\gamma(\varphi(v))$;
   \item $\gamma(d)$;
-  \item $\gamma(d_{T_{y}}(x_{T_{y}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
-  \item if $y=h$ then $0$;\\
-  if $y\neq h$ then $1$, $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
   \item $\gamma(\varphi(u_i))$ for each $i\in\{1,\ldots,d\}$;
+  \item $\gamma(d_{T_{y}}(x_{T_{y}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
+  \item 
+  if $y\neq h$ then $1$, $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;\\
+  if $y=h$ then $0$;
   %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
   %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
-  \item $\mu_y(v)$; and
+  \item 
+  if $y\neq h$ then $1,\mu_y(v)$;\\
+  if $y=h$ then $0$; and
   \item $a(z)$.
   \end{compactenum}
 The length of the components are as follows: 
@@ -1554,8 +1556,8 @@ The length of the components are as follows:
 (L2) is of length $\log|T_y| + \Oh(k+k^{-1}\log n)$, 
 (L3) is of length $\Oh(\log t + \log\log n)$,
 (L4) is of length $\Oh(\log t)$, 
-(L5) and (L6) is of length $\Oh(t\cdot (\log\log n + \log k))$,
-(L7) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
+(L5) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
+(L6) and (L7) is of length $\Oh(t\cdot (\log\log n + \log k))$,
 (L8) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L9) is of length $\Oh(t)$.
 In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
