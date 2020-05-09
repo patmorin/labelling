@@ -1525,7 +1525,8 @@ there exists a code $\mu_{y}(v)$ with $|\mu_{y}(v)|=\Oh(k\log h(T_{y}))=\Oh(k\lo
 
 
 Let $z=(v,y)$ be a vertex in $G$. 
-Recall that $S^+_y \subseteq V(H^+_y)$ and $S^+_y\subseteq V(H^+_{y+1})$ (the latter if $y\neq h$) and therefore 
+Recall that $S^+_y \subseteq V(H^+_y)$ and if $i\neq h$ then also $S^+_y\subseteq V(H^+_{y+1})$. 
+Therefore 
 $C_{H}(v) = C_{H^+_y}(v) = C_{H^+_{y+1}}(v)$.
 Let $d = |C_{H}(v)|$ and let $u_1,\ldots,u_d$ be the vertices of $C_H(v)$. 
 Recall that $d\leq t+1$.
@@ -1574,29 +1575,29 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   In this case, we immediately conclude that $z_1$ and $z_2$ are not adjacent in $G$ since they are not adjacent even in $H\boxtimes P$.
   \item $y_1=y_2$:  
   In this case, let $y:=y_1=y_2$. 
-  Note that (L2), (L3), (L4), (L5), (L6) contain all the pieces of the labels $\tau_{T_y}(v_1)$ and $\tau_{T_y}(v_2)$ from~\lemref{t-tree-labelling}. 
-  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$, by~\lemref{t-tree-labelling},
-  we compute $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H[S_y]$. 
-  If $v_1$ and $v_2$ are not adjacent in $H[S_y]$, so not adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ so neither in $G$.
-  If $v_1$ and $v_2$ are adjacent in $H[S_y]$, so adjacent in $H$, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$. 
-  If $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))=1$, 
-  we identify the position of $v_1$ on the list of vertices in $N_H(v_2)$ (by its $\varphi$-colour) 
+  Note that (L2), (L3), (L4), (L5), (L7) contain all the pieces of the labels $\tau_{H^+_y,T_y}(v_1)$ and $\tau_{H^+_y,T_y}(v_2)$ from~\lemref{t-tree-labelling}. 
+%  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$, by~\lemref{t-tree-labelling},
+  We compute $F(\tau_{H^+_y,T_y}(v_1),\tau_{H^+_y,T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H^+_y$ (which is an induced subgraph of $H$). 
+  If $v_1$ and $v_2$ are not adjacent in $H^+_y$, so they are not adjacent in $H$ as well, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ so neither in $G$.
+  If $v_1$ and $v_2$ are adjacent in $H^+_y$, so adjacent in $H$ as well, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$. 
+  If $F(\tau_{H^+_y,T_y}(v_1),\tau_{H^+_y,T_y}(v_2))=1$, 
+  we identify the position of $v_1$ on the list of vertices in $C_H(v_2)$ (by its $\varphi$-colour) 
   and then finally we look up the appropriate bit in $a(z_2)$ to see whether the corresponding edge in $H\boxtimes P$ is present in $G$ or not.
-  If $F(\tau_{T_y}(v_1),\tau_{T_y}(v_2))=-1$, 
-  we identify the position of $v_2$ on the list of vertices in $N_H(v_1)$
+  If $F(\tau_{H^+_y,T_y}(v_1),\tau_{H^+_y,T_y}(v_2))=-1$, 
+  we identify the position of $v_2$ on the list of vertices in $C_H(v_1)$
   and then finally we look up the appropriate bit in $a(z_1)$ to see whether the corresponding edge in $H\boxtimes P$ is present in $G$ or not.
+
   \item $y_1=y_2-1$: 
   In this case, let $y=y_1$. 
   Since $v_1 \in S_y$, by~\lemref{interval-transitions},
-  we can compute $J(\sigma_{T_y}(v_1),\mu_y(v_1))=\sigma_{T_{y+1}}(v_1)$. 
-  Now, $\sigma_{T_{y+1}}(v_1)$ was the only missing piece of $\tau_{T_{y+1}}(v_1)$ and 
-  just from the label $z_2=(v_2,y+1)$ we have $\tau_{T_{y+1}}(v_2)$. 
-  Since $v_1 \in S_y$, $v_2 \in S_{y+1}$, and $T_{y+1}$ stabs $H[S_y \cup S_{y+1}]$, by~\lemref{t-tree-labelling}, 
-  we can compute $F(\sigma_{T_{y+1}}(v_1),\tau_{T_{y+1}}(v_2))$ to test if $v_1=v_2$ or $v_1v_2\in E(H)$. 
-  If not, then $z_1z_2\not\in E(H\boxtimes P)$ so $z_1z_2\not\in E(G)$.
-
-  If $v_1=v_2$ or $v_1v_2\in E(H)$ then we know that $z_1z_2\in E(H\boxtimes P)$.  
-  In this case proceeding as in the previous case, we can now consult the relevant bit of $a(z_1)$ or $a(z_2)$ to determine if $z_1z_2\in E(G)$.
+  we can compute $J(\sigma_{H^+_y,T_y}(v_1),\mu_y(v_1))=\sigma_{H^+_{y+1},T_{y+1}}(v_1)$. 
+  Now, $\sigma_{H^+_{y+1},T_{y+1}}(v_1)$ was the only missing piece of $\tau_{H^+_{y+1},T_{y+1}}(v_1)$ and 
+  just from the label $z_2=(v_2,y+1)$ we have $\tau_{H^+_{y+1},T_{y+1}}(v_2)$. 
+  %Since $v_1 \in S_y$, $v_2 \in S_{y+1}$, and $T_{y+1}$ stabs $H[S_y \cup S_{y+1}]$, by~\lemref{t-tree-labelling}, 
+  We compute $F(\tau_{H^+_{y+1},T_{y+1}}(v_1),\tau_{H^+_{y+1},T_{y+1}}(v_2))$ to test whether $v_1=v_2$ or $v_1v_2\in E(H^+_{y+1})$. 
+  If $v_1\neq v_2$ and $v_1v_2\not\in E(H^+_{y+1})$, then $z_1$ and $z_2$ are not adjacent in $H\boxtimes P$ so they are not adjacent in $G$ as well.
+  If $v_1=v_2$ or $v_1v_2\in E(H^+_{y+1})$ then we know that $z_1$ and $z_2$ are adjacent in $H\boxtimes P$.  
+  In this case, we can now consult the relevant bit of $a(z_1)$ or $a(z_2)$ to determine if $z_1$ and $z_2$ are adjacent in $G$ as well.
 
   \item $y_2=y_1-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
