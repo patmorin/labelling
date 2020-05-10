@@ -788,7 +788,7 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
   In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]
   Thus, all that is required is to show that $r_0:=h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
-  Note that by~\ref{ystar-bound}
+  Note that by~(\ref{ystar-bound})
   we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
   \begin{align*}
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
@@ -1182,13 +1182,13 @@ $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 
 \begin{obs}\obslabel{unique-id}
     Let $T$ be a binary search tree that stabs $H$.
-    Let $u$ and $v$ be two distinct vertices in $H$. 
-    Then, $x_T(u)\neq x_T(v)$ or $\varphi(u)\neq\varphi(v)$. 
+    Let $v$ and $w$ be two distinct vertices in $H$. 
+    Then, $x_T(v)\neq x_T(w)$ or $\varphi(v)\neq\varphi(w)$. 
     Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi(v)\neq\varphi(w)$.
 \end{obs}
 
 \begin{proof}
-  If $x_T(u)=x=x_T(v)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_u,b_u]$ and $[a_v,b_v]$ each contain $x$, 
+  If $x_T(v)=x=x_T(w)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_v,b_v]$ and $[a_w,b_w]$ each contain $x$, 
   so they intersect. 
   Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 \end{proof}
