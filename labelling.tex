@@ -807,10 +807,78 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 \subsection{Transition Codes for Nodes}
 \seclabel{node-transitions}
 
-We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following lemma makes this precise.
+We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two consecutive trees $T_y$ and $T_{y+1}$ in a bulk tree sequence and any $z\in V(T_y)\cap V(T_{y+1})$, the signatures $\sigma_{T_y}(z)$ and $\sigma_{T_{y+1}}(z)$ are so closely related that $\sigma_{T_{y+1}}(z)$ can be derived from $\sigma_{T_y}(z)$ and a short \emph{transition code} $\nu_y(z)$.  The following two lemmas makes this precise.
+
+\begin{lem}\lemlabel{node-bal-transitions}
+  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, 
+  for every binary search tree $T$, for any integers $\theta$ and $k$ with $1\leq \theta \leq h(T)$ and $k\geq1$, the following holds.
+  Let $T'$ be the binary search tree obtained by an application of $\textsc{BulkBalance}(\theta,k)$ to $T$.
+  For each $z\in V(T)$, there exists $\nu(z)\in\{0,1\}^*$ with $|\nu(z)| = \Oh(k\log h(T))$ such that $B(\sigma_{T}(z), \nu(z)) = \sigma_{T'}(z)$.
+\end{lem}
+
+\begin{proof}
+  Recall that by~\lemref{balance-depth} $h(T') \leq h(T)+2$. 
+  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}. 
+
+  $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T$.
+  Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T$ rooted at $x$.
+  Thus, $\sigma_{T}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T$-ancestor of $z$.
+  In particular when $|\sigma_{T}(z)| < \theta$, the signature of $z$ does not change, that is, $\sigma_{T}(z)=\sigma_{T'}(z)$. In this case,  we define
+  \[
+  \nu(z):=\gamma(\theta).
+  \]
+  Note that in this case $|\nu(z)|=\Oh(\log\theta) = \Oh(\log h(T))$.
+
+  Assume now that $|\sigma_{T}(z)| \geq \theta$ and let $x$ be the $T$-ancestor of $z$ at depth $\theta$.
+  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ of height at most $k$ which forms the top part of the subtree that replaces the subtree of $x$ in $T$.
+  This means that if $z\in Z\cup X$ then $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
+  In this case, we define 
+  \[
+  \nu(z):=\gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z)|),\sigma_{\hat{T_0}}(z).
+  \]
+  Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T) + k)$.
+
+  Now we are left with the case that $|\sigma_{T}(z)|\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_x - Z$ where $T_x$ is the subtree of $T$ rooted at $x$.
+  (Further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
+  Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
+  Note that
+  \begin{compactenum}[(i)]
+  \item $\sigma_{T_i}(z)$ is just a suffix of $\sigma_{T}(z)$;
+  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
+  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
+  the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
+  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$;
+  by~\lemref{split-height} the height of each of these trees is at most $h(T_i)$;
+  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes
+  before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\ldots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
+  \end{compactenum}
+
+  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by \textsc{MultiSplit}$(x_{i,1},\ldots,x_{i,c_i})$.
+  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
+  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
+  We define $\nu(z)$ in this case as follows.
+    \[
+  \nu(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z'),\gamma(b),
+  \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
+  \]
+  Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T))=\Oh(k\log h(T))$.
+  This completes the definition of $\nu(z)$.
+
+  The function $B$ is defined as expected:
+  Given $\sigma_{T}(z)$ and $\nu(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T}(z)| < \theta$. If this is the case then the signatures of $z$ in $T$ and $T''$ are the same, so $B$ outputs $\sigma_{T}(z)$.
+  If $|\sigma_{T}(z)| \geq \theta$ then $B$ reads the next bit of $\nu(z)$. 
+  If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover and output $\sigma_{T'}(z)=\sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
+  If the bit under consideration was $1$, then this corresponds to the case where $z\not\in Z\cup X$. 
+  Recall that the set $Z$ are just all nodes in $T_x$ of depths less than $k$. 
+  Thus, just removing first $\theta+k$ bits of $\sigma_{T}(z)$, the function $B$ obtains $\sigma_{T_i}(z)$ where $T_i$ is aforementioned subtree of $T_x-Z$ containing $z$.
+  The function $B$ then reads the rest of the information $\nu(z)$, 
+  which allows it to follow all the changes made to $\sigma_{T_i}(z)$ until it becomes $\sigma_{T_{i,a}}(z)$ of the signature that are described above. 
+  This way again $B$ computes and outputs $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z'),\sigma_{T_{i,a}}(z)$.
+  This completes the definition of $B$ and the proof of the lemma.
+\end{proof}
 
 \begin{lem}\lemlabel{node-transitions}
-  There exists a function $B:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
+  There exists a function $B':(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\ldots,T_h$, each $y\in\{1,\ldots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
 \end{lem}
 
 %Before continuing, we extend the $\sigma$ notation slightly so that for any node $z\in V(T)$ and any $T$-ancestor $x$ of $z$, $\sigma_T(x,z):=\sigma_{T'}(z)$ where $T'$ is the subtree of $T$ rooted at $x$.
@@ -828,70 +896,35 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
-  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
+%  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
 
   Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$.
   The transition code $\nu_y(z)$ consists of two parts $\nu_y^{\textsc{Bal}}(z)$ and $\nu_y^{\textsc{Del}}(z)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
 
-  The first part $\nu_y^{\textsc{Bal}}(z)$ will serve to move from $\sigma_{T_y}(z)$ to $\sigma_{T'}(z)$.
-  Recall that $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T_y$.
-  Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
-  Thus, $\sigma_{T_y}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T_y$-ancestor of $z$.
-  In particular when $|\sigma_{T_y}(z)| = d_{T_y}(z) < \theta$, the signature of $z$ does not change, that is, $\sigma_{T_y}(z)=\sigma_{T'}(z)$. In this case,  $\nu_y^{\textsc{Bal}}(z)$ is defined to be $\gamma(\theta)$.
-  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) = \Oh(\log h(T_y))$.
+  The first part $\nu_y^{\textsc{Bal}}(z)$ is simply defined as
+  \[
+  \nu_y^{\textsc{Bal}}(z) := \nu(z),
+  \] 
+  where $\nu(z)$ is given by a application of~\lemref{node-bal-transitions} with $T=T_y$.
 
-  Assume now that $d_{T_y}(z) \geq \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
-  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ which forms the top part of the subtree that replaces the subtree of $x$ in $T$.
-  This means that if $z\in Z\cup X$ then $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
-  In this case, we define $\nu_y^{\textsc{Bal}}(z)$ to be $\gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z)|),\sigma_{\hat{T_0}}(z)$.
-  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T_y) + k)$.
+  Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$. 
 
-  Now we are left with the case that $d_{T_y}(z)\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_y - Z$.
-  (With a slight abuse of notations, here and further on we reuse the notations $T_i$, $T_{i,0},\ldots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
-  Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
-  Note that
-  \begin{compactenum}[(i)]
-  \item $\sigma_{T_i}(z)$ is just a suffix of $\sigma_{T_y}(z)$;
-  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
-  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
-  the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
-  \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$;
-  by~\lemref{split-height} the height of each of these trees is at most $h(T_i)$;
-  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes
-  before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\ldots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
-  \end{compactenum}
-
-  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by \textsc{MultiSplit}$(x_{i,1},\ldots,x_{i,c_i})$.
-  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
-  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T_y}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
-  We define $\nu^{\textsc{Bal}}_y(z)$ in this case as follows.
-    \[
-  \nu^{\textsc{Bal}}_y(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z'),\gamma(b),
-  \gamma(d_1),\gamma(q_1),\ldots,\gamma(d_b),\gamma(q_b).
-  \]
-  Note that in this case $|\nu^{\textsc{Bal}}_y(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T_y))=\Oh(k\log h(T_y))$.
-  This completes the definition of $\nu^{\textsc{Bal}}_y(z)$.  Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
-  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
-  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
-  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
-  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
-
-
- Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$. We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
+  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
   This turns out to be fairly easy.
   By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$.
-  Therefore, it is enough to define $\nu^{\textsc{Del}}_y(z)$ to be $\gamma(|\sigma_{T_{y+1}}(z)|)$.
+  Therefore, it is enough to define
+  \[
+  \nu^{\textsc{Del}}_y(z):= \gamma(|\sigma_{T_{y+1}}(z)|).
+  \]
 
   Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$.
-  It follows from the discussion above that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
+  It follows from that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
 
-  The function $B$ is defined as expected:
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T_y}(z)| < \theta$. If this is the case then the signatures of $z$ in $T_{y}$ and $T''$ are the same, and $B$ reads the rest of $\nu_y(z)$, which corresponds to $\nu^{\textsc{Del}}_y(z)$, and outputs the correct prefix of $\sigma_{T''}(z) = \sigma_{T'}(z) =\sigma_{T_{y}}(z)$.
-  Note that the bulk insertion operation has no effect on the signature of $z$.
-
-  If $|\sigma_{T_y}(z)| \geq \theta$ then $B$ reads the next bit of $\nu_y(z)$. If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover  $\sigma_{T'}(z)=\sigma_{T''}(z)$. The function $B$ then reads the $\nu^{\textsc{Del}}_y(z)$ part and outputs the correct prefix of $\sigma_{T''}(z)$, exactly as before.
-
-  If the bit under consideration was $1$, then this corresponds to the case where $z\not\in Z\cup X$. The function $B$ then reads the rest of the information $\nu^{\textsc{Bal}}_y(z)$, which allows it to compute $\sigma_{T'}(z)=\sigma_{T''}(z)$, and the bulk deletion is once more handled exactly as before.
+  The function $B'$ is defined as expected:
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B'$ decodes first $\nu(z)$ and computes 
+  $B(\sigma_{T_{y}}(z),\nu(z))=\sigma_{T'}(z)=\sigma_{T''}(z)$. 
+  Then $B'$ decodes $|\sigma_{T_{y+1}}(z)|$ and computes a prefix of this size of $\sigma_{T''}(z)$. 
+  As we have seen the prefix is $\sigma_{T_{y+1}}(z)$ which is output by $B'$.
 \end{proof}
 
 
@@ -1487,7 +1520,15 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
   Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log h(T_y)) + \Oh(k\log h(T_y)) = \Oh(k\log h(T_y))$.
 
   The function $J$ is defined as expected:
-  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\nu_y(v)$, the function $J$ first decodes $\theta$ ...
+  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\nu_y(v)$, 
+  the function $J$ first decodes $\theta$ and checks whether $\sigma_{H^+_y,T_{y}}(v) < \theta$. 
+  If this is the case then $\sigma_{H^+_y,T_{y}}(v) = \sigma_{H^+_y,T'}(v)$.
+  If $\sigma_{H^+_y,T_{y}}(v) \geq \theta$ then $J$ reads the next bit of $\nu_y(v)$. 
+  If it is $0$ then this corresponds to the case when the path encoded by $\sigma_{H^+_y,T'}(v)$ ends at vertex $z'$ in $Z\cup X$. 
+  The function $J$ decodes $|\sigma_{\hat{T_0}}(z')|$, $\sigma_{\hat{T_0}}(z')$.
+  Then $J$ computes $\sigma_{T_y}(x)$ and computes $\sigma_{H^+_y,T'}(v)=\sigma_{H^+_y,T'}(v)$ ...
+  hmmm. Almost, almost done.
+
 
 \textcolor{red}{Piotrek: I got here.}
 
