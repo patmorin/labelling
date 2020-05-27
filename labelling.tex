@@ -1084,11 +1084,12 @@ Let $t$ be a positive integer.
 A graph $H$ is a \emph{$t$-tree} if there is an ordering $v_1,\ldots,v_m$ of $V(H)$ such that 
 for every $i\in\{1,\ldots,m\}$, the neighbors of $v_i$ earlier in the order, i.e.\ $N_H(v_i) \cap \{v_1,\ldots,v_{i-1}\}$ induce a clique of size at most $t$ in $H$. 
 (Let us emphasize that this is slightly more general than the usual definition of $t$-trees from the literature, which requires the neighbors of $v_i$ earlier in the order to be a clique of size exactly $\min\{i-1, t\}$; this broader definition will be more convenient for our purposes.) 
+A vertex-ordering witnessing that $H$ is a $t$-tree is called an \emph{elimination ordering}.
 Every graph of treewidth $t$ is a subgraph of a $t$-tree. 
-For this reason, we may restrict ourselves to the case where $H$ is a $t$-tree, which we do.
+For this reason, we may restrict ourselves to the case $H\boxtimes P$ where $H$ is a $t$-tree, which we do.
 
 
-Given a $t$-tree $H$, we fix a witnessing vertex ordering $v_1,\ldots,v_m$.
+Given a $t$-tree $H$, we fix an elimination ordering $v_1,\ldots,v_m$.
 For every $i\in\{1,\ldots,m\}$, the \emph{family clique} $C_H(v_i)$ is defined as
 $N_H[v_i]\cap \{v_1,\ldots,v_{i}\}$. 
 Note that $v_i \in C_H(v_i)$.
@@ -1100,8 +1101,6 @@ For a finite set $S$ of intervals,
 the \emph{interval intersection graph} $G_S$ of $S$ is the graph 
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
-% Piotrek: I dont think we need Helly anywhere.
-%By Helly's property, the clique number $\omega(G_S)$ of $G_S$ is equal to $\max_{x\in\R}|\{v\in V(G_S):x\in v\}|$.
 
 The following well-known result states that every $m$-vertex $t$-tree is a subgraph of an interval graph of clique number $\Oh(t\log m)$.\footnote{The specific value $\log_3 (2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
@@ -1111,13 +1110,12 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
   \item $f(v)$ intersects $f(w)$, so $f(v)f(w)\in E(G_S)$, whenever $vw\in E(H)$, and 
   \item $\omega(G_S) \leq (t+1)\log_3(2m+1)$.
 \end{compactenum}
-%
-%  Furthermore, for every proper $(t+1)$-colouring $\varphi:V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a proper colouring $\varphi':V(G_S)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}\times\{1,\ldots,t+1\}$ of $G_S$ where, for each $v\in V(H)$, $\varphi'(f(v))=(j,\varphi(v))$ for some $j\in\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$.
+Furthermore\footnote{This extension is only used when we ... \textcolor{red}{Piotrek: TODO.}}, for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
 \end{lem}
 
 In light of \lemref{interval-representation}, we call an \emph{interval representation} of $H$ 
 a mapping $f$ assigning to every vertex $v$ of a graph $H$ an interval $f(v)$ in such a way that $f(v)$ and $f(w)$ intersect whenever $vw\in E(H)$.
-We will always assume that all the endpoints of intervals in the represention are distinct. 
+We will always assume that all the endpoints of intervals in the representation are distinct. 
 This can be easily achieved by local perturbations not changing the intersection graph.
 
 A finite set $X\subset\R$ \emph{stabs} a set $S$ of intervals if $X\cap [a,b]\neq\emptyset$ for every $[a,b]\in S$.
@@ -1171,15 +1169,14 @@ Then,
 We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
 
-We are given a $t$-tree $H$ on $m$ vertices with a fixed witnessing vertex-ordering,
-and an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
+We are given a $t$-tree $H$ on $m$ vertices with an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
 In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
 Let $\varphi: V(H) \to [\lceil(t+1)\log_3 (2m+1)\rceil]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
 
-The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by 
-$x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
-
+The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by $\varphi(v)$ and 
+an $x_T(v)$ value in a binary search tree $T$ that stabs $H$.
+This gives ground for an adjacency labelling scheme.
 \begin{obs}\obslabel{unique-id}
     Let $T$ be a binary search tree that stabs $H$.
     Let $v$ and $w$ be two distinct vertices in $H$. 
@@ -1194,6 +1191,7 @@ $x_T(v)$ and $\varphi(v)$. This gives ground for an adjacency labelling scheme.
 \end{proof}
 
 Let $T$ be a binary search tree that stabs $H$ and let $v$ be a vertex in $H$. 
+Fix an elimination ordering of $H$. 
 Recall that by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:clique-on-a-single-path}, 
 for every vertex $v$ in $H$, 
 all the nodes in $x_T(C_H(v))$ lie on a single root-to-leaf path in $T$. 
@@ -1386,9 +1384,6 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     \figlabel{rebalance-t-tree}
   \end{figure}
 
-  \textcolor{red}{Piotrek: I am here rewriting what follows.}
-
-
   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$. 
   Let $w \in C_{H^+_y}(v)=C_H(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
   By \lemref{all-the-obs-about-bst-and-intervals}, 
@@ -1531,7 +1526,7 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
 
 
   The function $J$ is defined as expected:
-  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\nu_y(v)$, 
+  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\mu_y(v)$, 
   the function $J$ first decodes $\theta$ and checks whether $\sigma_{H^+_y,T_{y}}(v) < \theta$. 
   If this is the case then $\sigma_{H^+_y,T_{y}}(v) = \sigma_{H^+_y,T'}(v)$.
   If $\sigma_{H^+_y,T_{y}}(v) \geq \theta$ then $J$ reads the next bit of $\nu_y(v)$. 
