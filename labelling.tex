@@ -568,7 +568,8 @@ Select the nodes $X:=\{x_1,\ldots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has ran
 
 $T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\ldots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\ldots,T_m$ so that, for each $i\in\{0,\ldots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\ldots,m\}$, let $\{x_{i,1},\ldots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\ldots,m\}$, $c_i\le |X|\le 2^k-1$.
 
-For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the tree $T_i$.  As a result of these calls, we obtain sequences of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
+For each $i\in\{0,\ldots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to the tree $T_i$.  As a result of these calls, we obtain sequences of trees $T_{i,0},\ldots,T_{i,c_i}$ where, for each $i\in\{0,\ldots,m\}$, each $j\in\{0,\ldots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Note that if $c_i=0$ (i.e.\ if $X$ does not intersect $V(T_i)$), then the result of this call is a single tree $T_{i,0}=T_i$.
+Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$. 
 
 Let $p:=|Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0:=-\infty$ and $s_{p+1}:=\infty$.  For each $\ell\in\{0,\ldots,p\}$, let $i_\ell:=|Z\cap \{s_1,\ldots,s_\ell\}|$ and $j_\ell:= \ell - \max\{ q\in\{1,\ldots,\ell\}: s_q\in Z\}$ and let $A_\ell:=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{0,\ldots,p\}$ and each $x'\in V(A_\ell)$, we have $s_\ell < x' < s_{\ell+1}$.
 
