@@ -1107,14 +1107,18 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 \begin{lem}\lemlabel{interval-representation}
   For every $m$-vertex $t$-tree $H$, there exists a mapping $f$ assigning to every vertex $v$ in $H$ an interval $f(v)$ so that the following holds. Let $S:=\{f(v):v\in V(H)\}$. Then,
 \begin{compactenum}
-  \item $f(v)$ intersects $f(w)$, so $f(v)f(w)\in E(G_S)$, whenever $vw\in E(H)$, and 
+  \item $f(v)$ intersects $f(w)$, so $f(v)f(w)\in E(G_S)$, for every edge $vw\in E(H)$, and 
   \item $\omega(G_S) \leq (t+1)\log_3(2m+1)$.
 \end{compactenum}
-Furthermore\footnote{This extension is only used when we ... \textcolor{red}{Piotrek: TODO.}}, for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
+Furthermore, 
+%G: commented out as I am afraid we'll forget about this footnote
+%\footnote{This extension is only used when we ... \textcolor{red}{Piotrek: TODO.}}, 
+for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
 \end{lem}
 
 In light of \lemref{interval-representation}, we call an \emph{interval representation} of $H$ 
-a mapping $f$ assigning to every vertex $v$ of a graph $H$ an interval $f(v)$ in such a way that $f(v)$ and $f(w)$ intersect whenever $vw\in E(H)$.
+a mapping $f$ assigning to every vertex $v$ of a graph $H$ an interval $f(v)$ in such a way that $f(v)$ and $f(w)$ intersect for every edge $vw\in E(H)$. 
+(Let us remark that $f(v)$ and $f(w)$ may or may not intersect when $v,w$ are two non-adjacent vertices, thus $H$ is a subgraph of the intersection graph of the intervals.) 
 We will always assume that all the endpoints of intervals in the representation are distinct. 
 This can be easily achieved by local perturbations not changing the intersection graph.
 
@@ -1157,9 +1161,9 @@ Then,
   let $x_1=x_T(u_1)$ and $x_2=x_T(u_2)$.
   In order to get a contradiction, suppose that $x_1$ and $x_2$ do not lie on a single root-to-leaf path in $T$. 
   Then there exists $x$ in $T$ such that $x_1$ is in the left subtree of $x$ and $x_2$ is in the right subtree of $x$.
-  In particulcar, $x_1 < x < x_2$ by the property of the binary search tree.
+  In particular, $x_1 < x < x_2$ by the binary search tree property.
   Since $u_1u_2 \in E(H)$ the corresponsing intervals $[a_{u_1},b_{u_1}]$, $[a_{u_2}, b_{u_2}]$ intersect, so their union is an interval as well. 
-  Since $x_1,x_2$ lies in the union and $x_1 < x < x_2$, the node $x$ lies in the union as well.
+  Since $x_1,x_2$ lie in the union and $x_1 < x < x_2$, the node $x$ lies in the union as well.
   Therefore $x\in[a_{u_1},b_{u_1}]$ or $x\in [a_{u_2}, b_{u_2}]$. 
   This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
 \end{proof}
