@@ -636,7 +636,7 @@ there exist indices $h_1,h_2,\ldots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\el
 for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}}, T_{h_{\ell-1}+1},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},S_{h_{\ell-1}+1},\ldots,S_{h_{\ell}}$.
 
 
-This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
 \begin{lem}\lemlabel{bulktree-old-B-properties}
 Let $T_0,\ldots,T_{q}$ be a one-phase $k$-bulk tree sequence.
@@ -1067,7 +1067,7 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
 %==============
@@ -1203,10 +1203,9 @@ Note that $d_T(x_T(v))\le |\sigma_{H,T}(v)|$, and equality holds only if $x_T(v)
 
 
 Now, we define the label $\tau_{H,T}(v)$ of a vertex $v$ in $H$. 
-Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, so $v$ is one of them. 
+Let $d=|C_H(v)|$ and let $u_1,\ldots, u_d$ be the vertices in $C_H(v)$, in any order, so $v$ is one of them. 
 Recall that $\gamma$ is the Elias encoding of natural numbers.
-The label $\tau_{H,T}(v)$ of $v$ is defined 
-%(in the context of $H$, $\varphi$, and $T$ that stabs $H$) 
+The label $\tau_{H,T}(v)$ is defined 
 as the concatenation of
 \begin{compactenum}[(T1)]
   \item $\gamma(|\sigma_{H,T}(v)|)$ and $\sigma_{H,T}(v)$;
@@ -1219,7 +1218,7 @@ as the concatenation of
 \begin{lem}\lemlabel{t-tree-labelling}
   There exists a function $F:(\{0,1\}^2)\to\{0,-1,1,\perp\}$ such that
   for any $t$-tree $H$ 
-  with a fixed witnessing ordering and a fixed interval representation, 
+  with a fixed elimination ordering and a fixed interval representation, 
   and a proper colouring $\varphi$ of the interval representation, and 
   for any binary search tree $T$ stabbing $H$,
   for any two vertices $v$, $w$ in $H$, we have
@@ -1232,7 +1231,7 @@ as the concatenation of
     \end{cases}
   \]
 \end{lem}
-Recall that the labels $\tau_{H,T}(v)$ depend on the choice of witnessing ordering or interval representation of $H$ but the function $F$ does not.
+Recall that the labels $\tau_{H,T}(v)$ depend on the choice of elimination ordering or interval representation of $H$ but the function $F$ does not.
 Recall also that $d_T(x_T(u)) \le |\sigma_{H,T}(u)|\leq h(T)$, for all nodes $u$ in $H$. 
 Moreover, $|C_H(u)|\leq t+1$ for all $u$ in $H$. 
 Thus when $H$ is an $m$-vertex $t$-tree and $\varphi$ takes values bounded in $\Oh(t\log m)$, 
@@ -1274,12 +1273,10 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
 
 We now show that the solution presented in \secref{pxp} generalizes to the current setting.
 
-% of subgraphs of $H\boxtimes P$.  The only additional complication comes from the fact that each node $x$ in the binary search tree $T$ is equipped with a set $B_x:=\{v\in V(H):x_T(v)=x\}$ of intervals.  Any structural changes that we make to $T$ may result in changes to $B_x$, which result in changes to the labels of any vertex $v\in V(H)$ such that an element of $C_H(v)$ leaves or enters $B_x$.  We must show that these changes can be encoded using few bits.  We now proceed.
-
 Let $G$ be an $n$-vertex subgraph of $H\boxtimes P$ where $H$ is an $m$-vertex $t$-tree and $P=1,\ldots,h$ is a path. 
 Clearly, we can assume that $m\leq n$ and $h\leq n$.
 
-Fix a witnessing ordering of $H$ and 
+Fix an elimination ordering of $H$ and 
 an interval representation of $H$ with clique number at most $\lfloor(t+1)\log_3 (2m+1)\rfloor\}$, see~\lemref{interval-representation}. 
 %As before, we often do not distinguish between a vertex $v$ in $H$ and its interval $[a_v,b_v]$.
 Let $\varphi:V(H)\to\{1,\ldots,\lfloor(t+1)\log_3 (2m+1)\rfloor\}$ be a proper colouring of the interval representation of $H$.
@@ -1297,11 +1294,11 @@ Let $S_0=\emptyset$.
 For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals representing vertices in $S^+_y\cup S^+_{y-1}$. 
 %Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
 Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
-Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$.
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$.
 
 For each $y\in\{1,\ldots,h\}$, let $H^+_y$ be the subgraph of $H$ induced by $S^+_y\cup S^+_{y-1}$. 
 In particular, each $H^+_y$ is a $t$-tree. 
-We fix the witnessing vertex ordering of $H^+_y$ inherited from $H$.
+We fix the elimination ordering of $H^+_y$ inherited from $H$.
 Similarly, we fix the interval representation of $H^+_y$ and the proper colouring $\varphi$ of the interval representation, as the projection of respective ones for $H$.
 
 Since $X_y \subseteq V_y = V(T_y)$, we have that $T_y$ stabs $H^+_y$.
@@ -1332,7 +1329,9 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Let $v \in S_y$. 
   First of all, note that $v$ is a vertex in $H^+_y$ and $H^+_{y+1}$.
   Since $T_y$ stabs $H^+_y$ and $T_{y+1}$ stabs $H^+_{y+1}$,
-  we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined.
+  we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined. 
+  Note also that $S_y^+ \subseteq V(H_y^+)$ and $S_y^+ \subseteq V(H_{y+1}^+)$, 
+  so $C_H(v) = C_{H_y^+}(v) = C_{H_{y+1}^+}(v)$.
 
   As in the proof of \lemref{node-bal-transitions} and \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. 
   Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
@@ -1352,7 +1351,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Then the $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
   We start with a discussion on rebalancing that leads to the definition of $\mu_y^{\textsc{Bal}}(v)$. 
-  The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta \leq h(T_y)$ and the resulting tree is $T'$.
+  The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
   Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$.
   Recall also that the changes made by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
   See~\figref{rebalance-t-tree}. 
@@ -1386,13 +1385,13 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
 
   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$. 
   Let $w \in C_{H^+_y}(v)=C_H(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
-  By \lemref{all-the-obs-about-bst-and-intervals}, 
+  By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), 
   $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e.\ the interval representing $w$. 
   By the properties of a binary search tree, we conclude that
   \[
   [a_w,b_w]\cap (Z\cup X)=\emptyset.
   \]
-  Consider now the node $x_{T}(w)$. Since $[a_w,b_w]\cap Z=\emptyset$ we know that $x_T(w)$ lie in one of the trees $T_i$ of the forest $T_*-Z$.
+  Consider now the node $x_{T_y}(w)$ in $T_y$. Since $[a_w,b_w]\cap Z=\emptyset$ we know that $x_{T_y}(w)$ lie in one of the trees, say $T_i$, of the forest $T_*-Z$.
   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_{i}$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$. 
   This, in turn results in zero or more calls to $\textsc{Split}(x')$ for nodes $x'\in V(T_{i})\cap X$. The following claim explains the effect of one individual call to $\textsc{Split}(x')$:
   %Since $z_w\not\in X$ it ends up in one of these trees, say $T_{i,a}$.
@@ -1409,11 +1408,11 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \begin{proof}
     That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
 
-    By \lemref{all-the-obs-about-bst-and-intervals}, $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$. 
+    By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$. 
     Recall that by construction 
     the path $P'$ from the root to $z$ in $T_{>x}$ is obtained from $P$ 
     by deleting all values less than or equal to $x$. 
-    Therefore the path $P'$ in $T_{>x}$ has exactly one node in $[a_w,b_w]$, namely $z$, 
+    Therefore the path $P'$ in $T_{>x}$ still has exactly one node in $[a_w,b_w]$, namely $z$, 
     so $z=x_{T_{>x}}(w)$. This completes the proof of \clmref{x-switch}.
   \end{proof}
 
