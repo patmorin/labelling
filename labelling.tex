@@ -1177,10 +1177,9 @@ We describe a labelling scheme for $t$-trees that, like our labelling scheme for
 We are given a $t$-tree $H$ on $m$ vertices with an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}. 
 In particular, the clique number of the resulting interval graph is at most $(t+1)\log_3 (2m+1)$.
 Since interval graphs are perfect, their clique number coincides with their chromatic number.
-Let $\varphi: V(H) \to [\lceil(t+1)\log_3 (2m+1)\rceil]$ be a colouring such that $u$ and $v$ have distinct colours, whenever the intervals of $u$ and $v$ intersect. 
+Let $\varphi: V(H) \to [\lceil(t+1)\log_3 (2m+1)\rceil]$ be a colouring such that $u$ and $v$ have distinct colours whenever the intervals of $u$ and $v$ intersect. 
 
-The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by $\varphi(v)$ and 
-an $x_T(v)$ value in a binary search tree $T$ that stabs $H$.
+The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by $\varphi(v)$ and the $x_T(v)$ value in a binary search tree $T$ that stabs $H$.
 This gives ground for an adjacency labelling scheme.
 \begin{obs}\obslabel{unique-id}
     Let $T$ be a binary search tree that stabs $H$.
@@ -1236,13 +1235,13 @@ as the concatenation of
     \end{cases}
   \]
 \end{lem}
-Recall that the labels $\tau_{H,T}(v)$ depend on the choice of elimination ordering or interval representation of $H$ but the function $F$ does not.
-Recall also that $d_T(x_T(u)) \le |\sigma_{H,T}(u)|\leq h(T)$, for all nodes $u$ in $H$. 
-Moreover, $|C_H(u)|\leq t+1$ for all $u$ in $H$. 
+Note that the labels $\tau_{H,T}(v)$ depend on the choice of elimination ordering and interval representation of $H$ but the function $F$ does not.
+Recall also that $d_T(x_T(u)) \le |\sigma_{H,T}(u)|\leq h(T)$, for all vertices $u$ in $H$. 
+Moreover, $|C_H(u)|\leq t+1$ for all vertices $u$ in $H$. 
 Thus when $H$ is an $m$-vertex $t$-tree and $\varphi$ takes values bounded in $\Oh(t\log m)$, 
 we get labels $\tau_{H,T}(v)$ of length
 $h(T) + \Oh(t\cdot (\log h(T) + \log t + \log\log m))$.
-In particular, we can take a perfectly balanced tree $T$ that vertex set $V(T)$ is just the set of all endpoints of intervals representing $H$.
+In particular, we can take a perfectly balanced tree $T$ whose vertex set $V(T)$ is just the set of all endpoints of intervals representing $H$.
 Then $T$ stabs $H$ and $h(T)=\lfloor\log(2m)\rfloor$. 
 This way the labels $\tau_{H,T}(v)$ are of length $\log m + \Oh(t\log\log m +t\log t)$.
 
@@ -1261,12 +1260,12 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
   \item Let $d=|C_H(v)|$ and $u_1,\ldots, u_{d}$ be the vertices in $C_H(v)$. 
   From the label of $v$, 
   we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ (by~\obsref{unique-id}) and $F$ outputs $-1$.
+  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$ for some $i\in\{1,\ldots,d\}$, then we conclude that $w=u_i$ (by~\obsref{unique-id}) and $F$ outputs $-1$.
 
   \item  Now, let $d=|C_H(w)|$ and let $u_1,\ldots, u_{d}$ be the vertices in $C_H(w)$. 
   From the label of $w$, 
   we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\ldots,d\}$.
-  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$, for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ (by~\obsref{unique-id}) and $F$ outputs $1$.
+  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$ for some $i\in\{1,\ldots,d\}$, then we conclude that $v=u_i$ (by~\obsref{unique-id}) and $F$ outputs $1$.
 
   \item Otherwise, $v\neq w$, $v\not\in C_{H}(w)$, and $w\not\in C_{H}(v)$. 
   This implies that $v$ and $w$ are not adjacent in $H$ because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
