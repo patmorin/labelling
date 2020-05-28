@@ -844,7 +844,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\ldots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
   Note that
   \begin{compactenum}[(i)]
-  \item $\sigma_{T_i}(z)$ is just a suffix of $\sigma_{T}(z)$;
+  \item $\sigma_{T_i}(z)$ is a suffix of $\sigma_{T}(z)$;
   \item the application of $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
   \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\ldots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\ldots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
   the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
@@ -894,7 +894,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
 
-  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
+  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
 %  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
