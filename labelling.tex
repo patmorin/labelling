@@ -1300,7 +1300,7 @@ Let $S_0=\emptyset$.
 For each $y\in\{1,\ldots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals representing vertices in $S^+_y\cup S^+_{y-1}$. 
 %Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
 Apply \lemref{fractional} to the sequence $X_1,\ldots,X_h$ to obtain a $3$-chunking sequence $V_1,\ldots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\ldots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$.
-Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$.
+Let $T_1,\ldots,T_h$ be a $k$-bulk tree sequence based on $V_1,\ldots,V_{h}$ with $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ (recall that if we fix the starting perfectly balanced binary search tree $T_1$ with vertex set $V_1$, this sequence exists and is unique).
 
 For each $y\in\{1,\ldots,h\}$, let $H^+_y$ be the subgraph of $H$ induced by $S^+_y\cup S^+_{y-1}$. 
 In particular, each $H^+_y$ is a $t$-tree. 
