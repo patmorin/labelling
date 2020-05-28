@@ -818,7 +818,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
 \end{lem}
 
 \begin{proof}
-  Recall that by~\lemref{balance-depth} $h(T') \leq h(T)+2$. 
+  Recall that by~\lemref{balance-depth}, $h(T') \leq h(T)+1$. 
   Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}. 
 
   $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T$.
