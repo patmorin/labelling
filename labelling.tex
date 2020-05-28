@@ -636,6 +636,8 @@ $T_1$ is a perfectly balanced binary search tree with $V(T_1)=S_1$, and
 there exist indices $h_1,h_2,\ldots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\ell} = h$  such that $T_{h_j}, T_{h_j+1},\ldots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence based on $S_{h_j}, S_{h_j+1},\ldots,S_{h_{j+1}}$
 for each $j\in\{1,\ldots,\ell-2\}$, and $T_{h_{\ell-1}}, T_{h_{\ell-1}+1},\ldots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},S_{h_{\ell-1}+1},\ldots,S_{h_{\ell}}$.
 
+Note that if we fix the $3$-chunking sequence $S_1,\ldots,S_h$, the integer $k\ge 7$, and the starting perfectly balanced binary search tree $T_1$ with $V(T_1)=S_1$, a $k$-bulk tree sequence based on $S_1,\ldots,S_h$ and starting with $T_1$ exists and is unique. It is obtained by a sequence of one-phase $k$-bulk tree sequences, where we start a new one-phase sequence as soon as the current one is complete.
+
 
 This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
