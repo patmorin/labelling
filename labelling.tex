@@ -906,7 +906,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   \[
   \nu_y^{\textsc{Bal}}(z) := \nu(z),
   \] 
-  where $\nu(z)$ is given by a application of~\lemref{node-bal-transitions} with $T=T_y$.
+  where $\nu(z)$ is given by an application of~\lemref{node-bal-transitions} with $T=T_y$.
 
   Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$. 
 
@@ -922,10 +922,10 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   It follows from that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
 
   The function $B'$ is defined as expected:
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B'$ decodes first $\nu(z)$ and computes 
+  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B'$ first decodes $\nu(z)$ and computes 
   $B(\sigma_{T_{y}}(z),\nu(z))=\sigma_{T'}(z)=\sigma_{T''}(z)$. 
   Then $B'$ decodes $|\sigma_{T_{y+1}}(z)|$ and computes a prefix of this size of $\sigma_{T''}(z)$. 
-  As we have seen the prefix is $\sigma_{T_{y+1}}(z)$ which is output by $B'$.
+  As we have seen, the prefix is $\sigma_{T_{y+1}}(z)$, which is output by $B'$.
 \end{proof}
 
 
