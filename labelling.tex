@@ -1113,10 +1113,10 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
   \item $f(v)$ intersects $f(w)$, so $f(v)f(w)\in E(G_S)$, for every edge $vw\in E(H)$, and 
   \item $\omega(G_S) \leq (t+1)\log_3(2m+1)$.
 \end{compactenum}
-Furthermore, 
+%Furthermore, 
 %G: commented out as I am afraid we'll forget about this footnote
 %\footnote{This extension is only used when we ... \textcolor{red}{Piotrek: TODO.}}, 
-for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
+%for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\ldots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\ldots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
 \end{lem}
 
 In light of \lemref{interval-representation}, we call an \emph{interval representation} of $H$ 
@@ -1274,6 +1274,13 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
   Thus, in this case $F$ outputs $\perp$.
 \end{enumerate}
 \end{proof}
+
+%Piotrek: that was my early draft of the paragraph on better time complexity ...
+%We finish this section with a quick comment on how to get rid of the $\Oh(t)$ time factor in ...
+%To do it, given our $t$-tree $H$ we fix its proper $(t+1)$-colouring. 
+%This way for every $v$ in $H$, the vertices in $C_H(v)$ have pairwise distinct colours. 
+
+
 
 \subsection{Interval Transition Labels}
 
@@ -1673,8 +1680,12 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
 
 We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mapping $f$ as in \lemref{interval-representation} and colouring $\varphi$), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $\Oh(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $\Oh(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $\Oh(n\log n)$ time for $n$-vertex planar graphs.
 
-The adjacency testing function is quite simple. Even without using word parallelism, this function is straightforward to implement in $\Oh(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
+The adjacency testing function is quite simple. 
+%Even without using word parallelism, 
+This function is straightforward to implement in $\Oh(tk\log n)$ time.  Note that this already allows a tradeoff between the (lower order term in the) code length and the complexity of adjacency testing.
 In the case of planar graphs $t=8$ and, if we use the shortest possible code length, $k=\Oh(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $\Oh(\log^{3/2} n\sqrt{\log\log n})$ time.
+
+%\textcolor{red}{Piotrek: TODO. paragraph on better time complexity.}
 
 In a realistic $\log n$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $\Oh(k)$ time.  The bottleneck in such an implementation is the need to evaluate the function $J$ described in \lemref{interval-transitions} and the bottleneck there is the need to evaluate the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string described in~\obsref{split-signature}.  The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $\Oh(\log n)$ that has a run-length encoding of size $\Oh(k\log\log n)$.  This is, of course, easily implemented in $\Oh(k)$ time, but perhaps a faster implementation is possible.
 
