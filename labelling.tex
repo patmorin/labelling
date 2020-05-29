@@ -1446,14 +1446,16 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \sigma_{H^+_{y},T'}(v) = \sigma_{H^+_{y},T''}(v) = \sigma_{H^+_{y+1},T''}(v).
   \]
   Recall that $T''$ comes as a result of an application of $\textsc{BulkInsert}(I)$ to $T'$ 
-  that attaches some small subtrees (of height at most $2$)
-  to the leaves of $T'$. 
-  This way, for every $u \in C_H(v) \subseteq S^+_y$, we have $x_{T'}(u) = x_{T''}(u)$ and 
+  that attaches some small subtrees to the leaves of $T'$. 
+  This way, for every $u \in C_{H_y^+}(v) = C_H(v) \subseteq S^+_y \subseteq V(H^+_y)$, 
+  we have $x_{T'}(u)$ is an $T''$-ancestor of any node $x$ in $T''$ such that 
+  $x\in I$ and $x\in [a_u,b_u]$.
+  Therefore, $x_{T'}(u) = x_{T''}(u)$ and 
   $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
   Therefore, 
   $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
   Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$ encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively. 
-  Again, since $v\in S_y$ we have that $S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore, 
+  Again, since $v\in S_y$ we have that $C_H(v)\subseteq S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore, 
   $C_{H^+_{y}}(v) = C_H(v) = C_{H^+_{y+1}}(v)$ and $\sigma_{H^+_{y},T''}(v) =\sigma_{H^+_{y+1},T''}(v)$.
 
   Next we describe $\mu_y^{\textsc{Del}}(v)$. 
