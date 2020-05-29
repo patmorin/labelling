@@ -1336,8 +1336,8 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   First of all, note that $v$ is a vertex in $H^+_y$ and $H^+_{y+1}$.
   Since $T_y$ stabs $H^+_y$ and $T_{y+1}$ stabs $H^+_{y+1}$,
   we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined. 
-  Note also that $S_y^+ \subseteq V(H_y^+)$ and $S_y^+ \subseteq V(H_{y+1}^+)$, 
-  so $C_H(v) = C_{H_y^+}(v) = C_{H_{y+1}^+}(v)$.
+  %Note also that $S_y^+ \subseteq V(H_y^+)$ and $S_y^+ \subseteq V(H_{y+1}^+)$, 
+  %so $C_H(v) = C_{H_y^+}(v) = C_{H_{y+1}^+}(v)$.
 
   As in the proof of \lemref{node-bal-transitions} and \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$. 
   Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
@@ -1390,7 +1390,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \end{figure}
 
   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$. 
-  Let $w \in C_{H^+_y}(v)=C_H(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
+  Let $w \in C_{H^+_y}(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
   By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), 
   $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e.\ the interval representing $w$. 
   By the properties of a binary search tree, we conclude that
