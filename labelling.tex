@@ -325,9 +325,9 @@ Putting some of the preceding results together we obtain the following useful co
   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
 \end{proof}
 
-\subsection{Chunked Sets and Fractional Cascading}
+\subsection{Chunked Sets}
 
-For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$.  A sequence $V_1,\dots,V_h\subset\R$ is \emph{$a$-chunking} if $S_y$ $a$-chunks $S_{y+1}$ and $S_{y+1}$ $a$-chunks $S_y$ for each $y\in\{0,\ldots,h-1\}$.
+For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$.  A sequence $V_1,\dots,V_h\subset\R$ is \emph{$a$-chunking} if $V_y$ $a$-chunks $V_{y+1}$ and $V_{y+1}$ $a$-chunks $V_y$ for each $y\in\{0,\ldots,h-1\}$.
 
 \begin{lem}\lemlabel{fractional}
   For any finite sets $S_1,\ldots,S_h\subset\R$, there exist sets $V_1,\ldots,V_{h}\subset\R$ such that
@@ -1088,7 +1088,7 @@ A graph $H$ is a \emph{$t$-tree} if there is an ordering $v_1,\ldots,v_m$ of $V(
 for every $i\in\{1,\ldots,m\}$, the neighbors of $v_i$ earlier in the order, i.e.\ $N_H(v_i) \cap \{v_1,\ldots,v_{i-1}\}$ induce a clique of size at most $t$ in $H$. 
 (Let us emphasize that this is slightly more general than the usual definition of $t$-trees from the literature, which requires the neighbors of $v_i$ earlier in the order to be a clique of size exactly $\min\{i-1, t\}$; this broader definition will be more convenient for our purposes.) 
 A vertex-ordering witnessing that $H$ is a $t$-tree is called an \emph{elimination ordering}.
-Every graph of treewidth $t$ is a subgraph of a $t$-tree. 
+Every graph of treewidth $t$ is a spanning subgraph of a $t$-tree. 
 For this reason, we may restrict ourselves to the case $H\boxtimes P$ where $H$ is a $t$-tree, which we do.
 
 
