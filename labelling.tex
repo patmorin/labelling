@@ -1428,9 +1428,8 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \sigma_{H^+_y,T'}(v) &= \sigma_{T'}(z').
   \end{align*}
 
-  Finally, by \lemref{node-bal-transitions} there exists a function $B'$ and a bitstring 
-  $\nu(z')$ of length $\Oh(k\log h(T_y))$ such that 
-  $B'(\sigma_{T_y}(z'), \nu(z')) = \sigma_{T'}(z')$. 
+  Finally, by \lemref{node-bal-transitions} there exists a function $B$ and a bitstring 
+  $\nu(z')$ of length $\Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z'), \nu(z')) = \sigma_{T'}(z')$. 
 
   All this justifies the following definition, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$:
   \[
@@ -1450,7 +1449,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   This way, for every $u \in C_{H_y^+}(v) = C_H(v) \subseteq S^+_y \subseteq V(H^+_y)$, 
   we have $x_{T'}(u)$ is an $T''$-ancestor of any node $x$ in $T''$ such that 
   $x\in I$ and $x\in [a_u,b_u]$.
-  Therefore, $x_{T'}(u) = x_{T''}(u)$ and 
+  Hence, $x_{T'}(u) = x_{T''}(u)$ and 
   $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
   Therefore, 
   $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
@@ -1473,7 +1472,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \end{clm}
 
   \begin{proof}[Proof of \clmref{deletion-ancestor}]
-    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T^{\text{bef}}$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value of) $x_i$ is replaced with (the value in) node $x_{i+1}$. 
+    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T^{\text{bef}}$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{i}$ for each $i\in\{1,\ldots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\ldots,r-1\}$, the (value of) node $x_i$ is replaced with (the value in) node $x_{i+1}$. 
     The resulting tree is $T^{\text{aft}}$.    
     \begin{figure}
       \begin{center}
@@ -1486,7 +1485,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     \end{figure}
 
     First we look at the case $x_{T^{\text{bef}}}(u)=x_0$. 
-    Recall that $u\in S^+_y$ so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$. 
+    Recall that $u\in S^+_y$, so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$. 
     This means that $x_0\neq a_u$ and $x_0\neq b_u$ and both endpoints lie in the subtree of $T^{\text{bef}}$ rooted at $x_0$. 
     In particular, $x_0$ is not a leaf and $r\geq 1$. 
     By~\lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval}, we have $a_u < x_0 < b_u$. 
@@ -1515,7 +1514,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     This completes the proof of the claim.
   \end{proof}
 
-Since $\textsc{BulkDelete}(D)$ is a sequence of individual deletions, by a multiple applications of~\clmref{deletion-ancestor} we get that 
+Since $\textsc{BulkDelete}(D)$ is a sequence of individual deletions, by multiple applications of~\clmref{deletion-ancestor} we get that 
 %guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
   \begin{align*}
     \sigma_{H^+_{y+1},T_{y+1}}(v)
