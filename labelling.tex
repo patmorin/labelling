@@ -1352,9 +1352,9 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
   The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
-  First the $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$. 
+  First the code $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$. 
   Next, we will argue that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
-  Then the $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
+  Then the code $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
   We start with a discussion on rebalancing that leads to the definition of $\mu_y^{\textsc{Bal}}(v)$. 
   The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
@@ -1373,7 +1373,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be a $T_y$-ancestor of $z$ at depth $\theta$. 
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
   Recall that the application of $\textsc{Balance}(x,k)$ identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T_0}$ of height at most $k$ which forms the top part of $T_*'$.
-  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$ so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
+  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$, so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
   If $z' \in Z\cup X$, then $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
   In this case, we define
   \[
