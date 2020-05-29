@@ -1348,7 +1348,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
 
 
-  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+1 \leq h(T_y)+3$.
+  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
   The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
