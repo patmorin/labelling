@@ -1359,12 +1359,12 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
   The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$. 
-  First the code $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$. 
+  First, the code $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$. 
   Next, we will argue that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
   Then the code $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
   We start with a discussion on rebalancing that leads to the definition of $\mu_y^{\textsc{Bal}}(v)$. 
-  The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appriopiate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
+  The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appropriate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
   Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$.
   Recall also that the changes made by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
   See~\figref{rebalance-t-tree}. 
@@ -1392,7 +1392,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     \begin{center}
       \includegraphics{figs/rebalance-t-tree}
     \end{center}
-    \caption{Only the call to $\textsc{Balance}(x,k)$ on a node $x$ lies on a path desscribed by $\sigma_{H^+_y,T_y}(v)$ can affect $\sigma_{H^+_y,T'}(v)$.}
+    \caption{Only a call to $\textsc{Balance}(x,k)$ on a node $x$ lying on a path described by $\sigma_{H^+_y,T_y}(v)$ can affect $\sigma_{H^+_y,T'}(v)$.}
     \figlabel{rebalance-t-tree}
   \end{figure}
 
