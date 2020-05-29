@@ -992,7 +992,7 @@ $D(\sigma_T(i),\delta_T(i))=\sigma_T(i-1)$.
 Finally, given a vertex $v=(x,y)$ of $G$, we define
 an array $a(v)$ of $8$ bits indicating whether each of the edges between $(x,y)$ and $(x\pm 1,y\pm 1)$ are present in $G$. Note that some of these $8$ vertices may not even be present in $G$ in which case the resulting bit is set to $0$ since the edge is not present in $G$.
 
-Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label that is the concatenation of the following bit-strings:
+Now, in the labelling scheme for $G$, each vertex $v=(x,y)\in V(G)$ receives a label that is the concatenation of the following bitstrings:
 \begin{compactenum}[(P1)]
 \item $\alpha(y)$;
 \item $\gamma(|\sigma_{T_y}(x)|)$, $\sigma_{T_y}(x)$;
@@ -1592,7 +1592,7 @@ Recall that $d\leq t+1$.
 %Recall that each $u_i$ is stabbed by $T_y$ and $T_{y+1}$.
 We define $a(z)$ to be an array of $3d$ bits indicating whether 
 each of the edges between $(v,y)$ and $(u_i,y\pm1)$ are present in $G$. 
-The label of $z=(v,y)$ is the concatenation of the following bit-strings:
+The label of $z=(v,y)$ is the concatenation of the following bitstrings:
 
 \begin{compactenum}[(L1)]
   \item\label{label-alpha} $\alpha(y)$;% (given by \lemref{row-code});% of length $\log n-\log|T_y| + \Oh(\log\log n)$;
@@ -1603,9 +1603,7 @@ The label of $z=(v,y)$ is the concatenation of the following bit-strings:
   \item $\gamma(d_{T_{y}}(x_{T_{y}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;
   \item 
   if $y\neq h$ then $1$, $\gamma(d_{T_{y+1}}(x_{T_{y+1}}(u_i)))$ for each $i\in\{1,\ldots,d\}$;\\
-  if $y=h$ then $0$;
-  %\snote{L. I assume these $\varphi'$ should be replaced by $\tau$ of \lemref{t-tree-labelling}?}
-  %\snote{Pat: No, just the colouring. $\tau_H(v)$ is the whole label.}
+  if $y=h$ then $0$;  
   \item 
   if $y\neq h$ then $1,\mu_y(v)$;\\
   if $y=h$ then $0$; and
@@ -1617,7 +1615,7 @@ The length of the components are as follows:
 (L3) is of length $\Oh(\log t + \log\log n)$,
 (L4) is of length $\Oh(\log t)$, 
 (L5) is of length $\Oh(t\cdot (\log t + \log\log n))$, 
-(L6) and (L7) is of length $\Oh(t\cdot (\log\log n + \log k))$,
+(L6) and (L7) are of lengths $\Oh(t\cdot (\log\log n + \log k))$,
 (L8) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L9) is of length $\Oh(t)$.
 In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
@@ -1629,9 +1627,8 @@ $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
 First note that from a given label of $z=(v,y) \in V(G)$, we can decode each block of the label. 
 Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $w\in\{v,u_1,\ldots,u_d\}$.
 
-Given the labels of $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ of vertices in $G$ we test if the vertices are adjacent as follows.
-
-Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following applies:
+Given the labels of two vertices $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ in $G$ we test if the vertices are adjacent as follows. 
+Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following cases applies:
 \begin{enumerate}
   \item $|y_1-y_2|\ge 2$: 
   In this case, we immediately conclude that $z_1$ and $z_2$ are not adjacent in $G$ since they are not adjacent even in $H\boxtimes P$.
@@ -1665,6 +1662,8 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
 \end{enumerate}
 
 %This completes the proof of our main result (note that in the previous section we assumed without loss of generality that $h\le n$ and $m\le n$, but here we can only assume that $h\le n$ and $m\le tn$, using the fact that every $n$-vertex graph of treewidth at most $t$ is a subgraph of a $t$-tree on at most $tn$ vertices).
+
+This completes the proof of our main result.
 
 \begin{thm}\thmlabel{main-product}
   For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
