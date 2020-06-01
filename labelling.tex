@@ -1377,10 +1377,11 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \]
   Note that in this case $|\mu_y^{\textsc{Bal}}(v)| = \Oh(\log \theta) = \Oh(\log h(T_y))$.
 
-  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be a $T_y$-ancestor of $z$ at depth $\theta$. 
+  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$. 
   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
   Recall that the application of $\textsc{Balance}(x,k)$ identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T_0}$ of height at most $k$ which forms the top part of $T_*'$.
-  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$, so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$. 
+  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$, so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$.
+  
   If $z' \in Z\cup X$, then $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
   In this case, we define
   \[
@@ -1454,7 +1455,7 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   Recall that $T''$ comes as a result of an application of $\textsc{BulkInsert}(I)$ to $T'$ 
   that attaches some small subtrees to the leaves of $T'$. 
   This way, for every $u \in C_{H_y^+}(v) = C_H(v) \subseteq S^+_y \subseteq V(H^+_y)$, 
-  we have $x_{T'}(u)$ is an $T''$-ancestor of any node $x$ in $T''$ such that 
+  we have that $x_{T'}(u)$ is a $T''$-ancestor of any node $x$ in $T''$ such that 
   $x\in I$ and $x\in [a_u,b_u]$.
   Hence, $x_{T'}(u) = x_{T''}(u)$ and 
   $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
