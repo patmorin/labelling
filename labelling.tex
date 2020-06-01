@@ -1547,6 +1547,12 @@ Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
   If it is $0$ then $J$ decodes the value of $\sigma_{\hat{T_0}}(z')$, 
   computes $\sigma_{T_y}(x)$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $\theta$, 
   and concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
+  Otherwise, the bit is $1$. 
+  In this case, first $J$ decodes $|\sigma_{T_y}(x_{T_y}(w))|$ and $\nu(x_{T_y}(w))$. 
+  Next, $J$ computes $\sigma_{T_y}(x_{T_y}(w))$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $|\sigma_{T_y}(x_{T_y}(w))|$. 
+  Next, $J$ computes $B(\sigma_{T_y}(x_{T_y}(w)),\nu(x_{T_y}(w))) = \sigma_{T'}(x_{T'}(w))$ and in this case 
+  $J$ concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T'}(x_{T'}(w))$.
+
 
   Thus, in either case $J$ establishes the value of $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$. 
   Now, $J$ looks up $\mu_y^{\textsc{Del}}(v)$ and decodes $|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|$.
