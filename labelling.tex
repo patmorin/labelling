@@ -1626,7 +1626,7 @@ $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k)$.
 \subsection{Adjacency Testing}
 
 First note that from a given label of $z=(v,y) \in V(G)$, we can decode each block of the label. 
-Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $w\in\{v,u_1,\ldots,u_d\}$.
+Note also that once we decode $d=|C_H(v)|$, $\sigma_{T_y}(v)$, $\varphi(v)$, and $\varphi(u_i)$, $d_{T_y}(x_T(u_i))$ for all $i\in\{1,\ldots,d\}$, by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:clique-on-a-single-path} we can determine $\sigma_{T_y}(x_{T_y}(w))$ for each $w\in\{v,u_1,\ldots,u_d\}$.
 
 Given the labels of two vertices $z_1:=(v_1,y_1)$ and $z_2:=(v_2,y_2)$ in $G$ we test if the vertices are adjacent as follows. 
 Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the following cases applies:
@@ -1638,8 +1638,8 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   Note that (L2), (L3), (L4), (L5), (L7) contain all the pieces of the labels $\tau_{H^+_y,T_y}(v_1)$ and $\tau_{H^+_y,T_y}(v_2)$ from~\lemref{t-tree-labelling}. 
 %  Since $v_1,v_2 \in S_y$ and $H[S_y]$ is stabbed by $T_y$, by~\lemref{t-tree-labelling},
   We compute $F(\tau_{H^+_y,T_y}(v_1),\tau_{H^+_y,T_y}(v_2))$ and determine if $v_1$ and $v_2$ are adjacent in $H^+_y$ (which is an induced subgraph of $H$). 
-  If $v_1$ and $v_2$ are not adjacent in $H^+_y$, so they are not adjacent in $H$ as well, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ so neither in $G$.
-  If $v_1$ and $v_2$ are adjacent in $H^+_y$, so adjacent in $H$ as well, then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$. 
+  If $v_1$ and $v_2$ are not adjacent in $H^+_y$, then they are not adjacent in $H$ and as a consequence, $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are not adjacent in $H\boxtimes P$ and thus also not adjacent in $G$.
+  If $v_1$ and $v_2$ are adjacent in $H^+_y$ (and thus also in $H$), then $z_1=(v_1,y)$ and $z_2=(v_2,y)$ are adjacent in $H\boxtimes P$. 
   If $F(\tau_{H^+_y,T_y}(v_1),\tau_{H^+_y,T_y}(v_2))=1$, 
   we identify the position of $v_1$ on the list of vertices in $C_H(v_2)$ (by its $\varphi$-colour) 
   and then finally we look up the appropriate bit in $a(z_2)$ to see whether the corresponding edge in $H\boxtimes P$ is present in $G$ or not.
@@ -1655,9 +1655,9 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
   just from the label $z_2=(v_2,y+1)$ we have $\tau_{H^+_{y+1},T_{y+1}}(v_2)$. 
   %Since $v_1 \in S_y$, $v_2 \in S_{y+1}$, and $T_{y+1}$ stabs $H[S_y \cup S_{y+1}]$, by~\lemref{t-tree-labelling}, 
   We compute $F(\tau_{H^+_{y+1},T_{y+1}}(v_1),\tau_{H^+_{y+1},T_{y+1}}(v_2))$ to test whether $v_1=v_2$ or $v_1v_2\in E(H^+_{y+1})$. 
-  If $v_1\neq v_2$ and $v_1v_2\not\in E(H^+_{y+1})$, then $z_1$ and $z_2$ are not adjacent in $H\boxtimes P$ so they are not adjacent in $G$ as well.
+  If $v_1\neq v_2$ and $v_1v_2\not\in E(H^+_{y+1})$, then $z_1$ and $z_2$ are not adjacent in $H\boxtimes P$ so they are not adjacent in $G$ either.
   If $v_1=v_2$ or $v_1v_2\in E(H^+_{y+1})$ then we know that $z_1$ and $z_2$ are adjacent in $H\boxtimes P$.  
-  In this case, we can now consult the relevant bit of $a(z_1)$ or $a(z_2)$ to determine if $z_1$ and $z_2$ are adjacent in $G$ as well.
+  In this case, we can now consult the relevant bit of $a(z_1)$ or $a(z_2)$ to determine if $z_1$ and $z_2$ are adjacent in $G$.
 
   \item $y_2=y_1-1$:  This case is symmetric to the preceding case, with the roles of $z_1$ and $z_2$ reversed.
 \end{enumerate}
