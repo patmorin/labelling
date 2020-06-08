@@ -1126,6 +1126,7 @@ Then,
 \end{proof}
 
 \subsection{A Labelling Scheme for $t$-Trees}
+\label{sec:t-trees}
 
 We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
@@ -1233,10 +1234,13 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
 
 In fact, we can get labels of length $\log{m} + \Oh(t\log\log{m})$ instead of $\log{m} + \Oh(t\log\log{m}+ t\log t)$. 
 This can be done by improving the length of (T5) from $\Oh ( t \log( t  \log m ))$ to $\Oh ( t  \log\log m )$, as we now explain.  
-In order to achieve this we need to work with the colouring $(\varphi'(v)),\varphi''(v))$ of $H$ given by Lemma~\lemref{interval-representation} instead of $\varphi(v)$. 
+In order to achieve this we need to work with the colouring $(\varphi'(v),\varphi''(v))$ of $H$ given by Lemma~\lemref{interval-representation} instead of $\varphi(v)$. 
 Recall that the image of $\varphi'$ is $\{1,\ldots,t+1\}$ and the image of $\varphi''$ is $\{1,\ldots,\floor{\log_3(2m+1)+1}\}$.
 Given a vertex $v$ of $H$, we order the vertices $u_1, \dots, u_d$ in $C_H(v)$ according to their $\varphi'$-colours. 
-Now the improved (T5) block of the labelling is an array $R$ of $t+1$ entries indexed by $\varphi'$ colours. We set $R[\varphi'(w)] := \varphi''(w)$, for each $w\in C_H(v)$. Note that some entries may be undefined if $d<t$. This way only $\Oh(t\log\log{m})$ bits suffice to encode $R$. 
+Now the improved (T5) block of the labelling is an array $R$ of $t+1$ entries indexed by $\varphi'$ colours. 
+We set $R[\varphi'(w)] := \varphi''(w)$, for each $w\in C_H(v)$. 
+Note that some entries may be undefined if $d<t+1$. 
+This way only $\Oh(t\log\log{m})$ bits suffice to encode $R$. 
 %Note that thanks to $R$ and given the parameters $\omega(G_S)$, $d$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ is using the colour $\varphi(w)$.
 
 
@@ -1579,9 +1583,11 @@ The length of the components are as follows:
 (L6) and (L7) are of lengths $\Oh(t\cdot (\log\log n + \log k))$,
 (L8) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L9) is of length $\Oh(t)$.
-In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
+In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$. 
+In particular, if $t$ is a fixed constant, the label length is $\log{n} + \Oh( k\log\log{n} + k^{-1}\log{n} + k\log k)$. 
 
-Assuming $k = o(\log{n})$, the label length is therefore $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n})$. And, for a fixed constant $t$, the label length is $\log{n} + \Oh( k\log\log{n} + k^{-1}\log{n} )$.
+We remark that, using the same trick as described at the end of Section~\ref{sec:t-trees}, we can get the length of (L5) down to $\Oh(t\cdot \log\log n)$. 
+Assuming $k = o(\log{n})$, the total label length becomes then $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n} + k\log k)$. 
 
 \subsection{Adjacency Testing}
 
