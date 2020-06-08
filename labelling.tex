@@ -175,29 +175,6 @@ The case of graphs of bounded degree from minor-closed classes (point~2 in \thmr
 
 The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  \Secref{conclusion} concludes with a discussion of the computational complexity of assigning labels and testing adjacency and presents directions for future work.
 
-% \subsection{Proof Overview}
-%
-% Like Bonamy \etal\ \cite{bonamy.gavoille.ea:shorter}.  Our starting point is a recent result that characterizes planar graphs in terms of the strong product of two simpler graphs.  The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two vertices $v_1:=(x_1,y_1)$ and $v_2:=(x_2,y_2)$ are adjacent if and only if:
-% \begin{enumerate}
-%   \item  $v_1\neq v_2$; and
-%   \item $x_1=x_2$ or $x_1x_2\in E(A)$; and
-%   \item $y_1=y_2$ or $y_1y_2\in E(B)$.
-% \end{enumerate}
-%
-% \begin{thm}[Dujmović \etal \cite{dujmovic.joret.ea:planar}]
-%   Every planar graph $G$ is the subgraph of a strong product $G^+:=H\boxtimes P$ where $H$ is a graph of treewidth at most 8 and $P$ is a path.
-% \end{thm}
-%
-% \dots
-
-
-% For graph products like $G^+$, there is a natural labelling scheme: Compute a labelling scheme $\alpha:V(H)\to\{0,1\}^*$ for $H$ and a labelling scheme $\beta:V(P)\to\{0,1\}^*$ for $P$ and assign each vertex $v:=(x,y)\in V(G^*)$ the label $\mu(v):=\alpha(x),\beta(y)$.  Given two labels $\ell_1=\alpha(x_1),\beta(y_1)$ and $\ell_2=\alpha(x_2),\beta(y_2)$ for vertices $v_1=(x_1,y_1)$ and $v_2=(x_2,y_2)$ adjacency testing is done using the following formula whose three clauses follow from definition of strong product:
-% \[
-%     L(\ell_1,\ell_2):= (\ell_1\neq \ell_2) \wedge \A(\alpha(x_1),\alpha(x_2)) \wedge \A(\beta(y_1),\beta(y_2)) \enspace .
-% \]
-%
-% \dots
-
 
 
 \section{Preliminaries}
@@ -212,11 +189,7 @@ For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(
 
 For a string $s=s_1,\dots,s_k$, we use $|s|:=k$ to denote the length of $s$.
 %We denote the empty string by $\varepsilon$.
-A string $s_1,\dots,s_k$ is a \emph{prefix} of a string $t_1,\dots,t_\ell$ if $k\le \ell$ and $s_1,\dots,s_k=t_1,\dots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation\footnote{Observing that binary writing of any integer $i\ge 1$ is $1,w$, where $w$ is a word of $\floor{\log{i}}$ bits, then the code $0^{|w|},1,w$, i.e., the length of $w$ in unary followed by $i$ in binary, is prefix-free.} of Elias from 1975.
-
-% Louis. I reverted that back to a lemma... observation should be reserved for completely obvious things, right?  Pat: I agree.
-
-% Cyril: I remove the $\in \Oh(log i)$ which is, this times, completey obvious. I would not write in a FOCS submission that "2n is in \Oh(n)".
+A string $s_1,\dots,s_k$ is a \emph{prefix} of a string $t_1,\dots,t_\ell$ if $k\le \ell$ and $s_1,\dots,s_k=t_1,\dots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation\footnote{Observing that if the binary writing of an integer $i\ge 1$ is $w$, where $w$ is a word of $\floor{\log{i}}$ bits, then the code $0^{|w|},1,w$, i.e., the length of $w$ in unary followed by $1$ and then $i$ in binary, is prefix-free.} of Elias from 1975.
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
   There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1$.%\in \Oh(\log i)$.
@@ -681,12 +654,8 @@ Then,
 \[
 q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
 \]
-%\[
-%h(T_{y^*}) \leq y^*(k+1).
-%\]
 \end{cor}
 \begin{proof}
-%Recall that $y^* = \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
 Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
 Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
 \[
@@ -698,22 +667,11 @@ Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at mos
 \[
 |T_0|\cdot2^{-y(k-3)} \leq 1,
 \]
-and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
-%%% OLD MATERIAL TO BE DELETED
-% \begin{align*}
-% h(T_q) &\leq q\cdot(k+1)
-% \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil \cdot (k+1)
-% \leq \left(\tfrac{\log|T_0|}{k-3}+1\right) \cdot (k+1)\\
-% &\leq \log|T_0| + \tfrac{4}{k-3}\cdot\log|T_0| + k+1
-% \leq \log|T_0| + 4\tfrac{k}{k-3}\tfrac{1}{k}\log|T_0|+k+1\\
-% &\leq \log|T_0| + 4\tfrac{7}{4}\tfrac{1}{k}\log|T_0|+k+1&&\textrm{(as $k\geq7$)}\\
-% &=\log|T_0|+\Oh(k+k^{-1}\log|T_0|)
-% \end{align*}
-% \pnote{I put the whole proof above. Not clear though if it is a good idea to include this inequality on height. Perhaps not. Will think about it.}
+and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence. 
 \end{proof}
 
 \begin{lem}\lemlabel{bulktree-height-i}
-Let $T_0,\dots,T_{q}$ be a complete one-phase $k$-bulk tree sequence with $k\ge 7$,
+Let $T_0,\dots,T_{q}$ be a complete one-phase $k$-bulk tree sequence, 
 and let $r_0 := h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\dots,q\}$,
 \begin{compactenum}[(i)]
 \item $ |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$;\label{height-diff}
@@ -1104,7 +1062,7 @@ the \emph{interval intersection graph} $G_S$ of $S$ is the graph
 with vertex set $V(G_S):=S$ and in which there is an edge between two distinct intervals 
 if and only if the intervals intersect.
 
-The following well-known result states that every $m$-vertex $t$-tree is a subgraph of an interval graph of clique number $\Oh(t\log m)$.\footnote{The specific value $\log_3(2m+1)$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
+The following well-known result states that every $m$-vertex $t$-tree is a subgraph of an interval graph of clique number $\Oh(t\log m)$.\footnote{The specific value $\log_3(2m+1) + 1$ in \lemref{interval-representation} is obtained by applying a result of Scheffler \cite{scheffler:optimal} on the tree underlying the width-$t$ tree decomposition of $H$.}
 
 \begin{lem}\lemlabel{interval-representation}
   For every $m$-vertex $t$-tree $H$, there exists a mapping $f$ assigning to every vertex $v$ in $H$ an interval $f(v)$ so that the following holds. Let $S:=\{f(v):v\in V(H)\}$. Then,
@@ -1617,7 +1575,7 @@ The length of the components are as follows:
 (L9) is of length $\Oh(t)$.
 In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
 
-In fact, the length for (L5) is can be bounded by $\Oh(t\log\log{n})$ by ordering $u_i$'s of $C_H(v)$ according to their colors, and representing the list of the such $d$ colors differently. More precisely, in \lemref{interval-representation}, each color $\varphi(w)\in[1,\omega(G_S)]$ with $\omega(G_S)\le (t+1)\floor{\log_3(2m+1)+1}$ results of a pair $(\varphi^1(w), \varphi^2(w))$ of colors as follows: $\varphi^1(w)$ is the color of $w$ in the $(t+1)$-colouring of $H$, and $\varphi^2(w)$ is its color in the $\floor{\log_3(2m+1)+1}$-colouring of the interval graph containing the tree underlying the width-$t$ decomposition of $H$. So, the set of colors for all the vertices of the clique $C_H(v)$, including $\varphi(v)$, can be coded using an array $R$ of $t+1$ entries indexed by $\varphi^1$ colors. We set $R[\varphi^1(w)] := \varphi^2(w)$, for each $w\in C_H(v)$ (some entries may be not defined if $d<t$). Since $\varphi^1(w) \in [1,t+1]$ and $\varphi^2(w) \in [1, \floor{\log_3(2m+1)+1}]$, $\Oh(t\log\log{m}) = \Oh(t\log\log{n})$ bits suffice to described $R$. Note that thanks to $R$ and given the parameter $\omega(G_S)$, $t$ and $m$, one can check in constant time whether a vertex $w \in C_H(v)$ from its color $\varphi(w)$.
+In fact, the length for (L5) can be bounded by $\Oh(t\log\log{n})$ by ordering the $u_i$'s in $C_H(v)$ according to their colors, and representing the list of these $d$ colors differently. More precisely, in \lemref{interval-representation}, each color $\varphi(w)\in[1,\omega(G_S)]$ with $\omega(G_S)\le (t+1)\floor{\log_3(2m+1)+1}$ results of a pair $(\varphi^1(w), \varphi^2(w))$ of colors as follows: $\varphi^1(w)$ is the color of $w$ in the $(t+1)$-colouring of $H$, and $\varphi^2(w)$ is its color in the $\floor{\log_3(2m+1)+1}$-colouring of the interval graph containing the tree underlying the width-$t$ decomposition of $H$. So, the set of colors for all the vertices of the clique $C_H(v)$, including $\varphi(v)$, can be coded using an array $R$ of $t+1$ entries indexed by $\varphi^1$ colors. We set $R[\varphi^1(w)] := \varphi^2(w)$, for each $w\in C_H(v)$ (some entries may be not defined if $d<t$). Since $\varphi^1(w) \in [1,t+1]$ and $\varphi^2(w) \in [1, \floor{\log_3(2m+1)+1}]$, $\Oh(t\log\log{m}) = \Oh(t\log\log{n})$ bits suffice to describe $R$. Note that thanks to $R$ and given the parameter $\omega(G_S)$, $t$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ using its color $\varphi(w)$.
 
 Assuming $k = o(\log{n})$, the label length is therefore $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n})$. And, for a fixed constant $t$, the label length is $\log{n} + \Oh( k\log\log{n} + k^{-1}\log{n} )$.
 
