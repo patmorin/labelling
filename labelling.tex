@@ -1072,7 +1072,7 @@ The following well-known result states that every $m$-vertex $t$-tree is a subgr
 \end{compactenum}
 % Cyril: According to Scheffler'90 the pathwidth of an n-vertex tree if p <= log_3(2n+1) + 1 - log_3(5). So this is a (p+1)-colouring, p+1 < log_3(2n+1) + 1, and thus with p+1 < \floor{log_3(2n+1)+1}.
 
-% Furthermore, G: commented out as I am afraid we'll forget about this footnote \footnote{This extension is only used when we ... \textcolor{red}{Piotrek: TODO.}}, for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\dots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\dots,\lfloor\log_3(2m+1)\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.
+Furthermore, for every proper $(t+1)$-colouring $\varphi':V(H)\to\{1,\dots,t+1\}$ of $H$, there exists a colouring $\varphi'':V(H)\to\{1,\dots,\lfloor\log_3(2m+1)+1\rfloor\}$ such that $(\varphi',\varphi'')$ is a proper colouring of $G_S$.\footnote{This property is only used when discussing small optimizations in label lengths at the end of the paper.}  
 \end{lem}
 
 In light of \lemref{interval-representation}, we call an \emph{interval representation} of $H$ 
@@ -1233,6 +1233,7 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
 %To do it, given our $t$-tree $H$ we fix its proper $(t+1)$-colouring. 
 %This way for every $v$ in $H$, the vertices in $C_H(v)$ have pairwise distinct colours. 
 
+In fact, the length for (L5) can be bounded by $\Oh(t\log\log{n})$ by ordering the $u_i$'s in $C_H(v)$ according to their colours, and representing the list of these $d$ colours differently. More precisely, in \lemref{interval-representation}, each colour $\varphi(w)\in\{1,\dots, \omega(G_S)\}$ with $\omega(G_S)\le (t+1)\floor{\log_3(2m+1)+1}$ results of a pair $(\varphi^1(w), \varphi^2(w))$ of colours as follows: $\varphi^1(w)$ is the colour of $w$ in the $(t+1)$-colouring of $H$, and $\varphi^2(w)$ is its colour in the $\floor{\log_3(2m+1)+1}$-colouring of the interval graph containing the tree underlying the width-$t$ decomposition of $H$. So, the set of colours for all the vertices of the clique $C_H(v)$, including $\varphi(v)$, can be coded using an array $R$ of $t+1$ entries indexed by $\varphi^1$ colours. We set $R[\varphi^1(w)] := \varphi^2(w)$, for each $w\in C_H(v)$ (some entries may be not defined if $d<t$). Since $\varphi^1(w) \in \{1,\dots, t+1\}$ and $\varphi^2(w) \in \{1, \dots, \floor{\log_3(2m+1)+1}\}$, $\Oh(t\log\log{m}) = \Oh(t\log\log{n})$ bits suffice to describe $R$. Note that thanks to $R$ and given the parameter $\omega(G_S)$, $t$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ using its colour $\varphi(w)$.
 
 
 \subsection{Interval Transition Labels}
@@ -1574,8 +1575,6 @@ The length of the components are as follows:
 (L8) is of length $\Oh(k\log\log n + k\log k)$, and 
 (L9) is of length $\Oh(t)$.
 In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k + t \log\log n + t \log k + t \log t)$.
-
-In fact, the length for (L5) can be bounded by $\Oh(t\log\log{n})$ by ordering the $u_i$'s in $C_H(v)$ according to their colours, and representing the list of these $d$ colours differently. More precisely, in \lemref{interval-representation}, each colour $\varphi(w)\in\{1,\dots, \omega(G_S)\}$ with $\omega(G_S)\le (t+1)\floor{\log_3(2m+1)+1}$ results of a pair $(\varphi^1(w), \varphi^2(w))$ of colours as follows: $\varphi^1(w)$ is the colour of $w$ in the $(t+1)$-colouring of $H$, and $\varphi^2(w)$ is its colour in the $\floor{\log_3(2m+1)+1}$-colouring of the interval graph containing the tree underlying the width-$t$ decomposition of $H$. So, the set of colours for all the vertices of the clique $C_H(v)$, including $\varphi(v)$, can be coded using an array $R$ of $t+1$ entries indexed by $\varphi^1$ colours. We set $R[\varphi^1(w)] := \varphi^2(w)$, for each $w\in C_H(v)$ (some entries may be not defined if $d<t$). Since $\varphi^1(w) \in \{1,\dots, t+1\}$ and $\varphi^2(w) \in \{1, \dots, \floor{\log_3(2m+1)+1}\}$, $\Oh(t\log\log{m}) = \Oh(t\log\log{n})$ bits suffice to describe $R$. Note that thanks to $R$ and given the parameter $\omega(G_S)$, $t$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ using its colour $\varphi(w)$.
 
 Assuming $k = o(\log{n})$, the label length is therefore $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n})$. And, for a fixed constant $t$, the label length is $\log{n} + \Oh( k\log\log{n} + k^{-1}\log{n} )$.
 
