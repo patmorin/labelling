@@ -1232,9 +1232,13 @@ Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adja
 %This way for every $v$ in $H$, the vertices in $C_H(v)$ have pairwise distinct colours. 
 
 In fact, we can get labels of length $\log{m} + \Oh(t\log\log{m})$ instead of $\log{m} + \Oh(t\log\log{m}+ t\log t)$. 
-This can be done by improving the length of (T5) from $\Oh ( t\ cdot \log( t \cdot \log m ))$ to $\Oh ( t \cdot \log\log m )$. 
+This can be done by improving the length of (T5) from $\Oh ( t \log( t  \log m ))$ to $\Oh ( t  \log\log m )$, as we now explain.  
+In order to achieve this we need to work with the colouring $(\varphi'(v)),\varphi''(v))$ of $H$ given by Lemma~\lemref{interval-representation} instead of $\varphi(v)$. 
+Recall that the image of $\varphi'$ is $\{1,\ldots,t+1\}$ and the image of $\varphi''$ is $\{1,\ldots,\floor{\log_3(2m+1)+1}\}$.
+Given a vertex $v$ of $H$, we order the vertices $u_1, \dots, u_d$ in $C_H(v)$ according to their $\varphi'$-colours. 
+Now the improved (T5) block of the labelling is an array $R$ of $t+1$ entries indexed by $\varphi'$ colours. We set $R[\varphi'(w)] := \varphi''(w)$, for each $w\in C_H(v)$. Note that some entries may be undefined if $d<t$. This way only $\Oh(t\log\log{m})$ bits suffice to encode $R$. 
+%Note that thanks to $R$ and given the parameters $\omega(G_S)$, $d$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ is using the colour $\varphi(w)$.
 
-the length for (T5) can be bounded by $\Oh(t\log\log{n})$ by ordering the $u_i$'s in $C_H(v)$ according to their colours, and representing the list of these $d$ colours differently. More precisely, in \lemref{interval-representation}, each colour $\varphi(w)\in\{1,\dots, \omega(G_S)\}$ with $\omega(G_S)\le (t+1)\floor{\log_3(2m+1)+1}$ results of a pair $(\varphi'(w), \varphi''(w))$ of colours as follows: $\varphi'(w)$ is the colour of $w$ in the $(t+1)$-colouring of $H$, and $\varphi''(w)$ is its colour in the $\floor{\log_3(2m+1)+1}$-colouring of the interval graph containing the tree underlying the width-$t$ decomposition of $H$. So, the set of colours for all the vertices of the clique $C_H(v)$, including $\varphi(v)$, can be coded using an array $R$ of $t+1$ entries indexed by $\varphi'$ colours. We set $R[\varphi'(w)] := \varphi''(w)$, for each $w\in C_H(v)$ (some entries may be not defined if $d<t$). Since $\varphi'(w) \in \{1,\dots, t+1\}$ and $\varphi''(w) \in \{1, \dots, \floor{\log_3(2m+1)+1}\}$, $\Oh(t\log\log{m}) = \Oh(t\log\log{n})$ bits suffice to describe $R$. Note that thanks to $R$ and given the parameter $\omega(G_S)$, $t$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ using its colour $\varphi(w)$.
 
 
 \subsection{Interval Transition Labels}
