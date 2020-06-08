@@ -1645,18 +1645,23 @@ This completes the proof of our main result.
 
 We conclude with a few remarks on the computational complexity of our labelling scheme.  Given an $n$-vertex planar graph $G$, finding an 8-tree $H$ (with mapping $f$ as in \lemref{interval-representation} and colouring $\varphi$), a path $P$, and a mapping of $G$ into a subgraph of $H\boxtimes P$ can be done in $\Oh(n\log n)$ time \cite{morin:fast}.  The process of computing the labels of $V(G)$ as described in \secref{pxp} and \secref{hxp} has a straightforward $\Oh(n\log n)$ time implementation.  Thus, the adjacency labels described in \thmref{main} are computable in $\Oh(n\log n)$ time for $n$-vertex planar graphs.
 
-The adjacency testing function can be implemented in time proportional to $k$ times the label length. 
-In particular, in the case of planar graphs $t = 8$ and, if we use $k = \Oh(\sqrt{\log n / \log\log n})$, the adjacency testing procedure can be implemented in $\Oh(\log^{3/2} n\sqrt{\log\log n})$ time.  
-In a realistic $\log{n}$-bit word RAM model of computation with bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.} operation the adjacency test, as described, can be implemented in $\Oh(k)$ time when $t$ is fixed. The bottleneck in such an implementation is the need to evaluate the function $J$ described in \lemref{interval-transitions} and the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string described in~\obsref{split-signature}. 
+The adjacency testing function can be implemented in time $\Oh(k)$ for in the standard $w$-bit word RAM model providing for binary words of length $w = \Omega(\log{n})$ bitwise logical operations, bitwise shift operations, and a most-significant-bit\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.}.
+% Cyril: note that this is O(k) even for unbounded t! but I do not want to detail this here. It happens the main application I give then is for fixed t. So it does not really matter.
+We note that \thmref{main-product} holds for each $k$ ranging from $\omega(1)$ to $\Oh(\sqrt{\log{n} / \log\log{n}})$. This yields a trade-off between adjacency test time and label length complexities. On one side, by choosing $k = \omega(\log{n})$, we have labels of $(1+o(1))\log{n}$ bits and an almost constant time adjacency test. And, on the other side, by selecting an adjacency test time complexity of $k = \Oh(\sqrt{\log{n}/\log\log{n}})$, the label length is minimized and has length $\log{n} + \Oh(\sqrt{\log{n}\log\log{n}})$.
+
+% Cyril: I would remove the next paragraph which basically explains that we fail at this place.
+%
+% The bottleneck in such an implementation is the need to evaluate the function $J$ described in \lemref{interval-transitions} and the function $B$ described in \lemref{node-transitions}.  The bottleneck in evaluating this latter function $B$ is the fact that, up to $k+1$ times, this replaces a prefix of $\sigma_T(x)$ with a string described in~\obsref{split-signature}.
+
 %The end result of all of these replacements is that a prefix of $\sigma_T(x)$ is replaced with a bitstring of length $\Oh(\log n)$ that has a run-length encoding of size $\Oh(k\log\log n)$.  This is, of course, easily implemented in $\Oh(k)$ time, but perhaps a faster implementation is possible.
 
-
-% \snote{If we want to bother, we could probably do this in $\Oh(\log n)$ time.}
 The current result leaves two obvious directions for future work:
 \begin{enumerate}
-  \item The precise length of the labels in \thmref{main} is $\log n + \Oh(\sqrt{\log n\log\log n})$.  The only known lower bound is $\log n + \Omega(1)$.  Closing the gap in the lower-order term remains an open problem.
 
-  \item \thmref{main-product} implies a $(1+o(1))\log n$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
+\item The precise length of the labels in \thmref{main} and \thmref{main-product} is, at the best, $\log{n} + \Oh(\sqrt{\log{n}\log\log{n}})$. The only known lower bound is $\log{n} + \Omega(1)$. Closing the gap in the lower-order term remains an open problem.
+
+\item \thmref{main-product} implies a $(1+o(1))\log{n}$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
+
 \end{enumerate}
 
 \section*{Acknowledgement}
