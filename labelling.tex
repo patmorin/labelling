@@ -1,5 +1,5 @@
 \documentclass[10pt, conference, compsocconf]{IEEEtran}
-
+\IEEEoverridecommandlockouts
 % \documentclass[kpfonts]{patmorin}
 \listfiles
 \usepackage{pat}
@@ -15,15 +15,15 @@
 
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
-\usepackage{enumitem}
+% \usepackage{enumitem}
 
 \usepackage{comment}
 
 \newcommand{\snote}[1]{\fcolorbox{red}{yellow}{#1}}
 \newcommand{\pnote}[1]{\ \newline\noindent\fcolorbox{red}{yellow}{\begin{minipage}{\textwidth}#1\end{minipage}}}
-\setlength{\parskip}{1ex}
+% \setlength{\parskip}{1ex}
 
-\usepackage{amsopn,amssymb,amsthm,commath,url}
+\usepackage{amsopn,amssymb,commath}
 \DeclareMathOperator{\A}{\mathds{A}}
 \DeclareMathOperator{\sn}{sn}
 \DeclareMathOperator{\qn}{qn}
@@ -48,24 +48,75 @@
 
 \newcommand{\itemref}[1]{(\ref{#1})}
 
-\title{Adjacency Labelling for Planar Graphs (and Beyond)}
-\author{
-  Vida Dujmović,%
-    \thanks{School of Computer Science and Electrical Engineering, University of Ottawa, Canada. This research was partially supported by NSERC.}\quad
-  Louis Esperet,%
-    \thanks{Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France. Partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR).}\quad
-  Cyril Gavoille,%
-    \thanks{LaBRI, University of Bordeaux, France. This research was partially supported by the French ANR projects ANR-16-CE40-0023 (DESCARTES) and ANR-17-CE40-0015 (DISTANCIA).}\quad
-  Gwenaël Joret,%
-     \thanks{Département d'Informatique, Université Libre de Bruxelles, Brussels, Belgium. Research supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and by a grant from the National Fund for Scientific Research (FNRS).}\quad
-  Piotr Micek,%
-    \thanks{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Krak\'{o}w, Poland. This research was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}\newline
-  and Pat Morin%
-    \thanks{School of Computer Science, Carleton University, Canada. This research was partially supported by NSERC.}
-}
-\date{}
 
 \begin{document}
+\title{Adjacency Labelling for Planar Graphs (and Beyond)}
+% \author{\IEEEauthorblockN{Vida Dujmović}
+% \IEEEauthorblockA{School of Computer Science and Electrical Engineering\\
+% University of Ottawa\\
+% Ottawa, Canada\\
+% vdujmovi@uottawa.ca}
+% \and
+% %   Louis Esperet,%
+% %     \thanks{Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France. Partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR).}\quad
+% \IEEEauthorblockN{Louis Esperet}
+% \IEEEauthorblockA{Laboratoire G-SCOP\\
+% CNRS, Univ.\ Grenoble Alpes\\
+% Grenoble, France\\
+% louis.esperet@grenoble-inp.fr}
+% \and
+% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
+% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
+% line 2: name of organization, acronyms acceptable\\
+% line 3: City, Country\\
+% line 4: Email: name@xyz.com}
+% \and
+% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
+% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
+% line 2: name of organization, acronyms acceptable\\
+% line 3: City, Country\\
+% line 4: Email: name@xyz.com}
+% \and
+% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
+% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
+% line 2: name of organization, acronyms acceptable\\
+% line 3: City, Country\\
+% line 4: Email: name@xyz.com}
+% \and
+% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
+% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
+% line 2: name of organization, acronyms acceptable\\
+% line 3: City, Country\\
+% line 4: Email: name@xyz.com}
+%
+% }
+
+\author{\IEEEauthorblockN{%
+  Vida Dujmović%
+    \thanks{This research was partially supported by NSERC.}\quad
+  Louis Esperet%
+    \thanks{ Partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR).}\quad
+  Cyril Gavoille%
+    \thanks{This research was partially supported by the French ANR projects ANR-16-CE40-0023 (DESCARTES) and ANR-17-CE40-0015 (DISTANCIA).}\quad
+  Gwenaël Joret%
+     \thanks{Research supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and by a grant from the National Fund for Scientific Research (FNRS).}\quad
+  Piotr Micek%
+    \thanks{This research was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}\quad
+  Pat Morin%
+    \thanks{This research was partially supported by NSERC.}
+}
+\IEEEauthorblockA{
+\begin{minipage}{\textwidth}
+  School of Computer Science and Electrical Engineering, University of Ottawa, Canada\\
+  Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France\\
+  LaBRI, University of Bordeaux, France\\
+  Département d'Informatique, Université Libre de Bruxelles, Brussels, Belgium\\
+  Theoretical Computer Science Department, Faculty of Math.\ and Comp.\ Sci., Jagiellonian University, Krak\'{o}w, Poland\\
+  School of Computer Science, Carleton University, Canada
+\end{minipage}
+}
+}
+
 \maketitle
 
 \begin{abstract}
@@ -118,13 +169,13 @@ This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar gra
 Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\dots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
 
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
   \begin{center}
     \includegraphics{figs/product}
   \end{center}
   \caption{The strong product $H\boxtimes P$ of a tree $H$ and a path $P$.}
   \figlabel{product}
-\end{figure}
+\end{figure*}
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
 The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph), a $\ceil{\log{h}}$-bit labelling scheme for $P$ (a path), and a constant number of bits to locally encode the subgraph of $H\boxtimes P$ (of constant arboricity).  However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
@@ -461,9 +512,9 @@ Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\dots,a_s$ a
 
 \begin{figure}
   \begin{center}
-    \includegraphics{figs/split-1} \\[1ex]
+    \includegraphics[width=.45\textwidth]{figs/split-1} \\[1ex]
     $\Downarrow$ \\[1ex]
-    \includegraphics{figs/split-2}
+    \includegraphics[width=.45\textwidth]{figs/split-2}
   \end{center}
   \caption{The operation of $\textsc{Split}(x)$.}
   \figlabel{split}
@@ -522,9 +573,9 @@ Refer to \figref{balance-x}.
 
 \begin{figure}
     \begin{center}
-      \includegraphics{figs/balance-x-1} \\[-2ex]
+      \includegraphics[width=.45\textwidth]{figs/balance-x-1} \\[-2ex]
       $\Downarrow$ \\[1ex]
-      \includegraphics{figs/balance-x-2}
+      \includegraphics[width=.45\textwidth]{figs/balance-x-2}
     \end{center}
   \caption{The operation of $\textsc{Balance}(x,k)$}
   \figlabel{balance-x}
@@ -588,11 +639,12 @@ Let $k\ge 7$ be an integer\footnote{$k \geq 7$ is a technical requirement, to ma
 %with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$,
 We define a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\dots,S_q$ to be a sequence $T_0, \dots, T_{q}$ of binary search trees such that $T_0$ is an arbitrary binary search tree on node set $S_0$ and,  for each $y\in \{0, \dots, q-1\}$, we have $h(T_y)>y\cdot(k+1)$ and
 the tree $T_{y+1}$ is obtained from $T_y$ by applying
-\begin{enumerate}[label={(\roman*)}, ref={\roman*}, noitemsep]
+% \begin{enumerate}[label={(\roman*)}, ref={\roman*}, noitemsep]
+\begin{compactenum}[(i)]
     \item $\textsc{BulkBalance}(y\cdot(k+1),k)$, then
     \item $\textsc{BulkInsert}(I)$ with $I:=S_{y+1} \setminus S_{y}$, and finally
     \item $\textsc{BulkDelete}(D)$ with $D:=S_{y} \setminus S_{y+1}$.
-\end{enumerate}
+\end{compactenum}
 Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$.
 The sequence is \emph{complete} if $h(T_q)\leq q\cdot(k+1)$.
 %$q=y^*$.
@@ -1082,7 +1134,7 @@ For $U \subseteq V(H)$, we let $x_T(U):=\{x_T(v):v\in U\}$.
 
 \begin{figure}
   \begin{center}
-    \includegraphics{figs/x}
+    \includegraphics[width=.45\textwidth]{figs/x}
   \end{center}
   \caption{The definition of $x_T(v)$.}
   \figlabel{x}
@@ -1342,13 +1394,13 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
   \]
   Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log k) + \Oh(k) = \Oh(\log h(T_y)+k)$.
 
-  \begin{figure}
+  \begin{figure*}
     \begin{center}
       \includegraphics{figs/rebalance-t-tree}
     \end{center}
     \caption{Only a call to $\textsc{Balance}(x,k)$ on a node $x$ lying on a path described by $\sigma_{H^+_y,T_y}(v)$ can affect $\sigma_{H^+_y,T'}(v)$.}
     \figlabel{rebalance-t-tree}
-  \end{figure}
+  \end{figure*}
 
   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
   Let $w \in C_{H^+_y}(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
@@ -1437,9 +1489,9 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
     The resulting tree is $T^{\text{aft}}$.
     \begin{figure}
       \begin{center}
-        \includegraphics{figs/deletion-t-tree-1}\\[1ex]
+        \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-1}\\[1ex]
         $\Downarrow$\\[1ex]
-        \includegraphics{figs/deletion-t-tree-2}
+        \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-2}
       \end{center}
       \caption{The effect of a single deletion on $x_{T^{\text{bef}}}(v)$.}
       \figlabel{deletion-t-tree}
@@ -1665,10 +1717,10 @@ The current result leaves two obvious directions for future work:
 Part of this research was conducted during the Eighth Workshop on Geometry and Graphs, held at the Bellairs Research Institute, January~31--February~7, 2020.  We are grateful to the organizers and participants for providing a stimulating research environment.  The authors are particularly grateful to Tamara~Mchedlidze and David~Wood for helpful discussions.
 
 
-\bibliographystyle{plainurl}
+\bibliographystyle{plain}
 \bibliography{labelling}
 
-\newpage
+% \newpage
 \appendix
 
 \section{Proof of \lemref{fractional}}
