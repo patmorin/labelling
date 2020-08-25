@@ -50,72 +50,48 @@
 
 
 \begin{document}
-\title{Adjacency Labelling for Planar Graphs (and Beyond)}
-% \author{\IEEEauthorblockN{Vida Dujmović}
-% \IEEEauthorblockA{School of Computer Science and Electrical Engineering\\
-% University of Ottawa\\
-% Ottawa, Canada\\
-% vdujmovi@uottawa.ca}
-% \and
-% %   Louis Esperet,%
-% %     \thanks{Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France. Partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR).}\quad
-% \IEEEauthorblockN{Louis Esperet}
-% \IEEEauthorblockA{Laboratoire G-SCOP\\
-% CNRS, Univ.\ Grenoble Alpes\\
-% Grenoble, France\\
-% louis.esperet@grenoble-inp.fr}
-% \and
-% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
-% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
-% line 2: name of organization, acronyms acceptable\\
-% line 3: City, Country\\
-% line 4: Email: name@xyz.com}
-% \and
-% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
-% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
-% line 2: name of organization, acronyms acceptable\\
-% line 3: City, Country\\
-% line 4: Email: name@xyz.com}
-% \and
-% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
-% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
-% line 2: name of organization, acronyms acceptable\\
-% line 3: City, Country\\
-% line 4: Email: name@xyz.com}
-% \and
-% \IEEEauthorblockN{Authors Name/s per 2nd Affiliation (Author)}
-% \IEEEauthorblockA{line 1 (of Affiliation): dept. name of organization\\
-% line 2: name of organization, acronyms acceptable\\
-% line 3: City, Country\\
-% line 4: Email: name@xyz.com}
-%
-% }
+\title{Adjacency Labelling for Planar Graphs (and Beyond)\thanks{The full version of the paper is available on arXiv at {\tt https://arxiv.org/abs/2003.04280}. The research of V. Dujmović and P. Morin. was partially supported by NSERC. L. Esperet was partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR). C. Gavoille was partially supported by the French ANR projects ANR-16-CE40-0023 (DESCARTES) and ANR-17-CE40-0015 (DISTANCIA). G. Joret was supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and by a grant from the National Fund for Scientific Research (FNRS). P. Micek was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}}
+\author{\IEEEauthorblockN{Vida Dujmović}
+\IEEEauthorblockA{School of Computer Science and Electrical Engineering\\
+University of Ottawa\\
+Ottawa, Canada\\
+vdujmovi@uottawa.ca}
+\and
+\IEEEauthorblockN{Louis Esperet}
+\IEEEauthorblockA{Laboratoire G-SCOP\\
+CNRS, Univ.\ Grenoble Alpes\\
+Grenoble, France\\
+louis.esperet@grenoble-inp.fr}
+\and
+\IEEEauthorblockN{Cyril Gavoille}
+\IEEEauthorblockA{LaBRI\\
+  University of Bordeaux\\
+  Bordeaux, France\\
+cyril.gavoille@labri.fr}
+\and
+\IEEEauthorblockN{Gwena\"el Joret}
+\IEEEauthorblockA{Département d'Informatique\\\
+  Université Libre de Bruxelles\\
+  Brussels, Belgium\\
+gjoret@ulb.ac.be}
+\and
+\IEEEauthorblockN{Piotr Micek}
+\IEEEauthorblockA{Theoretical Computer Science Department\\
+  Faculty of Math.\ and Comp.\ Sci.\\
+  Jagiellonian University\\
+  Krak\'{o}w, Poland\\
+piotr.micek@gmail.com}
+\and
+\IEEEauthorblockN{Pat Morin}
+\IEEEauthorblockA{School of Computer Science\\
+  Carleton University\\
+  Ottawa, Canada\\
+morin@scs.carleton.ca}
 
-\author{\IEEEauthorblockN{%
-  Vida Dujmović%
-    \thanks{This research was partially supported by NSERC.}\quad
-  Louis Esperet%
-    \thanks{ Partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR).}\quad
-  Cyril Gavoille%
-    \thanks{This research was partially supported by the French ANR projects ANR-16-CE40-0023 (DESCARTES) and ANR-17-CE40-0015 (DISTANCIA).}\quad
-  Gwenaël Joret%
-     \thanks{Research supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and by a grant from the National Fund for Scientific Research (FNRS).}\quad
-  Piotr Micek%
-    \thanks{This research was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}\quad
-  Pat Morin%
-    \thanks{This research was partially supported by NSERC.}
 }
-\IEEEauthorblockA{
-\begin{minipage}{\textwidth}
-  School of Computer Science and Electrical Engineering, University of Ottawa, Canada\\
-  Laboratoire G-SCOP (CNRS, Univ.\ Grenoble Alpes), Grenoble, France\\
-  LaBRI, University of Bordeaux, France\\
-  Département d'Informatique, Université Libre de Bruxelles, Brussels, Belgium\\
-  Theoretical Computer Science Department, Faculty of Math.\ and Comp.\ Sci., Jagiellonian University, Krak\'{o}w, Poland\\
-  School of Computer Science, Carleton University, Canada
-\end{minipage}
-}
-}
+
+
+
 
 \maketitle
 
@@ -221,7 +197,7 @@ The case of graphs of bounded degree from minor-closed classes (point~2 in \thmr
 
 The remainder of the paper is organized as follows. \Secref{preliminaries} reviews some preliminary definitions and easy results.  \Secref{bulk-trees} describes a new type of balanced binary search tree that has the specific properties needed for our application. \Secref{pxp} solves a special case, where $G$ is an $n$-vertex subgraph of $P_1\boxtimes P_2$ where $P_1$ and $P_2$ are both paths. We include it to highlight the generic idea behind our adjacency labelling scheme. \Secref{hxp} solves the general case in which $G$ is an $n$-vertex subgraph of $H\boxtimes P$ where $H$ has bounded treewidth and $P$ is a path.  \Secref{conclusion} concludes with a discussion of the computational complexity of assigning labels and testing adjacency and presents directions for future work.
 
-
+Due to space limitations, most proofs are omitted in this extended abstract. The full version of the paper is available on arXiv at {\tt https://arxiv.org/abs/2003.04280}.
 
 \section{Preliminaries}
 \seclabel{preliminaries}
@@ -262,24 +238,24 @@ The following observation allows us to compare values in a binary search tree ju
   For any binary search tree $T$ and any nodes $x$, $y$ in $T$, we have $x<y$ if and only if $\sigma_T(x)$ is lexicographically less than $\sigma_T(y)$.
 \end{obs}
 
-Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees, but we sketch a proof here for completeness.
+Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees. %, but we sketch a proof here for completeness.
 
 \begin{lem}\lemlabel{biased-bst}
   For any finite $S\subset \R$ and any function $w:S\to\R^+$, there exists a binary search tree $T$ with $V(T)=S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y\in S} w(y)$.
 \end{lem}
 
-\begin{proof}
-  The proof is by induction on $|S|$. The base case $|S|=0$ is vacuously true.
-  For any $x\in\R$, let $S_{<x}:=\{y\in S: y < x\}$ and $S_{>x}:=\{y\in S: y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
+% \begin{proof}
+%   The proof is by induction on $|S|$. The base case $|S|=0$ is vacuously true.
+%   For any $x\in\R$, let $S_{<x}:=\{y\in S: y < x\}$ and $S_{>x}:=\{y\in S: y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
 
-  Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$,
-  \[
-    d_T(y) \le 1 + \log\left(\frac{\sum_{z\in S_{<y_0}}w(z)}{w(y)}\right)
-            \le 1 + \log \left(\frac{W/2}{w(y)}\right)
-            = \log \left(\frac{W}{w(y)}\right) ,
-  \]
-  and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.
-\end{proof}
+%   Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$,
+%   \[
+%     d_T(y) \le 1 + \log\left(\frac{\sum_{z\in S_{<y_0}}w(z)}{w(y)}\right)
+%             \le 1 + \log \left(\frac{W/2}{w(y)}\right)
+%             = \log \left(\frac{W}{w(y)}\right) ,
+%   \]
+%   and the same argument shows that $d_T(y) < \log (W/w(y))$ for each $y\in S_{>y_0}$.
+% \end{proof}
 
 The following fact about binary search trees is useful, for example, in the deletion algorithms for several types of balanced binary search trees \cite[Section~6.2.3]{morin:open}, see \figref{sigma-minus-one}:
 
@@ -322,27 +298,27 @@ Putting some of the preceding results together we obtain the following useful co
 \end{lem}
 
 
-\begin{proof}
-  Define $w':\{1,\dots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
-  Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\dots,h\}$ using $w'$ so that
-  \[
-    d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1
-  \]
-  and
-  \[
-  d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1,
-  \]
-  for each $i\in\{1,\dots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
+% \begin{proof}
+%   Define $w':\{1,\dots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
+%   Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\dots,h\}$ using $w'$ so that
+%   \[
+%     d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1
+%   \]
+%   and
+%   \[
+%   d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log (W/h)+1 \le \log h + 1,
+%   \]
+%   for each $i\in\{1,\dots,h\}$.  This latter inequality implies that $h(T)\le\log h + 1$.
 
-  The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path $P_T(i)$ from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part, $\delta_T(i)$, is defined in \obsref{predecessor-encoding}.
-  The length of $\delta_T(i)$ is $\Oh(\log h(T))=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two distinct sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
+%   The code $\alpha(i)$ for $i$ consists of three parts.  The first part, $\gamma(|\sigma_T(i)|)$, is the Elias encoding of the length of the path $P_T(i)$ from the root to $i$ in $T$. The second part $\sigma_T(i)$ encodes the left/right turns along this path. The third part, $\delta_T(i)$, is defined in \obsref{predecessor-encoding}.
+%   The length of $\delta_T(i)$ is $\Oh(\log h(T))=\Oh(\log\log h)$. Note that since $\gamma$ is prefix-free and two distinct sequences $\sigma_T(i)$ and $\sigma_T(j)$ of the same length cannot be prefix of one another, the code $\alpha$ is also prefix-free (and thus injective).
 
-  The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits.
-   The function $A$ extracts the values and lexicographically compares $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$.
-   Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now $A$ computes $D(\sigma_T(j),\delta_T(j))=\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.
-   If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
-  In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
-\end{proof}
+%   The function $A$ is given by a simple algorithm: Given $\alpha(i)$ and $\alpha(j)$, first observe that the values of $\gamma(\cdot)$, $\sigma_T(\cdot)$, and $\delta_T(\cdot)$ can be extracted: $\gamma(\cdot)$ is first extracted using the fact that Elias encoding is prefix-free, this then gives us the length of $\sigma_T(\cdot)$, and finally $\delta_T(\cdot)$ consists of the remaining bits.
+%    The function $A$ extracts the values and lexicographically compares $\sigma_T(i)$ and $\sigma_T(j)$.  If $\sigma_T(i)=\sigma_T(j)$, then $A$ outputs $0$.
+%    Otherwise, assume for now that $\sigma_T(i)$ is lexicographically less than $\sigma_T(j)$ so that, by \obsref{lexicographic}, $i < j$.  Now $A$ computes $D(\sigma_T(j),\delta_T(j))=\sigma_T(j-1)$ as described in \obsref{predecessor-encoding}.
+%    If $\sigma_T(j-1)=\sigma_T(i)$ then $A$ outputs $1$, otherwise $A$ outputs $\perp$.
+%   In the case where $\sigma_T(i)$ is lexicographically greater than $\sigma_T(j)$, $A$ proceeds in the same manner, but reversing the roles of $i$ and $j$ and outputting $-1$ in the case where $\sigma_T(i-1)=\sigma_T(j)$.
+% \end{proof}
 
 \subsection{Chunked Sets}
 
@@ -357,7 +333,7 @@ For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \e
   \end{compactenum}
 \end{lem}
 
-A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof of \lemref{fractional} that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
+A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, the full version of the paper includes a proof of \lemref{fractional} that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
 
 
 \subsection{Product Structure Theorems}
@@ -451,9 +427,9 @@ The resulting tree is the outcome of the operation.
   Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
 \end{lem}
 
-\begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  Therefore, $h(T')\le h(T)+2$ since, for each $i\in\{0,\dots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$.  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\dots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
-\end{proof}
+% \begin{proof}
+%   That $T'$ is a supergraph of $T$ is obvious.  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  Therefore, $h(T')\le h(T)+2$ since, for each $i\in\{0,\dots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$.  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\dots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
+% \end{proof}
 
 \begin{lem}\lemlabel{insertion-size}
   Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that
@@ -464,9 +440,9 @@ The resulting tree is the outcome of the operation.
   Then $|T_x|\le |T_x'|\le 8|T_x|$.
 \end{lem}
 
-\begin{proof}
-We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 8|T_x|$.
-\end{proof}
+% \begin{proof}
+% We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 8|T_x|$.
+% \end{proof}
 
 
 \subsection{Bulk Deletion}
@@ -481,10 +457,10 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
   In particular, $h(T')\leq h(T)$.
 \end{lem}
 
-\begin{proof}
-  This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any node $x$ in $T'$.  For any node $z$ in $T'$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.
-  % Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
-\end{proof}
+% \begin{proof}
+%   This follows immediately from the fact the only operations performed during a bulk deletion are (i)~deletion of leaves and (ii)~using a value $x'$ to replace the value of one of its $T$-ancestors $x$.  The deletion of a leaf has no effect on $\sigma_{T'}(x)$ for any node $x$ in $T'$.  For any node $z$ in $T'$ other than $x'$, (ii) has no effect on $\sigma_T(z)$.  For the node $x'$, (ii) has the effect of replacing $\sigma_T(x')$ by its length-$d_T(x)$ prefix.
+%   % Therefore, for any node $z\in v(T)$, $\sigma_{T'}(z)$ is obtained by truncating $\sigma_{T}(z)$ zero or more times, so $\sigma_{T'}(x)$ is a prefix of $\sigma_T(z)$.
+% \end{proof}
 
 \begin{lem}\lemlabel{deletion-size}
   Let $T$ be any binary search tree and let $D$ be a finite set of values from $V(T)$ such that $V(T)\setminus D$ $3$-chunks $D$.
@@ -493,9 +469,9 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
   Then $|T|/8 \le |T'|\le |T|$.
 \end{lem}
 
-\begin{proof}
- We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. Thus $|T'| \ge |T| - 6/7|T| \geq |T|/7 \geq |T|/8$.
-\end{proof}
+% \begin{proof}
+%  We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. Thus $|T'| \ge |T| - 6/7|T| \geq |T|/7 \geq |T|/8$.
+% \end{proof}
 
 \subsection{Rebalancing}
 
@@ -527,11 +503,11 @@ Next, consider the forest $F:=T-\{x_0,\dots,x_r\}$. This forest consists of $r+2
   Then $h(T_{<x})\le h(T)$ and $h(T_{>x})\le h(T)$.
 \end{lem}
 
-\begin{proof}
-  Note that for each node $z$ of $T_{<x}$, we have $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$,
-  so $d_{T_{<x}}(z)\le d_T(z)$.
-  Therefore $h(T_{<x})\le h(T)$. The argument for $T_{>x}$ is symmetric.
-\end{proof}
+% \begin{proof}
+%   Note that for each node $z$ of $T_{<x}$, we have $V(P_{T_{<x}}(z))\subseteq V(P_T(z))$,
+%   so $d_{T_{<x}}(z)\le d_T(z)$.
+%   Therefore $h(T_{<x})\le h(T)$. The argument for $T_{>x}$ is symmetric.
+% \end{proof}
 
 The following observation shows that there is a simple relationship between a node's signature in $T$ before calling $\textsc{Split}(x)$ and its signature in $T_{<x}$ or $T_{>x}$.
 
@@ -598,18 +574,18 @@ Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Balance}(x,k)$ to $T$ to obtain a new tree $T'$.  Then $h(T')\le h(T)+1$.
 \end{lem}
 
-\begin{proof}
-  Since $\textsc{Balance}(x,k)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\dots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\dots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\dots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\dots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.
-\end{proof}
+% \begin{proof}
+%   Since $\textsc{Balance}(x,k)$ only affects the subtree $T_x$ rooted at $x$, it suffices to show that $h(T_x')\le h(T_x)+1$.  For each $i\in\{0,\dots, m\}$, $T_i$ is rooted at a depth-$k$ node of $T_x$, so $h(T_i)\le h(T_x)-k$. For each $\ell \in\{0,\dots,p\}$, $A_\ell$ is obtained by an application of $\textsc{MultiSplit}$ to $T_i$ for some $i\in\{0,\dots,m\}$ so, by \lemref{multisplit-height}, $h(A_\ell)\le h(T_i)\le h(T_x)-k$.  Next, $|Z\cup X|\le |Z|+|X| \le 2^k-1 + 2^k-1 < 2^{k+1}-1$ and $\hat{T}_0$ is a perfectly balanced binary search tree of size $|\hat{T}_0|=|Z\cup X|$.  Therefore $h(\hat{T}_0)\le \lfloor\log|\hat{T}_0|\rfloor\le \lfloor\log(2^{k+1}-1)\rfloor = k$.  Finally, $h(T_x')\le h(\hat{T}_0)+1 +\max \{h(A_\ell):\ell\in\{0,\dots,p\}\} \le k +1 + h(T_x) - k\le h(T_x)+1$.
+% \end{proof}
 
 The following statement captures what we win after an application of $\textsc{Balance}(x,k)$ to a binary search tree.
 
 \begin{lem}\lemlabel{balance-x-weight}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, let $T_x$ be the subtree of $T$ rooted at $x$, and apply $\textsc{Balance}(x,k)$ to $T$ to obtain a new tree $T'$.  Then, for each $T'$-descendant $z$ of $x$ with $d_{T'}(z) = d_{T}(x)+k+1$, the subtree of $T'$ rooted at $z$ has size at most $|T_x|/2^k$.  \end{lem}
 
-\begin{proof}
-  Each such subtree is a subtree of $A_\ell$ for some $\ell\in\{0,\dots,p\}$. Now, $V(A_\ell)\subset (x_j,x_{j+1})$ for some $j\in\{1,\dots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|A_\ell|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
-\end{proof}
+% \begin{proof}
+%   Each such subtree is a subtree of $A_\ell$ for some $\ell\in\{0,\dots,p\}$. Now, $V(A_\ell)\subset (x_j,x_{j+1})$ for some $j\in\{1,\dots,2^{k-1}\}$.  The values $x_j$ and $x_{j+1}$ have ranks $\lfloor j|T_x|/2^k\rfloor$ and $\lfloor (j+1)|T_x|/2^k\rfloor$ in the set $V(T_x)$.  Therefore, $|A_\ell|\le \lfloor (j+1)|T_x|/2^k\rfloor- \lfloor j|T_x|/2^k\rfloor -1 < |T_x|/2^k$.
+% \end{proof}
 
 \subsubsection{$\textsc{BulkBalance}(\theta,k)$}
 
@@ -670,30 +646,30 @@ Then, for each $y\in\{0,\dots,q\}$
 $|T_0|\cdot2^{-y(k-3)}$.\label{lemma-item-B2}
 \end{compactenum}
 \end{lem}
-\begin{proof}
-The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \itemref{lemma-item-B1} asserts that $h(T_0)\le h(T_0)$ and \itemref{lemma-item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
+% \begin{proof}
+% The proof is by induction on $y$.  For the base case $y=0$, both properties are trivial: \itemref{lemma-item-B1} asserts that $h(T_0)\le h(T_0)$ and \itemref{lemma-item-B2} asserts that the subtree of $T_0$ rooted at the root of $T_0$ has size at most $|T_0|$.
 
-  For the inductive step, assume $y+1\ge 0$ and \itemref{lemma-item-B1} holds for $T_{y}$.
-  In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$.
-  By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$.
-  Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$.
-  Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$.
-  Next we apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$.
-  Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+2$.
-  Finally, we apply $\textsc{BulkDelete}(D)$ to $T''$ and obtain $T_{y+1}$, where $D:=V(T_{y})\setminus V(T_{y+1})$.
-  By~\lemref{deletion-signature}, we have $h(T_{y+1}) \le h(T'')$.
-  Altogether we have
-  \[
-  h(T_{y+1}) \le h(T'') \le h(T') +2 \le h(T_y) +3 \le h(T_0) + 3y +3 = h(T_0) + 3(y+1).
-  \]
-  Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
+%   For the inductive step, assume $y+1\ge 0$ and \itemref{lemma-item-B1} holds for $T_{y}$.
+%   In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$.
+%   By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$.
+%   Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$.
+%   Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$.
+%   Next we apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$.
+%   Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+2$.
+%   Finally, we apply $\textsc{BulkDelete}(D)$ to $T''$ and obtain $T_{y+1}$, where $D:=V(T_{y})\setminus V(T_{y+1})$.
+%   By~\lemref{deletion-signature}, we have $h(T_{y+1}) \le h(T'')$.
+%   Altogether we have
+%   \[
+%   h(T_{y+1}) \le h(T'') \le h(T') +2 \le h(T_y) +3 \le h(T_0) + 3y +3 = h(T_0) + 3(y+1).
+%   \]
+%   Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
 
-    Next we establish \itemref{lemma-item-B2}.
-    Assume that \itemref{lemma-item-B2} holds for $T_{y}$.
-    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k-3)}$.
-    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 2^{-k}$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.
-    By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 8 \cdot 2^{-k}$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k-3)}$, as desired.
-\end{proof}
+%     Next we establish \itemref{lemma-item-B2}.
+%     Assume that \itemref{lemma-item-B2} holds for $T_{y}$.
+%     Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k-3)}$.
+%     Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 2^{-k}$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.
+%     By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 8 \cdot 2^{-k}$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k-3)}$, as desired.
+% \end{proof}
 
 \begin{cor}\corlabel{height-y-star}
 Let $T_0,\dots,T_{q}$ be a one-phase $k$-bulk tree sequence.
@@ -702,20 +678,20 @@ Then,
 q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
 \]
 \end{cor}
-\begin{proof}
-Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
-Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
-\[
-\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3)
-\leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
-\leq0.
-\]
-Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most
-\[
-|T_0|\cdot2^{-y(k-3)} \leq 1,
-\]
-and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
-\end{proof}
+% \begin{proof}
+% Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
+% Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
+% \[
+% \log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3)
+% \leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
+% \leq0.
+% \]
+% Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most
+% \[
+% |T_0|\cdot2^{-y(k-3)} \leq 1,
+% \]
+% and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
+% \end{proof}
 
 \begin{lem}\lemlabel{bulktree-height-i}
 Let $T_0,\dots,T_{q}$ be a complete one-phase $k$-bulk tree sequence,
@@ -728,49 +704,49 @@ and let $r_0 := h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\dots,q\}$,
     \item $h(T_{q}) = \log|T_{q}|+\Oh(k+k^{-1}\log|T_{q}|)$.\label{bulktree-height-item-ii}
   \end{compactenum}
 \end{lem}
-\begin{proof}
-Let $I_0,\dots,I_{q-1}$ and $D_0,\dots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
-rebalancing and then applying $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\dots,q-1\}$.
-First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$.
-Iterating this starting with $T_0$ implies that $    |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$ for each $y\in\{0,\dots,q\}$, which proves (\ref{height-diff}).
+% \begin{proof}
+% Let $I_0,\dots,I_{q-1}$ and $D_0,\dots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
+% rebalancing and then applying $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\dots,q-1\}$.
+% First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$.
+% Iterating this starting with $T_0$ implies that $    |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$ for each $y\in\{0,\dots,q\}$, which proves (\ref{height-diff}).
 
-\noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
-Note that, for each $y\in\{0,\dots,q\}$,  we have
-\begin{align}
-q
-&\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3q}{k-3}+1,
-&\text{(by (\ref{height-diff}), and since $y\leq q$)}\nonumber\\
-\intertext{and rewriting this yields (using that $k\geq 7$)}
-%&\nonumber\\
-q
-&\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
-&\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|), \nonumber
-\intertext{which proves (\ref{ystar-bound}). (\ref{bulktree-height-item-i}) follows as for each $y\in\{0,\dots,q\}$, we have}
-h(T_y)
-& \le h(T_0) + 3y \nonumber
-&\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
-&= \log|T_0| + 3y + r_0  \nonumber\\
-&\le \log |T_y| + 6y + r_0
-&\text{(by (\ref{height-diff}))} \nonumber\\
-&\le \log |T_y| + 6q + r_0
-&\text{(since $y\le q$)}\nonumber\\
-&= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0.
-&\text{(by (\ref{ystar-bound}))}\nonumber\\
-\intertext{(\ref{bulktree-height-item-ii}) follows from}
-h(T_{q})
-& \le (k+1)q
-&\text{(since the sequence is complete)}\nonumber\\
-&\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)
-%&\text{(by \eqref{y-star-def})}\nonumber\\
-\nonumber\\
-& = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
-& \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{q}| + 3q) + (k+1)
-&\text{(by (\ref{height-diff}))}\nonumber\\
-& = \log|T_{q}| + \tfrac{4}{k-3}\log|T_{q}| + 3\cdot\tfrac{k+1}{k-3}q + k+1\nonumber\\
-& = \log|T_{q}| + \Oh(k+k^{-1}\log |T_{q}|).
-&\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by (\ref{ystar-bound}))}\nonumber
-\end{align}
-\end{proof}
+% \noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
+% Note that, for each $y\in\{0,\dots,q\}$,  we have
+% \begin{align}
+% q
+% &\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3q}{k-3}+1,
+% &\text{(by (\ref{height-diff}), and since $y\leq q$)}\nonumber\\
+% \intertext{and rewriting this yields (using that $k\geq 7$)}
+% %&\nonumber\\
+% q
+% &\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
+% &\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|), \nonumber
+% \intertext{which proves (\ref{ystar-bound}). (\ref{bulktree-height-item-i}) follows as for each $y\in\{0,\dots,q\}$, we have}
+% h(T_y)
+% & \le h(T_0) + 3y \nonumber
+% &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
+% &= \log|T_0| + 3y + r_0  \nonumber\\
+% &\le \log |T_y| + 6y + r_0
+% &\text{(by (\ref{height-diff}))} \nonumber\\
+% &\le \log |T_y| + 6q + r_0
+% &\text{(since $y\le q$)}\nonumber\\
+% &= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0.
+% &\text{(by (\ref{ystar-bound}))}\nonumber\\
+% \intertext{(\ref{bulktree-height-item-ii}) follows from}
+% h(T_{q})
+% & \le (k+1)q
+% &\text{(since the sequence is complete)}\nonumber\\
+% &\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)
+% %&\text{(by \eqref{y-star-def})}\nonumber\\
+% \nonumber\\
+% & = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
+% & \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{q}| + 3q) + (k+1)
+% &\text{(by (\ref{height-diff}))}\nonumber\\
+% & = \log|T_{q}| + \tfrac{4}{k-3}\log|T_{q}| + 3\cdot\tfrac{k+1}{k-3}q + k+1\nonumber\\
+% & = \log|T_{q}| + \Oh(k+k^{-1}\log |T_{q}|).
+% &\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by (\ref{ystar-bound}))}\nonumber
+% \end{align}
+% \end{proof}
 
 
 The following lemma shows that trees in a bulk tree sequence are balanced at all times:
@@ -783,33 +759,33 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 \]
 \end{lem}
 
-\begin{proof}
-  By the definition of a $k$-bulk tree sequence, $T_1$ is a perfectly balanced binary tree so $h(T_1)=\lceil\log|T_1|\rceil$ and the statement is satisfied for $y=1$.
-  Let $h_1,h_2,\dots,h_{\ell}$ be indices with $1 = h_1 < h_2 < \cdots < h_{\ell} = h$ such that $T_{h_j},\dots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence for each $j\in\{1,\dots,\ell-2\}$, and $T_{h_{\ell-1}},\dots,T_{h_{\ell}}$ is a one-phase $k$-bulk tree sequence.
-  Let $Y := \{h_1,h_2,\dots,h_{\ell-1}\}$.
-  For $y\in Y\setminus\{1\}$,
-  \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.
+% \begin{proof}
+%   By the definition of a $k$-bulk tree sequence, $T_1$ is a perfectly balanced binary tree so $h(T_1)=\lceil\log|T_1|\rceil$ and the statement is satisfied for $y=1$.
+%   Let $h_1,h_2,\dots,h_{\ell}$ be indices with $1 = h_1 < h_2 < \cdots < h_{\ell} = h$ such that $T_{h_j},\dots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence for each $j\in\{1,\dots,\ell-2\}$, and $T_{h_{\ell-1}},\dots,T_{h_{\ell}}$ is a one-phase $k$-bulk tree sequence.
+%   Let $Y := \{h_1,h_2,\dots,h_{\ell-1}\}$.
+%   For $y\in Y\setminus\{1\}$,
+%   \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.
 
-  All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\dots,h\}\setminus Y$. To show this, let $y_0 := \max\{ y'\in Y: y'<y \}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.
-  %Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e., $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
-  %=(1+o(1))k^{-1}\log |T_{y_0}|$.
-  In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
-  \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]
-  Thus, all that is required is to show that $r_0 := h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
-  Note that by~\lemref{bulktree-height-i}(\ref{ystar-bound})
-  we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
-  \begin{align*}
-    r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
-       &= \Oh(k + k^{-1}\log|T_{y_0}|)
-        & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
-       &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0)))
-        & \text{(by \lemref{bulktree-height-i}(\ref{height-diff}))} \\
-%       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*)
-%        & \text{(since $y-y_0 \le y^*$)} \\
-       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \lemref{bulktree-height-i}(\ref{ystar-bound}))} \\
-       &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
-  \end{align*}
-\end{proof}
+%   All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\dots,h\}\setminus Y$. To show this, let $y_0 := \max\{ y'\in Y: y'<y \}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.
+%   %Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e., $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
+%   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
+%   In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
+%   \[  h(T_y) \le \log |T_y| + \Oh(k^{-1}\log |T_y|) + h(T_{y_0})-\log|T_{y_0}|.\]
+%   Thus, all that is required is to show that $r_0 := h(T_{y_0})-\log|T_{y_0}|\in \Oh(k+k^{-1}\log|T_y|)$ so that is what we do.
+%   Note that by~\lemref{bulktree-height-i}(\ref{ystar-bound})
+%   we have $y-y_0 = \Oh(k^{-1}\log|T_y|)$.
+%   \begin{align*}
+%     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
+%        &= \Oh(k + k^{-1}\log|T_{y_0}|)
+%         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
+%        &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0)))
+%         & \text{(by \lemref{bulktree-height-i}(\ref{height-diff}))} \\
+% %       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*)
+% %        & \text{(since $y-y_0 \le y^*$)} \\
+%        &= \Oh(k + k^{-1}\log|T_{y}| + k^{-2}\log|T_{y}|) & \text{(by \lemref{bulktree-height-i}(\ref{ystar-bound}))} \\
+%        &= \Oh(k + k^{-1}\log|T_{y}|).  &  & \qedhere
+%   \end{align*}
+% \end{proof}
 
 
 \subsection{Transition Codes for Nodes}
@@ -824,66 +800,66 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   For each $z\in V(T)$, there exists $\nu(z)\in\{0,1\}^*$ with $|\nu(z)| = \Oh(k\log h(T))$ such that $B(\sigma_{T}(z), \nu(z)) = \sigma_{T'}(z)$.
 \end{lem}
 
-\begin{proof}
-  Recall that by~\lemref{balance-depth}, $h(T') \leq h(T)+1$.
-  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
+% \begin{proof}
+%   Recall that by~\lemref{balance-depth}, $h(T') \leq h(T)+1$.
+%   Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
 
-  $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T$.
-  Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T$ rooted at $x$.
-  Thus, $\sigma_{T}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T$-ancestor of $z$.
-  In particular when $|\sigma_{T}(z)| < \theta$, the signature of $z$ does not change, that is, $\sigma_{T}(z)=\sigma_{T'}(z)$. In this case,  we define
-  \[
-  \nu(z):=\gamma(\theta).
-  \]
-  Note that in this case $|\nu(z)|=\Oh(\log\theta) = \Oh(\log h(T))$.
+%   $\textsc{BulkBalance}(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth $\theta$  in $T$.
+%   Recall that the changes caused by $\textsc{Balance}(x,k)$ are limited to the subtree of $T$ rooted at $x$.
+%   Thus, $\sigma_{T}(z)$ can be affected by $\textsc{Balance}(x,k)$ only if $x$ is a $T$-ancestor of $z$.
+%   In particular when $|\sigma_{T}(z)| < \theta$, the signature of $z$ does not change, that is, $\sigma_{T}(z)=\sigma_{T'}(z)$. In this case,  we define
+%   \[
+%   \nu(z):=\gamma(\theta).
+%   \]
+%   Note that in this case $|\nu(z)|=\Oh(\log\theta) = \Oh(\log h(T))$.
 
-  Assume now that $|\sigma_{T}(z)| \geq \theta$ and let $x$ be the $T$-ancestor of $z$ at depth $\theta$.
-  Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ of height at most $k$ which forms the top part of the subtree that replaces the subtree of $x$ in $T$.
-  This means that if $z\in Z\cup X$ then $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
-  In this case, we define
-  \[
-  \nu(z):=\gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z)|),\sigma_{\hat{T_0}}(z).
-  \]
-  Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T) + k)$.
+%   Assume now that $|\sigma_{T}(z)| \geq \theta$ and let $x$ be the $T$-ancestor of $z$ at depth $\theta$.
+%   Recall that the application of $\textsc{Balance}(x,k)$ first identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T}_0$ of height at most $k$ which forms the top part of the subtree that replaces the subtree of $x$ in $T$.
+%   This means that if $z\in Z\cup X$ then $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
+%   In this case, we define
+%   \[
+%   \nu(z):=\gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z)|),\sigma_{\hat{T_0}}(z).
+%   \]
+%   Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T) + k)$.
 
-  Now we are left with the case that $|\sigma_{T}(z)|\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_x - Z$ where $T_x$ is the subtree of $T$ rooted at $x$.
-  (Further on we reuse the notations $T_i$, $T_{i,0},\dots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
-  Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\dots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
-  Note that
-  \begin{compactenum}[(i)]
-  \item $\sigma_{T_i}(z)$ is a suffix of $\sigma_{T}(z)$;
-  \item the application of $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
-  \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\dots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
-  the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
-  \item the application of $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$;
-  by~\lemref{split-height} the height of each of these trees is at most $h(T_i)$;
-  the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes
-  before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\dots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
-  \end{compactenum}
+%   Now we are left with the case that $|\sigma_{T}(z)|\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_x - Z$ where $T_x$ is the subtree of $T$ rooted at $x$.
+%   (Further on we reuse the notations $T_i$, $T_{i,0},\dots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
+%   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\dots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
+%   Note that
+%   \begin{compactenum}[(i)]
+%   \item $\sigma_{T_i}(z)$ is a suffix of $\sigma_{T}(z)$;
+%   \item the application of $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ to $T_i$ calls $\textsc{Split}(x_{
+%   \lceil c_i/2\rceil})$ (given $c_i>0$) to obtain two trees $T_{<x_{\lceil c_i/2\rceil}}$ and $T_{>x_{\lceil c_i/2\rceil}}$, and then recursively calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,\lceil c_i/2\rceil-1})$  on $T_{<x_{i,\lceil c_i/2\rceil}}$ and $\textsc{MultiSplit}(x_{i,\lceil c_i/2\rceil+1},\dots,x_{i,c_i})$  on $T_{>x_{i,\lceil c_i/2\rceil}}$;
+%   the node $z$ lies in one of the trees $T_{<x_{i,\lceil c_i/2\rceil}}$, $T_{>x_{i,\lceil c_i/2\rceil}}$ and by~\obsref{split-signature} the signature of $z$ in the new tree can be obtained from $\sigma_{T_i}(z)$ by deleting a prefix and replacing it with one of the $4h(T_i)$ strings in $\bigcup_{j=0}^{h(T_i)-1}\{0^j,0^j1,1^j,1^j0\}$;
+%   \item the application of $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ thus defines a sequence of trees starting with $T_i$ and ending with $T_{i,a}$ that all contain $z$;
+%   by~\lemref{split-height} the height of each of these trees is at most $h(T_i)$;
+%   the signature of $z$ in these trees, which is $\sigma_{T_i}(z)$ at the beginning, undergoes at most $1+\log c_i \leq 1+k$ changes
+%   before becoming $\sigma_{T_{i,a}}(z)$; let $b$ denote the number of these changes and, for each $j\in\{1,\dots,b\}$, let $d_j$ be the length of the prefix of the signature being deleted during the $j$-th change and let $q_j\in \{1, \dots, 4h(T_i)\}$ be a number identifying the string that this prefix is replaced with during the $j$-th change (here we use that all the trees in the sequence have height at most $h(T_i)$).
+%   \end{compactenum}
 
-  Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by \textsc{MultiSplit}$(x_{i,1},\dots,x_{i,c_i})$.
-  Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
-  Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
-  We define $\nu(z)$ in this case as follows.
-    \[
-  \nu(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z'),\gamma(b),
-  \gamma(d_1),\gamma(q_1),\dots,\gamma(d_b),\gamma(q_b).
-  \]
-  Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T))=\Oh(k\log h(T))$.
-  This completes the definition of $\nu(z)$.
+%   Finally, $\textsc{Balance}(x,k)$ replaces the external nodes of $\hat{T_0}$ with the trees output by \textsc{MultiSplit}$(x_{i,1},\dots,x_{i,c_i})$.
+%   Let $z'$ be the external node of $\hat{T_0}$ that is replaced with $T_{i,a}$.
+%   Therefore, the signature of $z$ in $T'$ is the concatenation of $\sigma_{T}(x)$, $\sigma_{\hat{T_0}}(z')$, and $\sigma_{T_{i,a}}(z)$.
+%   We define $\nu(z)$ in this case as follows.
+%     \[
+%   \nu(z) := \gamma(\theta),1,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z'),\gamma(b),
+%   \gamma(d_1),\gamma(q_1),\dots,\gamma(d_b),\gamma(q_b).
+%   \]
+%   Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) + \Oh(\log k) + \Oh(2k\cdot\log h(T))=\Oh(k\log h(T))$.
+%   This completes the definition of $\nu(z)$.
 
-  The function $B$ is defined as expected:
-  Given $\sigma_{T}(z)$ and $\nu(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T}(z)| < \theta$. If this is the case then the signatures of $z$ in $T$ and $T''$ are the same, so $B$ outputs $\sigma_{T}(z)$.
-  If $|\sigma_{T}(z)| \geq \theta$ then $B$ reads the next bit of $\nu(z)$.
-  If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover and output $\sigma_{T'}(z)=\sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
-  If the bit under consideration was $1$, then this corresponds to the case where $z\not\in Z\cup X$.
-  Recall that the set $Z$ are just all nodes in $T_x$ of depths less than $k$.
-  Thus, just removing first $\theta+k$ bits of $\sigma_{T}(z)$, the function $B$ obtains $\sigma_{T_i}(z)$ where $T_i$ is aforementioned subtree of $T_x-Z$ containing $z$.
-  The function $B$ then reads the rest of the information $\nu(z)$,
-  which allows it to follow all the changes made to $\sigma_{T_i}(z)$ until it becomes $\sigma_{T_{i,a}}(z)$ of the signature that are described above.
-  This way again $B$ computes and outputs $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z'),\sigma_{T_{i,a}}(z)$.
-  This completes the definition of $B$ and the proof of the lemma.
-\end{proof}
+%   The function $B$ is defined as expected:
+%   Given $\sigma_{T}(z)$ and $\nu(z)$, the function $B$ first decodes $\theta$ and checks whether $|\sigma_{T}(z)| < \theta$. If this is the case then the signatures of $z$ in $T$ and $T''$ are the same, so $B$ outputs $\sigma_{T}(z)$.
+%   If $|\sigma_{T}(z)| \geq \theta$ then $B$ reads the next bit of $\nu(z)$.
+%   If it is $0$ then this corresponds to the case where $z\in Z\cup X$ described above, and the information encoded after is enough to recover and output $\sigma_{T'}(z)=\sigma_{T}(x),\sigma_{\hat{T_0}}(z)$.
+%   If the bit under consideration was $1$, then this corresponds to the case where $z\not\in Z\cup X$.
+%   Recall that the set $Z$ are just all nodes in $T_x$ of depths less than $k$.
+%   Thus, just removing first $\theta+k$ bits of $\sigma_{T}(z)$, the function $B$ obtains $\sigma_{T_i}(z)$ where $T_i$ is aforementioned subtree of $T_x-Z$ containing $z$.
+%   The function $B$ then reads the rest of the information $\nu(z)$,
+%   which allows it to follow all the changes made to $\sigma_{T_i}(z)$ until it becomes $\sigma_{T_{i,a}}(z)$ of the signature that are described above.
+%   This way again $B$ computes and outputs $\sigma_{T'}(z) = \sigma_{T}(x),\sigma_{\hat{T_0}}(z'),\sigma_{T_{i,a}}(z)$.
+%   This completes the definition of $B$ and the proof of the lemma.
+% \end{proof}
 
 \begin{lem}\lemlabel{node-transitions}
   There exists a function $B':(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for each $k$-bulk tree sequence $T_1,\dots,T_h$, each $y\in\{1,\dots,h-1\}$, and each $z\in V(T_y)\cap V(T_{y+1})$, there exists $\nu_y(z)\in\{0,1\}^*$ with $|\nu_y(z)| = \Oh(k\log h(T_y))$ such that $B'(\sigma_{T_y}(z), \nu_y(z)) = \sigma_{T_{y+1}}(z)$.
@@ -893,47 +869,47 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
 
 %\snote{signature of external nodes?}
 
-\begin{proof}
-  Let $T_1,\dots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\dots,h-1\}$. Let $I := V(T_{y+1})\setminus V(T_y)$ and $D := V(T_y) \setminus V(T_{y+1})$.
-  Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
-  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
-  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
-  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
-  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
+% \begin{proof}
+%   Let $T_1,\dots,T_h$ be a $k$-bulk tree sequence and let $y\in\{1,\dots,h-1\}$. Let $I := V(T_{y+1})\setminus V(T_y)$ and $D := V(T_y) \setminus V(T_{y+1})$.
+%   Recall that the transformation of $T_{y}$ into $T_{y+1}$ occurs in three steps:
+%   applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
+%   applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
+%   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
+%   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
 
-  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
-  Thus the heights of all these trees are $\Oh(h(T_y))$.
+%   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
+%   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
-%  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
+% %  Recall also that $\gamma:\mathbb{N}\to\{0,1\}^*$ is a prefix-free encoding of the natural numbers such that $|\gamma(i)|=\Oh(\log i)$, for every natural number $i$ as in~\lemref{elias}.
 
-  Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$.
-  The transition code $\nu_y(z)$ consists of two parts $\nu_y^{\textsc{Bal}}(z)$ and $\nu_y^{\textsc{Del}}(z)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
+%   Given a node $z$ appearing in both $T_y$ and $T_{y+1}$ we are going to describe $\nu_y(z)$.
+%   The transition code $\nu_y(z)$ consists of two parts $\nu_y^{\textsc{Bal}}(z)$ and $\nu_y^{\textsc{Del}}(z)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
 
-  The first part $\nu_y^{\textsc{Bal}}(z)$ is simply defined as
-  \[
-  \nu_y^{\textsc{Bal}}(z) := \nu(z),
-  \]
-  where $\nu(z)$ is given by an application of~\lemref{node-bal-transitions} with $T=T_y$.
+%   The first part $\nu_y^{\textsc{Bal}}(z)$ is simply defined as
+%   \[
+%   \nu_y^{\textsc{Bal}}(z) := \nu(z),
+%   \]
+%   where $\nu(z)$ is given by an application of~\lemref{node-bal-transitions} with $T=T_y$.
 
-  Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$.
+%   Recall that the bulk insertion of new nodes in $T'$ does not affect the signature of existing nodes in the tree, since new nodes are inserted at the leaves of $T'$.
 
-  We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
-  This turns out to be fairly easy.
-  By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$.
-  Therefore, it is enough to define
-  \[
-  \nu^{\textsc{Del}}_y(z):= \gamma(|\sigma_{T_{y+1}}(z)|).
-  \]
+%   We next describe $\nu^{\textsc{Del}}_y(z)$ that serves to reconstruct $\sigma_{T_{y+1}}(z)$ from $\sigma_{T''}(z)$.
+%   This turns out to be fairly easy.
+%   By~\lemref{deletion-signature} we have that $\sigma_{T_{y+1}}(z)$ is just a prefix of $\sigma_{T''}(z)$.
+%   Therefore, it is enough to define
+%   \[
+%   \nu^{\textsc{Del}}_y(z):= \gamma(|\sigma_{T_{y+1}}(z)|).
+%   \]
 
-  Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$.
-  It follows from that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
+%   Finally, we define $\nu_y(z)$ to be the concatenation of $\nu^{\textsc{Bal}}_y(z)$ and $\nu^{\textsc{Del}}_y(z)$.
+%   It follows from that $|\nu_y(z)| = \Oh(k\log h(T_y))$.
 
-  The function $B'$ is defined as expected:
-  Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B'$ first decodes $\nu(z)$ and computes
-  $B(\sigma_{T_{y}}(z),\nu(z))=\sigma_{T'}(z)=\sigma_{T''}(z)$.
-  Then $B'$ decodes $|\sigma_{T_{y+1}}(z)|$ and computes a prefix of this size of $\sigma_{T''}(z)$.
-  As we have seen, the prefix is $\sigma_{T_{y+1}}(z)$, which is output by $B'$.
-\end{proof}
+%   The function $B'$ is defined as expected:
+%   Given $\sigma_{T_{y}}(z)$ and $\nu_y(z)$, the function $B'$ first decodes $\nu(z)$ and computes
+%   $B(\sigma_{T_{y}}(z),\nu(z))=\sigma_{T'}(z)=\sigma_{T''}(z)$.
+%   Then $B'$ decodes $|\sigma_{T_{y+1}}(z)|$ and computes a prefix of this size of $\sigma_{T''}(z)$.
+%   As we have seen, the prefix is $\sigma_{T_{y+1}}(z)$, which is output by $B'$.
+% \end{proof}
 
 
 \section{Subgraphs of $P\boxtimes P$}
@@ -1152,25 +1128,25 @@ Then,
   \label{itm:clique-on-a-single-path}
 \end{compactenum}
 \end{lem}
-\begin{proof}
-  For the proof of the first item, consider $x:=x_T(v)$.
-  Either we have $x\in [a_v,b_v]$, in which case there is nothing to prove,
-  or there are two nodes $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.
-  By the binary search tree property, $x_1<x<x_2$.
-  But since $x_1,x_2 \in [a_v,b_v]$, we have $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$, as desired.
+% \begin{proof}
+%   For the proof of the first item, consider $x:=x_T(v)$.
+%   Either we have $x\in [a_v,b_v]$, in which case there is nothing to prove,
+%   or there are two nodes $x_1,x_2\in V(T)\cap[a_v,b_v]$ such that $x_1$ is in the subtree of $T$ rooted at the left child of $x$ and $x_2$ is in the subtree of $T$ rooted at the right child of $x$.
+%   By the binary search tree property, $x_1<x<x_2$.
+%   But since $x_1,x_2 \in [a_v,b_v]$, we have $a_v\le x_1<x<x_2\le b_v$, so $x\in [a_v,b_v]$, as desired.
 
-  For the proof of the second item, we just show it for $C$ being of size $2$, so for a single edge.
-  The statement for general cliques will follow immediately by induction.
-  Thus, consider two adjacent vertices $u_1$ and $u_2$ in $H$ and
-  let $x_1=x_T(u_1)$ and $x_2=x_T(u_2)$.
-  In order to get a contradiction, suppose that $x_1$ and $x_2$ do not lie on a single root-to-leaf path in $T$.
-  Then there exists $x$ in $T$ such that $x_1$ is in the left subtree of $x$ and $x_2$ is in the right subtree of $x$.
-  In particular, $x_1 < x < x_2$ by the binary search tree property.
-  Since $u_1u_2 \in E(H)$ the corresponsing intervals $[a_{u_1},b_{u_1}]$, $[a_{u_2}, b_{u_2}]$ intersect, so their union is an interval as well.
-  Since $x_1,x_2$ lie in the union and $x_1 < x < x_2$, the node $x$ lies in the union as well.
-  Therefore $x\in[a_{u_1},b_{u_1}]$ or $x\in [a_{u_2}, b_{u_2}]$.
-  This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
-\end{proof}
+%   For the proof of the second item, we just show it for $C$ being of size $2$, so for a single edge.
+%   The statement for general cliques will follow immediately by induction.
+%   Thus, consider two adjacent vertices $u_1$ and $u_2$ in $H$ and
+%   let $x_1=x_T(u_1)$ and $x_2=x_T(u_2)$.
+%   In order to get a contradiction, suppose that $x_1$ and $x_2$ do not lie on a single root-to-leaf path in $T$.
+%   Then there exists $x$ in $T$ such that $x_1$ is in the left subtree of $x$ and $x_2$ is in the right subtree of $x$.
+%   In particular, $x_1 < x < x_2$ by the binary search tree property.
+%   Since $u_1u_2 \in E(H)$ the corresponsing intervals $[a_{u_1},b_{u_1}]$, $[a_{u_2}, b_{u_2}]$ intersect, so their union is an interval as well.
+%   Since $x_1,x_2$ lie in the union and $x_1 < x < x_2$, the node $x$ lies in the union as well.
+%   Therefore $x\in[a_{u_1},b_{u_1}]$ or $x\in [a_{u_2}, b_{u_2}]$.
+%   This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
+% \end{proof}
 
 \subsection{A Labelling Scheme for $t$-Trees}
 \label{sec:t-trees}
@@ -1189,11 +1165,11 @@ This gives ground for an adjacency labelling scheme.
     Consequently, $\sigma_T(x_T(v))\neq \sigma_T(x_T(w))$ or $\varphi(v)\neq\varphi(w)$.
 \end{obs}
 
-\begin{proof}
-  If $x_T(v)=x=x_T(w)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_v,b_v]$ and $[a_w,b_w]$ each contain $x$,
-  so they intersect.
-  Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
-\end{proof}
+% \begin{proof}
+%   If $x_T(v)=x=x_T(w)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_v,b_v]$ and $[a_w,b_w]$ each contain $x$,
+%   so they intersect.
+%   Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
+% \end{proof}
 
 Let $T$ be a binary search tree that stabs $H$ and let $v$ be a vertex in $H$.
 Fix an elimination ordering of $H$.
@@ -1202,8 +1178,9 @@ for every vertex $v$ in $H$,
 all the nodes in $x_T(C_H(v))$ lie on a single root-to-leaf path in $T$.
 We define
 \[
-\sigma_{H,T}(v):=\sigma_T(x),\quad\text{where $x$ is the node in $x_T(C_H(v))$ of maximum depth in $T$.}
+\sigma_{H,T}(v):=\sigma_T(x),
 \]
+where $x$ is the node in $x_T(C_H(v))$ of maximum depth in $T$.
 Note that $d_T(x_T(v))\le |\sigma_{H,T}(v)|$, and equality holds only if $x_T(v)$ is the deepest node in $x_T(C_H(v))$.
 
 
@@ -1230,8 +1207,8 @@ as the concatenation of
   \[
       F(\tau_{H,T}(v),\tau_{H,T}(w)) = \begin{cases}
       0 & \text{if $v=w$;} \\
-      -1 & \text{if $v$ and $w$ are adjacent in $H$, and $w\in C_H(v)$;} \\
-      1 & \text{if $v$ and $w$ are adjacent in $H$, and $v\in C_H(w)$;} \\
+      -1 & \text{if $vw\in E(H)$ and $w\in C_H(v)$;} \\
+      1 & \text{if $vw\in E(H)$ and $v\in C_H(w)$;} \\
       \perp & \text{otherwise.}
     \end{cases}
   \]
@@ -1247,32 +1224,32 @@ Then $T$ stabs $H$ and $h(T)=\lfloor\log(2m)\rfloor$.
 This way the labels $\tau_{H,T}(v)$ are of length $\log m + \Oh(t\log\log m +t\log t)$.
 
 
-\begin{proof}[Proof of~\lemref{t-tree-labelling}]
-For the adjacency testing, first note that from a given label $\tau_{H,T}(v)$ of a vertex $v$ in $H$, we can decode each block of the label.
-This is just because $\gamma$, the Elias encoding, is prefix-free.
+% \begin{proof}[Proof of~\lemref{t-tree-labelling}]
+% For the adjacency testing, first note that from a given label $\tau_{H,T}(v)$ of a vertex $v$ in $H$, we can decode each block of the label.
+% This is just because $\gamma$, the Elias encoding, is prefix-free.
 
-Note that from the blocks of $\tau_{H,T}(v)$ we can determine $\sigma_T(x_T(v))$, $\varphi(v)$, and
-$\sigma_T(x_T(u))$, $\varphi(u)$, for all $u\in C_H(v)$.
+% Note that from the blocks of $\tau_{H,T}(v)$ we can determine $\sigma_T(x_T(v))$, $\varphi(v)$, and
+% $\sigma_T(x_T(u))$, $\varphi(u)$, for all $u\in C_H(v)$.
 
-Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
-\begin{enumerate}
-  \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi(v)=\varphi(w)$, we conclude that $v=w$ (by~\obsref{unique-id}), so $F$ outputs $0$ in this case.
+% Given the labels of two vertices $v$ and $w$ in $H$ we can test if they are adjacent as follows.
+% \begin{enumerate}
+%   \item If $\sigma_T(x_T(v)) = \sigma_T(x_T(w))$ and $\varphi(v)=\varphi(w)$, we conclude that $v=w$ (by~\obsref{unique-id}), so $F$ outputs $0$ in this case.
 
-  \item Let $d=|C_H(v)|$ and $u_1,\dots, u_{d}$ be the vertices in $C_H(v)$.
-  From the label of $v$,
-  we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\dots,d\}$.
-  If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$ for some $i\in\{1,\dots,d\}$, then we conclude that $w=u_i$ (by~\obsref{unique-id}) and $F$ outputs $-1$.
+%   \item Let $d=|C_H(v)|$ and $u_1,\dots, u_{d}$ be the vertices in $C_H(v)$.
+%   From the label of $v$,
+%   we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\dots,d\}$.
+%   If $\sigma_T(x_T(w)) = \sigma_T(x_T(u_i))$ and $\varphi(w)=\varphi(u_i)$ for some $i\in\{1,\dots,d\}$, then we conclude that $w=u_i$ (by~\obsref{unique-id}) and $F$ outputs $-1$.
 
-  \item  Now, let $d=|C_H(w)|$ and let $u_1,\dots, u_{d}$ be the vertices in $C_H(w)$.
-  From the label of $w$,
-  we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\dots,d\}$.
-  If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$ for some $i\in\{1,\dots,d\}$, then we conclude that $v=u_i$ (by~\obsref{unique-id}) and $F$ outputs $1$.
+%   \item  Now, let $d=|C_H(w)|$ and let $u_1,\dots, u_{d}$ be the vertices in $C_H(w)$.
+%   From the label of $w$,
+%   we decode the values of $d$, $\sigma_T(x_T(u_i))$ and $\varphi(u_i)$ for each $i\in\{1,\dots,d\}$.
+%   If $\sigma_T(x_T(v)) = \sigma_T(x_T(u_i))$ and $\varphi(v)=\varphi(u_i)$ for some $i\in\{1,\dots,d\}$, then we conclude that $v=u_i$ (by~\obsref{unique-id}) and $F$ outputs $1$.
 
-  \item Otherwise, $v\neq w$, $v\not\in C_{H}(w)$, and $w\not\in C_{H}(v)$.
-  This implies that $v$ and $w$ are not adjacent in $H$ because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
-  Thus, in this case $F$ outputs $\perp$.
-\end{enumerate}
-\end{proof}
+%   \item Otherwise, $v\neq w$, $v\not\in C_{H}(w)$, and $w\not\in C_{H}(v)$.
+%   This implies that $v$ and $w$ are not adjacent in $H$ because each edge in $H$ connects a vertex $u$ with a vertex in $C_H(u)$, for some $u$ in $H$.
+%   Thus, in this case $F$ outputs $\perp$.
+% \end{enumerate}
+% \end{proof}
 
 %Piotrek: that was my early draft of the paragraph on better time complexity ...
 %We finish this section with a quick comment on how to get rid of the $\Oh(t)$ time factor in ...
@@ -1341,230 +1318,230 @@ The following lemma, which is analogous to \lemref{node-transitions}, is the las
   for any $H$, $P$, $G$, $\varphi$, $S_1,\dots,S_h$, $X_1,\dots,X_h$, and each $k$-bulk tree sequence $T_1,\dots,T_h$ defined as above, for each $y\in\{1,\dots,h-1\}$ and each $v\in S_y$, there exists $\mu_y(v)\in\{0,1\}^*$ with $|\mu_y(v)|= \Oh(k\log h(T_y))$ such that $J(\sigma_{H^+_y,T_y}(v), \mu_y(v))=\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 \end{lem}
 
-For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
+% For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$.
 
-\begin{proof}
-  Let $v \in S_y$.
-  First of all, note that $v$ is a vertex in $H^+_y$ and $H^+_{y+1}$.
-  Since $T_y$ stabs $H^+_y$ and $T_{y+1}$ stabs $H^+_{y+1}$,
-  we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined.
-  %Note also that $S_y^+ \subseteq V(H_y^+)$ and $S_y^+ \subseteq V(H_{y+1}^+)$,
-  %so $C_H(v) = C_{H_y^+}(v) = C_{H_{y+1}^+}(v)$.
+% \begin{proof}
+%   Let $v \in S_y$.
+%   First of all, note that $v$ is a vertex in $H^+_y$ and $H^+_{y+1}$.
+%   Since $T_y$ stabs $H^+_y$ and $T_{y+1}$ stabs $H^+_{y+1}$,
+%   we conclude that $\sigma_{H^+_{y},T_y}(v)$, $\sigma_{H^+_{y+1},T_{y+1}}(v)$ are well-defined.
+%   %Note also that $S_y^+ \subseteq V(H_y^+)$ and $S_y^+ \subseteq V(H_{y+1}^+)$,
+%   %so $C_H(v) = C_{H_y^+}(v) = C_{H_{y+1}^+}(v)$.
 
-  As in the proof of \lemref{node-bal-transitions} and \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$.
-  Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
-  Recall that the three steps are:
-  applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
-  applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
-  applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
-  Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
-
-
-  By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
-  Thus the heights of all these trees are $\Oh(h(T_y))$.
-
-  The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
-  First, the code $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$.
-  Next, we will argue that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
-  Then the code $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
-
-  We start with a discussion on rebalancing that leads to the definition of $\mu_y^{\textsc{Bal}}(v)$.
-  The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appropriate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
-  Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$.
-  Recall also that the changes made by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
-  See~\figref{rebalance-t-tree}.
-  Let $Q$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$.
-  Thus $Q$ is the path from the root of $T_y$ to the deepest node $z$ in $x_{T_y}(C_{H^+_{y}}(v))$.
-  Clearly, if $Q$ is not hitting vertices of depth at least $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
-  Thus, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| < \theta$, we define
-  \[
-  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta).
-  \]
-  Note that in this case $|\mu_y^{\textsc{Bal}}(v)| = \Oh(\log \theta) = \Oh(\log h(T_y))$.
-
-  Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
-  Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
-  Recall that the application of $\textsc{Balance}(x,k)$ identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T_0}$ of height at most $k$ which forms the top part of $T_*'$.
-  Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$, so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$.
-
-  If $z' \in Z\cup X$, then $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
-  In this case, we define
-  \[
-  \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z').
-  \]
-  Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log k) + \Oh(k) = \Oh(\log h(T_y)+k)$.
-
-  \begin{figure*}
-    \begin{center}
-      \includegraphics{figs/rebalance-t-tree}
-    \end{center}
-    \caption{Only a call to $\textsc{Balance}(x,k)$ on a node $x$ lying on a path described by $\sigma_{H^+_y,T_y}(v)$ can affect $\sigma_{H^+_y,T'}(v)$.}
-    \figlabel{rebalance-t-tree}
-  \end{figure*}
-
-  Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
-  Let $w \in C_{H^+_y}(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
-  By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}),
-  $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e., the interval representing $w$.
-  By the properties of a binary search tree, we conclude that
-  \[
-  [a_w,b_w]\cap (Z\cup X)=\emptyset.
-  \]
-  Consider now the node $x_{T_y}(w)$ in $T_y$. Since $[a_w,b_w]\cap Z=\emptyset$ we know that $x_{T_y}(w)$ lie in one of the trees, say $T_i$, of the forest $T_*-Z$.
-  Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on $T_{i}$ to obtain a sequence of trees $T_{i,0},\dots,T_{i,c_i}$.
-  This, in turn results in zero or more calls to $\textsc{Split}(x')$ for nodes $x'\in V(T_{i})\cap X$. The following claim explains the effect of one individual call to $\textsc{Split}(x')$:
-  %Since $z_w\not\in X$ it ends up in one of these trees, say $T_{i,a}$.
-
-  \begin{clm}\clmlabel{x-switch}
-    Let $T$ be a binary search tree that stabs an interval $[a_w,b_w]$,
-    and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$. Then, exactly one of the following is true:
-    \begin{compactenum}
-      \item $a_w\le x\le b_w$;
-      \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
-      \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
-    \end{compactenum}
-  \end{clm}
-  \begin{proof}
-    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
-
-    By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$.
-    Recall that by construction
-    the path $P'$ from the root to $z$ in $T_{>x}$ is obtained from $P$
-    by deleting all values less than or equal to $x$.
-    Therefore the path $P'$ in $T_{>x}$ still has exactly one node in $[a_w,b_w]$, namely $z$,
-    so $z=x_{T_{>x}}(w)$. This completes the proof of \clmref{x-switch}.
-  \end{proof}
-
-  Since all the calls $\textsc{Split}(x')$ generated by $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on the subtree $T_{i}$ are called with $x'\in X$ and $[a_w,b_w]\cap X =\emptyset$, \clmref{x-switch} guarantees that
-  \begin{align*}
-  x_{T_y}(w) = x_{T'}(w) &= z', \textrm{ and}\\
-  \sigma_{H^+_y,T'}(v) &= \sigma_{T'}(z').
-  \end{align*}
-
-  Finally, by \lemref{node-bal-transitions} there exists a function $B$ and a bitstring
-  $\nu(z')$ of length $\Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z'), \nu(z')) = \sigma_{T'}(z')$.
-
-  All this justifies the following definition, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$:
-  \[
-   \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),1,\gamma(|\sigma_{T_y}(x_{T_y}(w))|),\nu(x_{T_y}(w)).
-  \]
-  Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log h(T_y)) + \Oh(k\log h(T_y)) = \Oh(k\log h(T_y))$.
-
-%%-------------------------
+%   As in the proof of \lemref{node-bal-transitions} and \lemref{node-transitions}, we must dig into the details of the three bulk tree operations that transform $T_y$ into $T_{y+1}$.
+%   Let $I:=V(T_{y+1})\setminus V(T_{y})$ and $D:=V(T_y)\setminus V(T_{y+1})$.
+%   Recall that the three steps are:
+%   applying $\textsc{BulkBalance}(\theta,k)$ to $T_y$ with the appropriate value of $\theta$ to obtain $T'$,
+%   applying $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$, and
+%   applying $\textsc{BulkDelete}(D)$ to $T''$ to obtain $T_{y+1}$.
+%   Recall that whenever $\textsc{BulkBalance}(\theta,k)$ is applied in this context we have $\theta < h(T_y)$.
 
 
-  Now we shall argue that
-  \[
-  \sigma_{H^+_{y},T'}(v) = \sigma_{H^+_{y},T''}(v) = \sigma_{H^+_{y+1},T''}(v).
-  \]
-  Recall that $T''$ comes as a result of an application of $\textsc{BulkInsert}(I)$ to $T'$
-  that attaches some small subtrees to the leaves of $T'$.
-  This way, for every $u \in C_{H_y^+}(v) = C_H(v) \subseteq S^+_y \subseteq V(H^+_y)$,
-  we have that $x_{T'}(u)$ is a $T''$-ancestor of any node $x$ in $T''$ such that
-  $x\in I$ and $x\in [a_u,b_u]$.
-  Hence, $x_{T'}(u) = x_{T''}(u)$ and
-  $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
-  Therefore,
-  $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
-  Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$ encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively.
-  Again, since $v\in S_y$ we have that $C_H(v)\subseteq S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore,
-  $C_{H^+_{y}}(v) = C_H(v) = C_{H^+_{y+1}}(v)$ and $\sigma_{H^+_{y},T''}(v) =\sigma_{H^+_{y+1},T''}(v)$.
+%   By \lemref{deletion-signature}, \lemref{insertion-depth}, and \lemref{balance-depth} we have  $h(T_{y+1}) \leq h(T'') \leq h(T')+2 \leq h(T_y)+3$.
+%   Thus the heights of all these trees are $\Oh(h(T_y))$.
 
-  Next we describe $\mu_y^{\textsc{Del}}(v)$.
-  The transition code $\mu_y^{\textsc{Del}}(v)$ serves to move
-  from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
-  An application of $\textsc{BulkDelete}(D)$ to $T''$ results in
-  a sequence of individual deletions.
-  Consider a single deletion of an element $x$ and let $T^{\text{bef}}$ and $T^{\text{aft}}$ denote the trees before and after the deletion, respectively.
+%   The transition code $\mu_y(v)$ is the concatenation of two parts $\mu_y^{\textsc{Bal}}(v)$ and $\mu_y^{\textsc{Del}}(v)$ devoted to different steps of the transformation from $T_y$ to $T_{y+1}$.
+%   First, the code $\mu_y^{\textsc{Bal}}(v)$ will serve to move from $\sigma_{H^+_y,T_y}(v)$ to $\sigma_{H^+_y,T'}$.
+%   Next, we will argue that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
+%   Then the code $\mu_y^{\textsc{Del}}(v)$ will serve to move from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
 
-  \begin{clm}\clmlabel{deletion-ancestor}
-  For every $u\in S^+_y$, we have
-  \[
-  \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))\preceq\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
-  \]
-  \end{clm}
+%   We start with a discussion on rebalancing that leads to the definition of $\mu_y^{\textsc{Bal}}(v)$.
+%   The tree $T_y$ is rebalanced by an application of \textsc{BulkBalance}$(\theta,k)$ with an appropriate value of $\theta < h(T_y)$ and the resulting tree is $T'$.
+%   Recall that \textsc{BulkBalance}$(\theta,k)$ calls $\textsc{Balance}(x,k)$ for each node $x$ of depth-$\theta$ in $T_y$.
+%   Recall also that the changes made by $\textsc{Balance}(x,k)$ are limited to the subtree of $T_y$ rooted at $x$.
+%   See~\figref{rebalance-t-tree}.
+%   Let $Q$ be the path in $T_y$ encoded by $\sigma_{H^+_{y},T_{y}}(v)$.
+%   Thus $Q$ is the path from the root of $T_y$ to the deepest node $z$ in $x_{T_y}(C_{H^+_{y}}(v))$.
+%   Clearly, if $Q$ is not hitting vertices of depth at least $\theta$, then $\sigma_{H^+_{y},T_{y}}(v)=\sigma_{H^+_{y},T'}(v)$.
+%   Thus, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| < \theta$, we define
+%   \[
+%   \mu_y^{\textsc{Bal}}(v) := \gamma(\theta).
+%   \]
+%   Note that in this case $|\mu_y^{\textsc{Bal}}(v)| = \Oh(\log \theta) = \Oh(\log h(T_y))$.
 
-  \begin{proof}[Proof of \clmref{deletion-ancestor}]
-    See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T^{\text{bef}}$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{i}$ for each $i\in\{1,\dots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\dots,r-1\}$, the (value of) node $x_i$ is replaced with (the value in) node $x_{i+1}$.
-    The resulting tree is $T^{\text{aft}}$.
-    \begin{figure}
-      \begin{center}
-        \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-1}\\[1ex]
-        $\Downarrow$\\[1ex]
-        \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-2}
-      \end{center}
-      \caption{The effect of a single deletion on $x_{T^{\text{bef}}}(v)$.}
-      \figlabel{deletion-t-tree}
-    \end{figure}
+%   Assume now that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and let $x$ be the $T_y$-ancestor of $z$ at depth $\theta$.
+%   Let $T_*$ be the subtree of $T_y$ rooted at $x$ and let $T_*'$ be the new tree obtained after calling $\textsc{Balance}(x,k)$ on the root, $x$, of $T_*$. (So $T_*$ is a subtree of $T_y$ and $T_*'$ is a subtree of $T'$.)
+%   Recall that the application of $\textsc{Balance}(x,k)$ identifies two sets of nodes $Z$ and $X$ that eventually form a perfectly balanced tree $\hat{T_0}$ of height at most $k$ which forms the top part of $T_*'$.
+%   Let $Q'$ be the path in $T'$ encoded by $\sigma_{H^+_y,T'}(v)$, so $Q'$ is the path from the root of $T'$ to the deepest node $z'$ in $x_{T'}(C_{H^+_y}(v))$.
 
-    First we look at the case $x_{T^{\text{bef}}}(u)=x_0$.
-    Recall that $u\in S^+_y$, so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$.
-    This means that $x_0\neq a_u$ and $x_0\neq b_u$ and both endpoints lie in the subtree of $T^{\text{bef}}$ rooted at $x_0$.
-    In particular, $x_0$ is not a leaf and $r\geq 1$.
-    By~\lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval}, we have $a_u < x_0 < b_u$.
-    Since $x_1$ is the smallest value in the right subtree of $x_0$ or the largest value in the left subtree of $x_0$, we conclude that
-    $a_u\leq x_1\leq b_u$.
-    Thus, in this case we have $x_{T^{\text{aft}}}(u)=x_1$ and
-    \[
-    \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)) = \sigma_{T^{\text{aft}}}(x_1) = \sigma_{T^{\text{bef}}}(x_0) = \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
-    \]
+%   If $z' \in Z\cup X$, then $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
+%   In this case, we define
+%   \[
+%   \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),0,\gamma(|\sigma_{\hat{T_0}}(z')|),\sigma_{\hat{T_0}}(z').
+%   \]
+%   Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log k) + \Oh(k) = \Oh(\log h(T_y)+k)$.
 
-    If $x_{T^{\text{bef}}}(u)=x_i$ for some $i\in\{1,\dots,r\}$,
-    then $x_{T^{\text{aft}}}(u)=x_i$ (see the interval $v_1$ in \figref{deletion-t-tree}) and
-    \[
-    \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))= \sigma_{T^{\text{aft}}}(x_i) = \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{i}) = \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).\]
+%   \begin{figure*}
+%     \begin{center}
+%       \includegraphics{figs/rebalance-t-tree}
+%     \end{center}
+%     \caption{Only a call to $\textsc{Balance}(x,k)$ on a node $x$ lying on a path described by $\sigma_{H^+_y,T_y}(v)$ can affect $\sigma_{H^+_y,T'}(v)$.}
+%     \figlabel{rebalance-t-tree}
+%   \end{figure*}
 
-    Finally, if $\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u))\neq \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))$ and
-    $x_{T^{\text{bef}}}(u)\neq x_i$ for all $i\in\{0,\dots,r\}$,
-    then the only possibility is that $x_{T^{\text{aft}}}(u)=x_i$ for some $x_i\in [a_u,b_u]$ (see the interval $v_2$ in \figref{deletion-t-tree}).
-    This can only happen if $x_{T^{\text{bef}}}(u)$ is a $T^{\text{bef}}$-ancestor of $x_i$ and $x_i$ is a $T^{\text{aft}}$-ancestor of $x_{T^{\text{bef}}}(u)$.
-    The latter is equivalent with the fact that $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{T^{\text{bef}}}(u)$.
-    Therefore, we have
-    \[
-    \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)) = \sigma_{T^{\text{aft}}}(x_i) =
-    \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
-    \]
-    This completes the proof of the claim.
-  \end{proof}
+%   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
+%   Let $w \in C_{H^+_y}(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
+%   By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}),
+%   $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e., the interval representing $w$.
+%   By the properties of a binary search tree, we conclude that
+%   \[
+%   [a_w,b_w]\cap (Z\cup X)=\emptyset.
+%   \]
+%   Consider now the node $x_{T_y}(w)$ in $T_y$. Since $[a_w,b_w]\cap Z=\emptyset$ we know that $x_{T_y}(w)$ lie in one of the trees, say $T_i$, of the forest $T_*-Z$.
+%   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on $T_{i}$ to obtain a sequence of trees $T_{i,0},\dots,T_{i,c_i}$.
+%   This, in turn results in zero or more calls to $\textsc{Split}(x')$ for nodes $x'\in V(T_{i})\cap X$. The following claim explains the effect of one individual call to $\textsc{Split}(x')$:
+%   %Since $z_w\not\in X$ it ends up in one of these trees, say $T_{i,a}$.
 
-Since $\textsc{BulkDelete}(D)$ is a sequence of individual deletions, by multiple applications of~\clmref{deletion-ancestor} we get that
-%guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
-  \begin{align*}
-    \sigma_{H^+_{y+1},T_{y+1}}(v)
-      & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^+_{y+1}}(v)=C_H(v)$)} \\
-      & \preceq \sigma_{T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
-      & \preceq \sigma_{H^+_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
-  \end{align*}
+%   \begin{clm}\clmlabel{x-switch}
+%     Let $T$ be a binary search tree that stabs an interval $[a_w,b_w]$,
+%     and let $T_{<x}$ and $T_{>x}$ be the two trees resulting from calling $\textsc{Split}(x)$ on $T$ for some $x\in V(T)$. Then, exactly one of the following is true:
+%     \begin{compactenum}
+%       \item $a_w\le x\le b_w$;
+%       \item $x< a_w$, in which case $x_{T_{>x}}(w)=x_T(w)$; or
+%       \item $b_w < x$, in which case $x_{T_{<x}}(w)=x_T(w)$.
+%     \end{compactenum}
+%   \end{clm}
+%   \begin{proof}
+%     That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
 
-We define
-  \[\mu_y^{\textsc{Del}}(v) := \gamma(|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|).
-  \]
-Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
+%     By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$.
+%     Recall that by construction
+%     the path $P'$ from the root to $z$ in $T_{>x}$ is obtained from $P$
+%     by deleting all values less than or equal to $x$.
+%     Therefore the path $P'$ in $T_{>x}$ still has exactly one node in $[a_w,b_w]$, namely $z$,
+%     so $z=x_{T_{>x}}(w)$. This completes the proof of \clmref{x-switch}.
+%   \end{proof}
 
-  The function $J$ is defined as expected:
-  Given $\sigma_{H^+_y,T_{y}}(v)$ and $\mu_y(v)$,
-  the function $J$ first decodes the value of $\theta$
-  which is always the first block of $\mu_y^{\textsc{Bal}}(v)$.
-  If $|\sigma_{H^+_y,T_{y}}(v)| < \theta$, then
-  $J$ concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_y,T_{y}}(v)$.
-  Otherwise, in the case $|\sigma_{H^+_y,T_{y}}(v)| \geq \theta$,
-  the function $J$ reads the next bit of $\mu_y(v)$.
-  If it is $0$ then $J$ decodes the value of $\sigma_{\hat{T_0}}(z')$,
-  computes $\sigma_{T_y}(x)$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $\theta$,
-  and concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
-  Otherwise, the bit is $1$.
-  In this case, first $J$ decodes $|\sigma_{T_y}(x_{T_y}(w))|$ and $\nu(x_{T_y}(w))$.
-  Next, $J$ computes $\sigma_{T_y}(x_{T_y}(w))$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $|\sigma_{T_y}(x_{T_y}(w))|$.
-  Next, $J$ computes $B(\sigma_{T_y}(x_{T_y}(w)),\nu(x_{T_y}(w))) = \sigma_{T'}(x_{T'}(w))$ and in this case
-  $J$ concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T'}(x_{T'}(w))$.
+%   Since all the calls $\textsc{Split}(x')$ generated by $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on the subtree $T_{i}$ are called with $x'\in X$ and $[a_w,b_w]\cap X =\emptyset$, \clmref{x-switch} guarantees that
+%   \begin{align*}
+%   x_{T_y}(w) = x_{T'}(w) &= z', \textrm{ and}\\
+%   \sigma_{H^+_y,T'}(v) &= \sigma_{T'}(z').
+%   \end{align*}
+
+%   Finally, by \lemref{node-bal-transitions} there exists a function $B$ and a bitstring
+%   $\nu(z')$ of length $\Oh(k\log h(T_y))$ such that $B(\sigma_{T_y}(z'), \nu(z')) = \sigma_{T'}(z')$.
+
+%   All this justifies the following definition, in the case that $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$:
+%   \[
+%    \mu_y^{\textsc{Bal}}(v) := \gamma(\theta),1,\gamma(|\sigma_{T_y}(x_{T_y}(w))|),\nu(x_{T_y}(w)).
+%   \]
+%   Note that in this case $|\mu_y^{\textsc{Bal}}(v)|=\Oh(\log\theta)+\Oh(\log h(T_y)) + \Oh(k\log h(T_y)) = \Oh(k\log h(T_y))$.
+
+% %%-------------------------
 
 
-  Thus, in either case $J$ establishes the value of $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
-  Now, $J$ looks up $\mu_y^{\textsc{Del}}(v)$ and decodes $|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|$.
-  The value of $\sigma_{H^{+}_{y+1},T_{y+1}}(v)$ is simply the prefix of $\sigma_{H^+_{y+1},T''}(v)$ of length $|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|$.
+%   Now we shall argue that
+%   \[
+%   \sigma_{H^+_{y},T'}(v) = \sigma_{H^+_{y},T''}(v) = \sigma_{H^+_{y+1},T''}(v).
+%   \]
+%   Recall that $T''$ comes as a result of an application of $\textsc{BulkInsert}(I)$ to $T'$
+%   that attaches some small subtrees to the leaves of $T'$.
+%   This way, for every $u \in C_{H_y^+}(v) = C_H(v) \subseteq S^+_y \subseteq V(H^+_y)$,
+%   we have that $x_{T'}(u)$ is a $T''$-ancestor of any node $x$ in $T''$ such that
+%   $x\in I$ and $x\in [a_u,b_u]$.
+%   Hence, $x_{T'}(u) = x_{T''}(u)$ and
+%   $\sigma_{T'}(x_{T'}(u)) = \sigma_{T''}(x_{T''}(u))$.
+%   Therefore,
+%   $\sigma_{H^+_{y},T'}(v) =  \sigma_{H^+_{y},T''}(v)$.
+%   Recall that $\sigma_{H^+_{y},T''}(v)$ and $\sigma_{H^+_{y+1},T''}(v)$ encode paths in $T''$ from the root to the deepest node in $x_{T''}(C_{H^+_{y}}(v))$ and in $x_{T''}(C_{H^+_{y+1}}(v))$, respectively.
+%   Again, since $v\in S_y$ we have that $C_H(v)\subseteq S^+_y \subseteq V(H^+_y) \cap V(H^+_{y+1})$. Therefore,
+%   $C_{H^+_{y}}(v) = C_H(v) = C_{H^+_{y+1}}(v)$ and $\sigma_{H^+_{y},T''}(v) =\sigma_{H^+_{y+1},T''}(v)$.
 
-  This completes the proof of the lemma.
-\end{proof}
+%   Next we describe $\mu_y^{\textsc{Del}}(v)$.
+%   The transition code $\mu_y^{\textsc{Del}}(v)$ serves to move
+%   from $\sigma_{H^+_{y+1},T''}(v)$ to $\sigma_{H^+_{y+1},T_{y+1}}(v)$.
+%   An application of $\textsc{BulkDelete}(D)$ to $T''$ results in
+%   a sequence of individual deletions.
+%   Consider a single deletion of an element $x$ and let $T^{\text{bef}}$ and $T^{\text{aft}}$ denote the trees before and after the deletion, respectively.
+
+%   \begin{clm}\clmlabel{deletion-ancestor}
+%   For every $u\in S^+_y$, we have
+%   \[
+%   \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))\preceq\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
+%   \]
+%   \end{clm}
+
+%   \begin{proof}[Proof of \clmref{deletion-ancestor}]
+%     See \figref{deletion-t-tree}.  At a global level, the deletion of a value $x$ from $T^{\text{bef}}$ involves finding a sequence of consecutive values $x_0<x_1<\cdots<x_r$ or $x_0>x_1>\cdots>x_r$ where $x=x_0$, $x_r$ is a leaf and $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{i}$ for each $i\in\{1,\dots,r\}$.  The leaf containing $x_r$ is deleted and, for each $i\in\{0,\dots,r-1\}$, the (value of) node $x_i$ is replaced with (the value in) node $x_{i+1}$.
+%     The resulting tree is $T^{\text{aft}}$.
+%     \begin{figure}
+%       \begin{center}
+%         \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-1}\\[1ex]
+%         $\Downarrow$\\[1ex]
+%         \includegraphics[width=.45\textwidth]{figs/deletion-t-tree-2}
+%       \end{center}
+%       \caption{The effect of a single deletion on $x_{T^{\text{bef}}}(v)$.}
+%       \figlabel{deletion-t-tree}
+%     \end{figure}
+
+%     First we look at the case $x_{T^{\text{bef}}}(u)=x_0$.
+%     Recall that $u\in S^+_y$, so $X_{y+1}$ contains both endpoints of the interval representing $u$, say $[a_u,b_u]$.
+%     This means that $x_0\neq a_u$ and $x_0\neq b_u$ and both endpoints lie in the subtree of $T^{\text{bef}}$ rooted at $x_0$.
+%     In particular, $x_0$ is not a leaf and $r\geq 1$.
+%     By~\lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval}, we have $a_u < x_0 < b_u$.
+%     Since $x_1$ is the smallest value in the right subtree of $x_0$ or the largest value in the left subtree of $x_0$, we conclude that
+%     $a_u\leq x_1\leq b_u$.
+%     Thus, in this case we have $x_{T^{\text{aft}}}(u)=x_1$ and
+%     \[
+%     \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)) = \sigma_{T^{\text{aft}}}(x_1) = \sigma_{T^{\text{bef}}}(x_0) = \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
+%     \]
+
+%     If $x_{T^{\text{bef}}}(u)=x_i$ for some $i\in\{1,\dots,r\}$,
+%     then $x_{T^{\text{aft}}}(u)=x_i$ (see the interval $v_1$ in \figref{deletion-t-tree}) and
+%     \[
+%     \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))= \sigma_{T^{\text{aft}}}(x_i) = \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{i}) = \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).\]
+
+%     Finally, if $\sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u))\neq \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u))$ and
+%     $x_{T^{\text{bef}}}(u)\neq x_i$ for all $i\in\{0,\dots,r\}$,
+%     then the only possibility is that $x_{T^{\text{aft}}}(u)=x_i$ for some $x_i\in [a_u,b_u]$ (see the interval $v_2$ in \figref{deletion-t-tree}).
+%     This can only happen if $x_{T^{\text{bef}}}(u)$ is a $T^{\text{bef}}$-ancestor of $x_i$ and $x_i$ is a $T^{\text{aft}}$-ancestor of $x_{T^{\text{bef}}}(u)$.
+%     The latter is equivalent with the fact that $x_{i-1}$ is a $T^{\text{bef}}$-ancestor of $x_{T^{\text{bef}}}(u)$.
+%     Therefore, we have
+%     \[
+%     \sigma_{T^{\text{aft}}}(x_{T^{\text{aft}}}(u)) = \sigma_{T^{\text{aft}}}(x_i) =
+%     \sigma_{T^{\text{bef}}}(x_{i-1}) \prec \sigma_{T^{\text{bef}}}(x_{T^{\text{bef}}}(u)).
+%     \]
+%     This completes the proof of the claim.
+%   \end{proof}
+
+% Since $\textsc{BulkDelete}(D)$ is a sequence of individual deletions, by multiple applications of~\clmref{deletion-ancestor} we get that
+% %guarantees that $\sigma_{H^{*}_{y+1},T_{y+1}}(v)$ is a prefix of $\sigma_{H^{*}_{y+1},T''}(v)$.
+%   \begin{align*}
+%     \sigma_{H^+_{y+1},T_{y+1}}(v)
+%       & = \sigma_{T_{y+1}}(x_{T_{y+1}}(u)) & \text{(for some $u\in C_{H^+_{y+1}}(v)=C_H(v)$)} \\
+%       & \preceq \sigma_{T''}(x_{T''}(u)) & \text{(by \clmref{deletion-ancestor})} \\
+%       & \preceq \sigma_{H^+_{y+1},T''}(v). %& \text{(by \lemref{all-the-obs-about-bst-and-intervals})}
+%   \end{align*}
+
+% We define
+%   \[\mu_y^{\textsc{Del}}(v) := \gamma(|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|).
+%   \]
+% Note that $|\mu_y^{\textsc{Del}}(v)| = \Oh(\log h(T_{y+1})) = \Oh(\log h(T_y))$.
+
+%   The function $J$ is defined as expected:
+%   Given $\sigma_{H^+_y,T_{y}}(v)$ and $\mu_y(v)$,
+%   the function $J$ first decodes the value of $\theta$
+%   which is always the first block of $\mu_y^{\textsc{Bal}}(v)$.
+%   If $|\sigma_{H^+_y,T_{y}}(v)| < \theta$, then
+%   $J$ concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_y,T_{y}}(v)$.
+%   Otherwise, in the case $|\sigma_{H^+_y,T_{y}}(v)| \geq \theta$,
+%   the function $J$ reads the next bit of $\mu_y(v)$.
+%   If it is $0$ then $J$ decodes the value of $\sigma_{\hat{T_0}}(z')$,
+%   computes $\sigma_{T_y}(x)$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $\theta$,
+%   and concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T_y}(x),\sigma_{\hat{T_0}}(z')$.
+%   Otherwise, the bit is $1$.
+%   In this case, first $J$ decodes $|\sigma_{T_y}(x_{T_y}(w))|$ and $\nu(x_{T_y}(w))$.
+%   Next, $J$ computes $\sigma_{T_y}(x_{T_y}(w))$ which is the prefix of $\sigma_{H^+_y,T_{y}}(v)$ of length $|\sigma_{T_y}(x_{T_y}(w))|$.
+%   Next, $J$ computes $B(\sigma_{T_y}(x_{T_y}(w)),\nu(x_{T_y}(w))) = \sigma_{T'}(x_{T'}(w))$ and in this case
+%   $J$ concludes that $\sigma_{H^+_y,T'}(v) = \sigma_{T'}(x_{T'}(w))$.
+
+
+%   Thus, in either case $J$ establishes the value of $\sigma_{H^+_y,T'}(v) = \sigma_{H^+_{y+1},T''}(v)$.
+%   Now, $J$ looks up $\mu_y^{\textsc{Del}}(v)$ and decodes $|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|$.
+%   The value of $\sigma_{H^{+}_{y+1},T_{y+1}}(v)$ is simply the prefix of $\sigma_{H^+_{y+1},T''}(v)$ of length $|\sigma_{H^{+}_{y+1},T_{y+1}}(v)|$.
+
+%   This completes the proof of the lemma.
+% \end{proof}
 
 \subsection{The Labels}
 
@@ -1721,75 +1698,75 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 \bibliography{labelling}
 
 % \newpage
-\appendix
+% \appendix
 
-\section{Proof of \lemref{fractional}}
-\applabel{fractional-proof}
+% \section{Proof of \lemref{fractional}}
+% \applabel{fractional-proof}
 
 
-\begin{proof}[Proof of \lemref{fractional}]
-  $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
+% \begin{proof}[Proof of \lemref{fractional}]
+%   $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
 
-  \noindent$\textsc{BuildV}(S_1,\dots,S_h)$:
-  \begin{algorithmic}[1]
-    \STATE{$V_0\gets V_{h+1}\gets\Z$}
-    \STATE{$V_y\gets\emptyset$ for each $y\in\{1,\dots,h\}$}
-    \FOR{$x= 1,\dots,m$}
-      \FOR{$y = 1,\dots,h$}
-        \IF{$x\in S_y\setminus V_y$}
-          \STATE{$\textsc{Add}(x, y)$}
-        \ENDIF
-      \ENDFOR
-    \ENDFOR
- % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\dots,h\}$}
-  \end{algorithmic}
+%   \noindent$\textsc{BuildV}(S_1,\dots,S_h)$:
+%   \begin{algorithmic}[1]
+%     \STATE{$V_0\gets V_{h+1}\gets\Z$}
+%     \STATE{$V_y\gets\emptyset$ for each $y\in\{1,\dots,h\}$}
+%     \FOR{$x= 1,\dots,m$}
+%       \FOR{$y = 1,\dots,h$}
+%         \IF{$x\in S_y\setminus V_y$}
+%           \STATE{$\textsc{Add}(x, y)$}
+%         \ENDIF
+%       \ENDFOR
+%     \ENDFOR
+%  % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\dots,h\}$}
+%   \end{algorithmic}
 
-  \noindent$\textsc{Add}(x, y)$:
-  \begin{algorithmic}[1]
-    \IF{$y\in\{1,\dots,h\}$}
-      \STATE{$V_y\gets V_y\cup\{x\}$}
-      \IF{$|V_y|\ge 4$}
-        \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
-        \IF{$\{x_{-1},\dots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
-            $\{x_{-1},\dots,x_{-4}\}\cap V_{y+1}=\emptyset$}
-            \STATE{$\textsc{Add}(x,y-1)$}
-            \STATE{$\textsc{Add}(x,y+1)$}
-        \ENDIF
-      \ENDIF
-    \ENDIF
-  \end{algorithmic}
+%   \noindent$\textsc{Add}(x, y)$:
+%   \begin{algorithmic}[1]
+%     \IF{$y\in\{1,\dots,h\}$}
+%       \STATE{$V_y\gets V_y\cup\{x\}$}
+%       \IF{$|V_y|\ge 4$}
+%         \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
+%         \IF{$\{x_{-1},\dots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
+%             $\{x_{-1},\dots,x_{-4}\}\cap V_{y+1}=\emptyset$}
+%             \STATE{$\textsc{Add}(x,y-1)$}
+%             \STATE{$\textsc{Add}(x,y+1)$}
+%         \ENDIF
+%       \ENDIF
+%     \ENDIF
+%   \end{algorithmic}
 
-  % % \snote{L. Is $x_{-5}$ really necessary here?}
-  % % \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\dots,y_{-4}$.
-  %
-  % Summary:
-  % \begin{compactenum}
-  %   \item The text about including 0 should be removed.
-  %   \item Line~2 of BuildV should be deleted.
-  %   \item References to Line~6 should be changed to Line~5.
-  %   \item Line~3 of Add should be: {$|V_y|\ge 4$}
-  %   \item Line~4 of Add should be: {let $x_{-1}>x_{-2}>x_{-3}>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
-  % \end{compactenum}
-  % That's everything, right?
-  % }
-  It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
+%   % % \snote{L. Is $x_{-5}$ really necessary here?}
+%   % % \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\dots,y_{-4}$.
+%   %
+%   % Summary:
+%   % \begin{compactenum}
+%   %   \item The text about including 0 should be removed.
+%   %   \item Line~2 of BuildV should be deleted.
+%   %   \item References to Line~6 should be changed to Line~5.
+%   %   \item Line~3 of Add should be: {$|V_y|\ge 4$}
+%   %   \item Line~4 of Add should be: {let $x_{-1}>x_{-2}>x_{-3}>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
+%   % \end{compactenum}
+%   % That's everything, right?
+%   % }
+%   It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
 
-  That the procedure produces sets $V_1,\dots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\dots,h\}$ is obvious.  So the resulting sets $V_1,\dots,V_h$ satisfy the first condition of the lemma.
+%   That the procedure produces sets $V_1,\dots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\dots,h\}$ is obvious.  So the resulting sets $V_1,\dots,V_h$ satisfy the first condition of the lemma.
 
-  To prove that $V_1,\dots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\dots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
+%   To prove that $V_1,\dots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\dots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
 
-  Finally, we need to argue that $V_1,\dots,V_h$ satisfy the third condition.
-  For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
+%   Finally, we need to argue that $V_1,\dots,V_h$ satisfy the third condition.
+%   For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
 
-  We do this with a \emph{credit scheme} that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\dots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
+%   We do this with a \emph{credit scheme} that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\dots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
 
-  To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the $n$ values in $S_1,\dots,S_h$.  Therefore Line~6 executes at most $n$ times and at most $2n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\dots,V_h$ is at most $2n$. Therefore, $\sum_{y=1}^h |V_y|\le 2n$.
+%   To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the $n$ values in $S_1,\dots,S_h$.  Therefore Line~6 executes at most $n$ times and at most $2n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\dots,V_h$ is at most $2n$. Therefore, $\sum_{y=1}^h |V_y|\le 2n$.
 
-  To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
+%   To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
 
-  When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.
+%   When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.
 
-  If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$.
-\end{proof}
+%   If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$.
+% \end{proof}
 
 \end{document}
