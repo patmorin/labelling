@@ -2,6 +2,7 @@
 \IEEEoverridecommandlockouts
 % \documentclass[kpfonts]{patmorin}
 \listfiles
+\pdfminorversion=7 % Cyril: avoid 'pdfTeX warning: pdflatex (file ....pdf): PDF inclusion:'
 \usepackage{pat}
 \usepackage{paralist}
 \usepackage{dsfont}  % for \mathds{A}
@@ -48,64 +49,62 @@
 
 \newcommand{\itemref}[1]{(\ref{#1})}
 
-
-\begin{document}
 \title{Adjacency Labelling for Planar Graphs (and Beyond)\thanks{The full version of the paper is available on arXiv at {\tt https://arxiv.org/abs/2003.04280}. The research of V. Dujmović and P. Morin. was partially supported by NSERC. L. Esperet was partially supported by the French ANR Projects ANR-16-CE40-0009-01 (GATO) and ANR-18-CE40-0032 (GrR). C. Gavoille was partially supported by the French ANR projects ANR-16-CE40-0023 (DESCARTES) and ANR-17-CE40-0015 (DISTANCIA). G. Joret was supported by an ARC grant from the Wallonia-Brussels Federation of Belgium and by a grant from the National Fund for Scientific Research (FNRS). P. Micek was partially supported by the Polish National Science Center grant (BEETHOVEN; UMO-2018/31/G/ST1/03718).}}
-\author{\IEEEauthorblockN{Vida Dujmović}
+
+\author{%
+\IEEEauthorblockN{Vida Dujmović}
 \IEEEauthorblockA{School of Computer Science and Electrical Engineering\\
-University of Ottawa\\
-Ottawa, Canada\\
-vdujmovi@uottawa.ca}
+  University of Ottawa\\
+  Ottawa, Canada\\
+  vdujmovi@uottawa.ca}
 \and
 \IEEEauthorblockN{Louis Esperet}
 \IEEEauthorblockA{Laboratoire G-SCOP\\
-CNRS, Univ.\ Grenoble Alpes\\
-Grenoble, France\\
-louis.esperet@grenoble-inp.fr}
+  CNRS, Univ.\ Grenoble Alpes\\
+  Grenoble, France\\
+  louis.esperet@grenoble-inp.fr}
 \and
 \IEEEauthorblockN{Cyril Gavoille}
 \IEEEauthorblockA{LaBRI\\
   University of Bordeaux\\
   Bordeaux, France\\
-cyril.gavoille@labri.fr}
+  gavoille@labri.fr}
 \and
 \IEEEauthorblockN{Gwena\"el Joret}
-\IEEEauthorblockA{Département d'Informatique\\\
+\IEEEauthorblockA{Département d'Informatique\\
   Université Libre de Bruxelles\\
   Brussels, Belgium\\
-gjoret@ulb.ac.be}
+  gjoret@ulb.ac.be}
 \and
 \IEEEauthorblockN{Piotr Micek}
 \IEEEauthorblockA{Theoretical Computer Science Department\\
   Faculty of Math.\ and Comp.\ Sci.\\
   Jagiellonian University\\
   Krak\'{o}w, Poland\\
-piotr.micek@gmail.com}
+  piotr.micek@gmail.com}
 \and
 \IEEEauthorblockN{Pat Morin}
 \IEEEauthorblockA{School of Computer Science\\
   Carleton University\\
   Ottawa, Canada\\
-morin@scs.carleton.ca}
-
+  morin@scs.carleton.ca}
 }
 
-
-
+\begin{document}
 
 \maketitle
 
 \begin{abstract}
-  We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every positive integer $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$.  These results generalize to a number of other graph classes, including bounded genus graphs, apex-minor-free graphs,  bounded-degree graphs from minor closed families, and $k$-planar graphs.
-\end{abstract}
+% Cyril: \boldmath is for bold math :))
+  \boldmath{We show that there exists an adjacency labelling scheme for planar graphs where each vertex of an $n$-vertex planar graph $G$ is assigned a $(1+o(1))\log_2 n$-bit label and the labels of two vertices $u$ and $v$ are sufficient to determine if $uv$ is an edge of $G$.  This is optimal up to the lower order term and is the first such asymptotically optimal result.  An alternative, but equivalent, interpretation of this result is that, for every positive integer $n$, there exists a graph $U_n$ with $n^{1+o(1)}$ vertices such that every $n$-vertex planar graph is an induced subgraph of $U_n$. These results generalize to a number of other graph classes, including bounded genus graphs, apex-minor-free graphs, bounded-degree graphs from minor closed families, and $k$-planar graphs.}  \end{abstract}
 
 \section{Introduction}
 
 %G: I moved this to Section 2
 % In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\log x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
-A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^*$ such that $|\ell(v)|\le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
-\[  A(\ell(v),\ell(w)) =
+A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell: V(G)\to\{0,1\}^*$ such that $|\ell(v)| \le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
+\[ A(\ell(v),\ell(w)) =
       \begin{cases}
         0 & \text{if $vw\not\in E(G)$;} \\
         1 & \text{if $vw\in E(G)$.}
