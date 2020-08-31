@@ -7,6 +7,7 @@
 \usepackage{paralist}
 \usepackage{dsfont}  % for \mathds{A}
 \usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
 
 \usepackage{graphicx}
 \usepackage[noend]{algorithmic}
@@ -88,6 +89,7 @@
   Carleton University\\
   Ottawa, Canada\\
   morin@scs.carleton.ca}
+\and{}
 }
 
 \begin{document}
@@ -103,7 +105,9 @@
 %G: I moved this to Section 2
 % In this paper, which is concerned with binary encodings, $\log x:=\log_2 x$ denotes the binary logarithm of $x$ and, for convenience, $\log x := \log\max\{1,x\}$.  All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
 
-A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A:(\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell: V(G)\to\{0,1\}^*$ such that $|\ell(v)| \le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
+% Cyril: In math mode, we should use \colon for a ponctuation colon like "f: A\to B", and use ":" for relation operator like set "\{ x : A \}" or "x := u". I tried to update all of them. If you don't like, a global replace "\colon" -> ":" should work.
+
+A family $\mathcal{G}$ of graphs has an \emph{$f(n)$-bit adjacency labelling scheme} if there exists a function $A\colon (\{0,1\}^*)^2\to \{0,1\}$ such that for every $n$-vertex graph $G\in \mathcal{G}$ there exists $\ell\colon V(G)\to\{0,1\}^*$ such that $|\ell(v)| \le f(n)$ for each vertex $v$ of $G$ and such that, for every two vertices $v,w$ of $G$,
 \[ A(\ell(v),\ell(w)) =
       \begin{cases}
         0 & \text{if $vw\not\in E(G)$;} \\
@@ -121,7 +125,7 @@ In this paper we prove the following result:
 
 \thmref{main} is optimal up to the lower order term,
 which is $\Oh\left(\sqrt{\log n\log\log n}\right)$ in our proof.
-An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell:V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.}
+An alternative, but equivalent, interpretation of \thmref{main} is that, for every integer $n\ge 1$, there exists a graph $U_n$ with $n^{1+o(1)}$  vertices such that every $n$-vertex planar graph is isomorphic to some vertex-induced subgraph of $U_n$.\footnote{There is a small technicality that the equivalence between adjacency labelling schemes and universal graphs requires that $\ell\colon V(G)\to\{0,1\}^*$ be injective.  The labelling schemes we discuss satisfy this requirement.  For more details about the connection between labelling schemes and universal graphs, the reader is directed to Spinrad's monograph \cite[Section~2.1]{spinrad:efficient}.}
 
 Note that the proof of \thmref{main} is constructive: it gives an algorithm producing the labels in $\Oh(n\log n)$ time.
 
@@ -141,7 +145,7 @@ A further improvement, also based on the idea of partitioning the edges of a pla
 %\pnote{Actually for a planar graphs, there's a really short proof using layering: Even layers plus edges to the previous layer has bounded treewidth. Same for odd layers.}
 This results in a $(2+o(1))\log n$-bit adjacency labelling scheme for planar graphs.
 
-Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h:=|V(P)|$ \emph{rows} $H_1,\dots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.
+Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter} described a $(4/3+o(1))\log n$-bit adjacency labelling scheme for planar graphs based on a recent \emph{graph product structure theorem} of Dujmović \etal\ \cite{dujmovic.joret.ea:planar}.  This product structure theorem states that any planar graph is a subgraph of a strong product $H\boxtimes P$ where $H$ is a bounded-treewidth graph and $P$ is a path. See \figref{product}. It is helpful to think of $H\boxtimes P$ as a graph whose vertices can be partitioned into $h := |V(P)|$ \emph{rows} $H_1,\dots,H_{h}$, each of which induces a copy of $H$ and with vertical and diagonal edges joining corresponding and adjacent vertices between consecutive rows.
 % We now quickly sketch the construction of Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}.
 
 \begin{figure*}[htbp]
@@ -153,7 +157,7 @@ Very recently, Bonamy, Gavoille, and Pilipczuk \cite{bonamy.gavoille.ea:shorter}
 \end{figure*}
 % In the following two paragraphs we omit $o(\log n)$ terms.
 
-The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m:=|V(H)|$ and $h:=|V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph), a $\ceil{\log{h}}$-bit labelling scheme for $P$ (a path), and a constant number of bits to locally encode the subgraph of $H\boxtimes P$ (of constant arboricity).  However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
+The product structure theorem quickly leads to a $(1+o(1))\log(mh)$-bit labelling scheme where $m := |V(H)|$ and $h := |V(P)|$ by using a $(1+o(1))\log m$-bit labelling scheme for $H$ (a bounded treewidth graph), a $\ceil{\log{h}}$-bit labelling scheme for $P$ (a path), and a constant number of bits to locally encode the subgraph of $H\boxtimes P$ (of constant arboricity).  However, for an $n$-vertex graph $G$ that is a subgraph of $H\boxtimes P$ in the worst case $m$ and $h$ are each $\Omega(n)$, so this offers no immediate improvement over the existing $(2+o(1))\log n$-bit scheme.
 
 Bonamy, Gavoille, and Pilipczuk improve upon this by cutting $P$ (and hence $G$) into subpaths of length $n^{1/3}$ in such a way that this corresponds to removing $\Oh(n^{2/3})$ vertices of $G$ that have a neighbourhood of size $\Oh(n^{2/3})$. The resulting (cut) graph is a subgraph of $H'\boxtimes P'$ where $H'$ has bounded treewidth, $|H'|\le n$, and $P'$ is a path of length $n^{1/3}$ so it has a labelling scheme in which each vertex has a label of length $(1+o(1))\log (|H'|\cdot|P'|) \le (4/3+o(1))\log n$.  A slight modification of this scheme allows for the $\Oh(n^{2/3})$ \emph{boundary} vertices adjacent to the cuts to have shorter labels, of length only $(2/3+o(1))\log n$.  The cut vertices and the boundary vertices induce a bounded-treewidth graph of size $\Oh(n^{2/3})$.  The vertices in this graph receive secondary labels of length $(2/3+o(1))\log n$.  In this way, every vertex receives a label of length at most $(4/3 + o(1))\log n$.
 
@@ -201,26 +205,26 @@ Due to space limitations, most proofs are omitted in this extended abstract. The
 \section{Preliminaries}
 \seclabel{preliminaries}
 
-All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G|:=|V(G)|$.
+All graphs we consider are finite and simple.  The vertex and edge sets of a graph $G$ are denoted by $V(G)$ and $E(G)$, respectively.  The \emph{size} of a graph $G$ is denoted by $|G| := |V(G)|$.
 %\pnote{Pat: \sout{For convenience, we let $\log x := \log\max\{1,x\}$.} In the next section we use $\log x$ with $0<x<1$ so this is wrong.  At least this way it's just sloppy.}
 
-For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v):=\{w\in V(G): vw\in E(G)\}$ and $N_G[v]:=N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
+For any graph $G$ and any vertex $v\in V(G)$, let $N_G(v) := \{w\in V(G) : vw\in E(G)\}$ and $N_G[v] := N_G(v)\cup\{v\}$ denote the open neighbourhood and closed neighbourhood of $v$ in $G$, respectively.
 
 \subsection{Prefix-Free Codes}
 
-For a string $s=s_1,\dots,s_k$, we use $|s|:=k$ to denote the length of $s$.
+For a string $s = s_1,\dots,s_k$, we use $|s| := k$ to denote the length of $s$.
 %We denote the empty string by $\varepsilon$.
-A string $s_1,\dots,s_k$ is a \emph{prefix} of a string $t_1,\dots,t_\ell$ if $k\le \ell$ and $s_1,\dots,s_k=t_1,\dots,t_k$.  A \emph{prefix-free code} $c:X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation\footnote{Observing that if the binary writing of an integer $i\ge 1$ is $w$, where $w$ is a word of $\floor{\log{i}}$ bits, then the code $0^{|w|},1,w$, i.e., the length of $w$ in unary followed by $1$ and then $i$ in binary, is prefix-free.} of Elias from 1975.
+A string $s_1,\dots,s_k$ is a \emph{prefix} of a string $t_1,\dots,t_\ell$ if $k\le \ell$ and $s_1,\dots,s_k=t_1,\dots,t_k$.  A \emph{prefix-free code} $c\colon X\to\{0,1\}^*$ is a one-to-one function in which $c(x)$ is not a prefix of $c(y)$ for any two distinct $x,y\in X$.  Let $\N$ denote the set of non-negative integers.  The following is a classic observation\footnote{Observing that if the binary writing of an integer $i\ge 1$ is $w$, where $w$ is a word of $\floor{\log{i}}$ bits, then the code $0^{|w|},1,w$, i.e., the length of $w$ in unary followed by $1$ and then $i$ in binary, is prefix-free.} of Elias from 1975.
 
 \begin{lem}[Elias \cite{elias:universal}]\lemlabel{elias}
-  There exists a prefix-free code $\gamma:\N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1$.%\in \Oh(\log i)$.
+  There exists a prefix-free code $\gamma\colon \N\to\{0,1\}^*$ such that, for each $i\in\N$, $|\gamma(i)|\le 2\lfloor\log(i+1)\rfloor + 1$.%\in \Oh(\log i)$.
   \end{lem}
 
   In the remainder of the paper, $\gamma$ (which we call an \emph{Elias encoding}) will be used extensively, without referring systematically to \lemref{elias}.
 
 \subsection{Labelling Schemes Based on Binary Trees}
 
-A \emph{binary tree} $T$ is a rooted tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $x$ in $T$, $P_T(x)$ denotes the path from the root of $T$ to $x$.  The \emph{length} of a path $P$ is the number of edges in $P$, i.e., $|P|-1$.  The \emph{depth}, $d_T(x)$ of $x$ is the length of $P_T(x)$.  The \emph{height} of $T$ is $h(T):=\max_{x\in V(T)} d_T(x)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ of height $h(T)=\lfloor\log|T|\rfloor$.
+A \emph{binary tree} $T$ is a rooted tree in which each node except the root is either the \emph{left} or \emph{right} child of its parent and each node has at most one left and at most one right child.  For any node $x$ in $T$, $P_T(x)$ denotes the path from the root of $T$ to $x$.  The \emph{length} of a path $P$ is the number of edges in $P$, i.e., $|P|-1$.  The \emph{depth}, $d_T(x)$ of $x$ is the length of $P_T(x)$.  The \emph{height} of $T$ is $h(T) := \max_{x\in V(T)} d_T(x)$.  A \emph{perfectly balanced} binary tree is any binary tree $T$ of height $h(T) = \lfloor\log|T|\rfloor$.
 
 A binary tree is \emph{full} if each non-leaf node has exactly two children. For a binary tree $T$, we let $T^+$ denote the full binary tree obtained by attaching to each node $x$ of $T$ $2-c_x$ leaves where $c_x \in\{0,1,2\}$ is the number of children of $x$.  We call the leaves of $T^+$ the \emph{external nodes} of $T$.  (Note that none of these external nodes are in $T$.)
 
@@ -240,12 +244,12 @@ The following observation allows us to compare values in a binary search tree ju
 Let $\R^+$ denote the set of positive real numbers. The following is a folklore result about biased binary search trees. %, but we sketch a proof here for completeness.
 
 \begin{lem}\lemlabel{biased-bst}
-  For any finite $S\subset \R$ and any function $w:S\to\R^+$, there exists a binary search tree $T$ with $V(T)=S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W:=\sum_{y\in S} w(y)$.
+  For any finite $S\subset \R$ and any function $w\colon S\to\R^+$, there exists a binary search tree $T$ with $V(T) = S$ such that, for each $y\in S$, $d_T(y)\le\log(W/w(y))$, where $W := \sum_{y\in S} w(y)$.
 \end{lem}
 
 % \begin{proof}
 %   The proof is by induction on $|S|$. The base case $|S|=0$ is vacuously true.
-%   For any $x\in\R$, let $S_{<x}:=\{y\in S: y < x\}$ and $S_{>x}:=\{y\in S: y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
+%   For any $x\in\R$, let $S_{<x} := \{y\in S : y < x\}$ and $S_{>x} := \{y\in S : y>x\}$. For $|S|\ge 1$, choose the root of $T$ to be the unique node $y_0\in S$ such that $\sum_{z\in S_{<y_0}} w(z)\le W/2$ and $\sum_{z\in S_{>y_0}}< W/2$. Apply induction on $S_{<y_0}$ and $S_{>y_0}$ to obtain the left and right subtrees of $T$, respectively.
 
 %   Then $d_T(y_0)=0=\log 1\le \log (W/w(y_0))$.  For each $y\in S_{<y_0}$,
 %   \[
@@ -272,18 +276,18 @@ The following fact about binary search trees is useful, for example, in the dele
     \item (if $y$ has no left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by removing all trailing 0's and the last 1; or
     \item (if $y$ has a left child) $\sigma_T(x)$ is obtained from $\sigma_T(y)$ by appending a 0 followed by $d_T(y)-d_T(x)-1$ 1's.
   \end{enumerate}
-Therefore, there exists a function $D:(\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every binary search tree $T$ and for every two consecutive nodes $x, y$ in the sorted order of $V(T)$, there exists $\delta_T(y) \in \{0,1\}^*$ with $|\delta_T(y)|=\Oh(\log h(T))$ such that
+Therefore, there exists a function $D\colon (\{0,1\}^*)^2\to\{0,1\}^*$ such that, for every binary search tree $T$ and for every two consecutive nodes $x, y$ in the sorted order of $V(T)$, there exists $\delta_T(y) \in \{0,1\}^*$ with $|\delta_T(y)|=\Oh(\log h(T))$ such that
 $D(\sigma_T(y),\delta_T(y))=\sigma_T(x)$.
 \end{obs}
 
-The bitstring $\delta_T(y)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $y$ has a left child in $T$ or not and, in case $y$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s:=d_T(y)-d_T(x)-1$.  More precisely, $\delta_T(y) = 0$ or $\delta_T(y) = 1, \gamma(s)$.
+The bitstring $\delta_T(y)$ from \obsref{predecessor-encoding} is obtained as follows: It consists of a first bit indicating whether $y$ has a left child in $T$ or not and, in case $y$ does have a left child, an Elias encoding $\gamma(s)$ of the value $s := d_T(y)-d_T(x)-1$.  More precisely, $\delta_T(y) = 0$ or $\delta_T(y) = 1, \gamma(s)$.
 
 Putting some of the preceding results together we obtain the following useful coding result.
 
 \begin{lem}\lemlabel{row-code}
-  There exists a function $A:(\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w:\{1,\dots,h\}\to\R^+$ there is a prefix-free code $\alpha:\{1,\dots,h\}\to \{0,1\}^*$ such that
+  There exists a function $A\colon (\{0,1\}^*)^2\to\{-1,0,1,\perp\}$ such that, for any $h\in\N$, and any $w\colon \{1,\dots,h\}\to\R^+$ there is a prefix-free code $\alpha\colon \{1,\dots,h\}\to \{0,1\}^*$ such that
   \begin{compactenum}
-    \item for each $i\in\{1,\dots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$, where $W:=\sum_{j=1}^h w(j)$;
+    \item for each $i\in\{1,\dots,h\}$, $|\alpha(i)|=\log W -\log w(i) + \Oh(\log\log h)$, where $W := \sum_{j=1}^h w(j)$;
     \item for any $i,j\in\{1,\dots,h\}$,
     \[   A(\alpha(i),\alpha(j))
     = \begin{cases}
@@ -298,7 +302,7 @@ Putting some of the preceding results together we obtain the following useful co
 
 
 % \begin{proof}
-%   Define $w':\{1,\dots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
+%   Define $w':=\{1,\dots,h\}\to \R^+$ as $w'(i)=w(i)+W/h$ and let $W':=\sum_{i=1}^h w'(i)=2W$.
 %   Using \lemref{biased-bst}, construct a biased binary search tree $T$ on $\{1,\dots,h\}$ using $w'$ so that
 %   \[
 %     d_T(i)\le\log (2W)-\log(w(i)+W/h) \le \log W-\log w(i)+1
@@ -337,7 +341,7 @@ A proof of a much more general version of \lemref{fractional} (with larger const
 
 \subsection{Product Structure Theorems}
 
-The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B):=V(A)\times V(B)$ and in which two distinct vertices $(x_1,y_1)$ and $(x_2,y_2)$ are adjacent if and only if:
+The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph whose vertex set is the Cartesian product $V(A\boxtimes B) := V(A)\times V(B)$ and in which two distinct vertices $(x_1,y_1)$ and $(x_2,y_2)$ are adjacent if and only if:
 \begin{enumerate}
   \item  $x_1x_2 \in E(A)$ and $y_1y_2 \in E(B)$; or
   \item $x_1=x_2$ and $y_1y_2\in E(B)$; or
@@ -355,7 +359,7 @@ The \emph{strong product} $A\boxtimes B$ of two graphs $A$ and $B$ is the graph 
 %  Let $\mathcal{G}$ be a minor-closed family of graphs that excludes some fixed apex graph.  Then every $G\in\mathcal{G}$ is the subgraph of a strong product $H\boxtimes P$ where $H$ is a graph of bounded treewidth and $P$ is a path.
 %\end{thm}
 Dujmović, Morin, and Wood \cite{dujmovic.morin.ea:structure} gave analogous product structure theorems for some non-minor closed families of graphs including $k$-planar graphs,
-%map graphs, Piotrek: I even dont know what are map graphs :)
+%map graphs, Piotrek: I even dont know what are map graphs:)
 powers of bounded-degree planar graphs, and $k$-nearest-neighbour graphs of points in $\R^2$. Dujmović, Esperet, Morin, Walczak, and Wood \cite{dujmovic.esperet.ea:clustered} proved that a similar product structure theorem holds for graphs of bounded degree from any (fixed) proper minor-closed class.  This is summarized in the following theorem:
 
 \begin{thm}[\cite{dujmovic.joret.ea:planar},\cite{dujmovic.esperet.ea:clustered},\cite{dujmovic.morin.ea:structure}]\thmlabel{product-structure-all}
@@ -440,7 +444,7 @@ The resulting tree is the outcome of the operation.
 \end{lem}
 
 % \begin{proof}
-% We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 8|T_x|$.
+% We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I := V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 8|T_x|$.
 % \end{proof}
 
 
@@ -478,7 +482,7 @@ The rebalancing operation on a binary search tree $T$ uses several subroutines t
 
 \subsubsection{$\textsc{Split}(x)$}
 
-The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two binary search trees $T_{<x}$ and $T_{>x}$ where $V(T_{<x})=\{z\in V(T): z<x\}$ and $V(T_{>x})=\{z\in V(T): z>x\}$. Refer to \figref{split}.  Let $P_T(x_r)=x_0,\dots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x=x_r$.  Partition $x_0,\dots,x_{r-1}$ into two subsequences $a:=a_1,\dots,a_s$ and $b:=b_1,\dots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
+The argument of $\textsc{Split}(x)$ is a node $x$ in $T$ and the end result of the subroutine is to split $T$ into two binary search trees $T_{<x}$ and $T_{>x}$ where $V(T_{<x}) = \{z\in V(T) : z<x\}$ and $V(T_{>x}) = \{z\in V(T) : z>x\}$. Refer to \figref{split}.  Let $P_T(x_r) = x_0,\dots,x_r$ be the path in $T$ from the root $x_0$ of $T$ to $x = x_r$.  Partition $x_0,\dots,x_{r-1}$ into two subsequences $a := a_1,\dots,a_s$ and $b := b_1,\dots,b_t$ where the elements of $a$ are less than $x$ and the elements of $b$ are greater than $x$.
 Note that the properties of a binary search tree guarantee that
 \[
 a_1 < \cdots < a_s < x < b_t < \cdots < b_1.
@@ -495,7 +499,7 @@ Make a binary search tree $T_0$ that has $x$ as root, the path $a_1,\dots,a_s$ a
   \figlabel{split}
 \end{figure}
 
-Next, consider the forest $F:=T-\{x_0,\dots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\dots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ in $T_x$ and, for each $i\in\{1,\dots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$ (if such a child exists, otherwise $A_i$ is empty).  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$ in $T_x$.
+Next, consider the forest $F := T-\{x_0,\dots,x_r\}$. This forest consists of $r+2$ (possibly empty) trees $A_1,\dots,A_{r-1},L,R$ where $L$ and $R$ are the subtrees of $T$ rooted at the left and right child of $x$ in $T_x$ and, for each $i\in\{1,\dots,r-1\}$, $A_i$ is the subtree of $T$ rooted at the child $c_i\neq x_{i+1}$ of $x_i$ (if such a child exists, otherwise $A_i$ is empty).  Make a binary search tree $T_x$ by replacing each of the $r+2$ external nodes of $T_0^+$ with the corresponding tree in $F$.  Finally, let $T_{<x}$ be the subtree of $T_x$ rooted at the left child of $x$ and let $T_{>x}$ be the subtree of $T_x$ rooted at the right child of $x$ in $T_x$.
 
 \begin{lem}\lemlabel{split-height}
   Let $T$ be any binary search tree, let $x$ be any node of $T$, and apply $\textsc{Split}(x)$ to obtain $T_{<x}$ and $T_{>x}$.
@@ -526,12 +530,12 @@ The following observation shows that there is a simple relationship between a no
     \item $\sigma_{T_{<x}}(z)=1^s,\sigma_L(z)$ for each $z\in V(L)$; and
     \item $\sigma_{T_{>x}}(z)=0^t,\sigma_R(z)$ for each $z\in V(R)$.
   \end{compactenum}
-  In particular, for any $z\in V(T)\setminus\{x\}$, $\sigma_{T_{<x}}(z)$ or $\sigma_{T_{>x}}(z)$ can be obtained from $\sigma_T(z)$ by deleting a prefix and replacing it with one of the $4\cdot h(T)$ strings in $\Pi:=\bigcup_{j=0}^{h(T)-1}\{0^j,0^j1,1^j,1^j0\}$.
+  In particular, for any $z\in V(T)\setminus\{x\}$, $\sigma_{T_{<x}}(z)$ or $\sigma_{T_{>x}}(z)$ can be obtained from $\sigma_T(z)$ by deleting a prefix and replacing it with one of the $4\cdot h(T)$ strings in $\Pi := \bigcup_{j=0}^{h(T)-1}\{0^j,0^j1,1^j,1^j0\}$.
 \end{obs}
 
 \subsubsection{$\textsc{MultiSplit}(x_1,\dots,x_c)$}
 
-From the $\textsc{Split}(x)$ operation we build the $\textsc{MultiSplit}(x_1,\dots,x_c)$ operation that takes as input a sequence of nodes $x_1<\cdots<x_c$ of $T$.  For convenience, define $x_0=-\infty$ and $x_{c+1}=\infty$.  The effect of $\textsc{MultiSplit}(x_1,\dots,x_c)$ is to split $T$ into a sequence of binary search trees $T_0,\dots,T_{c}$ where, for each $i\in\{0,\dots,c\}$, $V(T_i)=\{z\in V(T): x_i< z<x_{i+1}\}$.
+From the $\textsc{Split}(x)$ operation we build the $\textsc{MultiSplit}(x_1,\dots,x_c)$ operation that takes as input a sequence of nodes $x_1<\cdots<x_c$ of $T$.  For convenience, define $x_0=-\infty$ and $x_{c+1}=\infty$.  The effect of $\textsc{MultiSplit}(x_1,\dots,x_c)$ is to split $T$ into a sequence of binary search trees $T_0,\dots,T_{c}$ where, for each $i\in\{0,\dots,c\}$, $V(T_i)=\{z\in V(T) : x_i< z<x_{i+1}\}$.
 
 The implementation of $\textsc{MultiSplit}(x_1,\dots,x_c)$ is straightforward divide-and-conquer:  If $c=0$, then there is nothing to do.  Otherwise, call $\textsc{Split}(x_{\lceil c/2\rceil})$ to obtain $T_{<x_{\lceil c/2\rceil}}$ and $T_{>x_{\lceil c/2\rceil}}$.  Next, apply $\textsc{MultiSplit}(x_1,\dots,x_{\lceil c/2\rceil-1})$ to $T_{<x_{\lceil c/2\rceil}}$ to obtain $T_0,\dots,T_{\lceil c/2\rceil-1}$ and then apply $\textsc{MultiSplit}(x_{\lceil c/2\rceil+1},\dots,x_c)$ to $T_{>x_{\lceil c/2\rceil}}$ to obtain $T_{\lceil c/2\rceil},\dots,T_c$.
 
@@ -556,16 +560,16 @@ Refer to \figref{balance-x}.
   \figlabel{balance-x}
 \end{figure}
 
-If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  Otherwise, let $Z:=\{z\in V(T_x): d_{T_x}(z)< k\}$.  Call the $m\le 2^k-1$ elements of $Z$  $z_1<z_2<\cdots<z_{m}$ and, for convenience, define $z_0=-\infty$ and $z_{m+1}=\infty$.
+If $|V(T_x)|< 2^k$, then this operation simply replaces $T_x$ with a perfectly balanced binary search tree containing $V(T_x)$.  Otherwise, let $Z := \{z\in V(T_x) : d_{T_x}(z)< k\}$.  Call the $m\le 2^k-1$ elements of $Z$  $z_1<z_2<\cdots<z_{m}$ and, for convenience, define $z_0=-\infty$ and $z_{m+1}=\infty$.
 
-Select the nodes $X:=\{x_1,\dots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has rank $\lfloor j|V(T_x)|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite set $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S: x'<x\}|$.}  The $\textsc{Balance}(x,k)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
+Select the nodes $X := \{x_1,\dots,x_{2^k-1}\}$ of $T_x$ where each $x_j$ has rank $\lfloor j|V(T_x)|/2^k\rfloor$ in $V(T_x)$.\footnote{For a finite set $X\subset\R$, and $x\in\R$, the \emph{rank} of $x$ in $S$ is $|\{x'\in S : x'<x\}|$.}  The $\textsc{Balance}(x,k)$ operation will turn $T_x$ into a tree with a top part $\hat{T}_0$ that is a perfectly balanced binary search tree on $Z\cup X$.  We now describe how this is done.
 
-$T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\dots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\dots,T_m$ so that, for each $i\in\{0,\dots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\dots,m\}$, let $\{x_{i,1},\dots,x_{i,c_i}\}:=X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\dots,m\}$, $c_i\le |X|\le 2^k-1$.
+$T_x-Z$ is a forest consisting of $m+1\le 2^{k}$ trees $T_0,\dots,T_m$. (Some of these trees may be empty.)  Order $T_{0},\dots,T_m$ so that, for each $i\in\{0,\dots,m\}$ and each $x'\in V(T_i)$, $z_i< x' < z_{i+1}$.  For each $i\in\{0,\dots,m\}$, let $\{x_{i,1},\dots,x_{i,c_i}\} := X\cap V(T_i)$ where $x_{i,1}<\cdots<x_{i,c_i}$ and define $x_{i,0}:=z_i$ and $x_{i,c_i+1}:=z_{i+1}$. Note that for each $i\in\{0,\dots,m\}$, $c_i\le |X|\le 2^k-1$.
 
 For each $i\in\{0,\dots,m\}$, apply $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ to the tree $T_i$.  As a result of these calls, we obtain sequences of trees $T_{i,0},\dots,T_{i,c_i}$ where, for each $i\in\{0,\dots,m\}$, each $j\in\{0,\dots,c_i\}$, and each $x'\in V(T_{i,j})$, we have $x_{i,j}<x'<x_{i,j+1}$.  Note that if $c_i=0$ (i.e., if $X$ does not intersect $V(T_i)$), then the result of this call is a single tree $T_{i,0}=T_i$.
 Observe that $\bigcup_{i=0}^m\bigcup_{j=0}^{c_i} V(T_{i,j}) = V(T_x)\setminus (Z\cup X)$.
 
-Let $p := |Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0 := -\infty$ and $s_{p+1} := \infty$.  For each $\ell\in\{0,\dots,p\}$, let $i_\ell:=|Z\cap \{s_1,\dots,s_\ell\}|$ and $j_\ell:= \ell - \max\{ q\in\{1,\dots,\ell\}: s_q\in Z\}$ and let $A_\ell:=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{0,\dots,p\}$ and each $x'\in V(A_\ell)$, we have $s_\ell < x' < s_{\ell+1}$.
+Let $p := |Z\cup X|$, let $s_1<\cdots< s_p$ denote the elements of $Z\cup X$ and define $s_0 := -\infty$ and $s_{p+1} := \infty$.  For each $\ell\in\{0,\dots,p\}$, let $i_\ell := |Z\cap \{s_1,\dots,s_\ell\}|$ and $j_\ell := \ell - \max\{ q\in\{1,\dots,\ell\} : s_q\in Z\}$ and let $A_\ell:=T_{i_\ell,j_\ell}$.   Then, for each $\ell\in \{0,\dots,p\}$ and each $x'\in V(A_\ell)$, we have $s_\ell < x' < s_{\ell+1}$.
 
 Now construct a perfectly balanced tree $\hat{T}_0$ with vertex set $V(\hat{T}_0):=\{s_1,\dots,s_p\}=Z\cup X$.  The tree $\hat{T}_0$ has $p+1$ external nodes $a_0,\dots,a_p$.  We obtain a new tree $T_x'$ by replacing $a_\ell$ with $A_\ell$ for each $\ell\in\{0,\dots,p\}$ in $\hat{T}_0^+$.  In the encompassing bulk tree $T$ we replace the subtree $T_x$ with $T_x'$.
 
@@ -765,7 +769,7 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
 %   For $y\in Y\setminus\{1\}$,
 %   \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}) implies that $T_y$ satisfies the conditions of the lemma.
 
-%   All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\dots,h\}\setminus Y$. To show this, let $y_0 := \max\{ y'\in Y: y'<y \}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.
+%   All that remains is to show that the conditions of the lemma are satisfied for each $y\in\{1,\dots,h\}\setminus Y$. To show this, let $y_0 := \max\{ y'\in Y : y'<y \}$.  That is, $T_{y_0}$ is the tree that began the one-phase $k$-bulk tree sequence in which $T_y$ takes part.
 %   %Let $y^*$ be defined as before with respect to the tree $T_{y_0}$, i.e., $y^*=\left\lceil\tfrac{\log |T_{y_0}|}{k-3}\right\rceil$.
 %   %=(1+o(1))k^{-1}\log |T_{y_0}|$.
 %   In this case, \lemref{bulktree-height-i}(\ref{bulktree-height-item-i}) implies that
@@ -1164,7 +1168,7 @@ The adjacency testing is now fairly similar as before, except that when we have 
 % We describe a labelling scheme for $t$-trees that, like our labelling scheme for paths, is based on a binary search tree.  The ideas behind this scheme are not new; this is essentially the labelling scheme for $t$-trees described by Gavoille and Labourel \cite{gavoille.labourel:shorter}.  However, we present these ideas in a manner that makes it natural to generalize the results of \secref{pxp}.
 
 
-% We are given a $t$-tree $H$ on $m$ vertices with an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}.  In particular, the clique number of the resulting interval graph is at most $(t+1)\floor{\log_3(2m+1)+1}$.  Since interval graphs are perfect, their clique number coincides with their chromatic number.  Let $\varphi: V(H) \to [(t+1)\floor{\log_3(2m+1)+1}]$ be a colouring such that $u$ and $v$ have distinct colours whenever the intervals of $u$ and $v$ intersect.
+% We are given a $t$-tree $H$ on $m$ vertices with an interval representation $v\mapsto[a_v,b_v]$ as in~\lemref{interval-representation}.  In particular, the clique number of the resulting interval graph is at most $(t+1)\floor{\log_3(2m+1)+1}$.  Since interval graphs are perfect, their clique number coincides with their chromatic number.  Let $\varphi\colon V(H) \to [(t+1)\floor{\log_3(2m+1)+1}]$ be a colouring such that $u$ and $v$ have distinct colours whenever the intervals of $u$ and $v$ intersect.
 
 % The following easy observation shows that a vertex $v$ of $H$ is uniquely identified by $\varphi(v)$ and the $x_T(v)$ value in a binary search tree $T$ that stabs $H$.
 % This gives ground for an adjacency labelling scheme.
@@ -1178,7 +1182,7 @@ The adjacency testing is now fairly similar as before, except that when we have 
 % % \begin{proof}
 % %   If $x_T(v)=x=x_T(w)$, then by \lemref{all-the-obs-about-bst-and-intervals}\itemref{itm:v-in-its-interval} intervals $[a_v,b_v]$ and $[a_w,b_w]$ each contain $x$,
 % %   so they intersect.
-% %   Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T: V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
+% %   Therefore, $\varphi(v)\neq\varphi(w)$.% since $\varphi$ is a proper colouring of $G_S$.  The second, equivalent, statement of the observation is immediate from the fact that $\sigma_T\colon V(T)\to\{0,1\}^*$ is injective, so $\sigma_T(x)$ uniquely identifies $x$.
 % % \end{proof}
 
 % Let $T$ be a binary search tree that stabs $H$ and let $v$ be a vertex in $H$.
@@ -1289,7 +1293,7 @@ The adjacency testing is now fairly similar as before, except that when we have 
 
 % For each $y\in\{1,\dots,h\}$, let
 % \begin{align*}
-% S_y&=\{v\in V(H): (v,y)\in V(G)\}, \text{ and}\\
+% S_y&=\{v\in V(H)\colon (v,y)\in V(G)\}, \text{ and}\\
 % S^+_y&=\textstyle\bigcup_{v\in S_y} C_H(v).
 % \end{align*}
 % Note that $\sum_{y=1}^h |S_y| =n$ and $\sum_{y=1}^h |S^+_y| \leq (t+1)n$.
