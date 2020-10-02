@@ -4,12 +4,13 @@
 \usepackage[cm]{sfmath}
 %\usepackage{enumitem}
 
-\setlength{\leftmargini}{0pt}
+% \setlength{\leftmargini}{0pt}
 
+\newcommand{\N}{\mathbb{N}}
 
-\title{Asymptotically Optimal Adjacency-Labelling for Planar Graphs\newline
+\title[Adjacency Labelling]{Asymptotically Optimal Adjacency-Labelling for Planar Graphs\newline
  (and Beyond)}
-\author{Vida Dujmović, Louis Esperet, Cyril Gavoille, Gwenaël Joret, and Pat Morin}
+\author[Dujmović, Esperet, Gavoille, Joret, Morin]{Vida Dujmović, Louis Esperet, Cyril Gavoille, Gwenaël Joret, and Pat Morin}
 
 \begin{document}
 
@@ -19,20 +20,190 @@
 
 \begin{frame}
   \frametitle{Adjacency Labelling}
-  \framesubtitle{Problem Statement}
+  \framesubtitle{Labelling and Testing for a graph $G$}
 
   \begin{itemize}
-    \item<+->[] Labelling function $\ell:V(G)\to\{0,1\}^*$
-    \item<+->[] Adjacency tester $A:\{0,1\}^*\times\{0,1\}^*\to \{0,1\}$
-    \item<+->[]
-        \[
+    \item Adjacency tester $A:\{0,1\}^*\times\{0,1\}^*\to \{0,1\}$
+    \item Labelling function $\ell:V(G)\to\{0,1\}^*$
+    \item $(G,\ell)$ \emph{works with} $A$ if, for each $v,w\in V(G)$,
+        $
             A(\ell(v),\ell(w)) = \begin{cases}
                 1 & \text{if $vw\in E(G)$} \\
                 0 & \text{if $vw\not\in E(G)$}
         \end{cases}
-        \]
+        $
+    \end{itemize}
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/labelling-scheme}%
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adjacency Labelling}
+    \framesubtitle{Labelling schemes for graph families}
+
+    \begin{itemize}
+        \item<+->A graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme if \begin{itemize}
+            \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$
+            \item for each $n$-vertex $G\in\mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^{f(n)}$ such that $(G,\ell)$ works with $A$
+        \end{itemize}
+    \end{itemize}
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=5]{figs/labelling-scheme}%
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Universal Graphs}
+    \framesubtitle{Labelling schemes and universal graphs}
+
+    \begin{itemize}
+        \item<+->\textbf{Theorem (Folklore):}  If a graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
+        \begin{itemize}
+            \item<+-> $|V(U_n)|=2^{f(n)}$
+            \item<+-> For each $n$-vertex $G\in\mathcal{G}$, $G$ appears as an induced subgraph of $U_n$
+        \end{itemize}
+        \item<+->Proof: $V(U_n):=\{0,1\}^{f(n)}$, $E(U_n):=\{vw:A(v,w)=1\}$.
+        \item<+->$U_n$ is called an \emph{(induced) universal} graph for $n$-vertex members of $\mathcal{G}$.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Previous Results}
+    \framesubtitle{Trees and Bounded Treewidth Graphs}
+
+    \begin{center}
+        \begin{tabular}{llc}
+            \multicolumn{3}{c}{Trees} \\
+            $f(n)$ & $|U_n|$ & Reference  \\ \hline
+            $\log n+\log\log n+O(1)$ & $O(n\log n)$ & Chung (1990)   \\
+            $\log n + O(\log^* n)$ & $n2^{O(\log^* n)}$ & Alstrup-Rauhe (2006) \\
+            $\log n + O(1)$ & $O(n)$ & Alstrup-Dahlgaard-Knudsen (2017) \\[2em]
+            \multicolumn{3}{c}{Bounded treewidth graphs} \\
+            $\log n + o(\log n)$ & $n^{1+o(1)}$ & Gavoille-Labourel (2007) \\[2em]
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Previous Results}
+    \framesubtitle{Planar Graphs}
+    \begin{center}
+        \begin{tabular}{llcc}
+            % \multicolumn{4}{c}{Planar graphs} \\
+            $f(n)$ & $|U_n|$ & Reference & Techniques \\ \hline
+            $6\log n$ & $n^6$ & Muller (1988) & 5-degeneracy \\
+            $4\log n$ & $n^4$ & Kannan-Naor-Rudich (1988) & 3-orientation \\
+            $3\log n + O(1)$ & $O(n^3)$ & --- & arboricity + trees \\
+            $2\log n + o(\log n)$ & $n^{2+o(1)}$ & Gavoille-Labourel (2007) & 2-outerplanar decomp. \\
+            $\tfrac{4}{3}\log n + o(\log n)$ & $n^{\tfrac{4}{3}+o(1)}$ & Bonamy-Gavoille-Pilipczuk (2020) & product structure  \\
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{New Result}
+
+    \begin{itemize}
+        \item<+-> \textbf{Theorem 1:} The family of planar graphs has a $(\log n + o(\log n))$-bit adjacency labelling scheme.
+
+
+        \item<+-> \textbf{Corollary 1:} For each $n$, there is a graph $U_n$ with $n^{1+o(1)}$ vertices is universal for $n$-vertex planar graphs.
+
     \end{itemize}
 \end{frame}
+
+\begin{frame}
+    \frametitle{The Strong Graph Product $\boxtimes$}
+
+    \begin{itemize}
+        \item[] For two graphs $A$ and $B$, the \emph{strong product} $A\boxtimes B$ is a graph:
+        \begin{itemize}
+            \item $V(A\boxtimes B):=V(A)\times V(B)$
+            \item $(a_1,b_1)$ and $(a_2,b_2)$ are adjacent if and only if:
+            \begin{itemize}
+                \item $a_1=a_2$ and $b_1b_2\in E(B)$; or
+                \item $a_1a_2 \in E(A)$ and $b_1=b_2$.
+                \item  $a_1a_2 \in E(A)$ and $b_1b_2 \in E(B)$; or
+            \end{itemize}
+        \end{itemize}
+        \begin{center}
+            \includegraphics{figs/product}
+        \end{center}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Product Structure Theorem}
+
+    \begin{center}
+        \includegraphics{figs/product}
+    \end{center}
+
+    \begin{itemize}
+        \item<+->\textbf{Product Structure Theorem (Dujmović-Joret-Micek-M-Ueckerdt 2019):} For any planar graph $G$ there exists a graph $H$ of treewidth at most $8$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.
+
+        \item<+->\textbf{Main Result (Here):} Let $\mathcal{G}_t$ be the family of graphs such that for each $G\in\mathcal{G}$, there exists a graph $H$ of treewidth at most $t$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.  Then, for any fixed $t$, $\mathcal{G}$ has a $(\log n + o(\log n))$-bit labelling scheme.
+
+        \item<+->\textbf{Applications:} bounded genus graphs, apex-minor free graphs, bounded-degree graphs from minor-closed families, $k$-planar graphs for constant $k$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Warm-up: $G\subseteq P\boxtimes P$}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/pxp}%
+    \end{center}
+    \begin{itemize}
+        \item The label for a vertex $v=(x,i)$ has three main parts:
+        \begin{itemize}
+            \item A \emph{row label} of length $\log n -\log n_i + o(\log n)$ defined by $i$
+            \item A \emph{column label} of length $\log n_i +o(\log n)$ defined by $(G_i,x)$
+            \item A \emph{transition label} of length $o(\log n)$ defined by $(G_i,G_{i+1},x)$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Binary Search Trees}
+    \framesubtitle{Any binary search tree can label a path}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/bst-path}%
+    \end{center}
+    \begin{itemize}
+        \item Label length: $\mathrm{depth}_T(v)+ O(\mathrm{height}(T))=\mathrm{depth}_T(v)+O(\log\log n)$ bits)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Column Code Tree}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/pxp-evolution}%
+    \end{center}
+\end{frame}
+
+
+
+
+
+
+\end{document}
+
+\begin{frame}
+    \frametitle{Frame Title}
+    \framesubtitle{Frame Subtitle}
+\end{frame}
+
 
 
 \end{document}

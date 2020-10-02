@@ -1,0 +1,123 @@
+This talk about is about adjacency labelling schemes for planar graphs and is joint work with Vida Dujmović, Louis Esperet, Cyril Gavoille, and Gwenaël Joret.
+---
+Given a function A that takes pairs of binary strings as inputs and outputs a single bit, a simple graph G and labelling \ell of G's vertices with binary strings, we say that (G,l) works with A if the following conditions are satisfied
+- when given the labels of any two adjacent vertices in G, A outputs 1
+- when given the labels of any two non-adjacent vertices in G, A outputs 0.
+
+We refer to A as an adjacency-tester.
+---
+For a graph family G, we say that G has an f(n) bit labelling scheme if there exists a single adjacency tester A such that each n-vertex member of F has a labelling using labels of length f(n) that works with A
+
+The example shown here uses an adjacency tester A that returns 1 if and only if the Hamming distance between its two inputs is 1.  The graph illustrated here is 3-cube.  The labelling is the standard labelling of the 3-cube using labels of length 3.  This generalizes to the $d$-cube and shows that the family of hypercubes has a (log n)-bit labelling scheme.
+---
+Adjacency labelling schemes are closely related to so-called universal graphs.  If a graph family has an f(n)-bit labelling scheme then, for each integer n there is a universal graph U_n with 2^{f(n)} vertices such that each n-vertex member of the family appears as an induced subgraph of U_n.
+
+The graph U_n is easy to define. Its vertex set consists of all f(n) bit binary strings and an edge vw is present in U_n if and only if the adjacency tester A outputs 1 given the bitstrings v and w.
+---
+Nearly optimal adjacency labelling schemes and universal graphs for trees and forests have been known since the work of Chung on universal graphs in 1990.  Work in this area has recently culminated with the result of Alstrup, Dahlgaard, and Knudsen, who give a (log n + O(1))-bit labelling scheme for the family of forests.  This is optimal up to the constant additive term.
+
+As part of their work on planar graphs, Gavoille and Labourel showed that the class of bounded treewidth Graphs have near-optimal labelling schemes.
+---
+Work on adjacency labelling schemes for planar graphs goes back at least to 1988.
+
+- Muller's thesis described a (6log n)-bit labelling scheme based on the fact that planar graphs are 5-degenerate.
+
+- In a STOC1988 paper, Kannan, Naor, and Rudich gave described a (4log n)-bit labelling scheme based on the fact that the edges of a planar graph can be oriented so that the maximum out-degree at any vertex is 3.
+
+- The fact that the edges of any planar graph can be partitioned in three forests, along with the optimal labelling scheme for forests implies a $3\log n+O(1)$-bit labelling scheme for planar graphs
+
+- Gavoille and Labourel used the fact that the edges of any planar graph can be partitioned into two graphs of treewidth-2 along with their labelling scheme for bounded treewidth graphs to obtain a 2log n + o(log n) bit labelling scheme for planar graphs.
+
+- Very recently, Bonamy, Gavoille, and Pilipczuk used a recent product structure theorem for planar graphs to obtain a (4/3)log n - bit labelling scheme for planar graphs
+
+- Finally, the main result in the current work, is a log n + o(log n) bit labelling scheme for planar graphs.  This work is also based on the product structure theorem for planar graphs.
+---
+Before we can describe the product structure theorem on which these results are based, we need to define the strong graph product.  This figure illustrates the strong product of a tree and path.
+
+The product of two graphs A and B is the graph whose vertex set is the Cartesian product of the vertex sets of A and B. A vertex a_1 b_1 is adjacent to a vertex a_2 b_2 if one of the the following three conditions are satisfied
+
+- a_1 = a_2 and b_1 and b_2 are adjacent in B.  These are the vertical edges in the illustration that join two vertices in the same column.
+
+- a_1 and a_2 are adjacent in A and b_1=b_2. These are horizontal edges in the illustration that join two vertices in the same row.
+
+- a_1 and a_2 are adjacent and A and b_1 and b_2 are adjacent in B.  These are the blue and red diagonal edges in the illustration that join vertices distinct row and columns.
+
+As in the example shown here we will always be taking the strong product of some graph and a path.  In this kind of product, the vertical and diagonal edges always span two consecutive rows.
+---
+The product structure theorem for planar graphs states that any planar graph $G$ is the subgraph of a strong product of two very simple graphs:  a bounded treewidth graph H and a path P.
+
+Our main result is that any family of graphs consisting of subgraphs of strong products of bounded treewidth graphs and paths has a log n + o(log n) bit labelling scheme.  This result applies to graph families considerably beyond planar graphs, including bounded-genus graphs, apex-minor free graphs, bounded degree graphs from minor-closed families, and k-planar graphs for constant k.
+---
+Before proving the main result in its entirety, we consider the special case, in which $G$ is an 'induced subgraph' of the strong product of two paths.  This simpler-sounding problem still contains all the major difficulties that must be overcome in a solution to general problem.
+
+The vertices of G can be partitioned into rows numbered one through h.  We let G_i denote the subgraph of G induced by the vertices in row i.
+
+- the row label identifies which row, i, v is in. Every vertex in the same row receives teh same row label.  The row labels are designed so that, using the row labels of two vertices we can determine if the vertices are in the same row, in two consecutive rows, or in two distinct rows that are not consecutive.  If row i contains n_i vertices of G then the label for row i will have length roughly log n - log n_i
+
+- the column label of v is designed so that, given the column labels of two vertices in the same row, we can test if u and v are adjacent in G.  The column labels are designed so that each vertex in row $i$ receives a column label of length roughly log n_i.
+
+- In this way, the total length of the row and column label for v is roughly log n.
+
+The discussion so far already highlights the main difficulty.  The row labels of two vertices v and w create 3 cases:
+
+- if v and w are it the same row then we can use their column labels to test if vw is an edge G
+- if v and w are not in consecutive rows then we know that they are not adjacent
+- but if v and w are in consecutive rows i and i+1 then we have a problem the column label for v is for the graph induced by row i and the column label for w is for the graph induced by row i+1.  These are different graphs, so the column labels of v and w are not compatible.
+
+- For this reason, the label of v contains a third part, called the transition label, which contains enough information to modify the column label of v to produce a column label that is compatible with the labelling of row i+1. Then we use this modified label to test for the existence of the edge vw.
+
+To implement these ideas we need a flexible way to label the vertices of a path.
+---
+One way to label the vertices of a path is to store those vertices in a binary search tree T, in the same order they occur on the path.
+
+Each vertex v gets a unique signature obtained by recording the steps from the root of the tree to v, using a 0 for an edge leading left and 1 for an edge leading right.
+
+In addition to this signature, each vertex implicitly stores the signature of the vertex that immediately precedes it in the path.  They key observation is that this signature has a concise encoding.  There are three cases that can be distinguished using 2 bits that a denoted by an O, an A, or an X in the illustration here.
+
+In Case O, the predecessor v in the path is not part of the induced graph. In this case there is nothing more to encode.
+
+In Case X, v has no left child, then the signature of v's predecessor is obtained by removing a trailing string of from v's signature that consists of a 1 followed by a string of zero or more 0s.  This does not require encoding any extra information.
+
+Finally, in Case A, v has a left child. Then the signature of v's predecessor is obtained by appending a 0 and a string of zero or more 1's to v's signature.  This can be encoding by a binary encoding of the difference in depth between v and its successor.
+
+The code for v therefore consists of a signature, whose length is equal to the depth of v, two bits to distinguish between Case A and Case B, and possibly a positive integer that is not greater than the height of T.  If T is at all balanced, this final integer can be encoding using O(log log n) bits.
+
+Note that this approach is quite flexible. The tree T can have any shape as long as its height polylogarithmic.
+---
+We will make use of this flexibility in two different ways. We will create a sequence of binary search trees T_1,..,T_h corresponding to the rows of our graph.
+
+We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of consecutive vertices that appear in row i none of which appear in row i+1, and vice-versa.
+
+We will imagine T_1,...,T_h as a single dynamic binary search tree that undergoes changes as we move from one row to the next.
+---
+When moving from row i to row i+1 we three things happen and we need to keep track of how this changes the signatures of nodes that appear both in T_i and in T_{i+1}.  These changes determine the transition codes that are used to convert the label of a node in T_i into a label that can be used in T_{i+1}.
+
+These three changes are the addition of new nodes that appear in row i+1, deletion of nodes that disappear from row i, and a rebalancing operation required to ensure that each tree T_i has small height.
+---
+The addition of new nodes that appear in row i+1 is done using a trivial algorithm.  The new nodes simply appended as leaves T_{i+1}.  The fractional cascading step ensures that this does not increase the height of T_{i+1} by more than a constant.
+
+This addition has no effect on the signatures of nodes in T_i that also appear in T_{i+1}.  Any node that appears in both trees has the same signature before and after the new vertices are added.
+---
+The deletion of nodes that disappear in row i+1 is done using the standard algorithm for deletion in binary search trees.  If the node is a leaf, then we simply delete that leaf.  Otherwise we replace the node with either its successor or predecessor, as illustrated here.  This can cause a sequence of nodes to change locations where each node in the sequence takes the empty place left by its predecessor in the sequence.
+
+The key observation here is that any node that is moved is moved to the location of one of its ancestors.  The only effect this has on the signature of the node is to truncate it.  Any node that is not moved by the deletion has the same signature before and after the deletion.
+
+Therefore, for a particular node v that appears in T_i and T_{i+1}, the effects of any number of deletions on the signature of v can be summarized by a single integer that indicates how many bits to remove from the signature of v.  If T_i is at all balanced, this integer can be encoding using O(log log n) bits.
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Since G is a subgraph of H * P

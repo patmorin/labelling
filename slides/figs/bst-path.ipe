@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201001090748"/>
+<info created="D:20200930071715" modified="D:20201002063851"/>
 <preamble>\usepackage{ods-figs}
-\usepackage{amsmath}</preamble>
+\usepackage{ulem}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -684,117 +684,249 @@ h
 <layout paper="433.34 243.41" origin="0 0" frame="433.34 243.41"/>
 </ipestyle>
 <page>
-<layer name="G"/>
-<layer name="labels"/>
-<layer name="positive_example"/>
-<layer name="negative_example"/>
-<layer name="A"/>
-<view layers="G" active="G"/>
-<view layers="G labels" active="labels"/>
-<view layers="G labels positive_example" active="positive_example"/>
-<view layers="G labels positive_example negative_example" active="negative_example"/>
-<view layers="A" active="A"/>
-<view layers="G A" active="A"/>
-<view layers="G labels A" active="A"/>
-<path layer="negative_example" matrix="1 0 0 1 4.11717 -46.3482" fill="pale chestnut">
-260 140 m
-260 124 l
-336 124 l
-336 140 l
-h
+<layer name="path+tree"/>
+<layer name="has-left-o"/>
+<layer name="has-left-i"/>
+<layer name="has-left-ii"/>
+<layer name="has-left-iii"/>
+<layer name="has-left-iv"/>
+<layer name="no-left-o"/>
+<layer name="no-left-i"/>
+<layer name="no-left-ii"/>
+<layer name="no-pred-o"/>
+<layer name="no-pred-i"/>
+<view layers="path+tree" active="path+tree"/>
+<view layers="path+tree no-pred-o" active="no-pred-o"/>
+<view layers="path+tree no-pred-o no-pred-i" active="no-pred-i"/>
+<view layers="path+tree no-left-o" active="no-left-o"/>
+<view layers="path+tree no-left-o no-left-i" active="no-left-i"/>
+<view layers="path+tree no-left-o no-left-ii" active="no-left-ii"/>
+<view layers="path+tree has-left-o" active="has-left-ii"/>
+<view layers="path+tree has-left-o has-left-i" active="has-left-iii"/>
+<view layers="path+tree has-left-o has-left-i has-left-ii" active="has-left-iv"/>
+<view layers="path+tree has-left-o has-left-ii has-left-iii" active="has-left-iii"/>
+<view layers="path+tree has-left-o has-left-ii has-left-iii has-left-iv" active="has-left-iv"/>
+<path layer="has-left-iv" matrix="1 0 0 1 -64.0003 -16" fill="pink-orange">
+4.76915 0 0 4.76915 320 128 e
 </path>
-<path matrix="1 0 0 1 80.3761 37.0887" fill="pale chestnut">
-13.5791 0 0 13.5791 151.067 60.667 e
+<path matrix="1 0 0 1 -64.0003 -32" fill="pink-orange">
+4.76915 0 0 4.76915 320 128 e
 </path>
-<path matrix="1 0 0 1 0 -1" fill="pale chestnut">
-13.5791 0 0 13.5791 151.067 60.667 e
+<path layer="no-left-ii" matrix="1 0 0 1 -208 -32" fill="pink-orange">
+4.76915 0 0 4.76915 320 128 e
 </path>
-<path layer="positive_example" matrix="1 0 0 1 4.11717 7.68937" fill="pearl aqua">
-260 140 m
-260 124 l
-336 124 l
-336 140 l
-h
+<path matrix="1 0 0 1 -208 48" fill="pink-orange">
+4.76915 0 0 4.76915 320 128 e
 </path>
-<path fill="pearl aqua">
-136 168
-142.969 149.141
-151.966 137.444
-168 120
-202.051 114.951
-192.754 144.342
-179.558 157.538
-152 176 u
+<path layer="no-left-o" matrix="1 0 0 1 -192 -32" fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
 </path>
-<use layer="G" name="mark/disk(sx)" pos="160 160" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="256 160" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="256 64" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="160 64" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="192 96" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="192 128" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="224 128" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="224 96" size="normal" stroke="black"/>
+<path matrix="1 0 0 1 -192 16" fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
+</path>
+<path layer="has-left-o" matrix="1 0 0 1 -48 -32" fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
+</path>
+<path matrix="1 0 0 1 -48 32" fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
+</path>
+<path layer="no-pred-o" matrix="1 0 0 1 0 -32" fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
+</path>
+<path fill="granny smith apple">
+4.76915 0 0 4.76915 320 128 e
+</path>
+<path stroke="gray">
+320 128 m
+320 96 l
+</path>
+<path layer="no-left-o" stroke="gray">
+128 144 m
+128 96 l
+</path>
+<path layer="has-left-o" stroke="gray">
+272 96 m
+272 160 l
+</path>
+<use layer="path+tree" matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="96 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="112 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="128 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="144 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="160 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="176 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="192 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="208 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="224 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="240 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="256 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="272 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="304 64" size="normal" stroke="lightgray"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="336 64" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="176 192" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="112 176" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="96 160" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="144 160" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="128 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="160 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="192 176" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="272 160" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="224 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="208 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="240 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="288 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="320 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="336 112" size="normal" stroke="black"/>
 <path stroke="black">
-160 160 m
-192 128 l
+176 192 m
+112 176 l
 </path>
 <path stroke="black">
-256 160 m
-224 128 l
+112 176 m
+96 160 l
 </path>
 <path stroke="black">
-224 128 m
-224 96 l
+112 176 m
+144 160 l
 </path>
 <path stroke="black">
-224 96 m
-192 96 l
+144 160 m
+128 144 l
 </path>
 <path stroke="black">
-192 96 m
-192 128 l
+144 160 m
+160 144 l
 </path>
 <path stroke="black">
-192 128 m
-224 128 l
+176 192 m
+192 176 l
 </path>
 <path stroke="black">
-160 160 m
-256 160 l
+192 176 m
+272 160 l
 </path>
 <path stroke="black">
-160 160 m
-160 64 l
+272 160 m
+224 144 l
 </path>
 <path stroke="black">
-160 64 m
-192 96 l
+224 144 m
+208 128 l
 </path>
 <path stroke="black">
-224 96 m
+224 144 m
+240 128 l
+</path>
+<path stroke="black">
+272 160 m
+288 144 l
+</path>
+<path stroke="black">
+288 144 m
+320 128 l
+</path>
+<path stroke="black">
+320 128 m
+336 112 l
+</path>
+<use name="mark/disk(sx)" pos="256 112" size="normal" stroke="black"/>
+<path stroke="black">
+240 128 m
+256 112 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+336 64 m
+320 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="lightgray" arrow="normal/tiny">
+320 64 m
+304 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="lightgray" arrow="normal/tiny">
+304 64 m
+288 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+288 64 m
+272 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+272 64 m
 256 64 l
 </path>
-<path stroke="black">
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
 256 64 m
-256 160 l
+240 64 l
 </path>
-<path stroke="black">
-256 64 m
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+240 64 m
+224 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+224 64 m
+208 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+208 64 m
+192 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+192 64 m
+176 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+176 64 m
 160 64 l
 </path>
-<text layer="labels" matrix="1 0 0 1 4 -7" transformations="translations" pos="152 168" stroke="black" type="label" width="14.944" height="6.531" depth="0" halign="right" valign="baseline" style="math">000</text>
-<text matrix="1 0 0 1 4 -106" transformations="translations" pos="152 168" stroke="black" type="label" width="14.944" height="6.531" depth="0" halign="right" valign="top" style="math">010</text>
-<text matrix="1 0 0 1 -4 1" transformations="translations" pos="264 160" stroke="black" type="label" width="14.944" height="6.531" depth="0" valign="baseline" style="math">001</text>
-<text matrix="1 0 0 1 -4 -98" transformations="translations" pos="264 160" stroke="black" type="label" width="14.944" height="6.531" depth="0" valign="top" style="math">011</text>
-<text matrix="1 0 0 1 13 0" transformations="translations" pos="176 128" stroke="black" type="label" width="14.944" height="6.531" depth="0" halign="right" valign="top" style="math">100</text>
-<text matrix="1 0 0 1 13 -31" transformations="translations" pos="176 128" stroke="black" type="label" width="14.944" height="6.531" depth="0" halign="right" valign="bottom" style="math">110</text>
-<text matrix="1 0 0 1 51 -32" transformations="translations" pos="176 128" stroke="black" type="label" width="14.944" height="6.531" depth="0" valign="bottom" style="math">111</text>
-<text matrix="1 0 0 1 51 -1" transformations="translations" pos="176 128" stroke="black" type="label" width="14.944" height="6.531" depth="0" valign="top" style="math">101</text>
-<text layer="positive_example" matrix="1 0 0 1 -11.3683 9.19787" transformations="translations" pos="280 128" stroke="black" type="label" width="66.971" height="7.473" depth="2.49" valign="baseline" style="math">A(000,001)=1</text>
-<text layer="negative_example" matrix="1 0 0 1 -1.79947 -17.6948" transformations="translations" pos="270.431 100.855" stroke="black" type="label" width="66.971" height="7.473" depth="2.49" valign="baseline" style="math">A(010,111)=0</text>
-<text layer="A" matrix="1 0 0 1 -20 0" transformations="translations" pos="288 112" stroke="black" type="label" width="130.545" height="17.428" depth="12.46" valign="baseline" style="math">A(x,y):=\begin{cases}
-1  &amp; \text{if $\|x-y\|=1$} \\
-0  &amp; \text{otherwise}
-\end{cases}</text>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+160 64 m
+144 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+144 64 m
+128 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+128 64 m
+112 64 l
+</path>
+<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+112 64 m
+96 64 l
+</path>
+<text layer="has-left-o" matrix="1 0 0 1 -4 0" transformations="translations" pos="189.202 184.639" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 0 -3" transformations="translations" pos="230.29 172.942" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text layer="has-left-i" matrix="1 0 0 1 -8 6" transformations="translations" pos="271.378 83.2691" stroke="black" type="label" width="21.032" height="6.924" depth="1.24" valign="top" style="math">11,A</text>
+<text layer="has-left-ii" matrix="1 0 0 1 1 -2" transformations="translations" pos="242.286 153.448" stroke="columbia blue" type="label" width="4.981" height="6.531" depth="0" halign="right" valign="baseline" style="math">0</text>
+<text matrix="1 0 0 1 0 -2" transformations="translations" pos="234.789 136.653" stroke="columbia blue" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 -1 -1" transformations="translations" pos="250.384 121.358" stroke="columbia blue" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 -15.8949 23.9184" transformations="translations" pos="271.378 83.2691" stroke="black" type="label" width="24.907" height="6.531" depth="0" halign="center" valign="top" style="math">11011</text>
+<path layer="has-left-iii" stroke="black">
+352 112 m
+352 160 l
+</path>
+<path stroke="black">
+348 160 m
+356 160 l
+</path>
+<path stroke="black">
+348 112 m
+356 112 l
+</path>
+<text matrix="1 0 0 1 -2 -4" transformations="translations" pos="356 136" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">3</text>
+<text layer="no-left-i" matrix="1 0 0 1 -14 -1" transformations="translations" pos="128 84" stroke="black" type="label" width="27.346" height="6.924" depth="1.24" valign="baseline" style="math">010,X</text>
+<text layer="no-left-o" matrix="1 0 0 1 6 -4" transformations="translations" pos="136 188" stroke="black" type="label" width="4.981" height="6.531" depth="0" halign="right" valign="baseline" style="math">0</text>
+<text transformations="translations" pos="132 168" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 2 -2" transformations="translations" pos="132 152" stroke="black" type="label" width="4.981" height="6.531" depth="0" halign="right" valign="baseline" style="math">0</text>
+<text layer="has-left-iv" matrix="1 0 0 1 -8 6" transformations="translations" pos="271.378 83.2691" stroke="black" type="label" width="75.495" height="6.905" depth="14.42" valign="top" style="math">11,A,3\rightarrow 11\underbrace{011}_3</text>
+<use layer="path+tree" matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="288 64" size="normal" stroke="black"/>
+<use matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="320 64" size="normal" stroke="black"/>
+<text layer="no-pred-o" matrix="1 0 0 1 -4 0" transformations="translations" pos="189.202 184.639" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 0 -3" transformations="translations" pos="230.29 172.942" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 51.5957 -21.4509" transformations="translations" pos="230.29 172.942" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text matrix="1 0 0 1 73.5268 -36.4564" transformations="translations" pos="230.29 172.942" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
+<text layer="no-pred-i" transformations="translations" pos="319.9 82.3022" stroke="black" type="label" width="32.439" height="6.924" depth="1.24" halign="center" valign="baseline" style="math">1111,O</text>
+<text layer="no-left-ii" matrix="1 0 0 1 -14 -1" transformations="translations" pos="128 84" stroke="black" type="label" width="57.787" height="6.924" depth="1.24" valign="baseline" style="math">010,X\rightarrow 0{\color{gray}10}</text>
+<text matrix="1 0 0 1 0 -1" transformations="translations" pos="112.184 103.452" stroke="black" type="label" width="4.981" height="6.531" depth="0" halign="center" valign="baseline" style="math">0</text>
+<text layer="has-left-iii" matrix="1 0 0 1 -8 6" transformations="translations" pos="271.378 83.2691" stroke="black" type="label" width="30.441" height="6.924" depth="1.24" valign="top" style="math">11,A,3</text>
 </page>
 </ipe>
