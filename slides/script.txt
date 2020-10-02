@@ -88,23 +88,51 @@ We will create a sequence of binary search trees T_1,..,T_h corresponding to the
 
 We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that any two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of vertices that appear consecutively in row i none of which appear in row i+1, and vice-versa.
 
-We will imagine T_1,...,T_h as a single dynamic binary search tree that undergoes changes as we move from one row to the next.  We call this structure a bulk tree since the operation of moving from row i to row i+1 involves many additions and removals.
 ---
+Before describing the bulk tree sequence, we first dispense with the problem of finding row codes.
+
+Since there are no restrictions on the binary search $T$ used to create these codes, we can use a biased binary search tree.  For each integer $i\in\{1,\ldots,h\}$ we assign a weight equal to the size of the tree $T_i$.
+
+If we build a biased binary search tree using these weights then the node that contains the value $i$ will have depth log n - log |T_i| + a constant.
+
+This means that the label for $i$ will have length log n - log |T_i| + O(loglog n), as required.
+
+All that remains is to show that we can assign column labels to nodes so that each node in row i receives a label of length at most \log |T_i| + o(\log n).
+---
+Coming back now to the column labels, we will imagine the tree sequence T_1,...,T_h as a single dynamic binary search tree that undergoes changes as we move from one row to the next.  We call this structure a bulk tree since the operation of moving from row i to row i+1 involves many additions and removals.
+
 When moving from row i to row i+1 three things happen and we need to keep track of how this changes the signatures of nodes that appear both in T_i and in T_{i+1}.  These changes determine the transition codes that are used to convert the signature of a node in T_i into a signature that can be used in T_{i+1}.
 
-These three changes are the addition of new nodes that appear in row i+1, deletion of nodes that disappear from row i, and a rebalancing operation required to ensure that each tree T_i has small height.
+These three changes are the addition of new nodes that appear in row i+1, deletion of nodes that disappear from row i, and a rebalancing operation required to ensure that each tree T_i has a height that is very close to the logarithm of its size.
 ---
-The addition of new nodes that appear in row i+1 is done using a trivial algorithm.  Each new node from row i+1 has an external node in T_i that it could replace.  The fractional cascading step ensures that, for any such external node, only a constant number of new nodes will attach it to it.  These nodes new nodes are grouped into a perfectly balanced binary search tree whose root replaces the external node.  This does not increase the height of the tree by more than a constant.
+---
+The addition of new nodes that appear in row i+1 is done using a simple algorithm.  Each new node from row i+1 has an external node in T_i that it could replace.  The fractional cascading step ensures that, for any such external node, only a constant number of new nodes could replace it.  These nodes new nodes are grouped into a perfectly balanced binary search tree whose root replaces the external node.  This does not increase the height of the tree by more than a constant.
 
 This addition has no effect on the signatures of nodes in T_i that also appear in T_{i+1}.  Any node that appears in both trees has the same signature before and after the new vertices are added.
 ---
 The deletion of nodes that disappear in row i+1 is done using the standard algorithm for deletion in binary search trees.  If the node is a leaf, then we simply delete that leaf.  Otherwise we replace the node with either its successor or predecessor, as illustrated here.  This can cause a sequence of nodes to change locations where each node in the sequence takes the empty place left by its predecessor in the sequence.
 
-The key observation here is that any node that is moved is moved to the location of one of its ancestors.  The only effect this has on the signature of the node is to truncate it.  Any node that is not moved by the deletion has the same signature before and after the deletion.
+The key observation here is that any node that moves replaces one of its ancestors.  The only effect this has on the signature of the node is to truncate it.  Any node that is not moved by the deletion has the same signature before and after the deletion.
 
 Therefore, for a particular node v that appears in T_i and T_{i+1}, the effects of any number of deletions on the signature of v can be summarized by a single integer that indicates how many bits to remove from the signature of v.  If T_i is at all balanced, this integer can be encoding using O(log log n) bits.
----
 
+Note that deletions do not increase the depth of any node and therefore they do not increase the height of the tree.  Furthermore, fractional cascading ensure the size of T_i and T_{i+1} do not differ by more than a constant factor.  Therefore, the logarithms of their sizes do not differ by more than a constant.
+---
+So far, we have seen that the changes to any node's signature when performing all the insertions and deletions required to move from T_i to T_i+1 can be encoded in O(\log\log n) bits. Furthermore, if T_i has close to optimal height then T_{i+1} nearly does as well, except for a constant increase.
+
+Over many rows, these constants add up, so some kind of rebalancing has to be done.  For this, we do a very rough rebalancing operation that works on a node x.  At the end of this operation, every node of depth k in the subtree of x contains at most 1 over 2^k nodes in the subtree of x.
+
+Clearly this operation only affects signatures of nodes in the subtree of x.  By implementing this carefully, the changes to these signatures can be encoded in O(k+loglog n) bits.
+
+When moving from row 1 to row 2, this rebalancing operation is applied at the root of T. When moving from row 2 to row 3, it is applied simultaneously at all nodes of depth k.  When moving from row 3 to row 4, the operation is applied to all nodes of depth 2k, and so.  This continues for some number y of iterations until y*k is greater than the height of the tree.  At this point, the process repeats, beginning from root.
+
+The analysis is intricate, but the main idea is that this operation operates on k layers of the tree at once, but the insertions and deletions performed only increase the height of the tree by a constant.  By choosing k large enough. this ensures that the height of the tree never exceeds its optimal height by more than a factor of 1+1/k.
+
+
+ is most easily imagined as operating on a band in the tree consisting of all nodes of depths between r and r+k for some carefully chosen value of k.
+
+
+ all the changes required to move from T_i to T_{i+1} require only O(\loglog n)
 
 
 

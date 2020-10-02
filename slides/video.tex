@@ -182,13 +182,39 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{The Column Code Trees}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/pxp-evolution}%
+    \end{center}
+    \begin{itemize}
+        \item<4>$\sum_{i=1}^h |T_i| = O(n)$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Row Code Tree}
+    \framesubtitle{Biased binary search trees}
+
+    \begin{itemize}
+        \item<+-> $\sum_{i=1}^h |T_i| = O(n)$
+        \item<+-> Make a biased binary search tree $T$ with $V(T):=\{1,\ldots,h\}$  using $\mathrm{weight}(i)=|T_i|$
+        \begin{itemize}
+            \item<+-> Then $\mathrm{depth}_T(i) \le \log n - \log |T_i| + O(1)$
+        \end{itemize}
+        \item<+-> Row $i$ label length is $\log n-\log |T_i| + O(\log\log n)$
+    \end{itemize}
+\end{frame}
 
 \begin{frame}
     \frametitle{The Column Code Tree}
     \framesubtitle{Bulk Trees}
 
     \begin{center}
-        \multiinclude[<+>][format=pdf,start=1]{figs/pxp-evolution}%
+        \multiinclude[<+>][format=pdf,start=4]{figs/pxp-evolution}%
     \end{center}
 \end{frame}
 
@@ -200,10 +226,80 @@
     \begin{center}
         \multiinclude[<+>][format=pdf,start=1]{figs/addition}%
     \end{center}
+    \begin{itemize}
+        \item<6> $h(T_{i+1})\le h(T_i)+c$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bulk Deletion}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/deletion}%
+    \end{center}
+    \begin{itemize}
+        \item<7-> $h(T_{i+1}) \le h(T_i)$
+        \item<8-> $\log|T_i|\le \log|T_{i+1}| + c$
+    \end{itemize}
 \end{frame}
 
 
+\begin{frame}
+    \frametitle{Rebalancing}
+    \framesubtitle{balance$(x,k)$)}
 
+    Basic operation: balance$(x,k)$
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/balance}%
+    \end{center}
+    \begin{itemize}
+        \item<5->Effect on signature can be encoded in $O(k\log\log n)$ bits
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rebalancing}
+    \framesubtitle{balance$(\theta)$}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/bulkbalance}%
+    \end{center}
+    \begin{itemize}
+        \item<5->Ensures that $h(T_i)\le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+    \begin{itemize}[<+->]
+        \item transition code length: $O(k\log\log n)$
+        \item $h(T_i) \le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
+        \item label length: $h(T_i) + O(k\log\log n)\le \log|T_i| + O(\tfrac{1}{k}\log n + k\log\log n)$
+        \item optimize $k$: $h(T_i) + O(\sqrt{\log n\log\log n})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Missing Pieces}
+
+    \begin{itemize}[<+->]
+        \item Subgraphs of $H\boxtimes P$ not $P\boxtimes P$
+        \begin{itemize}
+            \item $H$ has pathwidth $O(\log n)$
+            \item $H$ is contained in an \emph{interval graph} $H^+$ of thickness $O(\log n)$
+            \item Use an \emph{interval tree}
+        \end{itemize}
+
+        \item Subgraphs of $H\boxtimes P$ not \emph{induced} subgraphs
+        \begin{itemize}
+            \item Use $d$-orientation of $H\boxtimes P$
+            \item Additional bit-vector of length $d$ indicates which induced edges are actually present
+        \end{itemize}
+    \end{itemize}
+
+
+\end{frame}
 
 
 \end{document}

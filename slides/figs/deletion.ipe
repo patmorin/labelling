@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201002101125"/>
+<info created="D:20200930071715" modified="D:20201002103850"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -683,187 +683,155 @@ h
 <layout paper="433.34 243.41" origin="0 0" frame="433.34 243.41"/>
 </ipestyle>
 <page>
-<layer name="T_i"/>
-<layer name="S_{i+1}\S_i"/>
-<layer name="favourite-place"/>
-<layer name="attached"/>
-<layer name="stubs"/>
+<layer name="T_i_fixed"/>
+<layer name="T_i_changed_-_1"/>
+<layer name="to-delete-1"/>
+<layer name="move-1-i"/>
+<layer name="move-1-ii"/>
+<layer name="to-delete-2"/>
+<layer name="move-2-i"/>
+<layer name="T_i_changed_-_2"/>
+<layer name="move-2-ii"/>
 <layer name="alpha"/>
-<view layers="T_i" active="T_i"/>
-<view layers="T_i S_{i+1}\S_i" active="S_{i+1}\S_i"/>
-<view layers="T_i S_{i+1}\S_i stubs" active="S_{i+1}\S_i"/>
-<view layers="T_i S_{i+1}\S_i favourite-place stubs" active="favourite-place"/>
-<view layers="T_i S_{i+1}\S_i attached" active="attached"/>
-<view layers="T_i S_{i+1}\S_i attached alpha" active="alpha"/>
-<path layer="attached" stroke="black" pen="fat">
-112 128 m
-80 112 l
+<layer name="beta"/>
+<view layers="T_i_fixed T_i_changed_-_1 T_i_changed_-_2" active="T_i_changed_-_1"/>
+<view layers="T_i_fixed T_i_changed_-_1 to-delete-1 T_i_changed_-_2" active="to-delete-1"/>
+<view layers="T_i_fixed T_i_changed_-_1 to-delete-1 move-1-i T_i_changed_-_2" active="move-1-i"/>
+<view layers="T_i_fixed move-1-ii to-delete-2 T_i_changed_-_2" active="to-delete-2"/>
+<view layers="T_i_fixed move-1-ii to-delete-2 move-2-i T_i_changed_-_2" active="move-2-i"/>
+<view layers="T_i_fixed move-1-ii move-2-ii" active="move-2-ii"/>
+<view layers="T_i_fixed move-1-ii move-2-ii alpha" active="alpha"/>
+<view layers="T_i_fixed move-1-ii move-2-ii alpha beta" active="beta"/>
+<path layer="move-1-i" stroke="light salmon" pen="fat" cap="1" arrow="normal/small">
+256 128 m
+240.526 150.678
+240 176 c
+</path>
+<path layer="move-2-i" stroke="light salmon" pen="fat" cap="1" arrow="normal/small">
+272 96 m
+252.03 103.312
+256 128 c
+</path>
+<use layer="T_i_fixed" name="mark/disk(sx)" pos="208 192" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="144 176" size="normal" stroke="black"/>
+<path stroke="black" pen="fat">
+208 192 m
+144 176 l
+</path>
+<use layer="to-delete-1" name="mark/disk(sx)" pos="240 176" size="normal" stroke="black"/>
+<path layer="T_i_changed_-_1" stroke="black" pen="heavier">
+208 192 m
+240 176 l
+</path>
+<path stroke="black" pen="heavier">
+240 176 m
+336 160 l
+</path>
+<path layer="T_i_fixed" stroke="black" pen="fat">
+336 160 m
+304 144 l
+304 144 l
+</path>
+<path layer="T_i_changed_-_2" stroke="black" pen="heavier">
+304 144 m
+256 128 l
+</path>
+<path stroke="black" pen="heavier">
+256 128 m
+288 112 l
+</path>
+<path stroke="black" pen="heavier">
+288 112 m
+272 96 l
+</path>
+<use name="mark/disk(sx)" pos="256 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="272 96" size="normal" stroke="black"/>
+<use layer="T_i_fixed" name="mark/disk(sx)" pos="304 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="336 160" size="normal" stroke="black"/>
+<path stroke="black" pen="fat">
+144 176 m
+176 160 l
 </path>
 <path stroke="black" pen="fat">
-304 112 m
-288 96 l
-</path>
-<path stroke="medium sea green" pen="fat">
-240 96 m
-256 80 l
+144 176 m
+96 160 l
 </path>
 <path stroke="black" pen="fat">
-224 112 m
-240 96 l
-</path>
-<path stroke="medium sea green" pen="fat">
-176 96 m
-192 80 l
-</path>
-<path stroke="medium sea green" pen="fat">
-176 96 m
-160 80 l
+176 160 m
+160 144 l
 </path>
 <path stroke="black" pen="fat">
-144 112 m
-176 96 l
+176 160 m
+192 144 l
 </path>
 <path stroke="black" pen="fat">
-144 112 m
-128 96 l
+96 160 m
+128 144 l
 </path>
-<path layer="favourite-place" stroke="medium sea green" pen="fat" arrow="pointed/small">
-288 64 m
-288 88
-296 104 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-256 64 m
-256 88
-232 104 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-240 64 m
-240 80
-232 104 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-192 64 m
-192 88
-152 104 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-176 64 m
-176 80
-152 104 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-160 64 m
-160 80
-152 104 c
-</path>
-<use layer="T_i" name="mark/disk(sx)" pos="112 64" size="normal" stroke="black"/>
-<use layer="S_{i+1}\S_i" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use layer="T_i" name="mark/disk(sx)" pos="144 64" size="normal" stroke="black"/>
-<use layer="S_{i+1}\S_i" name="mark/disk(sx)" pos="160 64" size="large" stroke="medium sea green"/>
-<use name="mark/disk(sx)" pos="176 64" size="large" stroke="medium sea green"/>
-<use name="mark/disk(sx)" pos="192 64" size="large" stroke="medium sea green"/>
-<use layer="T_i" name="mark/disk(sx)" pos="208 64" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="224 64" size="normal" stroke="black"/>
-<use layer="S_{i+1}\S_i" name="mark/disk(sx)" pos="240 64" size="large" stroke="medium sea green"/>
-<use name="mark/disk(sx)" pos="256 64" size="large" stroke="medium sea green"/>
-<use layer="T_i" name="mark/disk(sx)" pos="272 64" size="normal" stroke="black"/>
-<use layer="S_{i+1}\S_i" name="mark/disk(sx)" pos="288 64" size="large" stroke="medium sea green"/>
-<use layer="T_i" name="mark/disk(sx)" pos="304 64" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="208 144" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="272 128" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="224 112" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="304 112" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="112 128" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="144 112" size="normal" stroke="black"/>
 <path stroke="black" pen="fat">
-208 144 m
+128 144 m
 112 128 l
 </path>
 <path stroke="black" pen="fat">
-208 144 m
+96 160 m
+64 144 l
+</path>
+<path stroke="black" pen="fat">
+64 144 m
+80 128 l
+</path>
+<path stroke="black" pen="fat">
+64 144 m
+48 128 l
+</path>
+<use name="mark/disk(sx)" pos="64 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="80 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="96 160" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="128 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="112 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="160 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="176 160" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="192 144" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="288 112" size="normal" stroke="black"/>
+<use layer="T_i_changed_-_1" name="mark/disk(sx)" pos="48 128" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="240 176" size="normal" stroke="black"/>
+<use layer="move-1-ii" name="mark/disk(sx)" pos="256 176" size="normal" stroke="black"/>
+<path stroke="black" pen="fat" cap="1">
+208 192 m
+256 176 l
+</path>
+<path stroke="black" pen="fat" cap="1">
+256 176 m
+336 160 l
+</path>
+<path layer="to-delete-2" matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="ultrafat" cap="1">
+144 208 m
+156 196 l
+</path>
+<path matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="ultrafat" cap="1">
+156 208 m
+144 196 l
+</path>
+<path layer="to-delete-1" matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="ultrafat" cap="1">
+144 208 m
+156 196 l
+</path>
+<path matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="ultrafat" cap="1">
+156 208 m
+144 196 l
+</path>
+<use layer="move-2-ii" name="mark/disk(sx)" pos="272 128" size="normal" stroke="black"/>
+<path stroke="black" pen="fat" cap="1">
+304 144 m
 272 128 l
 </path>
-<path stroke="black" pen="fat">
+<path stroke="black" pen="fat" cap="1">
 272 128 m
-224 112 l
+288 112 l
 </path>
-<path stroke="black" pen="fat">
-272 128 m
-304 112 l
-</path>
-<path stroke="black" pen="fat">
-112 128 m
-144 112 l
-</path>
-<path layer="stubs" stroke="black" pen="fat">
-112 128 m
-104 120 l
-</path>
-<path stroke="black" pen="fat">
-144 112 m
-136 104 l
-</path>
-<path stroke="black" pen="fat">
-144 112 m
-152 104 l
-</path>
-<path stroke="black" pen="fat">
-224 112 m
-216 104 l
-</path>
-<path stroke="black" pen="fat">
-224 112 m
-232 104 l
-</path>
-<path stroke="black" pen="fat">
-304 112 m
-296 104 l
-</path>
-<path stroke="black" pen="fat">
-304 112 m
-312 104 l
-</path>
-<path layer="favourite-place" stroke="medium sea green" pen="fat" arrow="pointed/small">
-128 64 m
-128 88
-136 104 c
-</path>
-<use layer="attached" matrix="1 0 0 1 0 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 48 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 112 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 128 16" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 64 16" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 32 16" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 160 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use layer="S_{i+1}\S_i" matrix="1 0 0 1 -32 0" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 -48 0" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 -64 0" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<path layer="favourite-place" stroke="medium sea green" pen="fat" arrow="pointed/small">
-96 64 m
-96 96
-104 120 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-80 64 m
-80 96
-104 120 c
-</path>
-<path stroke="medium sea green" pen="fat" arrow="pointed/small">
-64 64 m
-64 96
-104 120 c
-</path>
-<path layer="attached" matrix="1 0 0 1 -96 16" stroke="medium sea green" pen="fat">
-176 96 m
-192 80 l
-</path>
-<path matrix="1 0 0 1 -96 16" stroke="medium sea green" pen="fat">
-176 96 m
-160 80 l
-</path>
-<use matrix="1 0 0 1 -48 48" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 -32 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
-<use matrix="1 0 0 1 -64 32" name="mark/disk(sx)" pos="128 64" size="large" stroke="medium sea green"/>
+<text layer="move-1-i" matrix="1 0 0 1 12 12" transformations="translations" pos="240 112" stroke="black" type="label" width="19.925" height="6.531" depth="0" halign="right" valign="baseline" style="math">1100</text>
+<text layer="move-1-ii" matrix="1 0 0 1 1 2" transformations="translations" pos="256 176" stroke="black" type="label" width="19.925" height="6.531" depth="0" valign="baseline" style="math">1{\color{gray}100}</text>
+<text layer="move-2-i" matrix="1 0 0 1 -2 12" transformations="translations" pos="272 80" stroke="black" type="label" width="29.888" height="6.531" depth="0" valign="top" style="math">110010</text>
+<text layer="move-2-ii" matrix="1 0 0 1 -3 -3" transformations="translations" pos="272 128" stroke="black" type="label" width="29.888" height="6.531" depth="0" halign="right" valign="baseline" style="math">1100{\color{gray}10}</text>
 </page>
 </ipe>
