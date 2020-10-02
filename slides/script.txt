@@ -82,19 +82,19 @@ Finally, in Case A, v has a left child. Then the signature of v's predecessor is
 
 The code for v therefore consists of a signature, whose length is equal to the depth of v, two bits to distinguish between Case A and Case B, and possibly a positive integer that is not greater than the height of T.  If T is at all balanced, this final integer can be encoding using O(log log n) bits.
 
-Note that this approach is quite flexible. The tree T can have any shape as long as its height polylogarithmic.
+It is important to note that the parts of the label other than the signature only contribute O(\log\log n) to the length of the label, so our discussion will mostly focus on ensuring that the signature of any node is short.
 ---
-We will make use of this flexibility in two different ways. We will create a sequence of binary search trees T_1,..,T_h corresponding to the rows of our graph.
+We will create a sequence of binary search trees T_1,..,T_h corresponding to the rows of our graph.
 
-We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of consecutive vertices that appear in row i none of which appear in row i+1, and vice-versa.
+We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that any two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of vertices that appear consecutively in row i none of which appear in row i+1, and vice-versa.
 
-We will imagine T_1,...,T_h as a single dynamic binary search tree that undergoes changes as we move from one row to the next.
+We will imagine T_1,...,T_h as a single dynamic binary search tree that undergoes changes as we move from one row to the next.  We call this structure a bulk tree since the operation of moving from row i to row i+1 involves many additions and removals.
 ---
-When moving from row i to row i+1 we three things happen and we need to keep track of how this changes the signatures of nodes that appear both in T_i and in T_{i+1}.  These changes determine the transition codes that are used to convert the label of a node in T_i into a label that can be used in T_{i+1}.
+When moving from row i to row i+1 three things happen and we need to keep track of how this changes the signatures of nodes that appear both in T_i and in T_{i+1}.  These changes determine the transition codes that are used to convert the signature of a node in T_i into a signature that can be used in T_{i+1}.
 
 These three changes are the addition of new nodes that appear in row i+1, deletion of nodes that disappear from row i, and a rebalancing operation required to ensure that each tree T_i has small height.
 ---
-The addition of new nodes that appear in row i+1 is done using a trivial algorithm.  The new nodes simply appended as leaves T_{i+1}.  The fractional cascading step ensures that this does not increase the height of T_{i+1} by more than a constant.
+The addition of new nodes that appear in row i+1 is done using a trivial algorithm.  Each new node from row i+1 has an external node in T_i that it could replace.  The fractional cascading step ensures that, for any such external node, only a constant number of new nodes will attach it to it.  These nodes new nodes are grouped into a perfectly balanced binary search tree whose root replaces the external node.  This does not increase the height of the tree by more than a constant.
 
 This addition has no effect on the signatures of nodes in T_i that also appear in T_{i+1}.  Any node that appears in both trees has the same signature before and after the new vertices are added.
 ---
