@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201002103850"/>
+<info created="D:20200930071715" modified="D:20201006070249"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -719,11 +719,11 @@ h
 144 176 l
 </path>
 <use layer="to-delete-1" name="mark/disk(sx)" pos="240 176" size="normal" stroke="black"/>
-<path layer="T_i_changed_-_1" stroke="black" pen="heavier">
+<path layer="T_i_changed_-_1" stroke="black" pen="fat">
 208 192 m
 240 176 l
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black" pen="fat">
 240 176 m
 336 160 l
 </path>
@@ -732,15 +732,15 @@ h
 304 144 l
 304 144 l
 </path>
-<path layer="T_i_changed_-_2" stroke="black" pen="heavier">
+<path layer="T_i_changed_-_2" stroke="black" pen="fat">
 304 144 m
 256 128 l
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black" pen="fat">
 256 128 m
 288 112 l
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black" pen="fat">
 288 112 m
 272 96 l
 </path>
@@ -804,19 +804,19 @@ h
 256 176 m
 336 160 l
 </path>
-<path layer="to-delete-2" matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="ultrafat" cap="1">
+<path layer="to-delete-2" matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="fat" cap="1">
 144 208 m
 156 196 l
 </path>
-<path matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="ultrafat" cap="1">
+<path matrix="0.7 0 0 0.7 151 -13.4" stroke="red" pen="fat" cap="1">
 156 208 m
 144 196 l
 </path>
-<path layer="to-delete-1" matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="ultrafat" cap="1">
+<path layer="to-delete-1" matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="fat" cap="1">
 144 208 m
 156 196 l
 </path>
-<path matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="ultrafat" cap="1">
+<path matrix="0.7 0 0 0.7 135 34.6" stroke="red" pen="fat" cap="1">
 156 208 m
 144 196 l
 </path>

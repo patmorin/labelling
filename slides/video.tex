@@ -79,41 +79,35 @@
         \begin{tabular}{llc}
             \multicolumn{3}{c}{Trees} \\
             $f(n)$ & $|U_n|$ & Reference  \\ \hline
-            $\log n+\log\log n+O(1)$ & $O(n\log n)$ & Chung (1990)   \\
+            \textcolor<2>{odsorange}{$\log n+\log\log n+O(1)$} & $O(n\log n)$ & Chung (1990)   \\
             $\log n + O(\log^* n)$ & $n2^{O(\log^* n)}$ & Alstrup-Rauhe (2006) \\
-            $\log n + O(1)$ & $O(n)$ & Alstrup-Dahlgaard-Knudsen (2017) \\[2em]
+            \textcolor<3>{odsorange}{$\log n + O(1)$} & $O(n)$ & Alstrup-Dahlgaard-Knudsen (2017) \\[2em]
             \multicolumn{3}{c}{Bounded treewidth graphs} \\
-            $\log n + o(\log n)$ & $n^{1+o(1)}$ & Gavoille-Labourel (2007) \\[2em]
+            \textcolor<4>{odsorange}{$\log n + o(\log n)$} & $n^{1+o(1)}$ & Gavoille-Labourel (2007)
         \end{tabular}
     \end{center}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{Previous Results}
-    \framesubtitle{Planar Graphs}
-    \begin{center}
-        \begin{tabular}{llcc}
-            % \multicolumn{4}{c}{Planar graphs} \\
-            $f(n)$ & $|U_n|$ & Reference & Techniques \\ \hline
-            $6\log n$ & $n^6$ & Muller (1988) & 5-degeneracy \\
-            $4\log n$ & $n^4$ & Kannan-Naor-Rudich (1988) & 3-orientation \\
-            $3\log n + O(1)$ & $O(n^3)$ & --- & arboricity + trees \\
-            $2\log n + o(\log n)$ & $n^{2+o(1)}$ & Gavoille-Labourel (2007) & 2-outerplanar decomp. \\
-            $\tfrac{4}{3}\log n + o(\log n)$ & $n^{\tfrac{4}{3}+o(1)}$ & Bonamy-Gavoille-Pilipczuk (2020) & product structure  \\
-        \end{tabular}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{New Result}
-
+    \frametitle{Planar Graphs}
+    % \framesubtitle{Planar Graphs}
     \begin{itemize}
-        \item<+-> \textbf{Theorem 1:} The family of planar graphs has a $(\log n + o(\log n))$-bit adjacency labelling scheme.
+        \item[]
+        \begin{center}
+            \begin{tabular}{llcc}
+                % \multicolumn{4}{c}{Planar graphs} \\
+                $f(n)$ & $|U_n|$ & Reference & Techniques \\ \hline
+                \textcolor<2>{odsorange}{$6\log n$} & $n^6$ & Muller (1988) & 5-degeneracy \\
+                \textcolor<3>{odsorange}{$4\log n$} & $n^4$ & Kannan-Naor-Rudich (1988) & 3-orientation \\
+                \textcolor<4>{odsorange}{$3\log n + O(1)$} & $O(n^3)$ & --- & arboricity + trees \\
+                \textcolor<5>{odsorange}{$2\log n + o(\log n)$} & $n^{2+o(1)}$ & Gavoille-Labourel (2007) & 2-outerplanar decomp. \\
+                \textcolor<6>{odsorange}{$\tfrac{4}{3}\log n + o(\log n)$} & $n^{\tfrac{4}{3}+o(1)}$ & Bonamy-Gavoille-Pilipczuk (2020) & product structure  \\
+            \end{tabular}
+        \end{center}
+        \item<7-> \textcolor<7>{odsorange}{\textbf{Theorem 1:}} The family of planar graphs has a $(\log n + o(\log n))$-bit adjacency labelling scheme.
 
-
-        \item<+-> \textbf{Corollary 1:} For each $n$, there is a graph $U_n$ with $n^{1+o(1)}$ vertices is universal for $n$-vertex planar graphs.
-
+        \item<8-> \textbf{Corollary 1:} For each $n$, there is a graph $U_n$ with $n^{1+o(1)}$ vertices is universal for $n$-vertex planar graphs.
     \end{itemize}
 \end{frame}
 
@@ -266,7 +260,7 @@
         \multiinclude[<+>][format=pdf,start=1]{figs/bulkbalance}%
     \end{center}
     \begin{itemize}
-        \item<5->Ensures that $h(T_i)\le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
+        \item<11->Ensures that $h(T_i)\le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
     \end{itemize}
 \end{frame}
 
@@ -297,8 +291,26 @@
             \item Additional bit-vector of length $d$ indicates which induced edges are actually present
         \end{itemize}
     \end{itemize}
+\end{frame}
 
 
+\begin{frame}
+    \frametitle{Summary and Conclusions}
+    \framesubtitle{Summary}
+
+    \begin{itemize}[<+->]
+        \item Summary
+        \begin{itemize}
+            \item The class of $n$-vertex planar graphs has a $(\log n + O(\sqrt{\log n\log\log n}))$-bit adjacency labelling scheme.
+
+            \item For each $n\in\N$ there exists a graph $U_n$ with $n^{1+O(\sqrt{\log n\log\log n})}$ vertices that is universal for planar graphs.
+        \end{itemize}
+        \item Open Problem: the lower order term
+        \begin{itemize}
+            \item Best upper bound: $O(\sqrt{\log n\log\log n})$ term
+            \item Best lower bound: $\Omega(1)$
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 

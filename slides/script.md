@@ -1,18 +1,18 @@
 This talk about is about adjacency labelling schemes for planar graphs and is joint work with Vida Dujmović, Louis Esperet, Cyril Gavoille, and Gwenaël Joret.
 ---
-Given a function A that takes pairs of binary strings as inputs and outputs a single bit, a simple graph G and labelling \ell of G's vertices with binary strings, we say that (G,l) works with A if the following conditions are satisfied
+Let A be a function that takes pairs of binary strings as inputs and outputs a single bit.  Now take a graph G and label its vertices with binary strings. We say that this labelling of G works with A if the following conditions are satisfied
 - when given the labels of any two adjacent vertices in G, A outputs 1
 - when given the labels of any two non-adjacent vertices in G, A outputs 0.
 
 We refer to A as an adjacency-tester.
 ---
-For a graph family G, we say that G has an f(n) bit labelling scheme if there exists a single adjacency tester A such that each n-vertex member of F has a labelling using labels of length f(n) that works with A
+We say that a graph family has an f(n) bit labelling scheme if there exists a single adjacency tester A such that each n-vertex member of the family has a labelling using labels of length f(n) that works with A
 
-The example shown here uses an adjacency tester A that returns 1 if and only if the Hamming distance between its two inputs is 1.  The graph illustrated here is 3-cube.  The labelling is the standard labelling of the 3-cube using labels of length 3.  This generalizes to the $d$-cube and shows that the family of hypercubes has a (log n)-bit labelling scheme.
+The example shown here uses an adjacency tester A that returns 1 if and only if the Hamming distance between its two inputs is 1.  The graph illustrated here is a 3-cube.  The labelling is the standard labelling of the 3-cube using labels of length 3.  This generalizes to the $d$-cube and shows that the family of hypercubes has a (log n)-bit labelling scheme.
 ---
 Adjacency labelling schemes are closely related to so-called universal graphs.  If a graph family has an f(n)-bit labelling scheme then, for each integer n there is a universal graph U_n with 2^{f(n)} vertices such that each n-vertex member of the family appears as an induced subgraph of U_n.
 
-The graph U_n is easy to define. Its vertex set consists of all f(n) bit binary strings and an edge vw is present in U_n if and only if the adjacency tester A outputs 1 given the bitstrings v and w.
+The graph U_n is easy to define. Its vertex set consists of all f(n) bit binary strings and an edge vw is present in U_n if and only if the adjacency tester A outputs 1 given the binary strings v and w.
 ---
 Nearly optimal adjacency labelling schemes and universal graphs for trees and forests have been known since the work of Chung on universal graphs in 1990.  Work in this area has recently culminated with the result of Alstrup, Dahlgaard, and Knudsen, who give a (log n + O(1))-bit labelling scheme for the family of forests.  This is optimal up to the constant additive term.
 
@@ -40,7 +40,7 @@ The product of two graphs A and B is the graph whose vertex set is the Cartesian
 
 - a_1 and a_2 are adjacent in A and b_1=b_2. These are horizontal edges in the illustration that join two vertices in the same row.
 
-- a_1 and a_2 are adjacent and A and b_1 and b_2 are adjacent in B.  These are the blue and red diagonal edges in the illustration that join vertices distinct row and columns.
+- a_1 and a_2 are adjacent and A and b_1 and b_2 are adjacent in B.  These are the blue and red diagonal edges in the illustration that join vertices between distinct rows and columns.
 
 As in the example shown here we will always be taking the strong product of some graph and a path.  In this kind of product, the vertical and diagonal edges always span two consecutive rows.
 ---
@@ -51,6 +51,8 @@ Our main result is that any family of graphs consisting of subgraphs of strong p
 Before proving the main result in its entirety, we consider the special case, in which $G$ is an 'induced subgraph' of the strong product of two paths.  This simpler-sounding problem still contains all the major difficulties that must be overcome in a solution to general problem.
 
 The vertices of G can be partitioned into rows numbered one through h.  We let G_i denote the subgraph of G induced by the vertices in row i.
+
+Each vertex label has 3 parts: a row label, a column label, and a transition label.
 
 - the row label identifies which row, i, v is in. Every vertex in the same row receives teh same row label.  The row labels are designed so that, using the row labels of two vertices we can determine if the vertices are in the same row, in two consecutive rows, or in two distinct rows that are not consecutive.  If row i contains n_i vertices of G then the label for row i will have length roughly log n - log n_i
 
@@ -76,20 +78,20 @@ In addition to this signature, each vertex implicitly stores the signature of th
 
 In Case O, the predecessor v in the path is not part of the induced graph. In this case there is nothing more to encode.
 
-In Case X, v has no left child, then the signature of v's predecessor is obtained by removing a trailing string of from v's signature that consists of a 1 followed by a string of zero or more 0s.  This does not require encoding any extra information.
+In Case X, v has no left child, then the signature of v's predecessor is obtained by removing a trailing string from v's signature that consists of a 1 followed by a string of zero or more 0s.  This does not require encoding any extra information.
 
 Finally, in Case A, v has a left child. Then the signature of v's predecessor is obtained by appending a 0 and a string of zero or more 1's to v's signature.  This can be encoding by a binary encoding of the difference in depth between v and its successor.
 
-The code for v therefore consists of a signature, whose length is equal to the depth of v, two bits to distinguish between Case A and Case B, and possibly a positive integer that is not greater than the height of T.  If T is at all balanced, this final integer can be encoding using O(log log n) bits.
+The code for v therefore consists of a signature, whose length is equal to the depth of v, two bits to distinguish between Case O, X, or A, and possibly a positive integer that is not greater than the height of T.  If T is at all balanced, this final integer can be encoding using O(log log n) bits.
 
 It is important to note that the parts of the label other than the signature only contribute O(\log\log n) to the length of the label, so our discussion will mostly focus on ensuring that the signature of any node is short.
 ---
 We will create a sequence of binary search trees T_1,..,T_h corresponding to the rows of our graph.
 
-We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that any two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of vertices that appear consecutively in row i none of which appear in row i+1, and vice-versa.
+We want two consecutive trees in this sequence to be closely related, so the first step is to apply fractional cascading, a technique from data structures so that any two consecutive rows are not wildly different.  This does not increase the total number of vertices by more than a constant factor, but ensures that there is no long sequence of vertices that appear consecutively in row i none of which appear in row i+1, or vice-versa.
 
 ---
-Before describing the bulk tree sequence, we first dispense with the problem of finding row codes.
+Before describing this tree sequence, we first dispense with the problem of finding row codes.
 
 Since there are no restrictions on the binary search $T$ used to create these codes, we can use a biased binary search tree.  For each integer $i\in\{1,\ldots,h\}$ we assign a weight equal to the size of the tree $T_i$.
 
@@ -122,30 +124,29 @@ So far, we have seen that the changes to any node's signature when performing al
 
 Over many rows, these constants add up, so some kind of rebalancing has to be done.  For this, we do a very rough rebalancing operation that works on a node x.  At the end of this operation, every node of depth k in the subtree of x contains at most 1 over 2^k nodes in the subtree of x.
 
-Clearly this operation only affects signatures of nodes in the subtree of x.  By implementing this carefully, the changes to these signatures can be encoded in O(k+loglog n) bits.
+Clearly this operation only affects signatures of nodes in the subtree of x.  By implementing this carefully, the changes to these signatures can be encoded in O(kloglog n) bits.
 
 When moving from row 1 to row 2, this rebalancing operation is applied at the root of T. When moving from row 2 to row 3, it is applied simultaneously at all nodes of depth k.  When moving from row 3 to row 4, the operation is applied to all nodes of depth 2k, and so.  This continues for some number y of iterations until y*k is greater than the height of the tree.  At this point, the process repeats, beginning from root.
 
 The analysis is intricate, but the main idea is that this operation operates on k layers of the tree at once, but the insertions and deletions performed only increase the height of the tree by a constant.  By choosing k large enough. this ensures that the height of the tree never exceeds its optimal height by more than a factor of 1+1/k.
+---
+This leads to a tradeoff in which the transition codes have length kloglog n and the height of the tree tree T exceeds its optimal height by at most log n/k.  Optimizing the value of k gives a total label of length of log n + O(sqrt(log nloglog n)).
+---
+Of course, there are many details missing from this short talk.  One of these is how the solution for the strong product of two paths can be extended to the strong product of a boundary treewidth graph and a path.  Very roughly speaking this is done by embedding H, a bounded treewidth graph, into an interval graph of logarithmic thickness, and then using a tree T that corresponds to an interval tree for the resulting set of intervals.
 
+A final detail is that these labelling schemes have to work for all subgraphs of H times P, not just induced subgraphs.  This is handled in a fairly straightforward way by using an orientation of H times P in which edge vertex has out-degree at most d.  Then the label of each vertex includes a bit-vector of length d that indicates which of its outgoing edges in the induced graph are actually present in the subgraph.
+---
+This concludes a brief overview of the area and the new result.  
 
- is most easily imagined as operating on a band in the tree consisting of all nodes of depths between r and r+k for some carefully chosen value of k.
+An obvious open problem left by this work is to determine the second-order term.  The current upper bound is O(sqrt(log n log log n)) while the only know lower bound is Omega(1).
 
-
- all the changes required to move from T_i to T_{i+1} require only O(\loglog n)
-
-
-
-
-
-
-
-
-
+Thank you for listening.
 
 
 
 
 
 
-Since G is a subgraph of H * P
+
+
+to go from the strong product

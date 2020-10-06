@@ -21,4 +21,4 @@ clean:
 
 %-images : %.pdf
 	mkdir -p $@
-	pdftoppm -scale-to-x 1920 -scale-to-y 1080 -png $< $@/$(@:-images=)
+	pdftoppm -scale-to-x 3840 -scale-to-y 2160 -png $< $@/$(@:-images=)

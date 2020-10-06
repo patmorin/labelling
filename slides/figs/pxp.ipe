@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200303093908" modified="D:20201001123718"/>
+<info created="D:20200303093908" modified="D:20201006074752"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -282,1541 +282,1543 @@ h
 <layer name="too-far"/>
 <layer name="consecutive"/>
 <layer name="transition"/>
+<layer name="row_numbers"/>
 <view layers="PxP G" active="PxP"/>
+<view layers="PxP G row_numbers" active="row_numbers"/>
 <view layers="PxP G same-row" active="same-row"/>
 <view layers="PxP G too-far" active="too-far"/>
 <view layers="PxP G consecutive" active="consecutive"/>
 <view layers="PxP G consecutive transition" active="transition"/>
 <use layer="PxP" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path stroke="pink">
+<path stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path stroke="pink">
+<path stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path stroke="pink">
+<path stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path stroke="pink">
+<path stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 0" stroke="pink">
+<path matrix="1 0 0 1 16 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 0" stroke="pink">
+<path matrix="1 0 0 1 16 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 0" stroke="pink">
+<path matrix="1 0 0 1 16 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 0" stroke="pink">
+<path matrix="1 0 0 1 16 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 0" stroke="pink">
+<path matrix="1 0 0 1 32 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="pink">
+<path matrix="1 0 0 1 32 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="pink">
+<path matrix="1 0 0 1 32 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="pink">
+<path matrix="1 0 0 1 32 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 0" stroke="pink">
+<path matrix="1 0 0 1 48 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 0" stroke="pink">
+<path matrix="1 0 0 1 48 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 0" stroke="pink">
+<path matrix="1 0 0 1 48 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 0" stroke="pink">
+<path matrix="1 0 0 1 48 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 0" stroke="pink">
+<path matrix="1 0 0 1 64 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 0" stroke="pink">
+<path matrix="1 0 0 1 64 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 0" stroke="pink">
+<path matrix="1 0 0 1 64 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 0" stroke="pink">
+<path matrix="1 0 0 1 64 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 0" stroke="pink">
+<path matrix="1 0 0 1 80 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 0" stroke="pink">
+<path matrix="1 0 0 1 80 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 0" stroke="pink">
+<path matrix="1 0 0 1 80 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 0" stroke="pink">
+<path matrix="1 0 0 1 80 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 0" stroke="pink">
+<path matrix="1 0 0 1 96 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 0" stroke="pink">
+<path matrix="1 0 0 1 96 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 0" stroke="pink">
+<path matrix="1 0 0 1 96 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 0" stroke="pink">
+<path matrix="1 0 0 1 96 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 0" stroke="pink">
+<path matrix="1 0 0 1 112 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 0" stroke="pink">
+<path matrix="1 0 0 1 112 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 0" stroke="pink">
+<path matrix="1 0 0 1 112 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 0" stroke="pink">
+<path matrix="1 0 0 1 112 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 0" stroke="pink">
+<path matrix="1 0 0 1 128 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 0" stroke="pink">
+<path matrix="1 0 0 1 128 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 0" stroke="pink">
+<path matrix="1 0 0 1 128 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 0" stroke="pink">
+<path matrix="1 0 0 1 128 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 0" stroke="pink">
+<path matrix="1 0 0 1 144 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 0" stroke="pink">
+<path matrix="1 0 0 1 144 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 0" stroke="pink">
+<path matrix="1 0 0 1 144 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 0" stroke="pink">
+<path matrix="1 0 0 1 144 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 0" stroke="pink">
+<path matrix="1 0 0 1 160 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 0" stroke="pink">
+<path matrix="1 0 0 1 160 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 0" stroke="pink">
+<path matrix="1 0 0 1 160 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 0" stroke="pink">
+<path matrix="1 0 0 1 160 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 0" stroke="pink">
+<path matrix="1 0 0 1 176 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 0" stroke="pink">
+<path matrix="1 0 0 1 176 0" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 0" stroke="pink">
+<path matrix="1 0 0 1 176 0" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 0" stroke="pink">
+<path matrix="1 0 0 1 176 0" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 0" stroke="pink">
+<path matrix="1 0 0 1 192 0" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -16" stroke="pink">
+<path matrix="1 0 0 1 0 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -16" stroke="pink">
+<path matrix="1 0 0 1 0 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -16" stroke="pink">
+<path matrix="1 0 0 1 0 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -16" stroke="pink">
+<path matrix="1 0 0 1 0 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -16" stroke="pink">
+<path matrix="1 0 0 1 16 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -16" stroke="pink">
+<path matrix="1 0 0 1 16 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -16" stroke="pink">
+<path matrix="1 0 0 1 16 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -16" stroke="pink">
+<path matrix="1 0 0 1 16 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -16" stroke="pink">
+<path matrix="1 0 0 1 32 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -16" stroke="pink">
+<path matrix="1 0 0 1 32 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -16" stroke="pink">
+<path matrix="1 0 0 1 32 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -16" stroke="pink">
+<path matrix="1 0 0 1 32 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -16" stroke="pink">
+<path matrix="1 0 0 1 48 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -16" stroke="pink">
+<path matrix="1 0 0 1 48 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -16" stroke="pink">
+<path matrix="1 0 0 1 48 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -16" stroke="pink">
+<path matrix="1 0 0 1 48 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -16" stroke="pink">
+<path matrix="1 0 0 1 64 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -16" stroke="pink">
+<path matrix="1 0 0 1 64 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -16" stroke="pink">
+<path matrix="1 0 0 1 64 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -16" stroke="pink">
+<path matrix="1 0 0 1 64 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -16" stroke="pink">
+<path matrix="1 0 0 1 80 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -16" stroke="pink">
+<path matrix="1 0 0 1 80 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -16" stroke="pink">
+<path matrix="1 0 0 1 80 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -16" stroke="pink">
+<path matrix="1 0 0 1 80 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -16" stroke="pink">
+<path matrix="1 0 0 1 96 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -16" stroke="pink">
+<path matrix="1 0 0 1 96 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -16" stroke="pink">
+<path matrix="1 0 0 1 96 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -16" stroke="pink">
+<path matrix="1 0 0 1 96 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -16" stroke="pink">
+<path matrix="1 0 0 1 112 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -16" stroke="pink">
+<path matrix="1 0 0 1 112 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -16" stroke="pink">
+<path matrix="1 0 0 1 112 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -16" stroke="pink">
+<path matrix="1 0 0 1 112 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -16" stroke="pink">
+<path matrix="1 0 0 1 128 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -16" stroke="pink">
+<path matrix="1 0 0 1 128 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -16" stroke="pink">
+<path matrix="1 0 0 1 128 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -16" stroke="pink">
+<path matrix="1 0 0 1 128 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -16" stroke="pink">
+<path matrix="1 0 0 1 144 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -16" stroke="pink">
+<path matrix="1 0 0 1 144 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -16" stroke="pink">
+<path matrix="1 0 0 1 144 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -16" stroke="pink">
+<path matrix="1 0 0 1 144 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -16" stroke="pink">
+<path matrix="1 0 0 1 160 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -16" stroke="pink">
+<path matrix="1 0 0 1 160 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -16" stroke="pink">
+<path matrix="1 0 0 1 160 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -16" stroke="pink">
+<path matrix="1 0 0 1 160 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -16" stroke="pink">
+<path matrix="1 0 0 1 176 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -16" stroke="pink">
+<path matrix="1 0 0 1 176 -16" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -16" stroke="pink">
+<path matrix="1 0 0 1 176 -16" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -16" stroke="pink">
+<path matrix="1 0 0 1 176 -16" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -16" stroke="pink">
+<path matrix="1 0 0 1 192 -16" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -32" stroke="pink">
+<path matrix="1 0 0 1 0 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -32" stroke="pink">
+<path matrix="1 0 0 1 0 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -32" stroke="pink">
+<path matrix="1 0 0 1 0 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -32" stroke="pink">
+<path matrix="1 0 0 1 0 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -32" stroke="pink">
+<path matrix="1 0 0 1 16 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -32" stroke="pink">
+<path matrix="1 0 0 1 16 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -32" stroke="pink">
+<path matrix="1 0 0 1 16 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -32" stroke="pink">
+<path matrix="1 0 0 1 16 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -32" stroke="pink">
+<path matrix="1 0 0 1 32 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -32" stroke="pink">
+<path matrix="1 0 0 1 32 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -32" stroke="pink">
+<path matrix="1 0 0 1 32 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -32" stroke="pink">
+<path matrix="1 0 0 1 32 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -32" stroke="pink">
+<path matrix="1 0 0 1 48 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -32" stroke="pink">
+<path matrix="1 0 0 1 48 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -32" stroke="pink">
+<path matrix="1 0 0 1 48 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -32" stroke="pink">
+<path matrix="1 0 0 1 48 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -32" stroke="pink">
+<path matrix="1 0 0 1 64 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -32" stroke="pink">
+<path matrix="1 0 0 1 64 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -32" stroke="pink">
+<path matrix="1 0 0 1 64 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -32" stroke="pink">
+<path matrix="1 0 0 1 64 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="rose gold"/>
-<path matrix="1 0 0 1 80 -32" stroke="pink">
+<path matrix="1 0 0 1 80 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -32" stroke="pink">
+<path matrix="1 0 0 1 80 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -32" stroke="pink">
+<path matrix="1 0 0 1 80 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -32" stroke="pink">
+<path matrix="1 0 0 1 80 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -32" stroke="pink">
+<path matrix="1 0 0 1 96 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -32" stroke="pink">
+<path matrix="1 0 0 1 96 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -32" stroke="pink">
+<path matrix="1 0 0 1 96 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -32" stroke="pink">
+<path matrix="1 0 0 1 96 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -32" stroke="pink">
+<path matrix="1 0 0 1 112 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -32" stroke="pink">
+<path matrix="1 0 0 1 112 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -32" stroke="pink">
+<path matrix="1 0 0 1 112 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -32" stroke="pink">
+<path matrix="1 0 0 1 112 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -32" stroke="pink">
+<path matrix="1 0 0 1 128 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -32" stroke="pink">
+<path matrix="1 0 0 1 128 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -32" stroke="pink">
+<path matrix="1 0 0 1 128 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -32" stroke="pink">
+<path matrix="1 0 0 1 128 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -32" stroke="pink">
+<path matrix="1 0 0 1 144 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -32" stroke="pink">
+<path matrix="1 0 0 1 144 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -32" stroke="pink">
+<path matrix="1 0 0 1 144 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -32" stroke="pink">
+<path matrix="1 0 0 1 144 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -32" stroke="pink">
+<path matrix="1 0 0 1 160 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -32" stroke="pink">
+<path matrix="1 0 0 1 160 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -32" stroke="pink">
+<path matrix="1 0 0 1 160 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -32" stroke="pink">
+<path matrix="1 0 0 1 160 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -32" stroke="pink">
+<path matrix="1 0 0 1 176 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -32" stroke="pink">
+<path matrix="1 0 0 1 176 -32" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -32" stroke="pink">
+<path matrix="1 0 0 1 176 -32" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -32" stroke="pink">
+<path matrix="1 0 0 1 176 -32" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -32" stroke="pink">
+<path matrix="1 0 0 1 192 -32" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -48" stroke="pink">
+<path matrix="1 0 0 1 0 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -48" stroke="pink">
+<path matrix="1 0 0 1 0 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -48" stroke="pink">
+<path matrix="1 0 0 1 0 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -48" stroke="pink">
+<path matrix="1 0 0 1 0 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -48" stroke="pink">
+<path matrix="1 0 0 1 16 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -48" stroke="pink">
+<path matrix="1 0 0 1 16 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -48" stroke="pink">
+<path matrix="1 0 0 1 16 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -48" stroke="pink">
+<path matrix="1 0 0 1 16 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -48" stroke="pink">
+<path matrix="1 0 0 1 32 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -48" stroke="pink">
+<path matrix="1 0 0 1 32 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -48" stroke="pink">
+<path matrix="1 0 0 1 32 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -48" stroke="pink">
+<path matrix="1 0 0 1 32 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -48" stroke="pink">
+<path matrix="1 0 0 1 48 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -48" stroke="pink">
+<path matrix="1 0 0 1 48 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -48" stroke="pink">
+<path matrix="1 0 0 1 48 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -48" stroke="pink">
+<path matrix="1 0 0 1 48 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -48" stroke="pink">
+<path matrix="1 0 0 1 64 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -48" stroke="pink">
+<path matrix="1 0 0 1 64 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -48" stroke="pink">
+<path matrix="1 0 0 1 64 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -48" stroke="pink">
+<path matrix="1 0 0 1 64 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -48" stroke="pink">
+<path matrix="1 0 0 1 80 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -48" stroke="pink">
+<path matrix="1 0 0 1 80 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -48" stroke="pink">
+<path matrix="1 0 0 1 80 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -48" stroke="pink">
+<path matrix="1 0 0 1 80 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -48" stroke="pink">
+<path matrix="1 0 0 1 96 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -48" stroke="pink">
+<path matrix="1 0 0 1 96 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -48" stroke="pink">
+<path matrix="1 0 0 1 96 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -48" stroke="pink">
+<path matrix="1 0 0 1 96 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -48" stroke="pink">
+<path matrix="1 0 0 1 112 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -48" stroke="pink">
+<path matrix="1 0 0 1 112 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -48" stroke="pink">
+<path matrix="1 0 0 1 112 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -48" stroke="pink">
+<path matrix="1 0 0 1 112 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -48" stroke="pink">
+<path matrix="1 0 0 1 128 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -48" stroke="pink">
+<path matrix="1 0 0 1 128 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -48" stroke="pink">
+<path matrix="1 0 0 1 128 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -48" stroke="pink">
+<path matrix="1 0 0 1 128 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -48" stroke="pink">
+<path matrix="1 0 0 1 144 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -48" stroke="pink">
+<path matrix="1 0 0 1 144 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -48" stroke="pink">
+<path matrix="1 0 0 1 144 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -48" stroke="pink">
+<path matrix="1 0 0 1 144 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -48" stroke="pink">
+<path matrix="1 0 0 1 160 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -48" stroke="pink">
+<path matrix="1 0 0 1 160 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -48" stroke="pink">
+<path matrix="1 0 0 1 160 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -48" stroke="pink">
+<path matrix="1 0 0 1 160 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -48" stroke="pink">
+<path matrix="1 0 0 1 176 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -48" stroke="pink">
+<path matrix="1 0 0 1 176 -48" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -48" stroke="pink">
+<path matrix="1 0 0 1 176 -48" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -48" stroke="pink">
+<path matrix="1 0 0 1 176 -48" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -48" stroke="pink">
+<path matrix="1 0 0 1 192 -48" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -64" stroke="pink">
+<path matrix="1 0 0 1 0 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -64" stroke="pink">
+<path matrix="1 0 0 1 0 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -64" stroke="pink">
+<path matrix="1 0 0 1 0 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -64" stroke="pink">
+<path matrix="1 0 0 1 0 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -64" stroke="pink">
+<path matrix="1 0 0 1 16 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -64" stroke="pink">
+<path matrix="1 0 0 1 16 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -64" stroke="pink">
+<path matrix="1 0 0 1 16 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -64" stroke="pink">
+<path matrix="1 0 0 1 16 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -64" stroke="pink">
+<path matrix="1 0 0 1 32 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -64" stroke="pink">
+<path matrix="1 0 0 1 32 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -64" stroke="pink">
+<path matrix="1 0 0 1 32 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -64" stroke="pink">
+<path matrix="1 0 0 1 32 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -64" stroke="pink">
+<path matrix="1 0 0 1 48 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -64" stroke="pink">
+<path matrix="1 0 0 1 48 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -64" stroke="pink">
+<path matrix="1 0 0 1 48 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -64" stroke="pink">
+<path matrix="1 0 0 1 48 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -64" stroke="pink">
+<path matrix="1 0 0 1 64 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -64" stroke="pink">
+<path matrix="1 0 0 1 64 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -64" stroke="pink">
+<path matrix="1 0 0 1 64 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -64" stroke="pink">
+<path matrix="1 0 0 1 64 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -64" stroke="pink">
+<path matrix="1 0 0 1 80 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -64" stroke="pink">
+<path matrix="1 0 0 1 80 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -64" stroke="pink">
+<path matrix="1 0 0 1 80 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -64" stroke="pink">
+<path matrix="1 0 0 1 80 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -64" stroke="pink">
+<path matrix="1 0 0 1 96 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -64" stroke="pink">
+<path matrix="1 0 0 1 96 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -64" stroke="pink">
+<path matrix="1 0 0 1 96 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -64" stroke="pink">
+<path matrix="1 0 0 1 96 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -64" stroke="pink">
+<path matrix="1 0 0 1 112 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -64" stroke="pink">
+<path matrix="1 0 0 1 112 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -64" stroke="pink">
+<path matrix="1 0 0 1 112 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -64" stroke="pink">
+<path matrix="1 0 0 1 112 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -64" stroke="pink">
+<path matrix="1 0 0 1 128 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -64" stroke="pink">
+<path matrix="1 0 0 1 128 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -64" stroke="pink">
+<path matrix="1 0 0 1 128 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -64" stroke="pink">
+<path matrix="1 0 0 1 128 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -64" stroke="pink">
+<path matrix="1 0 0 1 144 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -64" stroke="pink">
+<path matrix="1 0 0 1 144 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -64" stroke="pink">
+<path matrix="1 0 0 1 144 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -64" stroke="pink">
+<path matrix="1 0 0 1 144 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -64" stroke="pink">
+<path matrix="1 0 0 1 160 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -64" stroke="pink">
+<path matrix="1 0 0 1 160 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -64" stroke="pink">
+<path matrix="1 0 0 1 160 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -64" stroke="pink">
+<path matrix="1 0 0 1 160 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -64" stroke="pink">
+<path matrix="1 0 0 1 176 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -64" stroke="pink">
+<path matrix="1 0 0 1 176 -64" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -64" stroke="pink">
+<path matrix="1 0 0 1 176 -64" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -64" stroke="pink">
+<path matrix="1 0 0 1 176 -64" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -64" stroke="pink">
+<path matrix="1 0 0 1 192 -64" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -80" stroke="pink">
+<path matrix="1 0 0 1 0 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -80" stroke="pink">
+<path matrix="1 0 0 1 0 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -80" stroke="pink">
+<path matrix="1 0 0 1 0 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -80" stroke="pink">
+<path matrix="1 0 0 1 0 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -80" stroke="pink">
+<path matrix="1 0 0 1 16 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -80" stroke="pink">
+<path matrix="1 0 0 1 16 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -80" stroke="pink">
+<path matrix="1 0 0 1 16 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -80" stroke="pink">
+<path matrix="1 0 0 1 16 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -80" stroke="pink">
+<path matrix="1 0 0 1 32 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -80" stroke="pink">
+<path matrix="1 0 0 1 32 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -80" stroke="pink">
+<path matrix="1 0 0 1 32 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -80" stroke="pink">
+<path matrix="1 0 0 1 32 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -80" stroke="pink">
+<path matrix="1 0 0 1 48 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -80" stroke="pink">
+<path matrix="1 0 0 1 48 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -80" stroke="pink">
+<path matrix="1 0 0 1 48 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -80" stroke="pink">
+<path matrix="1 0 0 1 48 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -80" stroke="pink">
+<path matrix="1 0 0 1 64 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -80" stroke="pink">
+<path matrix="1 0 0 1 64 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -80" stroke="pink">
+<path matrix="1 0 0 1 64 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -80" stroke="pink">
+<path matrix="1 0 0 1 64 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -80" stroke="pink">
+<path matrix="1 0 0 1 80 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -80" stroke="pink">
+<path matrix="1 0 0 1 80 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -80" stroke="pink">
+<path matrix="1 0 0 1 80 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -80" stroke="pink">
+<path matrix="1 0 0 1 80 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -80" stroke="pink">
+<path matrix="1 0 0 1 96 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -80" stroke="pink">
+<path matrix="1 0 0 1 96 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -80" stroke="pink">
+<path matrix="1 0 0 1 96 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -80" stroke="pink">
+<path matrix="1 0 0 1 96 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -80" stroke="pink">
+<path matrix="1 0 0 1 112 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -80" stroke="pink">
+<path matrix="1 0 0 1 112 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -80" stroke="pink">
+<path matrix="1 0 0 1 112 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -80" stroke="pink">
+<path matrix="1 0 0 1 112 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -80" stroke="pink">
+<path matrix="1 0 0 1 128 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -80" stroke="pink">
+<path matrix="1 0 0 1 128 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -80" stroke="pink">
+<path matrix="1 0 0 1 128 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -80" stroke="pink">
+<path matrix="1 0 0 1 128 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -80" stroke="pink">
+<path matrix="1 0 0 1 144 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -80" stroke="pink">
+<path matrix="1 0 0 1 144 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -80" stroke="pink">
+<path matrix="1 0 0 1 144 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -80" stroke="pink">
+<path matrix="1 0 0 1 144 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -80" stroke="pink">
+<path matrix="1 0 0 1 160 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -80" stroke="pink">
+<path matrix="1 0 0 1 160 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -80" stroke="pink">
+<path matrix="1 0 0 1 160 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -80" stroke="pink">
+<path matrix="1 0 0 1 160 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -80" stroke="pink">
+<path matrix="1 0 0 1 176 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -80" stroke="pink">
+<path matrix="1 0 0 1 176 -80" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -80" stroke="pink">
+<path matrix="1 0 0 1 176 -80" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -80" stroke="pink">
+<path matrix="1 0 0 1 176 -80" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -80" stroke="pink">
+<path matrix="1 0 0 1 192 -80" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -96" stroke="pink">
+<path matrix="1 0 0 1 0 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 0 -96" stroke="pink">
+<path matrix="1 0 0 1 0 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 0 -96" stroke="pink">
+<path matrix="1 0 0 1 0 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 0 -96" stroke="pink">
+<path matrix="1 0 0 1 0 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 16 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -96" stroke="pink">
+<path matrix="1 0 0 1 16 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 16 -96" stroke="pink">
+<path matrix="1 0 0 1 16 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 16 -96" stroke="pink">
+<path matrix="1 0 0 1 16 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 16 -96" stroke="pink">
+<path matrix="1 0 0 1 16 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 32 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -96" stroke="pink">
+<path matrix="1 0 0 1 32 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 32 -96" stroke="pink">
+<path matrix="1 0 0 1 32 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 32 -96" stroke="pink">
+<path matrix="1 0 0 1 32 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 32 -96" stroke="pink">
+<path matrix="1 0 0 1 32 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 48 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -96" stroke="pink">
+<path matrix="1 0 0 1 48 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 48 -96" stroke="pink">
+<path matrix="1 0 0 1 48 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 48 -96" stroke="pink">
+<path matrix="1 0 0 1 48 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 48 -96" stroke="pink">
+<path matrix="1 0 0 1 48 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 64 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -96" stroke="pink">
+<path matrix="1 0 0 1 64 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 64 -96" stroke="pink">
+<path matrix="1 0 0 1 64 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 64 -96" stroke="pink">
+<path matrix="1 0 0 1 64 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 64 -96" stroke="pink">
+<path matrix="1 0 0 1 64 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 80 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -96" stroke="pink">
+<path matrix="1 0 0 1 80 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 80 -96" stroke="pink">
+<path matrix="1 0 0 1 80 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -96" stroke="pink">
+<path matrix="1 0 0 1 80 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 80 -96" stroke="pink">
+<path matrix="1 0 0 1 80 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 96 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -96" stroke="pink">
+<path matrix="1 0 0 1 96 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 96 -96" stroke="pink">
+<path matrix="1 0 0 1 96 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 96 -96" stroke="pink">
+<path matrix="1 0 0 1 96 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 96 -96" stroke="pink">
+<path matrix="1 0 0 1 96 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 112 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -96" stroke="pink">
+<path matrix="1 0 0 1 112 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 112 -96" stroke="pink">
+<path matrix="1 0 0 1 112 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 112 -96" stroke="pink">
+<path matrix="1 0 0 1 112 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 112 -96" stroke="pink">
+<path matrix="1 0 0 1 112 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 128 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -96" stroke="pink">
+<path matrix="1 0 0 1 128 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 128 -96" stroke="pink">
+<path matrix="1 0 0 1 128 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 128 -96" stroke="pink">
+<path matrix="1 0 0 1 128 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 128 -96" stroke="pink">
+<path matrix="1 0 0 1 128 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 144 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -96" stroke="pink">
+<path matrix="1 0 0 1 144 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 144 -96" stroke="pink">
+<path matrix="1 0 0 1 144 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 144 -96" stroke="pink">
+<path matrix="1 0 0 1 144 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 144 -96" stroke="pink">
+<path matrix="1 0 0 1 144 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 160 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -96" stroke="pink">
+<path matrix="1 0 0 1 160 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 160 -96" stroke="pink">
+<path matrix="1 0 0 1 160 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 160 -96" stroke="pink">
+<path matrix="1 0 0 1 160 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 160 -96" stroke="pink">
+<path matrix="1 0 0 1 160 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 176 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -96" stroke="pink">
+<path matrix="1 0 0 1 176 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
-<path matrix="1 0 0 1 176 -96" stroke="pink">
+<path matrix="1 0 0 1 176 -96" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 176 -96" stroke="pink">
+<path matrix="1 0 0 1 176 -96" stroke="pink" pen="fat">
 192 704 m
 208 688 l
 </path>
-<path matrix="1 0 0 1 176 -96" stroke="pink">
+<path matrix="1 0 0 1 176 -96" stroke="pink" pen="fat">
 208 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 192 -96" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 192 -96" stroke="pink">
+<path matrix="1 0 0 1 192 -96" stroke="pink" pen="fat">
 192 704 m
 192 688 l
 </path>
 <use matrix="1 0 0 1 0 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 0 -112" stroke="pink">
+<path matrix="1 0 0 1 0 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 16 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 16 -112" stroke="pink">
+<path matrix="1 0 0 1 16 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 32 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 32 -112" stroke="pink">
+<path matrix="1 0 0 1 32 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 48 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 48 -112" stroke="pink">
+<path matrix="1 0 0 1 48 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 64 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 64 -112" stroke="pink">
+<path matrix="1 0 0 1 64 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 80 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 80 -112" stroke="pink">
+<path matrix="1 0 0 1 80 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 96 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 96 -112" stroke="pink">
+<path matrix="1 0 0 1 96 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 112 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 112 -112" stroke="pink">
+<path matrix="1 0 0 1 112 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 128 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 128 -112" stroke="pink">
+<path matrix="1 0 0 1 128 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 144 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 144 -112" stroke="pink">
+<path matrix="1 0 0 1 144 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 160 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 160 -112" stroke="pink">
+<path matrix="1 0 0 1 160 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 176 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path matrix="1 0 0 1 176 -112" stroke="pink">
+<path matrix="1 0 0 1 176 -112" stroke="pink" pen="fat">
 192 704 m
 208 704 l
 </path>
 <use matrix="1 0 0 1 192 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<path stroke="black" arrow="normal/normal" rarrow="normal/normal">
+<path stroke="black" pen="fat" arrow="normal/normal" rarrow="normal/normal">
 192 720 m
 384 720 l
 </path>
 <text matrix="1 0 0 1 -4 -5" transformations="translations" pos="292 728" stroke="black" type="label" width="8.092" height="4.428" depth="0" halign="center" valign="baseline" style="math">m</text>
-<path stroke="black" arrow="normal/normal" rarrow="normal/normal">
+<path stroke="black" pen="fat" arrow="normal/normal" rarrow="normal/normal">
 176 704 m
 176 592 l
 </path>
@@ -2687,9 +2689,14 @@ h
 <use layer="consecutive" name="mark/disk(sx)" pos="272 672" size="large" stroke="rose gold"/>
 <use name="mark/disk(sx)" pos="288 656" size="large" stroke="pearl aqua"/>
 <use layer="transition" name="mark/disk(sx)" pos="272 656" size="large" stroke="rose gold"/>
-<path stroke="rose gold" arrow="normal/normal">
+<path stroke="rose gold" pen="fat" arrow="normal/normal">
 272 672 m
 272 656 l
 </path>
+<text layer="row_numbers" matrix="1 0 0 1 -7 0" transformations="translations" pos="400 704" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="center" style="math">1</text>
+<text matrix="1 0 0 1 -7 -16" transformations="translations" pos="400 704" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="center" style="math">2</text>
+<text matrix="1 0 0 1 -7 -32" transformations="translations" pos="400 704" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="center" style="math">3</text>
+<text matrix="1 0 0 1 -7 -112" transformations="translations" pos="400 704" stroke="black" type="label" width="5.324" height="6.918" depth="0" valign="center" style="math">h</text>
+<text matrix="1 0 0 1 -7 -57" transformations="translations" pos="400 704" stroke="black" type="label" width="2.767" height="14.778" depth="0" valign="top" style="math">\vdots</text>
 </page>
 </ipe>

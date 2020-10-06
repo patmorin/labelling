@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201001090748"/>
+<info created="D:20200930071715" modified="D:20201006070322"/>
 <preamble>\usepackage{ods-figs}
 \usepackage{amsmath}</preamble>
 <ipestyle name="basic">
@@ -734,51 +734,51 @@ h
 <use name="mark/disk(sx)" pos="192 128" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="224 128" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="224 96" size="normal" stroke="black"/>
-<path stroke="black">
+<path stroke="black" pen="fat">
 160 160 m
 192 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 256 160 m
 224 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 224 128 m
 224 96 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 224 96 m
 192 96 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 192 96 m
 192 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 192 128 m
 224 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 160 160 m
 256 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 160 160 m
 160 64 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 160 64 m
 192 96 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 224 96 m
 256 64 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 256 64 m
 256 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 256 64 m
 160 64 l
 </path>

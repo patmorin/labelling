@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201002134545"/>
+<info created="D:20200930071715" modified="D:20201006092440"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -693,13 +693,36 @@ h
 <layer name="x_2"/>
 <layer name="measure-i"/>
 <layer name="alpha"/>
-<view layers="T_1 T_1_bottom" active="T_1_ragged_bottom"/>
+<layer name="hilite-root"/>
+<layer name="root-move"/>
+<layer name="hilite-roots"/>
+<layer name="beta"/>
+<view layers="T_1 T_1_bottom" active="T_1_bottom"/>
 <view layers="T_1 T_1_ragged_bottom" active="T_1_ragged_bottom"/>
-<view layers="T_1 T_1_ragged_bottom x_1" active="x_1"/>
-<view layers="T_2 T_2_bottom measure-i" active="measure-i"/>
+<view layers="T_1 T_1_ragged_bottom hilite-root" active="hilite-root"/>
+<view layers="T_1 T_1_ragged_bottom x_1 hilite-root" active="x_1"/>
+<view layers="T_2 T_2_bottom measure-i root-move" active="root-move"/>
+<view layers="T_2 T_2_bottom measure-i" active="root-move"/>
 <view layers="T_2 T_2_ragged_bottom measure-i" active="T_2_ragged_bottom"/>
-<view layers="T_2 T_2_ragged_bottom x_2 measure-i" active="x_2"/>
+<view layers="T_2 T_2_ragged_bottom measure-i hilite-roots" active="hilite-roots"/>
+<view layers="T_2 T_2_ragged_bottom x_2 measure-i hilite-roots" active="x_2"/>
 <view layers="measure-i alpha" active="alpha"/>
+<view layers="measure-i alpha beta" active="beta"/>
+<path layer="hilite-roots" matrix="1 0 0 1 80 -32" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
+<path matrix="1 0 0 1 32 -32" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
+<path matrix="1 0 0 1 -24 -32" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
+<path matrix="1 0 0 1 -80 -32" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
+<path layer="hilite-root" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
 <path layer="alpha" matrix="1 0 0 1 110.884 0" stroke="black" pen="fat">
 146.418 128 m
 142.295 57.9 l
@@ -1244,5 +1267,26 @@ h
 <use name="mark/disk(sx)" pos="306.832 128" size="normal" stroke="tigers eye"/>
 <use name="mark/disk(sx)" pos="314.194 128" size="normal" stroke="tigers eye"/>
 <text layer="T_2_ragged_bottom" matrix="1 0 0 1 0.00019521 0.00001293" transformations="translations" pos="324 156" stroke="black" type="label" width="10.983" height="7.495" depth="2.55" valign="baseline" style="math">T_2&apos;</text>
+<path layer="root-move" matrix="1 0 0 1 36 -100" fill="granny smith apple">
+4 0 0 4 224 192 e
+</path>
+<path layer="beta" matrix="1 0 0 1 0 -92" stroke="black" pen="fat">
+344 160 m
+352 160 l
+</path>
+<path matrix="1 0 0 1 0 -124" stroke="black" pen="fat">
+348 160 m
+348 192 l
+</path>
+<path matrix="1 0 0 1 0 -124" stroke="black" pen="fat">
+344 192 m
+352 192 l
+</path>
+<path matrix="1 0 0 1 0 -124" stroke="black" pen="fat">
+344 160 m
+352 160 l
+</path>
+<text matrix="1 0 0 1 -5 -124" transformations="translations" pos="356 172" stroke="black" type="label" width="5.701" height="6.918" depth="0" valign="baseline" style="math">k</text>
+<text matrix="1 0 0 1 0 -8" transformations="translations" pos="348 100" stroke="black" type="label" width="2.767" height="14.778" depth="0" valign="baseline" style="math">\vdots</text>
 </page>
 </ipe>

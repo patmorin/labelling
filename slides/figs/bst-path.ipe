@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201002063851"/>
+<info created="D:20200930071715" modified="D:20201006070052"/>
 <preamble>\usepackage{ods-figs}
 \usepackage{ulem}</preamble>
 <ipestyle name="basic">
@@ -736,15 +736,15 @@ h
 <path fill="granny smith apple">
 4.76915 0 0 4.76915 320 128 e
 </path>
-<path stroke="gray">
+<path stroke="gray" pen="fat">
 320 128 m
 320 96 l
 </path>
-<path layer="no-left-o" stroke="gray">
+<path layer="no-left-o" stroke="gray" pen="fat">
 128 144 m
 128 96 l
 </path>
-<path layer="has-left-o" stroke="gray">
+<path layer="has-left-o" stroke="gray" pen="fat">
 272 96 m
 272 160 l
 </path>
@@ -776,120 +776,120 @@ h
 <use name="mark/disk(sx)" pos="288 144" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="320 128" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="336 112" size="normal" stroke="black"/>
-<path stroke="black">
+<path stroke="black" pen="fat">
 176 192 m
 112 176 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 112 176 m
 96 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 112 176 m
 144 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 144 160 m
 128 144 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 144 160 m
 160 144 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 176 192 m
 192 176 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 192 176 m
 272 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 272 160 m
 224 144 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 224 144 m
 208 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 224 144 m
 240 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 272 160 m
 288 144 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 288 144 m
 320 128 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 320 128 m
 336 112 l
 </path>
 <use name="mark/disk(sx)" pos="256 112" size="normal" stroke="black"/>
-<path stroke="black">
+<path stroke="black" pen="fat">
 240 128 m
 256 112 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 336 64 m
 320 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="lightgray" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="lightgray" pen="fat" arrow="normal/tiny">
 320 64 m
 304 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="lightgray" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="lightgray" pen="fat" arrow="normal/tiny">
 304 64 m
 288 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 288 64 m
 272 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 272 64 m
 256 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 256 64 m
 240 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 240 64 m
 224 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 224 64 m
 208 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 208 64 m
 192 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 192 64 m
 176 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 176 64 m
 160 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 160 64 m
 144 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 144 64 m
 128 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 128 64 m
 112 64 l
 </path>
-<path matrix="1 0 0 1 0 32" stroke="black" arrow="normal/tiny">
+<path matrix="1 0 0 1 0 32" stroke="black" pen="fat" arrow="normal/tiny">
 112 64 m
 96 64 l
 </path>
@@ -900,15 +900,15 @@ h
 <text matrix="1 0 0 1 0 -2" transformations="translations" pos="234.789 136.653" stroke="columbia blue" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
 <text matrix="1 0 0 1 -1 -1" transformations="translations" pos="250.384 121.358" stroke="columbia blue" type="label" width="4.981" height="6.531" depth="0" valign="baseline" style="math">1</text>
 <text matrix="1 0 0 1 -15.8949 23.9184" transformations="translations" pos="271.378 83.2691" stroke="black" type="label" width="24.907" height="6.531" depth="0" halign="center" valign="top" style="math">11011</text>
-<path layer="has-left-iii" stroke="black">
+<path layer="has-left-iii" stroke="black" pen="fat">
 352 112 m
 352 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 348 160 m
 356 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 348 112 m
 356 112 l
 </path>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200930071715" modified="D:20201002135116"/>
+<info created="D:20200930071715" modified="D:20201006092721"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -691,46 +691,49 @@ h
 <layer name="measuring-stick"/>
 <layer name="epsilon"/>
 <view layers="alpha beta" active="alpha"/>
-<view layers="alpha beta" active="measuring-stick"/>
-<view layers="alpha beta gamma" active="gamma"/>
+<view layers="alpha beta epsilon" active="epsilon"/>
+<view layers="alpha beta gamma epsilon" active="gamma"/>
 <view layers="delta" active="delta"/>
-<view layers="delta epsilon" active="epsilon"/>
-<path layer="delta" matrix="1 0 0 2 0 -160" stroke="black">
+<view layers="delta" active="epsilon"/>
+<path layer="epsilon" fill="granny smith apple">
+8 0 0 8 192 192 e
+</path>
+<path layer="delta" matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 253.734 160 m
 246.001 147.793
 234.931 138.448
 231.768 135.429
 228.749 134.423 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 268.142 135.86 m
 257.215 144.774
 253.734 160 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 208.547 160 m
 203.733 146.787
 191.369 134.279
 188.494 133.129 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 188.494 133.129 m
 202.583 138.304
 208.19 130.397
 213.653 137.729
 220.986 133.848 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 220.986 133.848 m
 213.653 147.362
 208.547 160 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 170.139 160 m
 167.996 151.032
 155.379 135.667 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 155.379 135.667 m
 163.722 139.127
 168.81 136.176
@@ -738,18 +741,18 @@ h
 181.631 140.551
 187.939 147.674 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 187.939 147.674 m
 177.561 152.049
 170.139 160 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 134.743 160 m
 126.888 143.706
 117.527 135.972
 116.102 134.853 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 116.102 134.853 m
 124.344 137.906
 128.414 133.836
@@ -757,43 +760,43 @@ h
 143.575 134.65
 148.46 136.786 c
 </path>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 148.46 136.786 m
 136.758 146.351
 134.743 160 c
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 157.336 176 m
 134.743 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 157.336 176 m
 170.139 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 157.336 176 m
 190.85 192 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 229.634 176 m
 253.734 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 229.634 176 m
 208.547 160 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 190.85 192 m
 229.634 176 l
 </path>
 <use layer="alpha" matrix="1 0 0 0.8 0 51.2" name="mark/disk(sx)" pos="192 176" size="normal" stroke="black"/>
-<text matrix="1 0 0 0.8 0 54.4" transformations="translations" pos="192 176" stroke="black" type="label" width="5.507" height="4.428" depth="0" valign="baseline" style="math">x</text>
-<path layer="beta" matrix="1 0 0 0.8 0 51.2" stroke="black">
+<text matrix="1 0 0 0.8 10 50.4" transformations="translations" pos="192 176" stroke="black" type="label" width="5.507" height="4.428" depth="0" valign="baseline" style="math">x</text>
+<path layer="beta" matrix="1 0 0 0.8 0 51.2" stroke="black" pen="fat">
 192 176 m
 160 112
 80 64 c
 </path>
-<path matrix="1 0 0 0.8 0 51.2" stroke="black">
+<path matrix="1 0 0 0.8 0 51.2" stroke="black" pen="fat">
 80 64 m
 112 48
 128 64
@@ -805,7 +808,7 @@ h
 256 48
 288 64 c
 </path>
-<path matrix="1 0 0 0.8 0 51.2" stroke="black">
+<path matrix="1 0 0 0.8 0 51.2" stroke="black" pen="fat">
 192 176 m
 224 96
 288 64 c
@@ -817,43 +820,43 @@ h
 <use matrix="1 0 0 0.8 0 51.2" name="mark/disk(sx)" pos="208.547 130.455" size="normal" stroke="tigers eye"/>
 <use matrix="1 0 0 0.8 0 51.2" name="mark/disk(sx)" pos="229.634 89.4104" size="normal" stroke="tigers eye"/>
 <use matrix="1 0 0 0.8 0 51.2" name="mark/disk(sx)" pos="253.734 73.5952" size="normal" stroke="tigers eye"/>
-<path layer="vertical-guides" stroke="tigers eye">
+<path layer="vertical-guides" stroke="tigers eye" pen="fat">
 253.734 73.5952 m
 253.734 201.623 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 229.634 89.4104 m
 229.634 209.907 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 208.547 130.455 m
 208.547 230.994 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 190.85 117.275 m
 190.85 219.321 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 170.139 92.4228 m
 170.139 218.191 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 157.336 107.108 m
 157.336 216.309 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 134.743 85.2684 m
 134.743 217.062 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 112 192 m
 294.074 192 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 112 176 m
 290.058 176 l
 </path>
-<path stroke="tigers eye">
+<path stroke="tigers eye" pen="fat">
 112 160 m
 301.66 160 l
 </path>
@@ -864,20 +867,20 @@ h
 <use name="mark/disk(sx)" pos="208.547 160" size="normal" stroke="tigers eye"/>
 <use name="mark/disk(sx)" pos="229.634 176" size="normal" stroke="tigers eye"/>
 <use name="mark/disk(sx)" pos="253.734 160" size="normal" stroke="tigers eye"/>
-<path stroke="black">
+<path stroke="black" pen="fat">
 280 160 m
 280 192 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 276 192 m
 284 192 l
 </path>
-<path stroke="black">
+<path stroke="black" pen="fat">
 276 160 m
 284 160 l
 </path>
 <text matrix="1 0 0 1 -5 0" transformations="translations" pos="288 176" stroke="black" type="label" width="5.701" height="6.918" depth="0" valign="center" style="math">k</text>
-<path matrix="1 0 0 2 0 -160" stroke="black">
+<path matrix="1 0 0 2 0 -160" stroke="black" pen="fat">
 228.749 134.423 m
 244.995 128.241
 248.446 122.202
@@ -887,7 +890,8 @@ h
 <text matrix="1 0 0 1 44 16" transformations="translations" pos="132 120" stroke="black" type="label" width="19.639" height="8.459" depth="2.49" halign="center" valign="baseline" style="math">1/2^k</text>
 <text matrix="1 0 0 1 76 -4" transformations="translations" pos="132 120" stroke="black" type="label" width="19.639" height="8.459" depth="2.49" halign="center" valign="baseline" style="math">1/2^k</text>
 <text matrix="1 0 0 1 116 -12" transformations="translations" pos="132 120" stroke="black" type="label" width="19.639" height="8.459" depth="2.49" halign="center" valign="baseline" style="math">1/2^k</text>
-<use name="mark/disk(sx)" pos="204 132" size="normal" stroke="black"/>
-<text matrix="1 0 0 1 -3 -6" transformations="translations" pos="208 140" stroke="black" type="label" width="5.507" height="4.428" depth="0" valign="baseline" style="math">x</text>
+<path matrix="0.6 0 0 0.6 92.8 12.8" fill="granny smith apple">
+8 0 0 8 192 192 e
+</path>
 </page>
 </ipe>
