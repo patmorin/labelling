@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200303093908" modified="D:20201006070439"/>
+<info created="D:20200303093908" modified="D:20201006113221"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -291,10 +291,10 @@ h
 <view layers="PxP G" active="PxP"/>
 <view layers="PxP V(G)" active="V(G)"/>
 <view layers="PxP T_i V(G)" active="T_i"/>
-<view layers="PxP T_i fractional-cascading V(G)" active="V(G)"/>
-<view layers="PxP T_i fractional-cascading V(G) changes-i" active="changes-i"/>
+<view layers="PxP T_i fractional-cascading V(G)" active="fractional-cascading"/>
+<view layers="PxP T_i fractional-cascading V(G) changes-i" active="V(G)"/>
 <view layers="PxP T_i fractional-cascading V(G) changes-i changes-addition" active="changes-addition"/>
-<view layers="PxP T_i fractional-cascading V(G) changes-i changes-addition changes-deletion" active="changes-deletion"/>
+<view layers="PxP T_i fractional-cascading V(G) changes-i changes-addition changes-deletion" active="V(G)"/>
 <path layer="changes-i" fill="dutch white">
 185.356 680.04 m
 185.356 663.419 l
@@ -1834,12 +1834,8 @@ h
 176 592 l
 </path>
 <text matrix="1 0 0 1 8 -4" transformations="translations" pos="164 652" stroke="black" type="label" width="5.324" height="6.918" depth="0" halign="right" valign="center" style="math">h</text>
-<path layer="changes-addition" matrix="0.7 0 0 0.7 147.2 185.6" fill="medium sea green">
-5.24065 0 0 5.24065 224 672 e
-</path>
-<path matrix="0.7 0 0 0.7 67.2 185.6" fill="medium sea green">
-5.24065 0 0 5.24065 224 672 e
-</path>
+<use matrix="1 0 0 1 128 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
+<use matrix="1 0 0 1 160 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
 <use layer="G" matrix="1 0 0 1 80 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 80 0" stroke="black" pen="fat">
 192 704 m
@@ -2710,16 +2706,100 @@ h
 272 672 m
 272 656 l
 </path>
+<path layer="G" stroke="black" pen="fat">
+288 624 m
+304 640 l
+</path>
+<path stroke="black" pen="fat">
+304 624 m
+288 640 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+304 640 l
+</path>
+<path stroke="black" pen="fat">
+272 624 m
+288 640 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+304 656 l
+</path>
+<path stroke="black" pen="fat">
+304 640 m
+288 656 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+272 656 l
+</path>
+<path stroke="black" pen="fat">
+272 656 m
+288 672 l
+</path>
+<path stroke="black" pen="fat">
+288 672 m
+272 688 l
+</path>
+<path stroke="black" pen="fat">
+272 688 m
+288 704 l
+</path>
+<path layer="changes-addition" matrix="0.7 0 0 0.7 147.2 185.6" fill="medium sea green">
+5.24065 0 0 5.24065 224 672 e
+</path>
+<path matrix="0.7 0 0 0.7 67.2 185.6" fill="medium sea green">
+5.24065 0 0 5.24065 224 672 e
+</path>
 <text layer="T_i" transformations="translations" pos="400 704" stroke="black" type="label" width="10.983" height="6.923" depth="1.49" valign="center" style="math">T_1</text>
 <text matrix="1 0 0 1 0 -16" transformations="translations" pos="400 704" stroke="black" type="label" width="10.983" height="6.923" depth="1.49" valign="center" style="math">T_2</text>
 <text matrix="1 0 0 1 0 -32" transformations="translations" pos="400 704" stroke="black" type="label" width="10.983" height="6.923" depth="1.49" valign="center" style="math">T_3</text>
 <text matrix="1 0 0 1 0 -112" transformations="translations" pos="400 704" stroke="black" type="label" width="11.22" height="6.923" depth="1.49" valign="center" style="math">T_h</text>
 <text matrix="1 0 0 1 4 0" transformations="translations" pos="400 640" stroke="black" type="label" width="2.767" height="14.778" depth="0" valign="baseline" style="math">\vdots</text>
-<use layer="fractional-cascading" name="mark/disk(sx)" pos="208 672" size="normal" stroke="midnight green"/>
-<use name="mark/disk(sx)" pos="240 672" size="normal" stroke="midnight green"/>
-<use name="mark/disk(sx)" pos="240 688" size="normal" stroke="midnight green"/>
-<use name="mark/disk(sx)" pos="336 656" size="normal" stroke="midnight green"/>
-<use name="mark/disk(sx)" pos="368 656" size="normal" stroke="midnight green"/>
+<path layer="changes-addition" matrix="0.7 0 0 0.7 67.2 201.6" fill="medium sea green">
+5.24065 0 0 5.24065 224 672 e
+</path>
+<path matrix="0.7 0 0 0.7 147.2 201.6" fill="medium sea green">
+5.24065 0 0 5.24065 224 672 e
+</path>
+<path layer="changes-deletion" matrix="0.405 0 0 0.405 219.56 364.2" stroke="red" pen="ultrafat" cap="1">
+240 768 m
+256 752 l
+</path>
+<path matrix="0.405 0 0 0.405 219.56 364.2" stroke="red" pen="ultrafat" cap="1">
+256 768 m
+240 752 l
+</path>
+<path matrix="0.405 0 0 0.405 251.56 364.2" stroke="red" pen="ultrafat" cap="1">
+240 768 m
+256 752 l
+</path>
+<path matrix="0.405 0 0 0.405 251.56 364.2" stroke="red" pen="ultrafat" cap="1">
+256 768 m
+240 752 l
+</path>
+<path matrix="0.405 0 0 0.405 219.56 348.2" stroke="red" pen="ultrafat" cap="1">
+240 768 m
+256 752 l
+</path>
+<path matrix="0.405 0 0 0.405 219.56 348.2" stroke="red" pen="ultrafat" cap="1">
+256 768 m
+240 752 l
+</path>
+<path matrix="0.405 0 0 0.405 251.56 348.2" stroke="red" pen="ultrafat" cap="1">
+240 768 m
+256 752 l
+</path>
+<path matrix="0.405 0 0 0.405 251.56 348.2" stroke="red" pen="ultrafat" cap="1">
+256 768 m
+240 752 l
+</path>
+<use layer="fractional-cascading" name="mark/disk(sx)" pos="208 672" size="normal" stroke="steel teal"/>
+<use name="mark/disk(sx)" pos="240 672" size="normal" stroke="steel teal"/>
+<use name="mark/disk(sx)" pos="240 688" size="normal" stroke="steel teal"/>
+<use name="mark/disk(sx)" pos="336 656" size="normal" stroke="steel teal"/>
+<use name="mark/disk(sx)" pos="368 656" size="normal" stroke="steel teal"/>
 <use layer="V(G)" matrix="1 0 0 1 80 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 96 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 112 0" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
@@ -2799,45 +2879,5 @@ h
 <use matrix="1 0 0 1 160 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 176 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <use matrix="1 0 0 1 192 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path layer="changes-addition" matrix="0.7 0 0 0.7 67.2 201.6" fill="medium sea green">
-5.24065 0 0 5.24065 224 672 e
-</path>
-<path matrix="0.7 0 0 0.7 147.2 201.6" fill="medium sea green">
-5.24065 0 0 5.24065 224 672 e
-</path>
-<path layer="changes-deletion" matrix="0.405 0 0 0.405 219.56 364.2" stroke="red" pen="ultrafat" cap="1">
-240 768 m
-256 752 l
-</path>
-<path matrix="0.405 0 0 0.405 219.56 364.2" stroke="red" pen="ultrafat" cap="1">
-256 768 m
-240 752 l
-</path>
-<path matrix="0.405 0 0 0.405 251.56 364.2" stroke="red" pen="ultrafat" cap="1">
-240 768 m
-256 752 l
-</path>
-<path matrix="0.405 0 0 0.405 251.56 364.2" stroke="red" pen="ultrafat" cap="1">
-256 768 m
-240 752 l
-</path>
-<path matrix="0.405 0 0 0.405 219.56 348.2" stroke="red" pen="ultrafat" cap="1">
-240 768 m
-256 752 l
-</path>
-<path matrix="0.405 0 0 0.405 219.56 348.2" stroke="red" pen="ultrafat" cap="1">
-256 768 m
-240 752 l
-</path>
-<path matrix="0.405 0 0 0.405 251.56 348.2" stroke="red" pen="ultrafat" cap="1">
-240 768 m
-256 752 l
-</path>
-<path matrix="0.405 0 0 0.405 251.56 348.2" stroke="red" pen="ultrafat" cap="1">
-256 768 m
-240 752 l
-</path>
-<use layer="PxP" matrix="1 0 0 1 128 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
-<use matrix="1 0 0 1 160 -48" name="mark/disk(sx)" pos="192 704" size="normal" stroke="pink"/>
 </page>
 </ipe>

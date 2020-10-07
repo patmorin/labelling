@@ -10,7 +10,7 @@
 
 \title[Adjacency Labelling]{Asymptotically Optimal Adjacency-Labelling for Planar Graphs\newline
  (and Beyond)}
-\author[Dujmović, Esperet, Gavoille, Joret, Morin]{Vida Dujmović, Louis Esperet, Cyril Gavoille, Gwenaël Joret, and Pat Morin}
+\author[Dujmović, Esperet, Gavoille, Joret, Micek, Morin]{Vida Dujmović, Louis Esperet, Cyril Gavoille, Gwenaël Joret, Piotr Micek, and Pat Morin}
 
 \begin{document}
 
@@ -140,7 +140,7 @@
     \end{center}
 
     \begin{itemize}
-        \item<+->\textbf{Product Structure Theorem (Dujmović-Joret-Micek-M-Ueckerdt 2019):} For any planar graph $G$ there exists a graph $H$ of treewidth at most $8$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.
+        \item<+->\textbf{Product Structure Theorem (Dujmović-Joret-Micek-M-Ueckerdt-Wood 2019):} For any planar graph $G$ there exists a graph $H$ of treewidth at most $8$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.
 
         \item<+->\textbf{Main Result (Here):} Let $\mathcal{G}_t$ be the family of graphs such that for each $G\in\mathcal{G}$, there exists a graph $H$ of treewidth at most $t$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.  Then, for any fixed $t$, $\mathcal{G}$ has a $(\log n + o(\log n))$-bit labelling scheme.
 
@@ -157,8 +157,8 @@
     \begin{itemize}
         \item The label for a vertex $v=(x,i)$ has three main parts:
         \begin{itemize}
-            \item A \emph{row label} of length $\log n -\log n_i + o(\log n)$ defined by $i$
-            \item A \emph{column label} of length $\log n_i +o(\log n)$ defined by $(G_i,x)$
+            \item A \emph{row label} of length $\log n -\textcolor{odsorange}{\log n_i} + o(\log n)$ defined by $i$
+            \item A \emph{column label} of length $\textcolor{odsorange}{\log n_i} +o(\log n)$ defined by $(G_i,x)$
             \item A \emph{transition label} of length $o(\log n)$ defined by $(G_i,G_{i+1},x)$
         \end{itemize}
     \end{itemize}
@@ -172,7 +172,7 @@
         \multiinclude[<+>][format=pdf,start=1]{figs/bst-path}%
     \end{center}
     \begin{itemize}
-        \item Label length: $\mathrm{depth}_T(v)+ O(\mathrm{height}(T))=\mathrm{depth}_T(v)+O(\log\log n)$ bits)
+        \item Label length: $\mathrm{depth}_T(v)+ O(\mathrm{height}(T))=\mathrm{depth}_T(v)+O(\log\log n)$ bits
     \end{itemize}
 \end{frame}
 
@@ -197,9 +197,9 @@
         \item<+-> $\sum_{i=1}^h |T_i| = O(n)$
         \item<+-> Make a biased binary search tree $T$ with $V(T):=\{1,\ldots,h\}$  using $\mathrm{weight}(i)=|T_i|$
         \begin{itemize}
-            \item<+-> Then $\mathrm{depth}_T(i) \le \log n - \log |T_i| + O(1)$
+            \item<+-> Then $\mathrm{depth}_T(i) \le \log n - \textcolor{odsorange}{\log |T_i|} + O(1)$
         \end{itemize}
-        \item<+-> Row $i$ label length is $\log n-\log |T_i| + O(\log\log n)$
+        \item<+-> Row $i$ label length is $\log n-\textcolor{odsorange}{\log |T_i|} + O(\log\log n)$
     \end{itemize}
 \end{frame}
 

@@ -1,4 +1,4 @@
-This talk about is about adjacency labelling schemes for planar graphs and is joint work with Vida Dujmović, Louis Esperet, Cyril Gavoille, and Gwenaël Joret.
+This talk about is about adjacency labelling schemes for planar graphs and is joint work with Vida Dujmović, Louis Esperet, Cyril Gavoille, Gwenaël Joret, and Piotr Micek.
 ---
 Let A be a function that takes pairs of binary strings as inputs and outputs a single bit.  Now take a graph G and label its vertices with binary strings. We say that this labelling of G works with A if the following conditions are satisfied
 - when given the labels of any two adjacent vertices in G, A outputs 1

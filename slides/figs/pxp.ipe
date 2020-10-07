@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200303093908" modified="D:20201006074752"/>
+<info created="D:20200303093908" modified="D:20201006112124"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -283,7 +283,7 @@ h
 <layer name="consecutive"/>
 <layer name="transition"/>
 <layer name="row_numbers"/>
-<view layers="PxP G" active="PxP"/>
+<view layers="PxP G" active="G"/>
 <view layers="PxP G row_numbers" active="row_numbers"/>
 <view layers="PxP G same-row" active="same-row"/>
 <view layers="PxP G too-far" active="too-far"/>
@@ -2682,12 +2682,6 @@ h
 208 704 l
 </path>
 <use matrix="1 0 0 1 192 -112" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<use layer="same-row" name="mark/disk(sx)" pos="320 640" size="large" stroke="pearl aqua"/>
-<use name="mark/disk(sx)" pos="352 640" size="large" stroke="pearl aqua"/>
-<use layer="too-far" name="mark/disk(sx)" pos="272 672" size="large" stroke="pearl aqua"/>
-<use name="mark/disk(sx)" pos="288 640" size="large" stroke="pearl aqua"/>
-<use layer="consecutive" name="mark/disk(sx)" pos="272 672" size="large" stroke="rose gold"/>
-<use name="mark/disk(sx)" pos="288 656" size="large" stroke="pearl aqua"/>
 <use layer="transition" name="mark/disk(sx)" pos="272 656" size="large" stroke="rose gold"/>
 <path stroke="rose gold" pen="fat" arrow="normal/normal">
 272 672 m
@@ -2698,5 +2692,67 @@ h
 <text matrix="1 0 0 1 -7 -32" transformations="translations" pos="400 704" stroke="black" type="label" width="4.981" height="6.531" depth="0" valign="center" style="math">3</text>
 <text matrix="1 0 0 1 -7 -112" transformations="translations" pos="400 704" stroke="black" type="label" width="5.324" height="6.918" depth="0" valign="center" style="math">h</text>
 <text matrix="1 0 0 1 -7 -57" transformations="translations" pos="400 704" stroke="black" type="label" width="2.767" height="14.778" depth="0" valign="top" style="math">\vdots</text>
+<path layer="G" stroke="black" pen="fat">
+288 640 m
+304 656 l
+</path>
+<path stroke="black" pen="fat">
+304 640 m
+288 656 l
+</path>
+<path stroke="black" pen="fat">
+288 624 m
+304 640 l
+</path>
+<path stroke="black" pen="fat">
+304 624 m
+288 640 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+272 624 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+272 656 l
+</path>
+<path stroke="black" pen="fat">
+272 656 m
+288 672 l
+</path>
+<path stroke="black" pen="fat">
+288 672 m
+272 688 l
+</path>
+<path stroke="black" pen="fat">
+272 688 m
+288 704 l
+</path>
+<path stroke="black" pen="fat">
+288 640 m
+304 640 l
+</path>
+<use name="mark/disk(sx)" pos="272 672" size="normal" stroke="black"/>
+<path layer="same-row" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path matrix="1 0 0 1 32 0" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path layer="too-far" matrix="1 0 0 1 -48 48" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path matrix="1 0 0 1 -48 0" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path layer="consecutive" matrix="1 0 0 1 -48 32" stroke="black" fill="light salmon" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path matrix="1 0 0 1 -32 16" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path layer="transition" matrix="1 0 0 1 -48 16" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
 </page>
 </ipe>
