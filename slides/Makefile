@@ -3,7 +3,7 @@ pdfs = $(texs:.tex=.pdf)
 images = $(pdfs:.pdf=-images)
 
 
-all : $(images)
+all : $(pdfs) $(images)
 
 .PHONY: images figs
 
