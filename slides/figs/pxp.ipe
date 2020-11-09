@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70218" creator="Ipe 7.2.18">
-<info created="D:20200303093908" modified="D:20201006112124"/>
+<ipe version="70218" creator="Ipe 7.2.21">
+<info created="D:20200303093908" modified="D:20201109063409"/>
 <preamble>\usepackage{ods-figs}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -1944,19 +1944,11 @@ h
 <use matrix="1 0 0 1 128 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 128 -16" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 128 -16" stroke="black" pen="fat">
-192 704 m
 208 704 l
 </path>
 <path matrix="1 0 0 1 128 -16" stroke="black" pen="fat">
 192 704 m
 208 688 l
-</path>
-<path matrix="1 0 0 1 128 -16" stroke="black" pen="fat">
-208 704 m
-192 688 l
 </path>
 <use matrix="1 0 0 1 144 -16" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 144 -16" stroke="black" pen="fat">
@@ -2031,11 +2023,6 @@ h
 <path matrix="1 0 0 1 96 -32" stroke="black" pen="fat">
 192 704 m
 192 688 l
-</path>
-<use matrix="1 0 0 1 128 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 128 -32" stroke="black" pen="fat">
-192 704 m
-208 704 l
 </path>
 <use matrix="1 0 0 1 144 -32" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 144 -32" stroke="black" pen="fat">
@@ -2195,88 +2182,32 @@ h
 <use matrix="1 0 0 1 80 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 80 -64" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 80 -64" stroke="black" pen="fat">
-192 704 m
 208 704 l
 </path>
-<path matrix="1 0 0 1 80 -64" stroke="black" pen="fat">
-192 704 m
-208 688 l
-</path>
 <use matrix="1 0 0 1 96 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 96 -64" stroke="black" pen="fat">
-192 704 m
-192 688 l
-</path>
 <use matrix="1 0 0 1 112 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 112 -64" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 112 -64" stroke="black" pen="fat">
-192 704 m
 208 704 l
-</path>
-<path matrix="1 0 0 1 112 -64" stroke="black" pen="fat">
-192 704 m
-208 688 l
-</path>
-<path matrix="1 0 0 1 112 -64" stroke="black" pen="fat">
-208 704 m
-192 688 l
 </path>
 <use matrix="1 0 0 1 128 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 128 -64" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 128 -64" stroke="black" pen="fat">
-192 704 m
 208 704 l
-</path>
-<path matrix="1 0 0 1 128 -64" stroke="black" pen="fat">
-192 704 m
-208 688 l
-</path>
-<path matrix="1 0 0 1 128 -64" stroke="black" pen="fat">
-208 704 m
-192 688 l
 </path>
 <use matrix="1 0 0 1 144 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 144 -64" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 144 -64" stroke="black" pen="fat">
-192 704 m
 208 704 l
-</path>
-<path matrix="1 0 0 1 144 -64" stroke="black" pen="fat">
-192 704 m
-208 688 l
-</path>
-<path matrix="1 0 0 1 144 -64" stroke="black" pen="fat">
-208 704 m
-192 688 l
 </path>
 <use matrix="1 0 0 1 160 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 160 -64" stroke="black" pen="fat">
 192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 160 -64" stroke="black" pen="fat">
-192 704 m
 208 704 l
 </path>
 <path matrix="1 0 0 1 160 -64" stroke="black" pen="fat">
 192 704 m
 208 688 l
-</path>
-<path matrix="1 0 0 1 160 -64" stroke="black" pen="fat">
-208 704 m
-192 688 l
 </path>
 <use matrix="1 0 0 1 176 -64" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 176 -64" stroke="black" pen="fat">
@@ -2355,40 +2286,6 @@ h
 <path matrix="1 0 0 1 48 -80" stroke="black" pen="fat">
 192 704 m
 192 688 l
-</path>
-<use matrix="1 0 0 1 80 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 80 -80" stroke="black" pen="fat">
-192 704 m
-192 688 l
-</path>
-<path matrix="1 0 0 1 80 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
-</path>
-<use matrix="1 0 0 1 96 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 96 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
-</path>
-<use matrix="1 0 0 1 112 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 112 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
-</path>
-<use matrix="1 0 0 1 128 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 128 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
-</path>
-<use matrix="1 0 0 1 144 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 144 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
-</path>
-<use matrix="1 0 0 1 160 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
-<path matrix="1 0 0 1 160 -80" stroke="black" pen="fat">
-192 704 m
-208 704 l
 </path>
 <use matrix="1 0 0 1 176 -80" name="mark/disk(sx)" pos="192 704" size="normal" stroke="black"/>
 <path matrix="1 0 0 1 176 -80" stroke="black" pen="fat">
@@ -2701,18 +2598,6 @@ h
 288 656 l
 </path>
 <path stroke="black" pen="fat">
-288 624 m
-304 640 l
-</path>
-<path stroke="black" pen="fat">
-304 624 m
-288 640 l
-</path>
-<path stroke="black" pen="fat">
-288 640 m
-272 624 l
-</path>
-<path stroke="black" pen="fat">
 288 640 m
 272 656 l
 </path>
@@ -2733,13 +2618,7 @@ h
 304 640 l
 </path>
 <use name="mark/disk(sx)" pos="272 672" size="normal" stroke="black"/>
-<path layer="same-row" stroke="black" fill="granny smith apple" pen="fat">
-4 0 0 4 320 640 e
-</path>
-<path matrix="1 0 0 1 32 0" stroke="black" fill="granny smith apple" pen="fat">
-4 0 0 4 320 640 e
-</path>
-<path layer="too-far" matrix="1 0 0 1 -48 48" stroke="black" fill="granny smith apple" pen="fat">
+<path layer="too-far" matrix="1 0 0 1 -48 48" stroke="black" fill="magic mint" pen="fat">
 4 0 0 4 320 640 e
 </path>
 <path matrix="1 0 0 1 -48 0" stroke="black" fill="granny smith apple" pen="fat">
@@ -2752,6 +2631,36 @@ h
 4 0 0 4 320 640 e
 </path>
 <path layer="transition" matrix="1 0 0 1 -48 16" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path layer="G" matrix="1 0 0 1 96 -32" stroke="black" pen="fat">
+192 704 m
+208 688 l
+</path>
+<path matrix="1 0 0 1 112 0" stroke="black" pen="fat">
+192 704 m
+208 688 l
+</path>
+<path matrix="1 0 0 1 16 0" stroke="black" pen="fat">
+272 688 m
+288 704 l
+</path>
+<path matrix="1 0 0 1 160 -80" stroke="black" pen="fat">
+208 704 m
+192 688 l
+</path>
+<path matrix="1 0 0 1 16 0" stroke="black" pen="fat">
+304 640 m
+288 656 l
+</path>
+<path matrix="1 0 0 1 48 -80" stroke="black" pen="fat">
+192 704 m
+208 688 l
+</path>
+<path layer="same-row" stroke="black" fill="granny smith apple" pen="fat">
+4 0 0 4 320 640 e
+</path>
+<path matrix="1 0 0 1 32 0" stroke="black" fill="granny smith apple" pen="fat">
 4 0 0 4 320 640 e
 </path>
 </page>
