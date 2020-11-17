@@ -1,0 +1,372 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+% \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usepackage{ods}
+\usepackage{ods-figs}
+\usepackage[cm]{sfmath}
+%\usepackage{enumitem}
+
+% \setlength{\leftmargini}{0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\pth}{path}
+
+\title[Adjacency Labelling]{Asymptotically Optimal Adjacency-Labelling
+    \newline for Planar Graphs
+ (and Beyond)}
+\author[Dujmović \textit{et al}]{Vida Dujmović, Louis Esperet, Cyril Gavoille,
+    \newline Gwenaël Joret, Piotr Micek, Pat Morin}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adjacency Labelling}
+  \framesubtitle{Labelling and Testing for a graph $G$}
+
+  \begin{itemize}
+    \item Adjacency tester $A:\{0,1\}^*\times\{0,1\}^*\to \{0,1\}$
+    \item Labelling function $\ell:V(G)\to\{0,1\}^*$
+    \item $(G,\ell)$ \emph{works with} $A$ if, for each $v,w\in V(G)$,
+        $
+            A(\ell(v),\ell(w)) = \begin{cases}
+                1 & \text{if $vw\in E(G)$} \\
+                0 & \text{if $vw\not\in E(G)$}
+        \end{cases}
+        $
+    \end{itemize}
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/labelling-scheme}%
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adjacency Labelling}
+    \framesubtitle{Labelling schemes for graph families}
+
+    \begin{itemize}
+        \item<+->A graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme if \begin{itemize}
+            \item there exists $A:\{0,1\}^*\times\{0,1\}^*\to\{0,1\}$
+            \item for each $n$-vertex $G\in\mathcal{G}$ there exists $\ell:V(G)\to\{0,1\}^{f(n)}$ such that $(G,\ell)$ works with $A$
+        \end{itemize}
+    \end{itemize}
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=5]{figs/labelling-scheme}%
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Universal Graphs}
+    \framesubtitle{Labelling schemes and universal graphs}
+
+    \begin{itemize}
+        \item<+->\textbf{Theorem (Folklore):}  If a graph family $\mathcal{G}$ has an $f(n)$-bit labelling scheme then, for each $n\in\N$ there exists a graph $U_n$ such that
+        \begin{itemize}
+            \item $|V(U_n)|=2^{f(n)}$
+            \item For each $n$-vertex $G\in\mathcal{G}$, $G$ appears as an induced subgraph of $U_n$
+        \end{itemize}
+        \item<+->Proof: $V(U_n):=\{0,1\}^{f(n)}$, $E(U_n):=\{vw:A(v,w)=1\}$.
+        \item<+->$U_n$ is called an \emph{(induced) universal} graph for $n$-vertex members of $\mathcal{G}$.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Previous Results}
+    \framesubtitle{Trees and Bounded Treewidth Graphs}
+
+    \begin{center}
+        \begin{tabular}{llc} \hline
+            \multicolumn{3}{|c|}{Trees} \\ \hline
+            $f(n)$ & $|U_n|$ & Reference  \\
+            {$\log n+\log\log n+O(1)$} & $O(n\log n)$ & Chung (1990)   \\
+            $\log n + O(\log^* n)$ & $n2^{O(\log^* n)}$ & Alstrup-Rauhe (2006) \\
+            {$\log n + O(1)$} & $O(n)$ & Alstrup-Dahlgaard-Knudsen (2017) \\[2em] \hline
+            \multicolumn{3}{|c|}{Bounded treewidth graphs} \\ \hline
+            {$\log n + o(\log n)$} & $n^{1+o(1)}$ & Gavoille-Labourel (2007)
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Planar Graphs}
+    % \framesubtitle{Planar Graphs}
+    \begin{center}
+        \begin{tabular}{llc} \hline
+            \multicolumn{3}{|c|}{Planar graphs} \\ \hline
+            $f(n)$ & $|U_n|$ & Reference \\ %& Techniques \\ \hline
+            {$6\log n$} & $n^6$ & Muller (1988) \\ %& 5-degeneracy \\
+            {$4\log n$} & $n^4$ & Kannan-Naor-Rudich (1988) \\ %& 3-orientation \\
+            {$3\log n + O(1)$} & $O(n^3)$ & ---  \\ %& arboricity + trees \\
+            {$2\log n + o(\log n)$} & $n^{2+o(1)}$ & Gavoille-Labourel (2007) \\ % \\ & 2-outerplanar decomp. \\
+            {$\tfrac{4}{3}\log n + o(\log n)$} & $n^{\tfrac{4}{3}+o(1)}$ & Bonamy-Gavoille-Pilipczuk (2020) %& product structure  \\
+        \end{tabular}
+    \end{center}
+    \begin{itemize}
+        % \item[]
+        \item<7-> {\textbf{Theorem 1:}} The family of planar graphs has a $(\log n + o(\log n))$-bit adjacency labelling scheme.
+
+        \item<8-> \textbf{Corollary 1:} For each $n$, there is a graph $U_n$ with $n^{1+o(1)}$ vertices is (induced) universal for $n$-vertex planar graphs.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Strong Graph Product $\boxtimes$}
+
+    \begin{itemize}
+        \item[] For two graphs $A$ and $B$, the \emph{strong product} $A\boxtimes B$ is a graph:
+        \begin{itemize}
+            \item $V(A\boxtimes B):=V(A)\times V(B)$
+            \item $(a_1,b_1)$ and $(a_2,b_2)$ are adjacent if and only if:
+            \begin{itemize}
+                \item $a_1=a_2$ and $b_1b_2\in E(B)$;
+                \item $a_1a_2 \in E(A)$ and $b_1=b_2$; or
+                \item  $a_1a_2 \in E(A)$ and $b_1b_2 \in E(B)$.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \begin{center}
+        \includegraphics{figs/product}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Product Structure Theorem}
+
+    \begin{center}
+        \includegraphics[scale=.5]{figs/product}
+    \end{center}
+
+    \begin{itemize}
+        \item<+->\textbf{Product Structure Theorem (Dujmović-Joret-Micek-M-Ueckerdt-Wood 2019):} For any planar graph $G$ there exists a graph $H$ of treewidth at most $8$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.
+
+        \item<+->\textbf{Main Result (Here):} Let $\mathcal{G}_t$ be the family of graphs such that for each $G\in\mathcal{G}$, there exists a graph $H$ of treewidth at most $t$ and a path $P$ such that $G$ a subgraph of $H\boxtimes P$.  Then, for any fixed $t$, $\mathcal{G}$ has a $(\log n + o(\log n))$-bit labelling scheme.
+
+        \item<+->\textbf{Applications:} bounded genus graphs, apex-minor free graphs, bounded-degree graphs from minor-closed families, $k$-planar graphs for constant $k$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Warm-up: Induced Subgraphs of $P\boxtimes P$}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=2]{figs/pxp}%
+    \end{center}
+    \begin{itemize}
+        \item The label for a vertex $v=(x,y)$ has three main parts:
+        \begin{itemize}
+            \item A \emph{row label} of length $\log n -\textcolor{odsorange}{\log n_y} + o(\log n)$ defined by $y$
+            \item A \emph{column label} of length $\textcolor{odsorange}{\log n_y} +o(\log n)$ defined by $(G_y,x)$
+            \item A \emph{transition label} of length $o(\log n)$ defined by $(G_y,G_{y+1},x)$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Main idea: Use binary search trees}
+
+    \begin{center}
+        \includegraphics[scale=0.6]{figs/pxp-evolution-4}%
+    \end{center}
+    \begin{itemize}
+        \item Labels describe paths in binary search trees
+        \begin{itemize}
+            \item Row labels: biased binary search tree: $\log n -\textcolor{odsorange}{\log n_y} + o(\log n)$
+            \item Column labels: sequence of related binary search trees $T_1,\ldots,T_h$: $\textcolor{odsorange}{\log n_y} +o(\log n)$ %defined by $(G_y,x)$
+            \item Transition labels: Difference between $\pth(T_y,x)$ and $\pth(T_{y+1},x)$
+        \end{itemize}
+        \item<2-> Gives solution for induced subgraphs of $P\boxtimes P$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Missing Pieces}
+
+    \begin{itemize}[<+->]
+        \item Subgraphs of $H\boxtimes P$ not $P\boxtimes P$
+        \begin{itemize}
+            \item $H$ has pathwidth $O(\log n)$
+            \item $H$ is contained in an \emph{interval graph} $H^+$ of thickness $O(\log n)$
+            \item Use an \emph{interval tree}
+        \end{itemize}
+
+        \item Subgraphs of $H\boxtimes P$ not \emph{induced} subgraphs
+        \begin{itemize}
+            \item Use $d$-orientation of $H\boxtimes P$
+            \item Additional bit-vector of length $d$ indicates which induced edges are actually present
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Summary and Conclusions}
+    \framesubtitle{Summary}
+
+    \begin{itemize}[<+->]
+        \item Summary
+        \begin{itemize}
+            \item The class of $n$-vertex planar graphs has a $(\log n + O(\sqrt{\log n\log\log n}))$-bit adjacency labelling scheme.
+
+            \item For each $n\in\N$ there exists a graph $U_n$ with $n\cdot 2^{O(\sqrt{\log n\log\log n})}$ vertices that is (induced) universal for $n$-vertex planar graphs.
+        \end{itemize}
+        \item Open Problem: the lower order term
+        \begin{itemize}
+            \item Best upper bound: $O(\sqrt{\log n\log\log n})$ term
+            \item Best lower bound: $\Omega(1)$
+        \end{itemize}
+        \item Open Problem: proper minor-closed families of graphs
+        \item Thanks!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Binary Search Trees}
+    \framesubtitle{Any binary search tree can label a path}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/bst-path}%
+    \end{center}
+    \begin{itemize}
+        \item Label length: $\mathrm{depth}_T(v)+ O(\log\mathrm{height}(T))=\mathrm{depth}_T(v)+O(\log\log n)$ bits
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Column Code Trees}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1,end=4]{figs/pxp-evolution}%
+    \end{center}
+    \begin{itemize}
+        \item<4>$\sum_{i=1}^h |T_i| = O(n)$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Row Code Tree}
+    \framesubtitle{Biased binary search trees}
+
+    \begin{itemize}
+        \item<+-> $\sum_{i=1}^h |T_i| = O(n)$
+        \item<+-> Make a biased binary search tree $T$ with $V(T):=\{1,\ldots,h\}$  using $\mathrm{weight}(i)=|T_i|$
+        \begin{itemize}
+            \item<+-> Then $\mathrm{depth}_T(i) \le \log n - \textcolor{odsorange}{\log |T_i|} + O(1)$
+        \end{itemize}
+        \item<+-> Row $i$ label length is $\log n-\textcolor{odsorange}{\log |T_i|} + O(\log\log n)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Column Code Tree}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=4]{figs/pxp-evolution}%
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Bulk Insertion}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/addition}%
+    \end{center}
+    \begin{itemize}
+        \item<6> $h(T_{i+1})\le h(T_i)+c$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bulk Deletion}
+    \framesubtitle{Bulk Trees}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/deletion}%
+    \end{center}
+    \begin{itemize}
+        \item<7-> $h(T_{i+1}) \le h(T_i)$
+        \item<8-> $\log|T_i|\le \log|T_{i+1}| + c$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Rebalancing}
+    \framesubtitle{balance$(x,k)$}
+
+    Basic operation: balance$(x,k)$
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/balance}%
+    \end{center}
+    \begin{itemize}
+        \item<5->Effect on signature can be encoded in $O(k\log\log n)$ bits
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rebalancing}
+    \framesubtitle{balance$(\theta)$}
+
+    \begin{center}
+        \multiinclude[<+>][format=pdf,start=1]{figs/bulkbalance}%
+    \end{center}
+    \begin{itemize}
+        \item<11->Ensures that $h(T_i)\le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+    \begin{itemize}[<+->]
+        \item transition code length: $O(k\log\log n)$
+        \item $h(T_i) \le \log|T_i| + O(\tfrac{1}{k}\log|T_i|)$
+        \item label length: $h(T_i) + O(k\log\log n)\le \log|T_i| + O(\tfrac{1}{k}\log n + k\log\log n)$
+        \item optimize $k$: $h(T_i) + O(\sqrt{\log n\log\log n})$
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
+
+\begin{frame}
+    \frametitle{Frame Title}
+    \framesubtitle{Frame Subtitle}
+\end{frame}
+
+
+
+\end{document}
+
+\begin{frame}
+  \frametitle{DLList}
+  \framesubtitle{A doubly-linked list}
+  \begin{block}{Theorem}
+    \begin{itemize}
+      \item<+->[]A DLList implements the List and Deque interfaces.
+      \begin{itemize}
+          \item<+->The List operations $\fn{get}(i)$, $\fn{set}(i,x)$, $\fn{add}(i,x)$ and
+             $\fn{remove}(i)$ operations each run in $O(1+\min\{i,n-i\})$ time.
+       \item<+->The Deque operations $\fn{addFront}(x)$, $\fn{removeFront}()$, $\fn{addBack}(x)$ and
+             $\fn{removeBack}()$ operations each run in $O(1)$ time.
+
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\closing
+
+\end{document}
