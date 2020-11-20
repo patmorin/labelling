@@ -10,17 +10,86 @@
 \newcommand{\N}{\mathbb{N}}
 \DeclareMathOperator{\pth}{path}
 
-\title[Adjacency Labelling]{Asymptotically Optimal Adjacency-Labelling
-    \newline for Planar Graphs
- (and Beyond)}
-\author[Dujmović \textit{et al}]{Vida Dujmović, Louis Esperet, Cyril Gavoille,
-    \newline Gwenaël Joret, Piotr Micek, Pat Morin}
+\title[Graph Product Structure]{A Recent Result}
+\author[Pat Morin]{Pat Morin \\ \url{cglab.ca/~morin/}}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Planar Graphs}
+
+\begin{center}
+    \includegraphics{figs/planar-subgraph} \\
+    Planar graphs are complicated
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Trees}
+
+\begin{center}
+    \includegraphics{figs/tree} \\
+    Trees are simple
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Graph Products}
+
+\begin{center}
+    \includegraphics{figs/product} \\
+    Two simple things give something complicated
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Product Structure Theorem}
+
+Every planar graph $G$ is a subgraph of $H\boxtimes P$ where
+\begin{itemize}
+    \item $H$ has treewidth at most 8$^*$
+    \item $P$ is a path
+\end{itemize}
+    \includegraphics{figs/planar-subgraph} \raisebox{.11\textwidth}{$\subseteq$}
+    \only<1>{\includegraphics{figs/product-rhs}}%
+    \only<2>{\includegraphics{figs/product-lhs}}%
+    \\
+\onslide<2>{Every planar graph can be factored into two simple graphs} \\[3ex]
+
+    $^*$ not quite a tree, but tree-like
+\end{frame}
+
+\begin{frame}
+\frametitle{Applications and Generalizations}
+
+Reduces many problem on complicated planar graph to problems on simple graphs:
+\begin{itemize}
+    \item Linear layouts (queue and track number)
+    \item 3D Graph drawing
+    \item Graph colouring ($p$-centered, clustered, non-repetitive)
+    \item Graph encodings (adjacency labelling)
+    \item Small unversal graphs
+    \item Fractional fragility rates of graph classes
+\end{itemize}
+Works for more than planar graphs
+\begin{itemize}
+    \item Bounded genus graphs
+    \item $k$-planar graphs
+    \item Apex minor-free graphs
+    \item Bounded degree graphs from minor-closed families
+\end{itemize}
+\end{frame}
+
+\end{document}
+
 
 \begin{frame}
   \frametitle{Adjacency Labelling}
