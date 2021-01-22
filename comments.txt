@@ -1,0 +1,355 @@
+
+Referee 1:
+
+Recommendation: Accept
+
+Comments:
+
+This is an elegant, very well presented result, finishing a long series of prominent improvements, and I recommend to accept it.  I have only a few minor suggestions for the presentation.
+
+
+Referee:
+
+It would be good to add (either to the introduction or to the conclusions section) a discussion of how far it might be possible to push the results.  E.g., do you have any guess at a characterization of hereditary graph classes admitting (1+o(1))log n-bit adjacency schemes?  Are there any necessary conditions other than the class being "small enough" -- i.e., containing at most n! exp(o(n.log n)) graphs with n vertices?
+
+Response:
+
+That is an interesting question! This refinement of the implicit graph conjecture has been added as an open problem in the conclusions.  Indeed, these "small" hereditary graph families seem to have a lot more structure than would appear at first sight.
+
+More generally, if we take hereditary to mean "contains all (not necessarily induced) subgraphs" and insist that the number of n-vertex graphs in the family is n!2^{O(n)} then that these graphs are sparse.  It's conceivable that there is even a product structure theorem for such graph families.
+
+Referee:
+
+4/53 (footnote 4) log i -> log (i+1)
+
+Response:
+
+We have reworded this footnote.
+
+Referee:
+
+Lemmas 12 and 13: Perhaps add a remark explaining why you use the constant 8 in the statements (rather than 7, which follows from the proofs).
+
+Response:
+
+We added a note after Lemma 12 explaining that we do this so that it simplifies calculations with binary logarithms later.
+
+Referee:
+
+Lemmas 13 and 14: Delete "finite" from the statement (as the current formulation suggests it might be possible to select an infinite subset of V(T), which is not the case).
+
+Response:
+
+We have done this and done it also for Lemma 12 (since the finite set V(T) cannot 3-chunk an infinite set I.)
+
+Referee:
+
+Lemma 14 needs an assumption that D \neq V(T), and this assumption may need to be propagated to the applications of this Lemma.
+
+Response:
+
+We have defined D to be a strict subset of V(T).  Lemma 14 is only used in one place (the proof of Lemma 24) and we have added a footnote there explaining why, in this application D=D_y is indeed a strict subset of V(T_y')=V(T_y)\cup I_y.
+
+Referee:
+
+14/23 the last < should be \le
+
+Response:
+
+Correct. We have changed this.
+
+Referee:
+
+15/34 y + 1 \ge 0 -> y \ge 0
+
+Response:
+
+Correct. We have changed this.
+
+Referee:
+
+19/25 To make removing the first theta+k bits possible, the code \nu(z) should also contain gamma(k).
+
+Response:
+
+We have added this detail.
+
+Referee:
+
+Lemmas 27 and 34: It might be better to make the BAL part of the code prefix-free, so that the reader does not have to think about the way to decode it.
+
+Response:
+
+In Lemma 27, we have redefined BAL part of the code to be the gamma encoding of the length of \nu(z) followed by \nu(z).
+
+In Lemma 34, the only non-prefix-free part of the code occurs in the final case, where the code ends with sigma(z'). We have prefixed this with \gamma(|sigma(z')|).
+
+Referee:
+
+23/17 "compute ... Now we" -> "exchange v_1 and v_2 and"
+
+Response:
+
+We have added "proceed as in the previous case with the roles of v_1 and v_2 reversed."
+
+Referee:
+
+24/31 (phi',phi'') is a pair of colorings, so it is not correct to claim that it is a coloring.
+
+Response:
+
+We defined the colouring phi(v) := (varphi'(v),\varphi''(v)) to make this technically correct.
+
+Referee:
+
+26/18 ({0,1}^2) -> ({0,1}^*}^2
+
+Response:
+
+We have corrected this.
+
+Referee:
+
+34/15 sigma_{T_y}(v) -> sigma_{H^+_y,T_y}(v)
+
+Response:
+
+We fixed this here and in one place further on in the same paragraph.
+
+===========================================================================
+Referee: 2
+
+Recommendation: Needs Minor Revision
+
+Very nice paper, but quite a lot to take in even though I have worked
+with labelling schemes before. I did manage to get through and I have
+verified all the proofs.  I only have minor comments:
+
+
+Referee:
+
+In the abstract and introduction you mention the alternative view of
+an (1+o(1))logn-bit labelling scheme for a class of n-vertex graphs as
+an n^{1+o(1)}-vertex graph U_n that contains all graphs in the class
+as induced subgraphs.  Now for some labelling schemes these "induced
+universal graphs" have the property that U_n is an induced subgraph of
+U_{n+1} for all n.  Equivalently, the decoder does not need to know n
+in advance. See e.g.:
+
+  Mikkel Abrahamsen, Stephen Alstrup, Jacob Holm, Mathias Bæk Tejs Knudsen, Morten Stöckel,
+  Near-optimal induced universal graphs for cycles and paths,
+  Discrete Applied Mathematics, Volume 282, 2020, Pages 1-13, ISSN 0166-218X,
+  https://doi.org/10.1016/j.dam.2019.10.030.
+
+This property is closely related to the idea of uniformity used in the
+context of circuit complexity.
+
+It is unclear to me whether your scheme has this property. I suspect
+it does, and if so that would be an interesting thing to note.
+
+Response:
+
+This is an interesting variant of induced-universal graphs that we were not aware of. However, we decided to leave it out of the discussion because for any family of graphs that is closed under the addition of isolated vertices, it is to achieve.  To label an n vertex graph G add isolated vertices to obtain a graph G' with n'=2^k vertices.  Label the graph G' and prefix each label with the gamma encoding of k. In this way, the decoder can immediately deduce n'=2^k, so any decoder that requires the value n' can test adjacency between vertices of G' and hence.  The gamma encoding k only has length O(log log n).
+
+The distinction seems much more important when trying to achieve encodings using log n + o(log log n) bits.  However, we are still quite far from that since our lower order term is O(sqrt(log nlog log n)).
+
+Referee:
+
+p1, l20: "Theorem 1 is optimal up to the lower order term, which is
+$O(\sqrt{\log n\log\log n})$ in our proof".  This is correct, but I
+would suggest clarifying that by "the lower order term" you mean the
+term $o(1)\log n$.
+
+Response:
+
+We have clarified this.
+
+Referee:
+
+p1, footnote 2: "There are some small technical differences between
+the two definitions...".  Does this refer to the definitions of a
+labelling scheme given by the two (three) papers?
+
+
+Response:
+
+Yes, we have clarified that this is a difference between Kannan et al and Muller.
+
+Referee:
+
+p2, l17: "As is well known, the edges of a planar graph can be
+partitioned into two sets, each of which induces a bounded treewidth
+graph."  I think a proper reference to this result would be in order.
+
+Response:
+
+We added a reference to Goncalves, Gabow, and Fagin (SODA2005) that shows the edges can be partitioned into two graphs of treewidth 2.
+
+Referee:
+
+p2, Figure 1: I like this figure, but you might want to tweak the
+colors a bit, as the blue and black can be hard to distinguish.  Also
+you never explain the colors, but I guess they are not really important.
+
+Response:
+
+We have changed the colour to a lighter blue.
+
+
+Referee:
+
+p4, footnote 4: "Observing that if the binary representation of an
+integer $i\geq 1$ is $w$, ...".  Here $w$ should be $1,w$ for the size
+and the later label to be correct.  Otherwise the word will have
+floor(log i)+1 bits, and when you construct the label as 0^{|w|},1,w
+you get two extra unnecessary bits.
+
+This also means that the actual code in this scheme simplifies to "the
+length of w in unary, followed by i in binary".
+
+Response:
+
+We have rewritten this footnote in response to this and the other referee's comment.
+
+Referee:
+
+p5, line 12: Here you use |T| without having defined it.  It seems from the
+rest of the paper that it should be defined as the number of nodes.
+
+Response:
+
+We have defined |T|:=|V(T)|.
+
+Referee:
+
+p5, line 17: "Note that none of these external nodes are in T".  I
+would add ", and that $h(T^+)=h(T)+1$".
+
+Response:
+
+We have added this.
+
+Referee:
+
+p7, Lemma 8: This is really just a comment.  Your proof in the
+appendix trivially generalizes to a version that is a-chunking for any
+a>=2 instead of $3$-chunking, and where the size overhead is a factor
+of (1+2/(a-1)) instead of 2.  A very slight modification (charging
+only half the cost for the recursive calls to Add compared to the
+initial call) improves this to give a-chunking for any a>=1 with an
+overhead factor of (1+2/a).  So if you wanted, you could use
+1-chunking throughout the paper, which would reduce many of the
+constants and simplify at least some of the arguments, e.g. for Bulk
+Insertion. That said, it makes no difference to the main result, and
+the rewrite is probably not worth it.
+
+Response:
+
+Yes, this seems to work.  Unfortunately using 1-chunking doesn't make things much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.  Rewriting all of this at this point would surely introduce some errors.
+
+Referee:
+
+p10, l36: $|T|-6/7|T|\geq |T|/7$.  Not wrong, but I would prefer to
+use = here.
+
+Response:
+
+We changed this to an equality.
+
+Referee:
+
+p16, l50: Add "(by definition of $r_0$)"
+
+Response:
+
+We have added this.
+
+Referee:
+
+p17, l8: Add "(by Corollary 23)"
+
+Response:
+
+We have added this.
+
+Referee:
+
+p20, l29-30: "It follows from that...".  Delete "from", or add a
+batter argument.
+
+Response:
+
+We removed the word from.
+
+Referee:
+
+p25, l19/20: "corresponsing" -> "corresponding".
+
+Response:
+
+We corrected this typo.
+
+Referee:
+
+p27, l24/25: "Note that some entries may be undefined if d<t+1".
+Rather than making them undefined, I suggest you define them to be 0,
+which is not a valid color number in your definition, but is easy to
+encode within the scheme.  AFAICT you need to be able to tell if each
+of these colors is valid when you decode, otherwise you don't know
+which color goes with which vertex.
+
+Response:
+
+We've added text indicating that we set these undefined entries to 0 to distinguish them from real colours {1,..,t+1}.
+
+Referee:
+
+p28, l24: Why not introduce this notation way earlier?  It seems that
+this would help in the discussion of the bulk tree operations.
+
+Response:
+
+Although there are many places before this in which we truncate strings to obtain prefixes of them, there is not really much need for the notation up until this point.
+
+Referee:
+
+p28, l41/42: There is a $(v)$ missing before ".   Next, we will argue...".
+
+
+Response:
+
+Correct. We have added this.
+
+
+Referee:
+
+p29, 37-39: "By Lemma 31(1), ... representing w".  I suggest making
+this an actual Corollary, right after Lemma 31.
+
+
+
+p30 l4/5: "That exactly one of these cases applies is obvious". It is
+obvious that at most one of them applies, but the "in which case" part
+of case 2 and 3 is what you are proving here, so clearly it is not
+obvious...
+
+
+p32, l19/20 and l27/28: Here you use a strict version of the "is a
+prefix of" symbol that you defined on p28-l24, but you have not
+formally introduced that symbol.
+
+p35, l24-31: It seems this paragraph is discussing a different version
+of Theorem 37 from what is actually presented.  In particular, the
+dependency on the choice of k that you discuss is not visible in
+Theorem 37 as stated.
+
+p39, l14: "for x=1,...,m do": Here, m is not defined.  I assume you
+want to loop over the elements of the union of the S_y in sorted order.
+
+I'll note again that the analysis in this appendix easily generalizes
+to a-chunking, and that it can be slightly improved so the size
+overhead is only a factor of (1+2/a). The trick is to note that in the
+recursive calls in line 6 and 7 of the pseudocode for Add, only one of
+the subsequent recursive calls will actually do anything, so you only
+need to give these calls half as many credits as the initial call to
+add.
