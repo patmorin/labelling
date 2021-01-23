@@ -303,15 +303,16 @@ Putting some of the preceding results together we obtain the following useful co
 For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \emph{$a$-chunks} $Y$ if, for any $a+1$-element subset $S\subseteq Y$, there exists $x\in X$, such that $\min S\le x\le \max S$. Observe that, if $X$ $a$-chunks $Y$, then $|Y\setminus X|\le a(|X|+1)\le 2a|X|$ so $|X\cup Y|\le (2a+1)|X|$.  A sequence $V_1,\dots,V_h$ of non-empty subsets of $\R$ is \emph{$a$-chunking} if $V_y$ $a$-chunks $V_{y+1}$ and $V_{y+1}$ $a$-chunks $V_y$ for each $y\in\{0,\dots,h-1\}$.
 
 \begin{lem}\lemlabel{fractional}
-  For any finite sets $S_1,\dots,S_h\subset\R$, there exist sets $V_1,\dots,V_{h}\subset\R$ such that
+  For any finite sets $S_1,\dots,S_h\subset\R$ and any integer $a\ge 1$, there exist sets $V_1,\dots,V_{h}\subset\R$ such that
   \begin{compactenum}
     \item for each $y\in\{1,\dots,h\}$, $V_y\supseteq S_y$;
-    \item $V_1,\dots,V_h$ is $3$-chunking;
-    \item $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |S_y|$.
+    \item $V_1,\dots,V_h$ is $a$-chunking;
+    \item $\sum_{y=1}^h |V_y|\le \left((a+1)/a\right)^2\cdot\sum_{y=1}^h |S_y|$.
   \end{compactenum}
 \end{lem}
 
-A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof of \lemref{fractional} that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
+A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof of \lemref{fractional}.
+ % that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
 
 
 \subsection{Product Structure Theorems}
@@ -416,7 +417,7 @@ The resulting tree is the outcome of the operation.
 %  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
   Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.
   Then $|T_x|\le |T_x'|< 8|T_x|$.
-\end{lem}
+\end{lem}3$-
 
 \begin{proof}
 We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 7|T_x| < 8|T_x|$.
@@ -1711,71 +1712,94 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 \section{Proof of \lemref{fractional}}
 \applabel{fractional-proof}
 
-
 \begin{proof}[Proof of \lemref{fractional}]
-  Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$.
-  The sequences of sets $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
+    Set $W_0=\emptyset$ and then for each $y:=1,\ldots,h$ repeat the following procedure:  Let $W_{y-1}'$ consist of every $(a+1)$th element of the sequence obtained by sorting $W_{y-1}$, beginning with the $(a+1)$th element of this sequence.  Observe that $W_{y-1}'$ has size $\lfloor|W_{y-1}|/(a+1)\rfloor \le |W_{y-1}|/(a+1)$.  Now set $W_y:= S_y\cup W_{y-1}'$.
 
-  \noindent$\textsc{BuildV}(S_1,\dots,S_h)$:
-  \begin{algorithmic}[1]
-    \STATE{$V_0\gets V_{h+1}\gets\Z$}
-    \STATE{$V_y\gets\emptyset$ for each $y\in\{1,\dots,h\}$}
-    \FOR{$x= 1,\dots,m$}
-      \FOR{$y = 1,\dots,h$}
-        \IF{$x\in S_y\setminus V_y$}
-          \STATE{$\textsc{Add}(x, y)$}
-        \ENDIF
-      \ENDFOR
-    \ENDFOR
- % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\dots,h\}$}
-  \end{algorithmic}
-
-  \noindent$\textsc{Add}(x, y)$:
-  \begin{algorithmic}[1]
-    \IF{$y\in\{1,\dots,h\}$}
-      \STATE{$V_y\gets V_y\cup\{x\}$}
-      \IF{$|V_y|\ge 4$}
-        \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
-        \IF{$\{x_{-1},\dots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
-            $\{x_{-1},\dots,x_{-4}\}\cap V_{y+1}=\emptyset$}
-            \STATE{$\textsc{Add}(x,y-1)$}
-            \STATE{$\textsc{Add}(x,y+1)$}
-        \ENDIF
-      \ENDIF
-    \ENDIF
-  \end{algorithmic}
-
-  % % \snote{L. Is $x_{-5}$ really necessary here?}
-  % % \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\dots,y_{-4}$.
-  %
-  % Summary:
-  % \begin{compactenum}
-  %   \item The text about including 0 should be removed.
-  %   \item Line~2 of BuildV should be deleted.
-  %   \item References to Line~6 should be changed to Line~5.
-  %   \item Line~3 of Add should be: {$|V_y|\ge 4$}
-  %   \item Line~4 of Add should be: {let $x_{-1}>x_{-2}>x_{-3}>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
-  % \end{compactenum}
-  % That's everything, right?
-  % }
-  It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
-
-  That the procedure produces sets $V_1,\dots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\dots,h\}$ is obvious.  So the resulting sets $V_1,\dots,V_h$ satisfy the first condition of the lemma.
-
-  To prove that $V_1,\dots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\dots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
-
-  Finally, we need to argue that $V_1,\dots,V_h$ satisfy the third condition.
-  For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
-
-  We do this with a \emph{credit scheme} that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\dots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
-
-  To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the $n$ values in $S_1,\dots,S_h$.  Therefore Line~6 executes at most $n$ times and at most $2n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\dots,V_h$ is at most $2n$. Therefore, $\sum_{y=1}^h |V_y|\le 2n$.
-
-  To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
-
-  When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.
-
-  If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$.
+    After the final ($y=h$) iteration, it is clear that $W_y\supseteq S_y$ and that $W_y$ $a$-chunks $W_{y-1}$ for each $y\in\{1,\ldots,h\}$.  Furthermore, for each $y\in\{1,\ldots,h\}$,
+    \[
+        |W_y| = |S_y|+|W_{y-1}'| \le |S_y|+|W_{y-1}|/(a+1)
+    \]
+    and an easy proof by induction on $y$ shows that
+    \[
+        |W_y| \le \sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i \enspace .
+    \]
+    Then
+    \[
+        \sum_{y=1}^h |W_y| \le \sum_{y=1}^h\sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i
+        \le \sum_{y=1}^h\sum_{i=0}^\infty |S_{y}|/(a+1)^i
+        = \frac{a+1}{a} \sum_{y=1}^h |S_y| \enspace .
+    \]
+    Next, observe that copying any element from $W_y$ into $W_{y-1}$ preserves the fact that $W_y$ $a$-chunks $W_{y-1}$.  This allows us to use exactly the same procedure on the sequence of sets $W_{h},\ldots,W_{1}$ to obtain an $a$-chunking sequence $V_{1},\ldots,V_h$ such that $V_y\supseteq W_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ and
+    \[  \sum_{y=1}^h |V_y| \le \frac{a+1}{a}\sum_{y=1}^h |W_y| \le \left(\frac{a+1}{a}\right)^2\cdot\sum_{y=1}^h |S_y| \enspace . \qedhere
+    \]
 \end{proof}
+
+%
+%
+% \begin{proof}[Proof of \lemref{fractional}]
+%   Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$.
+%   The sequences of sets $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
+%
+%   \noindent$\textsc{BuildV}(S_1,\dots,S_h)$:
+%   \begin{algorithmic}[1]
+%     \STATE{$V_0\gets V_{h+1}\gets\Z$}
+%     \STATE{$V_y\gets\emptyset$ for each $y\in\{1,\dots,h\}$}
+%     \FOR{$x= 1,\dots,m$}
+%       \FOR{$y = 1,\dots,h$}
+%         \IF{$x\in S_y\setminus V_y$}
+%           \STATE{$\textsc{Add}(x, y)$}
+%         \ENDIF
+%       \ENDFOR
+%     \ENDFOR
+%  % (L. to be removed)   \STATE{$V_y\gets V_y\setminus \{0\}$ for each $y\in\{1,\dots,h\}$}
+%   \end{algorithmic}
+%
+%   \noindent$\textsc{Add}(x, y)$:
+%   \begin{algorithmic}[1]
+%     \IF{$y\in\{1,\dots,h\}$}
+%       \STATE{$V_y\gets V_y\cup\{x\}$}
+%       \IF{$|V_y|\ge 4$}
+%         \STATE{let $x_{-1}>x_{-2}>\cdots>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
+%         \IF{$\{x_{-1},\dots,x_{-4}\}\cap V_{y-1}=\emptyset$ or
+%             $\{x_{-1},\dots,x_{-4}\}\cap V_{y+1}=\emptyset$}
+%             \STATE{$\textsc{Add}(x,y-1)$}
+%             \STATE{$\textsc{Add}(x,y+1)$}
+%         \ENDIF
+%       \ENDIF
+%     \ENDIF
+%   \end{algorithmic}
+%
+%   % % \snote{L. Is $x_{-5}$ really necessary here?}
+%   % % \pnote{Pat: I suppose not.  I was worried about a boundary condition.  Let's see:  $V_1=\{0\}$, $V_2=\{0,1,2,3,4\}$ seems not need $y_{-5}$.  In fact, maybe we don't need to include $0$ either.  It should be enough to require $|V_y|\ge 4$ in Line~3 and then work only with $y_{-1},\dots,y_{-4}$.
+%   %
+%   % Summary:
+%   % \begin{compactenum}
+%   %   \item The text about including 0 should be removed.
+%   %   \item Line~2 of BuildV should be deleted.
+%   %   \item References to Line~6 should be changed to Line~5.
+%   %   \item Line~3 of Add should be: {$|V_y|\ge 4$}
+%   %   \item Line~4 of Add should be: {let $x_{-1}>x_{-2}>x_{-3}>x_{-4}$ be the 4 largest elements in $V_y$ (so $x_{-1}=x$)}
+%   % \end{compactenum}
+%   % That's everything, right?
+%   % }
+%   It is easiest to think of the sets $V_y$ as sequences, sorted in increasing order, so that Line~2 in $\textsc{Add}(x,y)$ appends $x$ to $V_y$.
+%
+%   That the procedure produces sets $V_1,\dots,V_h$ such that $V_y\supseteq S_y$ for each $y\in\{1,\dots,h\}$ is obvious.  So the resulting sets $V_1,\dots,V_h$ satisfy the first condition of the lemma.
+%
+%   To prove that $V_1,\dots,V_h$ satisfy the second condition, we establish the loop invariant that, outside of $\textsc{Add}(x,y)$, $V_{y-1}$ and $V_{y+1}$ each 3-chunk  $V_y$ for each $y\in\{1,\dots,h\}$.  Indeed, the only instant at which $V_{y-1}$ fails to 3-chunk $V_y$ is immediately after appending some value $x$ to $V_y$ in Line~2 of $\textsc{Add}(x,y)$.  If this occurs, it is immediately detected in Lines~3--5 and corrected in Line~6.  Similarly, if $V_{y+1}$ fails to $3$-chunk $V_y$ then this is immediately detected and corrected in Line~7.
+%
+%   Finally, we need to argue that $V_1,\dots,V_h$ satisfy the third condition.
+%   For convenience, define $n:=\sum_{y=1}^h |S_y|$ so that our task is to show that $\sum_{y=1}^h |V_y|\le 2n$.
+%
+%   We do this with a \emph{credit scheme} that maintains the following invariant  during the execution of the algorithm:  For each $V_y$, let $c_y$ be the length the longest suffix $x_{-k},\dots,x_{-1}$ of $V_y$ that does not intersect $V_{y-1}$ or does not intersect $V_{y+1}$.  Except during the execution of $\textsc{Add}(x,y)$, $c_y\le 3$, since $V_{y-1}$ and $V_{y+1}$ each 3-chunk $V_y$.  We maintain the invariant that $V_{y}$ stores $c_y$ credits at all times.  When we append to the list $V_y$ in Line~2 of $\textsc{Add}(x,y)$ we will pay with one credit that is spent and can never be used again.
+%
+%   To maintain our credit invariant, we will create 2 credits each time $\textsc{BuildV}$ calls $\textsc{Add}(x,y)$ in Line~6.  Line~6 executes at most once for each of the $n$ values in $S_1,\dots,S_h$.  Therefore Line~6 executes at most $n$ times and at most $2n$ credits are created.  Since each execution of Line~2 in $\textsc{Add}(x,y)$ takes away one credit, this means that the total number of times we append to lists in $V_1,\dots,V_h$ is at most $2n$. Therefore, $\sum_{y=1}^h |V_y|\le 2n$.
+%
+%   To manage these credits, we will pass two credits into each invocation of $\textsc{Add}(x,y)$, including the recursive invocations.  For the invocations of $\textsc{Add}(x,y)$ in Line~6 of \textsc{BuildV}, the two credits passed in are the two newly-created credits.
+%
+%   When $\textsc{Add}(x,y)$ executes, one of the two credits passed to it is used to pay for the execution of Line~2, and this credit disappears forever, leaving one extra credit that we add to $V_y$ since the newly-added value $x\in V_y$ may have increased $c_y$ by 1. Thus far the credit invariant is maintained.
+%
+%   If no further recursive invocations of $\textsc{Add}(x,y)$ are made, then there is nothing further to do, so we consider the case where the two recursive invocations in Lines~6 and 7 are made.  In this case, $c_y=4$ before these recursive invocations are made.  Afterwards, $c_y=0$ since these invocations add $x$ to $V_{y-1}$ and $V_{y+1}$.  This frees 4 credits.  We pass 2 of these free credits into the recursive invocation of $\textsc{Add}(x,y-1)$ and the other 2 free credits into the recursive invocation of $\textsc{Add}(x,y+1)$.
+% \end{proof}
 
 \end{document}
