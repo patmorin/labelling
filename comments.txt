@@ -245,7 +245,16 @@ the rewrite is probably not worth it.
 
 Response:
 
-Yes, this seems to work.  Unfortunately using 1-chunking doesn't make things much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.  Rewriting all of this at this point would surely introduce some errors.
+Yes, this seems to work. Perhaps the easiest proof is to break it up into two steps:
+1. First cascade downward: For i=1,...,h-1 copy every (a+1)th element from S_y into S_{y+1}.
+2. Next cascade upward: For each i=h,...,2 copy every (a+1)th element from S_y into S_{y-1}.
+
+After the first step, S_{y+1} a-chunks S_y for each y in {1,...,h-1}.  After the second step, S_{y-1} a-chunks S_y for each y in {2,..,h}.  Since the second step only copies elements from S_{y+1} into S_y, it does not break the a-chunking achieved in the first step.
+
+Unfortunately using 1-chunking doesn't make things much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.  Rewriting all of this at this point would surely introduce some errors.
+
+One place thing it simplifies slightly is the BulkInsertion algorithm, which no longer needs to group the inserted elements and build perfectly balanced BST. Instead, it can simply use the basic BST insertion algorithm on the tree T and to get a new tree T'.  Then 1-chunking ensures that the parent of each node in T' is a of node of T, so h(T')<= h(T)+1.
+
 
 Referee:
 
@@ -309,7 +318,9 @@ this would help in the discussion of the bulk tree operations.
 
 Response:
 
-Although there are many places before this in which we truncate strings to obtain prefixes of them, there is not really much need for the notation up until this point.
+Although there are many places before this in which we truncate strings to obtain prefixes of them, there is not really a need for the notation up until this point.
+
+More useful, maybe, would be a notation like s[:i] to denote the length-i prefix of s.  (But the amount of subscripting and nested functions is already bad enough.  We probably don't need expressions like sigma_{T'}(v)=sigma_{T}(x_{T}(v))[:d_{T'}(x_{T'}(v))] (which explains what happens to the signature of v during a bulk deletion).
 
 Referee:
 
@@ -320,31 +331,58 @@ Response:
 
 Correct. We have added this.
 
-
 Referee:
 
 p29, 37-39: "By Lemma 31(1), ... representing w".  I suggest making
 this an actual Corollary, right after Lemma 31.
 
+Response:
 
+We have added this corrollary and referred to it here and again in the proof of Claim 36 (formerly Claim 35).
+
+Referee:
 
 p30 l4/5: "That exactly one of these cases applies is obvious". It is
 obvious that at most one of them applies, but the "in which case" part
 of case 2 and 3 is what you are proving here, so clearly it is not
 obvious...
 
+Response:
+
+We changed the wording to "That the first condition of exactly one of the three cases applies is obvious."
+
+Referee:
 
 p32, l19/20 and l27/28: Here you use a strict version of the "is a
 prefix of" symbol that you defined on p28-l24, but you have not
 formally introduced that symbol.
+
+Reponse:
+
+We have now defined $a\prec b$ and $a\preceq b$ and $a\neq b$, immediately after the definition of $a\preceq b$.
+
+Referee:
 
 p35, l24-31: It seems this paragraph is discussing a different version
 of Theorem 37 from what is actually presented.  In particular, the
 dependency on the choice of k that you discuss is not visible in
 Theorem 37 as stated.
 
+Response:
+
+Correct. It seems at some point (probably for a conference version) we simplified the statement of the Theorem and this made it into the full version.  We have expanded Theorem 38 (formerly Theorem 37) to include a more precise statement parameterized by the value of k.
+
+Referee:
+
 p39, l14: "for x=1,...,m do": Here, m is not defined.  I assume you
 want to loop over the elements of the union of the S_y in sorted order.
+
+Response:
+
+Correct. We have added the statement: "Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$", which seems to have been lost during some revision.
+
+
+
 
 I'll note again that the analysis in this appendix easily generalizes
 to a-chunking, and that it can be slightly improved so the size

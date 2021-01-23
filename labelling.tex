@@ -1099,7 +1099,6 @@ For $U \subseteq V(H)$, we let $x_T(U):=\{x_T(v):v\in U\}$.
   \figlabel{x}
 \end{figure}
 
-
 \begin{lem}\lemlabel{all-the-obs-about-bst-and-intervals}
 Let $H$ be a graph with a fixed interval representation $v\mapsto[a_v,b_v]$.
 Let $T$ be a binary search tree that stabs $H$.
@@ -1130,6 +1129,23 @@ Then,
   Therefore $x\in[a_{u_1},b_{u_1}]$ or $x\in [a_{u_2}, b_{u_2}]$.
   This contradicts the choice of $x_T(u_1)$ or $x_T(u_2)$ and completes the proof of the second item.
 \end{proof}
+
+Note that \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}) implies that $x_T(v)$ has several alternative definitions:
+
+\begin{cor}\corlabel{alternative-x-definitions}
+    Let $H$ be a graph with a fixed interval representation $v\mapsto[a_v,b_v]$. Let $T$ be a binary search tree that stabs $H$ and let $v$ be any vertex of $H$.
+    \begin{compactenum}
+        \item The node set $V(T)\cap [a_v,b_v]$ has a unique node $x_T(v)$ of minimum $T$-depth.\label{itm:x-min-depth}.
+        \item $T$ has a unique node $z=x_T(v)$ with the property that $z$ is the only node of $P_T(z)$ contained in $[a_v,b_v]$.\label{itm:x-unique-path}.
+    \end{compactenum}
+\end{cor}
+
+\begin{proof}
+    By definition $x_T(v)$ is the lowest common ancestor of $V(T)\cap [a_v,b_v]$ and by \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $x_T(v)\in V(T)\cap [a_v,b_v]$ so $x_T(v)$ is the unique node of $V(T)\cap [a_v,b_v]$ of minimum $T$-depth. This establishes  the first item.
+
+    For the second item, first observe that the first item implies that $x_T(v)$ has the property that $x_T(v)$ is the only node of $P_T(x_T(v))$ contained in $[a_v,b_v]$.  To see that $x_T(v)$ is the unique node with this property consider any $z\in V(T)\cap[a_v,b_v]\setminus\{x_T(v)\}$. By (the original) definition of $x_T(v)$, $z$ is in the subtree of $T$ rooted at $x_T(v)$.  Since $z\neq x_T(v)$, $P_T(z)$ contains $x_T(v)$ as an internal node so $z$ is not the only node of $P_T(z)$ contained in $[a_v,b_v]$.
+\end{proof}
+
 
 \subsection{A Labelling Scheme for $t$-Trees}
 \label{sec:t-trees}
@@ -1362,8 +1378,8 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$ and
   \end{figure}
 
   Now we are left with the case $|\sigma_{H^+_{y},T_{y}}(v)| \geq \theta$ and $z'\not\in Z\cup X$.
-  Let $w \in C_{H^+_y}(v)$ be the vertex witnessing $z' = x_{T'}(w)$.
-  By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}),
+  Let $w \in C_{H^+_y}(v)$ be a vertex witnessing $z' = x_{T'}(w)$.
+  By \corref{alternative-x-definitions}(\ref{itm:x-unique-path}),
   $z'$ is the unique node of $Q'$ contained in $[a_w,b_w]$, i.e., the interval representing $w$.
   By the properties of a binary search tree, we conclude that
   \[
@@ -1384,9 +1400,9 @@ For strings $a$ and $b$, let $a\preceq b$ denote that $a$ is a prefix of $b$ and
     \end{compactenum}
   \end{clm}
   \begin{proof}
-    That exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
+    That the first condition of exactly one of the three cases applies is obvious.  Case~(1) has no specific requirements and Cases~(2) and (3) are symmetric, so we focus on Case~(2), so $x < a_w\le b_w$.
 
-    By \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$.
+    By \corref{alternative-x-definitions}(\ref{itm:x-unique-path}), $z=x_T(v)$ is the unique node $z$ in $T$ such that the path $P$ from the root to $z$ has exactly one node in $[a_w,b_w]$.
     Recall that by construction
     the path $P'$ from the root to $z$ in $T_{>x}$ is obtained from $P$
     by deleting all values less than or equal to $x$.
@@ -1593,7 +1609,7 @@ In total, the label length is $\log n + \Oh(k\log\log n+k^{-1}\log n + k\log k +
 In particular, if $t$ is a fixed constant, the label length is $\log{n} + \Oh( k\log\log{n} + k^{-1}\log{n} + k\log k)$.
 
 We remark that, using the same trick as described at the end of Section~\ref{sec:t-trees}, we can get the length of (L5) down to $\Oh(t\cdot \log\log n)$.
-Assuming $k = o(\log{n})$, the total label length becomes then $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n} + k\log k)$.
+Assuming $k = o(\log{n})$, the total label length then becomes $\log{n} + \Oh((k+t)\log\log{n} + k^{-1}\log{n} + k\log k)$.
 
 \subsection{Adjacency Testing}
 
@@ -1639,7 +1655,7 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
 This completes the proof of our main result.
 
 \begin{thm}\thmlabel{main-product}
-  For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.
+  For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.  More precisely, for each $k\in\{7,\ldots,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, this graph family has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log{n} + \Oh(k\log\log{n} + k^{-1}\log{n} + k\log k)$.
 \end{thm}
 
 \thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}.
@@ -1654,7 +1670,7 @@ We conclude with a few remarks on the computational complexity of our labelling 
 In the discussion on the adjacency test function below, we focus on the case where $t$ is a constant (which is the case in all our applications).
 The adjacency testing function can then be implemented in time $\Oh(k)$  in the standard $w$-bit word RAM model, providing for binary words of length $w = \Omega(\log{n})$, bitwise logical operations, bitwise shift operations, and a most-significant-bit operation\footnote{The only purpose of the most-significant-bit operation is allow decoding of the Elias $\gamma$ code in constant time.}.
 % Cyril: note that this is O(k) even for unbounded t! but I do not want to detail this here. It happens the main application I give then is for fixed t. So it does not really matter.
-We note that \thmref{main-product} holds whenever $k$ ranges from $\omega(1)$ to $\Oh(\sqrt{\log{n} / \log\log{n}})$. This yields a trade-off between adjacency test time and label length complexities. On one side, by choosing $k = \omega(1)$, we have labels of $(1+o(1))\log{n}$ bits and an adjacency test running in nearly constant time. On the other side, by selecting an adjacency test time complexity of $k = \Oh(\sqrt{\log{n}/\log\log{n}})$, the label length is minimized and has length $\log{n} + \Oh(\sqrt{\log{n}\log\log{n}})$.
+We note that \thmref{main-product} holds for a range of $k$ from $\Omega(1)$ to $\Oh(\sqrt{\log{n} / \log\log{n}})$. This yields a trade-off between adjacency test time and label length complexities. On one side, by choosing $k = \omega(1)$, we have labels of $(1+o(1))\log{n}$ bits and an adjacency test running in nearly constant time. On the other side, by selecting an adjacency test time complexity of $k = \Oh(\sqrt{\log{n}/\log\log{n}})$, the label length is minimized and has length $\log{n} + \Oh(\sqrt{\log{n}\log\log{n}})$.
 
 % Cyril: I would remove the next paragraph which basically explains that we fail at this place.
 %
@@ -1697,7 +1713,8 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 
 
 \begin{proof}[Proof of \lemref{fractional}]
-  $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
+  Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$.
+  The sequences of sets $V_1,\dots,V_{h}$ are constructed incrementally by a procedure $\textsc{BuildV}(S_1,\dots,S_h)$ that makes use of a recursive subroutine $\textsc{Add}(x, y)$.  In the following code, $V_0$ and $V_{h+1}$ act as sentinels whose only purpose to eliminate distracting boundary cases.
 
   \noindent$\textsc{BuildV}(S_1,\dots,S_h)$:
   \begin{algorithmic}[1]
