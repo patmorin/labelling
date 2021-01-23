@@ -393,37 +393,43 @@ Starting from a perfectly balanced binary search tree $T_1$, each tree $T_i$ in 
 \subsection{Bulk Insertion}
 
 The bulk insertion operation, $\textsc{BulkInsert}(I)$,
-in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented as follows: Let $z_0,\dots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\dots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$.
-For each $i\in\{0,\dots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$.
-For each $i\in\{1,\dots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
-The resulting tree is the outcome of the operation.
+in which a finite set $I\subset  \R\setminus V(T)$ of new values are inserted into a binary search tree $T$, is implemented using the standard insertion algorithm for binary search trees.  For each $x\in I$, $P_T(x)$ ends at an external node $x'$ of $T^+$ whose parent $y$ is a node of $T$. We simply make $x$ a child of $y$.  Doing this for each $x\in I$ (in any order) results in a new tree $T'$ with $V(T')=V(T)\cup I$.
+%
+%
+% as follows: Let $z_0,\dots,z_{|T|}$ denote the external nodes of $T$.  For each $i\in\{0,\dots,|T|\}$, let $I_i$ consist of all $x\in I$ such that $P_T(x)$ ends at $z_i$.
+% For each $i\in\{0,\dots,|T|\}$, construct a perfectly balanced binary search tree $T_i$ with vertex set $I_i$.
+% For each $i\in\{1,\dots,|T|\}$, replace $z_i$ with $T_i$ in $T^+$.
+% The resulting tree is the outcome of the operation.
 
 \begin{lem}\lemlabel{insertion-depth}
   Let $T$ be any binary search tree and let $I$ be a finite set of values from $\R\setminus V(T)$ such that
-  $V(T)$ $3$-chunks $I$.\footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}
+  $V(T)$ $1$-chunks $I$.
+  % \footnote{There is nothing special about the constant $3$ here.  The data structure and its analysis work with $3$ replaced by any constant $a$. The constant $3$ comes from an application of~\lemref{fractional}.}
   Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
   %Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
-  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+2$.
+  Then $T'$ is a supergraph of $T$ and $h(T')\le h(T)+1$.
 \end{lem}
 
 \begin{proof}
-  That $T'$ is a supergraph of $T$ is obvious.  Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  Therefore, $h(T')\le h(T)+2$ since, for each $i\in\{0,\dots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$.  Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\dots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
+  That $T'$ is a supergraph of $T$ is obvious.  Next note that the 1-chunking property ensures that, for any $x\in I$, the parent of $x$ in $T'$ is also in $T$.  Thus any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most one node in $I$.  Therefore $h(T')\le h(T)+1$.
+  % Note that $|I_i|\le 3$ since $V(T)$ $3$-chunks $I$.  Therefore, $h(T')\le h(T)+2$ since, for each $i\in\{0,\dots,|T|\}$, $|T_i|=|I_i|\le 3$ and $T_i$ is perfectly balanced, so $h(T_i)\le\lfloor\log 3\rfloor = 1$.
+  % Any root-to-leaf path in $T'$ consists of a root-to-leaf path in $T$ followed by at most 2 elements of $T_i$ for some $i\in\{1,\dots,|T|\}$.  Therefore the length of any root-to-leaf path in $T'$ is at most $h(T)+2$.
 \end{proof}
 
 \begin{lem}\lemlabel{insertion-size}
   Let $T$ be any binary search tree and let $I$ be a set of values from $\R\setminus V(T)$ such that
-  $V(T)$ $3$-chunks $I$.
+  $V(T)$ $1$-chunks $I$.
   Apply $\textsc{BulkInsert}(I)$ to $T$ to obtain $T'$.
 %  Let $T'$ be the binary search tree obtained from a bulk insertion of $I$ into $T$.
   Let $x$ be any node of $T$ and let $T_x$ and $T_x'$ be the subtrees of $T$ and $T'$, respectively, rooted at $x$.
-  Then $|T_x|\le |T_x'|< 8|T_x|$.
-\end{lem}3$-
+  Then $|T_x|\le |T_x'|< 4|T_x|$.
+\end{lem}
 
 \begin{proof}
-We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 3-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 3-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le 3(|T_x|+1)$, so $|T_x'|=|T_x|+|I_x|\le 4|T_x|+3 \le 7|T_x| < 8|T_x|$.
+We clearly have  $|T_x|\le |T_x'|$.  By definition, $V(T)$ 1-chunks $I:=V(T')\setminus V(T)$.  This implies that $V(T_x)$ 1-chunks $I_x:=V(T_x')\setminus V(T_x)$.  Therefore $|I_x|\le |T_x|+1$, so $|T_x'|=|T_x|+|I_x|\le 2|T_x|+1 \le 3|T_x| < 4|T_x|$.
 \end{proof}
 
-In \lemref{insertion-size} and in \lemref{deletion-size}, below, we use the constant $8$ rather than $7$ because this later simplifies calculations involving binary logarithms.
+In \lemref{insertion-size} and in \lemref{deletion-size}, below, we use the constant $4$ rather than $3$ because this later simplifies calculations involving binary logarithms.
 
 \subsection{Bulk Deletion}
 
@@ -443,14 +449,14 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
 \end{proof}
 
 \begin{lem}\lemlabel{deletion-size}
-  Let $T$ be any binary search tree and let $D$ be a strict subset of $V(T)$ such that $V(T)\setminus D$ $3$-chunks $D$.
+  Let $T$ be any binary search tree and let $D$ be a strict subset of $V(T)$ such that $V(T)\setminus D$ $1$-chunks $D$.
   Apply $\textsc{BulkDelete}(D)$ to $T$ to obtain a new tree $T'$.
 %  Let $T'$ be the binary search tree obtained by performing a bulk deletion of $D$ in $T$.
-  Then $|T|/8 \le |T'|\le |T|$.
+  Then $|T|/4 \le |T'|\le |T|$.
 \end{lem}
 
 \begin{proof}
- We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $3$-chunks $D$, we have $|D|\le 3(|V(T)|-|D| + 1) \le 6(|V(T)|-|D|)$, so $|D|\le (6/7)|V(T)|$. Thus $|T'| \ge |T| - 6/7|T| = |T|/7 \geq |T|/8$.
+ We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $1$-chunks $D$, we have $|D|\le |V(T)|-|D| + 1 \le 2(|V(T)|-|D|)$ (since $D\subset V(T)$, $|V(T)|-|D|\ge 1$), so $|D|\le (2/3)|V(T)|$. Thus $|T'| \ge |T| - (2/3)|T| = |T|/3 \geq |T|/4$.
 \end{proof}
 
 % Note that the requirement that $D$ is a \emph{strict} subset of $V(T)$ always satisfied if $|V(T)|\ge 4$.
@@ -594,7 +600,7 @@ The following two lemmas are immediate consequences of \lemref{multisplit-depth}
 
 
 
-Let $k\ge 7$ be an integer\footnote{$k \geq 7$ is a technical requirement, to make sure that some inequalities hold later on.} and let $S_0,\dots,S_q$ be a $3$-chunking sequence.
+Let $k\ge 5$ be an integer\footnote{$k \geq 5$ is a technical requirement, to make sure that some inequalities hold later on.} and let $S_0,\dots,S_q$ be a $1$-chunking sequence.
 %with $q\leq y^*:=\left\lceil \frac{\log|S_0|}{k-3}\right\rceil$,
 We define a \emph{one-phase $k$-bulk tree sequence} based on $S_0,\dots,S_q$ to be a sequence $T_0, \dots, T_{q}$ of binary search trees such that $T_0$ is an arbitrary binary search tree on node set $S_0$ and,  for each $y\in \{0, \dots, q-1\}$, we have $h(T_y)>y\cdot(k+1)$ and
 the tree $T_{y+1}$ is obtained from $T_y$ by applying
@@ -607,25 +613,25 @@ Note that $V(T_y)=S_y$ for each $y \in \{0, \dots, q\}$.
 The sequence is \emph{complete} if $h(T_q)\leq q\cdot(k+1)$.
 %$q=y^*$.
 
-For $k\geq 7$ and a $3$-chunking sequence $S_1,\dots,S_h$, we define
+For $k\geq 5$ and a $1$-chunking sequence $S_1,\dots,S_h$, we define
 a \emph{$k$-bulk tree sequence} based on $S_1,\dots,S_h$ to be a sequence $T_1, \dots, T_h$ of binary search trees satisfying:
 $T_1$ is a perfectly balanced binary search tree with $V(T_1)=S_1$, and
 there exist indices $h_1,h_2,\dots,h_{\ell}$ with $1=h_1 < h_2 < \cdots <h_{\ell} = h$  such that $T_{h_j}, T_{h_j+1},\dots,T_{h_{j+1}}$ is a complete one-phase $k$-bulk tree sequence based on $S_{h_j}, S_{h_j+1},\dots,S_{h_{j+1}}$
 for each $j\in\{1,\dots,\ell-2\}$, and $T_{h_{\ell-1}}, T_{h_{\ell-1}+1},\dots,T_{h_{\ell}}$ is a (non-necessarily complete) one-phase $k$-bulk tree sequence based on $S_{h_{\ell-1}},S_{h_{\ell-1}+1},\dots,S_{h_{\ell}}$.
 
-Note that if we fix the $3$-chunking sequence $S_1,\dots,S_h$, the integer $k\ge 7$, and the starting perfectly balanced binary search tree $T_1$ with $V(T_1)=S_1$, a $k$-bulk tree sequence based on $S_1,\dots,S_h$ and starting with $T_1$ exists and is unique. It is obtained by a sequence of one-phase $k$-bulk tree sequences, where we start a new one-phase sequence as soon as the current one is complete.
+Note that if we fix the $1$-chunking sequence $S_1,\dots,S_h$, the integer $k\ge 5$, and the starting perfectly balanced binary search tree $T_1$ with $V(T_1)=S_1$, a $k$-bulk tree sequence based on $S_1,\dots,S_h$ and starting with $T_1$ exists and is unique. It is obtained by a sequence of one-phase $k$-bulk tree sequences, where we start a new one-phase sequence as soon as the current one is complete.
 
 
-This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
+This will not be needed until the final sections, but it is helpful to keep in mind that we will ultimately take $k=\max\left\{5,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ when considering a $k$-bulk tree sequence built for our $n$-vertex graph $G$, so that the expression $\Oh(k+k^{-1}\log n)$ (which appears many times in what follows), is $\omega(1)$ and $o(\log n)$.
 
 \begin{lem}\lemlabel{bulktree-old-B-properties}
 Let $T_0,\dots,T_{q}$ be a one-phase $k$-bulk tree sequence.
 Then, for each $y\in\{0,\dots,q\}$
 \begin{compactenum}[(i)]
-\item $h(T_y)\le h(T_0) + 3y$;\label{lemma-item-B1}
+\item $h(T_y)\le h(T_0) + 2y$;\label{lemma-item-B1}
 \item each subtree of $T_y$ rooted at a node of depth $y\cdot (k+1)$ has size at most
 %$|T_0|\cdot\left(7/2^k\right)^{y}$.\label{lemma-item-B2}
-$|T_0|\cdot2^{-y(k-3)}$.\label{lemma-item-B2}
+$|T_0|\cdot2^{-y(k-2)}$.\label{lemma-item-B2}
 \end{compactenum}
 \end{lem}
 \begin{proof}
@@ -635,42 +641,42 @@ The proof is by induction on $y$.  For the base case $y=0$, both properties are 
   In order to get $T_{y+1}$, we first apply $\textsc{BulkBalance}(y\cdot (k+1),k)$ to $T_y$ to obtain $T'$.
   By~\lemref{balance-depth}, we have $h(T') \le h(T_y)+1$.
   Let $I:=V(T_{y+1})\setminus V(T') = V(T_{y+1})\setminus V(T_y)$.
-  Since $V(T_y)$ $3$-chunks $V(T_{y+1})$ we know that $V(T')$ $3$-chunks $I$.
+  Since $V(T_y)$ $1$-chunks $V(T_{y+1})$ we know that $V(T')$ $1$-chunks $I$.
   Next we apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain $T''$.
-  Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+2$.
+  Thus, by~\lemref{insertion-depth} we have $h(T'') \le h(T')+1$.
   Finally, we apply $\textsc{BulkDelete}(D)$ to $T''$ and obtain $T_{y+1}$, where $D:=V(T_{y})\setminus V(T_{y+1})$.
   By~\lemref{deletion-signature}, we have $h(T_{y+1}) \le h(T'')$.
   Altogether we have
   \[
-  h(T_{y+1}) \le h(T'') \le h(T') +2 \le h(T_y) +3 \le h(T_0) + 3y +3 = h(T_0) + 3(y+1).
+  h(T_{y+1}) \le h(T'') \le h(T') +1 \le h(T_y) +2 \le h(T_0) + 2y +2 = h(T_0) + 2(y+1).
   \]
   Thus, \itemref{lemma-item-B1} holds for $T_{y+1}$.
 
     Next we establish \itemref{lemma-item-B2}.
     Assume that \itemref{lemma-item-B2} holds for $T_{y}$.
-    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k-3)}$.
-    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 2^{-k}$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.
-    By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-3)}\cdot 8 \cdot 2^{-k}$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k-3)}$, as desired.
+    Thus, every subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most $|T_{0}|\cdot2^{-y(k-2)}$.
+    Again, the first step when constructing $T_{y+1}$ from $T_{y}$ is to apply $\textsc{BulkBalance}(y(k+1),k)$ to $T_{y}$.  By \lemref{balance-weight}, this results in a tree $T'$ in which every subtree rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-2)}\cdot 2^{-k}$.  The second step is to apply $\textsc{BulkInsert}(I)$ to $T'$ to obtain a new tree $T''$.
+    By \lemref{insertion-size}, every subtree of $T''$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-y(k-2)}\cdot 4 \cdot 2^{-k}=2^{-y(k-2)+2-k}=2^{-(y+1)(k-2)}$.  Finally, the third step is to perform $\textsc{BulkDelete}(D)$ on $T''$ to obtain $T_{y+1}$.  Bulk deletion does not increase the size of any subtree, so every subtree of $T_{y+1}$ rooted at a node of depth $(y+1)(k+1)$ has size at most $|T_{0}|\cdot 2^{-(y+1)(k-2)}$, as desired.
 \end{proof}
 
 \begin{cor}\corlabel{height-y-star}
 Let $T_0,\dots,T_{q}$ be a one-phase $k$-bulk tree sequence.
 Then,
 \[
-q \leq \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil.
+q \leq \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil.
 \]
 \end{cor}
 \begin{proof}
 Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
 Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
 \[
-\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil\cdot(k-3)
-\leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-3)
+\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil\cdot(k-3)
+\leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-2)
 \leq0.
 \]
 Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most
 \[
-|T_0|\cdot2^{-y(k-3)} \leq 1,
+|T_0|\cdot2^{-y(k-2)} \leq 1,
 \]
 and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the definition of a one-phase $k$-bulk tree sequence.
 \end{proof}
@@ -679,7 +685,7 @@ and hence $h(T_y) \leq y(k+1)$, which violates the height condition in the defin
 Let $T_0,\dots,T_{q}$ be a complete one-phase $k$-bulk tree sequence,
 and let $r_0 := h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\dots,q\}$,
 \begin{compactenum}[(i)]
-\item $ |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$;\label{height-diff}
+\item $ |T_0|/4^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 2y$;\label{height-diff}
   \item $q=\Oh(k^{-1}\log|T_y|)$; \label{ystar-bound}
     \item $h(T_y) = \log|T_y| + r_0+\Oh(k^{-1}\log|T_y|) $; and
     \label{bulktree-height-item-i}
@@ -689,30 +695,30 @@ and let $r_0 := h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\dots,q\}$,
 \begin{proof}
 Let $I_0,\dots,I_{q-1}$ and $D_0,\dots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
 rebalancing and then applying $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\dots,q-1\}$.
-First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/8$.\footnote{The condition, in \lemref{deletion-size}, that $D$ is a \emph{strict} subset of $V(T)$ is satisfied since $\textsc{BulkDelete}(D_y)$ is performed on an intermediate tree $T_y'$ with $V(T_y')=V(T_y)\cup I_y$ and produces a tree $T_y''$ with $V(T_y')\setminus D_y = V(T_y'')=V(T_{y+1})=S_{y+1}$.  By definition $S_{y+1}$ is non-empty, therefore $D\neq V(T_y')$.}
+First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/4$.\footnote{The condition, in \lemref{deletion-size}, that $D$ is a \emph{strict} subset of $V(T)$ is satisfied since $\textsc{BulkDelete}(D_y)$ is performed on an intermediate tree $T_y'$ with $V(T_y')=V(T_y)\cup I_y$ and produces a tree $T_y''$ with $V(T_y')\setminus D_y = V(T_y'')=V(T_{y+1})=S_{y+1}$.  By definition $S_{y+1}$ is non-empty, therefore $D\neq V(T_y')$.}
 
-Iterating this starting with $T_0$ implies that $    |T_0|/8^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 3y$ for each $y\in\{0,\dots,q\}$, which proves (\ref{height-diff}).
+Iterating this starting with $T_0$ implies that $|T_0|/4^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 2y$ for each $y\in\{0,\dots,q\}$, which proves (\ref{height-diff}).
 
-\noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-3}\right\rceil$.
+\noindent By~\corref{height-y-star}, we have $q \leq \left\lceil\frac{\log|T_0|}{k-2}\right\rceil$.
 Note that, for each $y\in\{0,\dots,q\}$,  we have
 \begin{align}
 q
-&\le \tfrac{\log |T_0|}{k-3}+1\le \tfrac{\log |T_y|+3q}{k-3}+1,
+&\le \tfrac{\log |T_0|}{k-2}+1\le \tfrac{\log |T_y|+2q}{k-2}+1,
 &\text{(by (\ref{height-diff}), and since $y\leq q$)}\nonumber\\
-\intertext{and rewriting this yields (using that $k\geq 7$)}
+\intertext{and rewriting this yields (using that $k\geq 5$)}
 %&\nonumber\\
 q
-&\le \tfrac{\log |T_y|}{k-6}+ \tfrac{k-3}{k-6} \leq \tfrac{k}{k-6}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-3}{k-6}\nonumber\\
-&\leq 7\cdot\tfrac{\log |T_y|}{k} + 4= \Oh(k^{-1}\log|T_y|), \nonumber
+&\le \tfrac{\log |T_y|}{k-4}+ \tfrac{k-2}{k-4} \leq \tfrac{k}{k-4}\cdot\tfrac{\log |T_y|}{k} + \tfrac{k-2}{k-4}\nonumber\\
+&\leq 5\cdot\tfrac{\log |T_y|}{k} + 3= \Oh(k^{-1}\log|T_y|), \nonumber
 \intertext{which proves (\ref{ystar-bound}). Now (\ref{bulktree-height-item-i}) follows as for each $y\in\{0,\dots,q\}$, we have}
 h(T_y)
-& \le h(T_0) + 3y \nonumber
+& \le h(T_0) + 2y \nonumber
 &\text{(by~\lemref{bulktree-old-B-properties}\itemref{lemma-item-B1})}\\
-&= \log|T_0| + 3y + r_0  \nonumber
+&= \log|T_0| + 2y + r_0  \nonumber
 &\text{(by definition of $r_0$)}\\
-&\le \log |T_y| + 6y + r_0
+&\le \log |T_y| + 4y + r_0
 &\text{(by (\ref{height-diff}))} \nonumber\\
-&\le \log |T_y| + 6q + r_0
+&\le \log |T_y| + 4q + r_0
 &\text{(since $y\le q$)}\nonumber\\
 &= \log |T_y| + \Oh(k^{-1}\log|T_y|) + r_0.
 &\text{(by (\ref{ystar-bound}))}\nonumber\\
@@ -720,15 +726,15 @@ h(T_y)
 h(T_{q})
 & \le (k+1)q
 &\text{(since the sequence is complete)}\nonumber\\
-&\le (k+1)\left(\tfrac{\log|T_0|}{k-3} + 1\right)\nonumber
+&\le (k+1)\left(\tfrac{\log|T_0|}{k-2} + 1\right)\nonumber
 %&\text{(by \eqref{y-star-def})}\nonumber\\
 &\text{(by \corref{height-y-star})} \\
-& = \left(\tfrac{k+1}{k-3}\right)\cdot\log|T_0| + (k+1)\nonumber\\
-& \le \left(\tfrac{k+1}{k-3}\right)\cdot(\log|T_{q}| + 3q) + (k+1)
+& = \left(\tfrac{k+1}{k-2}\right)\cdot\log|T_0| + (k+1)\nonumber\\
+& \le \left(\tfrac{k+1}{k-2}\right)\cdot(\log|T_{q}| + 2q) + (k+1)
 &\text{(by (\ref{height-diff}))}\nonumber\\
-& = \log|T_{q}| + \tfrac{4}{k-3}\log|T_{q}| + 3\cdot\tfrac{k+1}{k-3}q + k+1\nonumber\\
+& = \log|T_{q}| + \tfrac{3}{k-2}\log|T_{q}| + 2\cdot\tfrac{k+1}{k-2}q + k+1\nonumber\\
 & = \log|T_{q}| + \Oh(k+k^{-1}\log |T_{q}|).
-&\text{(as $\tfrac{k+1}{k-3}\leq\tfrac{8}{5}$, and by (\ref{ystar-bound}))}\nonumber
+&\text{(as $\tfrac{k+1}{k-2}\leq\tfrac{6}{3}$, and by (\ref{ystar-bound}))}\nonumber
 \end{align}
 \end{proof}
 
@@ -762,7 +768,7 @@ h(T_y)\le \log|T_y| + \Oh(k+k^{-1}\log|T_y|).
     r_0 &= h(T_{y_0})-\log|T_{y_0}| \\
        &= \Oh(k + k^{-1}\log|T_{y_0}|)
         & \text{(by \lemref{bulktree-height-i}(\ref{bulktree-height-item-ii}))}\\
-       &= \Oh(k + k^{-1}(\log|T_{y}| + 3(y-y_0)))
+       &= \Oh(k + k^{-1}(\log|T_{y}| + 2(y-y_0)))
         & \text{(by \lemref{bulktree-height-i}(\ref{height-diff}))} \\
 %       &= \Oh(k + k^{-1}\log|T_{y}| + k^{-1}y^*)
 %        & \text{(since $y-y_0 \le y^*$)} \\
@@ -923,10 +929,10 @@ L^+_y&=L_y\cup\{x-1:(x,y)\in V(G)\}.
 Note that $\sum_{y=1}^h |L_y| = n$ and $\sum_{y=1}^h |L^+_y|\le 2n$.
 Let $L^+_0 := \emptyset$.
 
-Let $V_1,\dots,V_{h}$ be the $3$-chunking sequence obtained by applying~\lemref{fractional} to the sequence $L^+_{1}\cup L^+_{0}, \dots, L^+_{h}\cup L^+_{h-1}$. Thus for each $y\in\{1,\dots,h\}$, we have
+Let $V_1,\dots,V_{h}$ be the $1$-chunking sequence obtained by applying~\lemref{fractional} to the sequence $L^+_{1}\cup L^+_{0}, \dots, L^+_{h}\cup L^+_{h-1}$. Thus for each $y\in\{1,\dots,h\}$, we have
 \begin{align*}
 V_y&\supseteq L^+_{y}\cup L^+_{y-1}, \textrm{ and}\\
-\textstyle\sum_{y=1}^h |V_y|&\le 2\textstyle\sum_{y=1}^h |L^+_{y}\cup L^+_{y-1}|\leq 8n.
+\textstyle\sum_{y=1}^h |V_y|&\le 4\textstyle\sum_{y=1}^h |L^+_{y}\cup L^+_{y-1}|\leq 16n.
 \end{align*}
 Next, let $T_1,\dots,T_h$ be a $k$-bulk tree sequence based on $V_1,\dots,V_{h}$ (recall that if we fix the starting perfectly balanced binary search tree $T_1$ with vertex set $V_1$, this sequence exists and is unique).
 We discuss the asymptotically optimal choice for the value of $k$ at the end of the section.
@@ -1034,7 +1040,7 @@ This establishes our first result:
 \end{thm}
 
 \begin{rem}
-  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
+  The $o(\log n)$ term in the label length of \thmref{pxp} is $\Oh(k\log\log n + k \log k + k^{-1}\log n)$.  An asymptotically optimal choice of $k$ is therefore $k=\max\left\{5,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$, yielding labels of length $\log n + \Oh\left(\sqrt{\log n\log\log n}\right)$.
 \end{rem}
 
 %==============
@@ -1288,7 +1294,7 @@ Note that $\sum_{y=1}^h |S_y| =n$ and $\sum_{y=1}^h |S^+_y| \leq (t+1)n$.
 Let $S_0=\emptyset$.
 For each $y\in\{1,\dots,h\}$, let $X_y\subset\R$ be the set of all endpoints of intervals representing vertices in $S^+_y\cup S^+_{y-1}$.
 %Observe that any binary search tree $T_y$ with $V(T_y)\supseteq X_y$ stabs every interval of a vertex $w\in C_H(v)$ for any $v\in S_y\cup S_{y-1}$.
-Apply \lemref{fractional} to the sequence $X_1,\dots,X_h$ to obtain a $3$-chunking sequence $V_1,\dots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\dots,h\}$, and $\sum_{y=1}^h |V_y|\le 2\sum_{y=1}^h |X_y|$. Let $T_1,\dots,T_h$ be a $k$-bulk tree sequence based on $V_1,\dots,V_{h}$ with $k := \max\left\{7,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ (recall that if we fix the starting perfectly balanced binary search tree $T_1$ with vertex set $V_1$, this sequence exists and is unique).
+Apply \lemref{fractional} to the sequence $X_1,\dots,X_h$ to obtain a $1$-chunking sequence $V_1,\dots,V_{h}$ such that $V_y\supseteq X_y$ for each $y\in\{1,\dots,h\}$, and $\sum_{y=1}^h |V_y|\le 4\sum_{y=1}^h |X_y|$. Let $T_1,\dots,T_h$ be a $k$-bulk tree sequence based on $V_1,\dots,V_{h}$ with $k := \max\left\{5,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\right\}$ (recall that if we fix the starting perfectly balanced binary search tree $T_1$ with vertex set $V_1$, this sequence exists and is unique).
 
 For each $y\in\{1,\dots,h\}$, let $H^+_y$ be the subgraph of $H$ induced by $S^+_y\cup S^+_{y-1}$.
 In particular, each $H^+_y$ is a $t$-tree.
@@ -1299,7 +1305,7 @@ Since $X_y \subseteq V_y = V(T_y)$, we have that $T_y$ stabs $H^+_y$.
 
 By construction, we have
 \[
-\textstyle\sum_{y=1}^h |T_y| \le 2\textstyle\sum_{y=1}^h |X_y| \le 4\textstyle\sum_{y=1}^h |S^+_y\cup S^+_{y-1}| \le 8(t+1)n.
+\textstyle\sum_{y=1}^h |T_y| = \textstyle\sum_{y=1}^h |V_y| \le 4\textstyle\sum_{y=1}^h |X_y| \le 8\textstyle\sum_{y=1}^h |S^+_y\cup S^+_{y-1}| \le 16(t+1)n.
 \]
 
 By \lemref{bulk-tree-height}, for each $y\in\{1,\dots,h\}$ we have
@@ -1551,7 +1557,7 @@ using the weight function $w(y):=|T_y|$ for each $y\in\{1,\dots,h\}$,
 we have a prefix-free code $\alpha:\{1,\dots,h\}\to\{0,1\}^*$ such that
 \begin{align*}
 |\alpha(y)|&=\log\left(\textstyle\sum_{i=1}^h|T_i|\right) - \log|T_y| + \Oh(\log\log h)\\
-&\leq \log\bigl( 8(t+1)n\bigr) - \log|T_y| + \Oh(\log\log n)\\
+&\leq \log\bigl( 16(t+1)n\bigr) - \log|T_y| + \Oh(\log\log n)\\
 &\leq \log n -\log|T_y| + \Oh(\log\log n + \log t),
 \end{align*}
 for each $y\in\{1,\dots,h\}$, and $A(\alpha(i),\alpha(j))$ outputs $0$, $1$, $-1$, or $\perp$, depending whether the value of $j$ is $i$, $i+1$, $i-1$, or some other value, respectively.
@@ -1656,7 +1662,7 @@ Looking up the value of $A(\alpha(y_1),\alpha(y_2))$, we determine which of the 
 This completes the proof of our main result.
 
 \begin{thm}\thmlabel{main-product}
-  For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.  More precisely, for each $k\in\{7,\ldots,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, this graph family has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log{n} + \Oh(k\log\log{n} + k^{-1}\log{n} + k\log k)$.
+  For every fixed $t\in\N$, the family of all graphs $G$ such that $G$ is a subgraph of $H\boxtimes P$ for some $t$-tree $H$ and some path $P$ has a $(1+o(1))\log n$-bit adjacency labelling scheme.  More precisely, for each $k\in\{5,\ldots,\left\lceil\sqrt{\log n / \log\log n}\right\rceil\}$, this graph family has an $f(n)$-bit adjacency labelling scheme with $f(n)=\log{n} + \Oh(k\log\log{n} + k^{-1}\log{n} + k\log k)$.
 \end{thm}
 
 \thmref{main} and \thmref{main-all} are immediate consequences of \thmref{main-product}, \thmref{product-structure}, and \thmref{product-structure-all}.
