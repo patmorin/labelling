@@ -32,7 +32,7 @@ Lemmas 12 and 13: Perhaps add a remark explaining why you use the constant 8 in 
 
 Response:
 
-We added a note after Lemma 12 explaining that we do this so that it simplifies calculations with binary logarithms later.
+We added a note after Lemma 12 explaining that we do this so that it simplifies calculations with binary logarithms later. (Combined with another change, the constants 7,8 are now replaced with 3,4.)
 
 Referee:
 
@@ -80,7 +80,7 @@ Lemmas 27 and 34: It might be better to make the BAL part of the code prefix-fre
 
 Response:
 
-In Lemma 27, we have redefined BAL part of the code to be the gamma encoding of the length of \nu(z) followed by \nu(z).
+In Lemma 27, we have redefined the BAL part of the code to be the gamma encoding of the length of \nu(z) followed by \nu(z).
 
 In Lemma 34, the only non-prefix-free part of the code occurs in the final case, where the code ends with sigma(z'). We have prefixed this with \gamma(|sigma(z')|).
 
@@ -149,7 +149,7 @@ it does, and if so that would be an interesting thing to note.
 
 Response:
 
-This is an interesting variant of induced-universal graphs that we were not aware of. However, we decided to leave it out of the discussion because for any family of graphs that is closed under the addition of isolated vertices, it is to achieve.  To label an n vertex graph G add isolated vertices to obtain a graph G' with n'=2^k vertices.  Label the graph G' and prefix each label with the gamma encoding of k. In this way, the decoder can immediately deduce n'=2^k, so any decoder that requires the value n' can test adjacency between vertices of G' and hence.  The gamma encoding k only has length O(log log n).
+This is an interesting variant of induced-universal graphs that we were not aware of. However, we decided to leave it out of the discussion because for any family of graphs that is closed under the addition of isolated vertices, it is easy to achieve by increasing the label lengths by O(log log n).  To label an n vertex graph G add isolated vertices to obtain a graph G' with n'=2^k vertices for some integer k.  Label the graph G' and prefix each label with the gamma encoding of k. In this way, the decoder can immediately deduce n'=2^k, so any decoder that requires the value n' can test adjacency between vertices of G' and hence.  The gamma encoding of k only has length O(log log n).
 
 The distinction seems much more important when trying to achieve encodings using log n + o(log log n) bits.  However, we are still quite far from that since our lower order term is O(sqrt(log nlog log n)).
 
@@ -209,7 +209,7 @@ length of w in unary, followed by i in binary".
 
 Response:
 
-We have rewritten this footnote in response to this and the other referee's comment.
+We have rewritten this footnote in response to this and the other referee's comment. In the rewrite, w is the binary representation of i (which begins with a 1) and the gamma encoding of i is 0^{|w|-1}w
 
 Referee:
 
@@ -251,11 +251,11 @@ Yes, this seems to work. Perhaps the easiest proof is to break it up into two st
 
 After the first step, S_{y+1} a-chunks S_y for each y in {1,...,h-1}.  After the second step, S_{y-1} a-chunks S_y for each y in {2,..,h}.  Since the second step only copies elements from S_{y+1} into S_y, it does not break the a-chunking achieved in the first step.  We have implemented this proof in the Appendix since it's less "magical" than the previous proof (which was overkill).
 
-Unfortunately using 1-chunking doesn't make things too much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.
+Unfortunately using 1-chunking doesn't make things too much simpler. We still end up with inequalities like |T'| >= |T|/3 instead of |T'|>=|T|/7.
 
-One place in which it does make things simpler is the BulkInsertion algorithm, which no longer needs to group the inserted elements and build perfectly balanced BST. Instead, it can simply use the basic BST insertion algorithm on the tree T and to get a new tree T'.  Then 1-chunking ensures that the parent of each node in T' is a of node of T, so h(T')<= h(T)+1.
+One place in which it does make things simpler is the BulkInsertion algorithm, which no longer needs to group the inserted elements and build a perfectly balanced BST for each group. Instead, it can simply use the basic BST insertion algorithm on the tree T and to get a new tree T'.  Then 1-chunking ensures that the parent of each node in T' is a of node of T, so h(T')<= h(T)+1.
 
-We have implemented all this and adjusted corresponding constants in our proofs.  A lot of 8's change to 4's, and 7's to 3 or 5's.
+We have implemented all this and adjusted corresponding constants in our proofs.  A lot of 8's change to 4's, 7's change to 3 or 5's, and 3's change to 2.
 
 
 Referee:
@@ -322,7 +322,7 @@ Response:
 
 Although there are many places before this in which we truncate strings to obtain prefixes of them, there is not really a need for the notation up until this point.
 
-More useful, maybe, would be a notation like s[:i] to denote the length-i prefix of s.  (But the amount of subscripting and nested functions is already bad enough.  We probably don't need expressions like sigma_{T'}(v)=sigma_{T}(x_{T}(v))[:d_{T'}(x_{T'}(v))] (which explains what happens to the signature of v during a bulk deletion).
+More useful, maybe, would be a notation like s[:i] to denote the length-i prefix of s.  But the amount of subscripting and nested functions is already bad enough.  We probably don't need expressions like sigma_{T'}(v)=sigma_{T}(x_{T}(v))[:d_{T'}(x_{T'}(v))] (which explains what happens to the signature of v during a bulk deletion.
 
 Referee:
 
@@ -340,7 +340,7 @@ this an actual Corollary, right after Lemma 31.
 
 Response:
 
-We have added this corrollary and referred to it here and again in the proof of Claim 36 (formerly Claim 35).
+We have added this corollary and referred to it here and again in the proof of Claim 36 (formerly Claim 35).
 
 Referee:
 
@@ -361,7 +361,7 @@ formally introduced that symbol.
 
 Reponse:
 
-We have now defined $a\prec b$ and $a\preceq b$ and $a\neq b$, immediately after the definition of $a\preceq b$.
+We have now defined $a\prec b$ as $a\preceq b$ and $a\neq b$, immediately after the definition of $a\preceq b$.
 
 Referee:
 
@@ -381,8 +381,9 @@ want to loop over the elements of the union of the S_y in sorted order.
 
 Response:
 
-Correct. We have added the statement: "Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$", which seems to have been lost during some revision.
+Correct.
 
+Though this is no longer relevant since we have compeletely rewritten this proof in response to another comment.
 
 Referee:
 
