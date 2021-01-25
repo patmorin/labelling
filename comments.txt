@@ -249,11 +249,13 @@ Yes, this seems to work. Perhaps the easiest proof is to break it up into two st
 1. First cascade downward: For i=1,...,h-1 copy every (a+1)th element from S_y into S_{y+1}.
 2. Next cascade upward: For each i=h,...,2 copy every (a+1)th element from S_y into S_{y-1}.
 
-After the first step, S_{y+1} a-chunks S_y for each y in {1,...,h-1}.  After the second step, S_{y-1} a-chunks S_y for each y in {2,..,h}.  Since the second step only copies elements from S_{y+1} into S_y, it does not break the a-chunking achieved in the first step.
+After the first step, S_{y+1} a-chunks S_y for each y in {1,...,h-1}.  After the second step, S_{y-1} a-chunks S_y for each y in {2,..,h}.  Since the second step only copies elements from S_{y+1} into S_y, it does not break the a-chunking achieved in the first step.  We have implemented this proof in the Appendix since it's less "magical" than the previous proof (which was overkill).
 
-Unfortunately using 1-chunking doesn't make things much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.  Rewriting all of this at this point would surely introduce some errors.
+Unfortunately using 1-chunking doesn't make things too much simpler. We still end up with equations like |T'| >= |T|/3 instead of |T'|>=|T|/7.
 
-One place thing it simplifies slightly is the BulkInsertion algorithm, which no longer needs to group the inserted elements and build perfectly balanced BST. Instead, it can simply use the basic BST insertion algorithm on the tree T and to get a new tree T'.  Then 1-chunking ensures that the parent of each node in T' is a of node of T, so h(T')<= h(T)+1.
+One place in which it does make things simpler is the BulkInsertion algorithm, which no longer needs to group the inserted elements and build perfectly balanced BST. Instead, it can simply use the basic BST insertion algorithm on the tree T and to get a new tree T'.  Then 1-chunking ensures that the parent of each node in T' is a of node of T, so h(T')<= h(T)+1.
+
+We have implemented all this and adjusted corresponding constants in our proofs.  A lot of 8's change to 4's, and 7's to 3 or 5's.
 
 
 Referee:
@@ -382,7 +384,7 @@ Response:
 Correct. We have added the statement: "Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$", which seems to have been lost during some revision.
 
 
-
+Referee:
 
 I'll note again that the analysis in this appendix easily generalizes
 to a-chunking, and that it can be slightly improved so the size
@@ -391,3 +393,7 @@ recursive calls in line 6 and 7 of the pseudocode for Add, only one of
 the subsequent recursive calls will actually do anything, so you only
 need to give these calls half as many credits as the initial call to
 add.
+
+Response:
+
+See the response above.

@@ -456,7 +456,7 @@ The bulk deletion operation, $\textsc{BulkDelete(D)}$, of a subset $D$ of nodes 
 \end{lem}
 
 \begin{proof}
- We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $1$-chunks $D$, we have $|D|\le |V(T)|-|D| + 1 \le 2(|V(T)|-|D|)$ (since $D\subset V(T)$, $|V(T)|-|D|\ge 1$), so $|D|\le (2/3)|V(T)|$. Thus $|T'| \ge |T| - (2/3)|T| = |T|/3 \geq |T|/4$.
+ We clearly have $|T'|\le |T|$.  Since $V(T)\setminus D$ $1$-chunks $D$, we have $|D|\le |V(T)|-|D| + 1 \le 2(|V(T)|-|D|)$ (since $D\subset V(T)$, $|V(T)|-|D|\ge 1$), so $|D|\le (2/3)|V(T)|$. Thus $|T'| \ge |T| - (2/3)|T| = |T|/3 > |T|/4$.
 \end{proof}
 
 % Note that the requirement that $D$ is a \emph{strict} subset of $V(T)$ always satisfied if $|V(T)|\ge 4$.
@@ -667,12 +667,12 @@ q \leq \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil.
 \]
 \end{cor}
 \begin{proof}
-Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$.
-Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-3}\right\rceil$,  we have
+Arguing by contradiction, suppose that $q > \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil$.
+Note that when we take the logarithm of the upper bound in \lemref{bulktree-old-B-properties}\itemref{lemma-item-B2} for $y:=\left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil$,  we have
 \[
-\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil\cdot(k-3)
-\leq \log|T_0|-\tfrac{\log|T_0|}{k-3}\cdot(k-2)
-\leq0.
+\log|T_0| - \left\lceil\tfrac{\log|T_0|}{k-2}\right\rceil\cdot(k-2)
+\leq \log|T_0|-\tfrac{\log|T_0|}{k-2}\cdot(k-2)
+= 0.
 \]
 Thus, each subtree of $T_{y}$ rooted at a node of depth $y(k+1)$ has size at most
 \[
@@ -695,7 +695,7 @@ and let $r_0 := h(T_0)-\log|T_0|$.  Then, for each $y\in\{0,\dots,q\}$,
 \begin{proof}
 Let $I_0,\dots,I_{q-1}$ and $D_0,\dots,D_{q-1}$ be the sets so that $T_{y+1}$ is obtained from $T_y$ by
 rebalancing and then applying $\textsc{BulkInsert}(I_y)$ and $\textsc{BulkDelete}(D_y)$, for each $y\in\{0,\dots,q-1\}$.
-First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/4$.\footnote{The condition, in \lemref{deletion-size}, that $D$ is a \emph{strict} subset of $V(T)$ is satisfied since $\textsc{BulkDelete}(D_y)$ is performed on an intermediate tree $T_y'$ with $V(T_y')=V(T_y)\cup I_y$ and produces a tree $T_y''$ with $V(T_y')\setminus D_y = V(T_y'')=V(T_{y+1})=S_{y+1}$.  By definition $S_{y+1}$ is non-empty, therefore $D\neq V(T_y')$.}
+First, recall that by \lemref{insertion-size} and \lemref{deletion-size} we have $|T_{y+1}|\ge |T_y|/4$.\footnote{The condition, in \lemref{deletion-size}, that $D$ is a \emph{strict} subset of $V(T)$ is satisfied since $\textsc{BulkDelete}(D_y)$ is performed on an intermediate tree $T_y'$ with $V(T_y')=V(T_y)\cup I_y$ and produces a tree $T_y''$ with $V(T_y')\setminus D_y = V(T_y'')=V(T_{y+1})=S_{y+1}$.  By definition $S_{y+1}$ is non-empty, therefore $D=D_y\neq V(T_y')$.}
 
 Iterating this starting with $T_0$ implies that $|T_0|/4^y\le |T_y|$, and thus $\log|T_0| \le \log|T_y| + 2y$ for each $y\in\{0,\dots,q\}$, which proves (\ref{height-diff}).
 
@@ -703,7 +703,8 @@ Iterating this starting with $T_0$ implies that $|T_0|/4^y\le |T_y|$, and thus $
 Note that, for each $y\in\{0,\dots,q\}$,  we have
 \begin{align}
 q
-&\le \tfrac{\log |T_0|}{k-2}+1\le \tfrac{\log |T_y|+2q}{k-2}+1,
+&\le \tfrac{\log |T_0|}{k-2}+1\le
+\tfrac{\log |T_y|+2y}{k-2}+1 \le \tfrac{\log |T_y|+2q}{k-2}+1,
 &\text{(by (\ref{height-diff}), and since $y\leq q$)}\nonumber\\
 \intertext{and rewriting this yields (using that $k\geq 5$)}
 %&\nonumber\\
@@ -812,7 +813,7 @@ We now arrive at the \emph{raison d'être} of bulk tree sequences:  For two cons
   \]
   Note that in this case $|\nu(z)|=\Oh(\log\theta) + \Oh(\log k) + \Oh(k) = \Oh(\log h(T) + k)$.
 
-  Now we are left with the case that $|\sigma_{T}(z)|\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ lies in some tree $T_i$ of the forest $T_x - Z$ where $T_x$ is the subtree of $T$ rooted at $x$.
+  Now we are left with the case that $|\sigma_{T}(z)|\geq \theta$ and $z\not\in Z\cup X$. In particular, the node $z$ is in some tree $T_i$ of the forest $T_x - Z$ where $T_x$ is the subtree of $T$ rooted at $x$.
   (Further on we reuse the notations $T_i$, $T_{i,0},\dots,T_{i,c_i}$, etc.\ introduced in the definition of $\textsc{Balance}(x,k)$.)
   Recall that $\textsc{Balance}(x,k)$ calls $\textsc{MultiSplit}(x_{i,1},\dots,x_{i,c_i})$ on $T_i$ to obtain a sequence of trees $T_{i,0},\dots,T_{i,c_i}$ and the node $z$ ends up in one of these trees, say in $T_{i,a}$.
   Note that
@@ -1150,7 +1151,7 @@ Note that \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interva
 \begin{proof}
     By definition $x_T(v)$ is the lowest common ancestor of $V(T)\cap [a_v,b_v]$ and by \lemref{all-the-obs-about-bst-and-intervals}(\ref{itm:v-in-its-interval}), $x_T(v)\in V(T)\cap [a_v,b_v]$ so $x_T(v)$ is the unique node of $V(T)\cap [a_v,b_v]$ of minimum $T$-depth. This establishes  the first item.
 
-    For the second item, first observe that the first item implies that $x_T(v)$ has the property that $x_T(v)$ is the only node of $P_T(x_T(v))$ contained in $[a_v,b_v]$.  To see that $x_T(v)$ is the unique node with this property consider any $z\in V(T)\cap[a_v,b_v]\setminus\{x_T(v)\}$. By (the original) definition of $x_T(v)$, $z$ is in the subtree of $T$ rooted at $x_T(v)$.  Since $z\neq x_T(v)$, $P_T(z)$ contains $x_T(v)$ as an internal node so $z$ is not the only node of $P_T(z)$ contained in $[a_v,b_v]$.
+    For the second item, observe that the first item implies that $x_T(v)$ has the property that $x_T(v)$ is the only node of $P_T(x_T(v))$ contained in $[a_v,b_v]$.  To see that $x_T(v)$ is the unique node with this property consider any $z\in V(T)\cap[a_v,b_v]\setminus\{x_T(v)\}$. By (the original) definition of $x_T(v)$, $z$ is in the subtree of $T$ rooted at $x_T(v)$.  Since $z\neq x_T(v)$, $P_T(z)$ contains $x_T(v)$ as an internal node so $z$ is not the only node of $P_T(z)$ contained in $[a_v,b_v]$.
 \end{proof}
 
 
@@ -1268,7 +1269,7 @@ Recall that the image of $\varphi'$ is $\{1,\ldots,t+1\}$ and the image of $\var
 Given a vertex $v$ of $H$, we order the vertices $u_1, \dots, u_d$ in $C_H(v)$ according to their $\varphi'$-colours.
 Now the improved (T5) block of the labelling is an array $R$ of $t+1$ entries indexed by $\varphi'$ colours.
 We set $R[\varphi'(w)] := \varphi''(w)$, for each $w\in C_H(v)$.
-Note that this may leave some entries may be undefined if $d<t+1$, in which case we set these to $0$ to distinguish them from ``true'' colours $\{1,\ldots,t+1\}$.
+Note that this may leave some entries undefined if $d<t+1$, in which case we set these to $0$ to distinguish them from ``true'' colours $\{1,\ldots,t+1\}$.
 This way only $\Oh(t\log\log{m})$ bits suffice to encode $R$.
 %Note that thanks to $R$ and given the parameters $\omega(G_S)$, $d$ and $m$, one can check in constant time whether a vertex $w$ is in $C_H(v)$ is using the colour $\varphi(w)$.
 
@@ -1701,7 +1702,7 @@ The current result leaves two obvious directions for future work:
 
 \item \thmref{main-product} implies a $(1+o(1))\log{n}$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
 
-\item Planar graphs are a subgraph-hereditary family of graphs\footnote{A family $\mathcal{G}$ of graphs is \emph{subgraph-hereditary} if, for every $G\in \mathcal{G}$ and every induced subgraph $G'\subseteq G$, $\mathcal{G}$ contains a graph isomorphic to $G'$.} and the number of $n$-vertex labelled planar graphs is $n!2^{O(n)}$ \cite{gimenez.noy:asymptotic}.  Does every subgraph-hereditary family of labelled graphs containing at most $n!2^{O(n)}$ $n$-vertex labelled graphs have a $(1+o(1))\log n$-bit adjacency labelling scheme?  This is a refinement of the \emph{implicit graph conjecture}, which asserts that any hereditary family of graphs that contains at most $2^{O(n\log n)}$ $n$-vertex graphs has an $O(\log n)$ bit adjacency labelling scheme \cite{kannan.naor.ea:implicit,spinrad:efficient}.
+\item Planar graphs are a subgraph-hereditary family of graphs\footnote{A family $\mathcal{G}$ of graphs is \emph{subgraph-hereditary} if, for every $G\in \mathcal{G}$ and every (not necessarily induced) subgraph $G'\subseteq G$, $\mathcal{G}$ contains a graph isomorphic to $G'$.} and the number of $n$-vertex labelled planar graphs is $n!2^{O(n)}$ \cite{gimenez.noy:asymptotic}.  Does every subgraph-hereditary family of labelled graphs containing at most $n!2^{O(n)}$ $n$-vertex labelled graphs have a $(1+o(1))\log n$-bit adjacency labelling scheme?  This is a variant of the \emph{implicit graph conjecture}, which asserts that any hereditary family of graphs that contains at most $2^{O(n\log n)}$ $n$-vertex graphs has an $O(\log n)$ bit adjacency labelling scheme \cite{kannan.naor.ea:implicit,spinrad:efficient}.
 \end{enumerate}
 
 \section*{Acknowledgement}
