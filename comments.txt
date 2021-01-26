@@ -183,7 +183,7 @@ graph."  I think a proper reference to this result would be in order.
 
 Response:
 
-We added a reference to Goncalves, Gabow, and Fagin (SODA2005) that shows the edges can be partitioned into two graphs of treewidth 2.
+We added a reference to Goncalves (STOC2005) that shows the edges can be partitioned into two graphs of treewidth 2.
 
 Referee:
 
