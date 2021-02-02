@@ -16,7 +16,7 @@ Response:
 
 That is an interesting question! This refinement of the implicit graph conjecture has been added as an open problem in the conclusions.  Indeed, these "small" hereditary graph families seem to have a lot more structure than would appear at first sight.
 
-More generally, if we take hereditary to mean "contains all (not necessarily induced) subgraphs" and insist that the number of n-vertex graphs in the family is n!2^{O(n)} then that these graphs are sparse.  It's conceivable that there is even a product structure theorem for such graph families.
+More generally, if we take hereditary to mean "contains all (not necessarily induced) subgraphs" and insist that the number of n-vertex graphs in the family is n!2^{O(n)} then these graphs are sparse, and they include K_t-minor-free graphs.  
 
 Referee:
 

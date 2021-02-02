@@ -311,8 +311,31 @@ For non-empty finite sets $X,Y\subset \R$ and an integer $a$, we say that $X$ \e
   \end{compactenum}
 \end{lem}
 
-A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, \appref{fractional-proof} includes a proof of \lemref{fractional}. In the remainder of the paper, we will use \lemref{fractional} with $a=1$. In that case the third item above becomes $\sum_{y=1}^h |V_y|\le 4 \cdot\sum_{y=1}^h |S_y|$.
+A proof of a much more general version of \lemref{fractional} (with larger constants) is implicit in the iterated search structure of Chazelle and Guibas \cite{chazelle.guibas:fractional1}.   For the sake of completeness, we give a proof of \lemref{fractional} below. In the remainder of the paper, we will use \lemref{fractional} with $a=1$. In that case the third item above becomes $\sum_{y=1}^h |V_y|\le 4 \cdot\sum_{y=1}^h |S_y|$.
  % that borrows heavily from the amortized analysis of partially persistent data structures \cite[Section~2.3]{driscoll.sarnak.ea:making}.
+
+ \begin{proof}[Proof of \lemref{fractional}]
+  Set $W_0=\emptyset$ and then for each $y:=1,\ldots,h$ repeat the following procedure:  Let $W_{y-1}'$ consist of every $(a+1)$th element of the sequence obtained by sorting $W_{y-1}$, beginning with the $(a+1)$th element of this sequence.  Observe that $W_{y-1}'$ has size $\lfloor|W_{y-1}|/(a+1)\rfloor \le |W_{y-1}|/(a+1)$.  Now set $W_y:= S_y\cup W_{y-1}'$.
+
+  After the final ($y=h$) iteration, it is clear that $W_y\supseteq S_y$ and that $W_y$ $a$-chunks $W_{y-1}$ for each $y\in\{1,\ldots,h\}$.  Furthermore, for each $y\in\{1,\ldots,h\}$,
+  \[
+      |W_y| = |S_y|+|W_{y-1}'| \le |S_y|+|W_{y-1}|/(a+1)
+  \]
+  and an easy proof by induction on $y$ shows that
+  \[
+      |W_y| \le \sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i \enspace .
+  \]
+  Then
+  \[
+      \sum_{y=1}^h |W_y| \le \sum_{y=1}^h\sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i
+      \le \sum_{y=1}^h\sum_{i=0}^\infty |S_{y}|/(a+1)^i
+      = \frac{a+1}{a} \sum_{y=1}^h |S_y| \enspace .
+  \]
+  Next, observe that copying any element from $W_y$ into $W_{y-1}$ preserves the fact that $W_y$ $a$-chunks $W_{y-1}$.  This allows us to use exactly the same procedure on the sequence of sets $W_{h},\ldots,W_{1}$ to obtain an $a$-chunking sequence $V_{1},\ldots,V_h$ such that $V_y\supseteq W_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ and
+  \[  \sum_{y=1}^h |V_y| \le \frac{a+1}{a}\sum_{y=1}^h |W_y| \le \left(\frac{a+1}{a}\right)^2\cdot\sum_{y=1}^h |S_y| \enspace . \qedhere
+  \]
+\end{proof}
+
 
 
 \subsection{Product Structure Theorems}
@@ -1702,7 +1725,7 @@ The current result leaves two obvious directions for future work:
 
 \item \thmref{main-product} implies a $(1+o(1))\log{n}$-bit labelling schemes for any family of graphs that excludes an apex graph as a minor.  Can this be extended to any $K_t$-minor free family of graphs?
 
-\item Planar graphs are a subgraph-hereditary family of graphs\footnote{A family $\mathcal{G}$ of graphs is \emph{subgraph-hereditary} if, for every $G\in \mathcal{G}$ and every (not necessarily induced) subgraph $G'\subseteq G$, $\mathcal{G}$ contains a graph isomorphic to $G'$.} and the number of $n$-vertex labelled planar graphs is $n!2^{O(n)}$ \cite{gimenez.noy:asymptotic}.  Does every subgraph-hereditary family of labelled graphs containing at most $n!2^{O(n)}$ $n$-vertex labelled graphs have a $(1+o(1))\log n$-bit adjacency labelling scheme?  This is a variant of the \emph{implicit graph conjecture}, which asserts that any hereditary family of graphs that contains at most $2^{O(n\log n)}$ $n$-vertex graphs has an $O(\log n)$ bit adjacency labelling scheme \cite{kannan.naor.ea:implicit,spinrad:efficient}.
+\item Planar graphs are a monotone family of graphs\footnote{A family $\mathcal{G}$ of graphs is \emph{monotone} if, for every $G\in \mathcal{G}$ and every (not necessarily induced) subgraph $G'\subseteq G$, $\mathcal{G}$ contains a graph isomorphic to $G'$.} and the number of $n$-vertex labelled planar graphs is $n!2^{O(n)}$ \cite{gimenez.noy:asymptotic}.  Does every monotone family of labelled graphs containing at most $n!2^{O(n)}$ $n$-vertex labelled graphs have a $(1+o(1))\log n$-bit adjacency labelling scheme? Note that this includes $K_t$-minor free graphs \cite{norine.seymour.ea:small}. This open problem is a variant of the \emph{implicit graph conjecture}, which asserts that any hereditary family of graphs that contains at most $2^{O(n\log n)}$ $n$-vertex graphs has an $O(\log n)$ bit adjacency labelling scheme \cite{kannan.naor.ea:implicit,spinrad:efficient}.
 \end{enumerate}
 
 \section*{Acknowledgement}
@@ -1713,35 +1736,16 @@ Part of this research was conducted during the Eighth Workshop on Geometry and G
 \bibliographystyle{plainurl}
 \bibliography{labelling}
 
-\newpage
-\appendix
+% OLD APPENDIX WITH OLD PROOF OF LEMMA
 
-\section{Proof of \lemref{fractional}}
-\applabel{fractional-proof}
 
-\begin{proof}[Proof of \lemref{fractional}]
-    Set $W_0=\emptyset$ and then for each $y:=1,\ldots,h$ repeat the following procedure:  Let $W_{y-1}'$ consist of every $(a+1)$th element of the sequence obtained by sorting $W_{y-1}$, beginning with the $(a+1)$th element of this sequence.  Observe that $W_{y-1}'$ has size $\lfloor|W_{y-1}|/(a+1)\rfloor \le |W_{y-1}|/(a+1)$.  Now set $W_y:= S_y\cup W_{y-1}'$.
+% \newpage
+% \appendix
 
-    After the final ($y=h$) iteration, it is clear that $W_y\supseteq S_y$ and that $W_y$ $a$-chunks $W_{y-1}$ for each $y\in\{1,\ldots,h\}$.  Furthermore, for each $y\in\{1,\ldots,h\}$,
-    \[
-        |W_y| = |S_y|+|W_{y-1}'| \le |S_y|+|W_{y-1}|/(a+1)
-    \]
-    and an easy proof by induction on $y$ shows that
-    \[
-        |W_y| \le \sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i \enspace .
-    \]
-    Then
-    \[
-        \sum_{y=1}^h |W_y| \le \sum_{y=1}^h\sum_{i=0}^{y-1} |S_{y-i}|/(a+1)^i
-        \le \sum_{y=1}^h\sum_{i=0}^\infty |S_{y}|/(a+1)^i
-        = \frac{a+1}{a} \sum_{y=1}^h |S_y| \enspace .
-    \]
-    Next, observe that copying any element from $W_y$ into $W_{y-1}$ preserves the fact that $W_y$ $a$-chunks $W_{y-1}$.  This allows us to use exactly the same procedure on the sequence of sets $W_{h},\ldots,W_{1}$ to obtain an $a$-chunking sequence $V_{1},\ldots,V_h$ such that $V_y\supseteq W_y\supseteq S_y$ for each $y\in\{1,\ldots,h\}$ and
-    \[  \sum_{y=1}^h |V_y| \le \frac{a+1}{a}\sum_{y=1}^h |W_y| \le \left(\frac{a+1}{a}\right)^2\cdot\sum_{y=1}^h |S_y| \enspace . \qedhere
-    \]
-\end{proof}
+% \section{Proof of \lemref{fractional}}
+% \applabel{fractional-proof}
 
-%
+
 %
 % \begin{proof}[Proof of \lemref{fractional}]
 %   Without loss of generality, assume that $\bigcup_{y=1}^h S_y=\{1,\ldots,m\}$.
