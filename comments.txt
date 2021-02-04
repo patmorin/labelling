@@ -1,3 +1,5 @@
+We are much grateful to the reviewers for their comments, which helped us improving the paper. In this note we describe how we incorporated the reviewers' suggestions. 
+
 
 Referee 1:
 
@@ -305,7 +307,7 @@ Referee:
 p27, l24/25: "Note that some entries may be undefined if d<t+1".
 Rather than making them undefined, I suggest you define them to be 0,
 which is not a valid color number in your definition, but is easy to
-encode within the scheme.  AFAICT you need to be able to tell if each
+encode within the scheme. AFAICT you need to be able to tell if each
 of these colors is valid when you decode, otherwise you don't know
 which color goes with which vertex.
 
@@ -359,7 +361,7 @@ p32, l19/20 and l27/28: Here you use a strict version of the "is a
 prefix of" symbol that you defined on p28-l24, but you have not
 formally introduced that symbol.
 
-Reponse:
+Response:
 
 We have now defined $a\prec b$ as $a\preceq b$ and $a\neq b$, immediately after the definition of $a\preceq b$.
 
@@ -383,7 +385,7 @@ Response:
 
 Correct.
 
-Though this is no longer relevant since we have compeletely rewritten this proof in response to another comment.
+Though this is no longer relevant since we have completely rewritten this proof in response to another comment.
 
 Referee:
 
